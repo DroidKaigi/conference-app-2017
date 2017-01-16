@@ -1,5 +1,8 @@
-# conference-app-2017
-DroidKaigi 2017 official Android conference app in Tokyo.
+# ![](app/src/main/res/mipmap-mdpi/ic_launcher.png) DroidKaigi 2017 official Android app [![Circle CI](https://circleci.com/gh/DroidKaigi/conference-app-2017/tree/master.svg?style=svg)](https://circleci.com/gh/DroidKaigi/conference-app-2017/tree/master) [![Stories in Ready](https://badge.waffle.io/DroidKaigi/conference-app-2017.svg?label=ready&title=Ready)](http://waffle.io/DroidKaigi/conference-app-2017)
+
+[DroidKaigi 2017](https://droidkaigi.github.io/2017/en/) is a conference tailored for developers on 9th and 10th March 2017.
+
+[<img src="https://dply.me/rlr6yr/button/large" alt="Try it on your device via DeployGate">](https://dply.me/564onq#install)
 
 
 ### Contributing
