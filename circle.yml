@@ -20,4 +20,10 @@ dependencies:
 
 test:
   override:
-    - ./gradlew clean assembleDebug check
+    - ./gradlew clean assembleProductionDebug check
+
+deployment:
+  production:
+    branch: master
+    commands:
+      - ./deploy.sh
