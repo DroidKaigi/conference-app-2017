@@ -1,32 +1,178 @@
+import com.android.ddmlib.DdmPreferences
+
 apply plugin: 'com.android.application'
+apply plugin: 'me.tatarka.retrolambda'
+
+// Manifest version
+def versionMajor = 0
+def versionMinor = 1
+def versionPatch = 0
+
+// CI
+def isCi = "true".equals(System.getenv("CI"))
+def preDexEnabled = "true".equals(System.getProperty("pre-dex", "true"))
+
+def packageName = "io.github.droidkaigi.confsched2017"
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "24.0.3"
-    defaultConfig {
-        applicationId "confsched2017.droidkaigi.github.io.confsched2017"
-        minSdkVersion 14
-        targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    compileSdkVersion compile_sdk_version as int
+    buildToolsVersion build_tools_version
+    dataBinding {
+        enabled = true
     }
-    buildTypes {
+
+    dexOptions {
+        // Skip pre-dexing when running on CI or when disabled via -Dpre-dex=false.
+        preDexLibraries = preDexEnabled && !isCi
+    }
+
+    defaultConfig {
+        applicationId packageName
+        minSdkVersion min_sdk_version as int
+        targetSdkVersion target_sdk_version as int
+        versionCode versionMajor * 100 + versionMinor * 10 + versionPatch
+        versionName "${versionMajor}.${versionMinor}.${versionPatch}"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "CONFERENCE_TIMEZONE", "\"Asia/Tokyo\""
+
+        // Referred to https://github.com/circleci/EspressoSample to make the Espresso tests work on CircleCI.
+        DdmPreferences.setTimeOut(60000)
+
+        vectorDrawables.useSupportLibrary = true
+    }
+
+    packagingOptions {
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+        exclude 'META-INF/rxjava.properties'
+    }
+
+    signingConfigs {
         debug {
-            minifyEnabled false
+            storeFile rootProject.file("debug.keystore")
+            storePassword "android"
+            keyAlias "androiddebugkey"
+            keyPassword "android"
         }
         release {
+            storeFile rootProject.file("release.keystore")
+            storePassword System.getenv("RELEASE_STORE_PASSWORD")
+            keyAlias System.getenv("RELEASE_KEY_ALIAS")
+            keyPassword System.getenv("RELEASE_KEY_PASSWORD")
+        }
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+            applicationIdSuffix '.debug'
+            versionNameSuffix "-debug"
+            debuggable true
+            zipAlignEnabled true
+        }
+        release {
+            signingConfig signingConfigs.release
+            debuggable false
+            zipAlignEnabled true
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    productFlavors {
+        develop {
+            applicationId "${packageName}.develop"
+        }
+        production {
+            applicationId packageName
+        }
+    }
+
+    lintOptions {
+        disable 'InvalidPackage'
+    }
+
+    aaptOptions {
+        noCompress 'apk'
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    packagingOptions {
+        exclude 'LICENSE.txt'
+    }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    // Support Library
+    compile "com.android.support:support-v4:${support_lib_version}"
+    compile "com.android.support:appcompat-v7:${support_lib_version}"
+    compile "com.android.support:support-annotations:${support_lib_version}"
+    compile "com.android.support:design:${support_lib_version}"
+    compile "com.android.support:recyclerview-v7:${support_lib_version}"
+    compile "com.android.support:customtabs:${support_lib_version}"
+    compile "com.android.support:support-vector-drawable:${support_lib_version}"
+    compile "com.android.support:animated-vector-drawable:${support_lib_version}"
+
+    // Network
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile 'com.google.code.gson:gson:2.7'
+    compile 'com.squareup.okhttp3:okhttp:3.4.1'
+
+    // Structure
+    compile 'com.google.dagger:dagger:2.7'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.7'
+    provided 'javax.annotation:jsr250-api:1.0'
+    compile 'io.reactivex.rxjava2:rxjava:2.0.2'
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    compile 'com.annimon:stream:1.1.4'
+    retrolambdaConfig 'net.orfjackal.retrolambda:retrolambda:2.3.0'
+    compile 'uk.co.chrisjenx:calligraphy:2.2.0'
+
+    // Android Utility
+    debugCompile 'com.facebook.stetho:stetho:1.3.1'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    annotationProcessor 'com.github.gfx.android.orma:orma-processor:4.1.0'
+    compile 'com.github.gfx.android.orma:orma:4.1.0'
+    compile 'com.rejasupotaro:kvs-schema:5.0.1'
+    annotationProcessor 'com.rejasupotaro:kvs-schema-compiler:5.0.1'
+
+    // Debug
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
+
+    // Test
+    testCompile 'junit:junit:4.12'
+    testCompile "org.robolectric:robolectric:3.1.1"
+    testCompile('com.squareup.assertj:assertj-android:1.1.1') {
         exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    compile 'com.android.support:appcompat-v7:25.1.0'
+    }
+    testCompile 'org.mockito:mockito-all:1.10.19'
+    androidTestCompile('com.android.support.test:runner:0.4.1') {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+    androidTestCompile('com.android.support.test:rules:0.4.1') {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+    androidTestCompile('com.squareup.assertj:assertj-android:1.1.1') {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.1') {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+    androidTestCompile('com.android.support.test.espresso:espresso-intents:2.2.1') {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
     testCompile 'junit:junit:4.12'
 }

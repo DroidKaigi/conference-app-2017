@@ -1,7 +1,7 @@
-package confsched2017.droidkaigi.github.io.confsched2017;
+package io.github.droidkaigi.confsched2017;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
