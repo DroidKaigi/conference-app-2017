@@ -2,6 +2,7 @@ import com.android.ddmlib.DdmPreferences
 
 apply plugin: 'jacoco'
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'kotlin-android'
 
@@ -161,6 +162,10 @@ dependencies {
     compile "com.android.support:customtabs:${support_lib_version}"
     compile "com.android.support:support-vector-drawable:${support_lib_version}"
     compile "com.android.support:animated-vector-drawable:${support_lib_version}"
+
+    // Firebase(analytics, crash report)
+    compile 'com.google.firebase:firebase-core:10.0.1'
+    compile 'com.google.firebase:firebase-crash:10.0.1'
 
     // Network
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
