@@ -3,6 +3,7 @@
 
     <!-- Vivid -->
     <color name="purple">#7986cb</color>
+    <color name="dark_purple">#6c78b6</color>
     <color name="ultra_light_blue">#89ecef</color>
     <color name="light_blue">#4dd0e1</color>
     <color name="light_green">#A3D68A</color>

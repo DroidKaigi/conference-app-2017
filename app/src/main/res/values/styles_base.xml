@@ -1,0 +1,45 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!--==================== Toolbar & Actionbar ====================-->
+    <style name="BaseToolbar" parent="@style/Widget.AppCompat.Toolbar">
+        <!-- Don't change to `@color/toolbar_background`. This is workaround for a bug on API 16. -->
+        <item name="android:background">@drawable/bg_toolbar</item>
+        <item name="android:elevation" tools:targetApi="lollipop">@dimen/elevation_2dp</item>
+        <item name="android:theme">@style/ToolbarTheme</item>
+        <item name="elevation">@dimen/elevation_2dp</item>
+        <item name="actionMenuTextColor">@color/toolbar_text</item>
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+        <item name="theme">@style/ToolbarTheme</item>
+    </style>
+
+    <style name="ToolbarTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:textColorPrimary">@color/toolbar_text</item>
+        <item name="android:textColorSecondary">@color/toolbar_text</item>
+    </style>
+
+    <style name="BaseActionBar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid">
+        <!-- Don't change to `@color/toolbar_background`. This is workaround for a bug on API 16. -->
+        <item name="android:background">@drawable/bg_toolbar</item>
+        <item name="android:titleTextStyle">@style/BaseActionBarTitle</item>
+        <item name="android:subtitleTextStyle">@style/BaseActionBarSubtitle</item>
+        <item name="android:elevation" tools:targetApi="lollipop">@dimen/elevation_2dp</item>
+        <!-- support library compatibility -->
+        <!-- Don't change to `@color/toolbar_background`. This is workaround for a bug on API 16. -->
+        <item name="background">@drawable/bg_toolbar</item>
+        <item name="titleTextStyle">@style/BaseActionBarTitle</item>
+        <item name="subtitleTextStyle">@style/BaseActionBarSubtitle</item>
+        <item name="elevation">@dimen/elevation_2dp</item>
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+    </style>
+
+    <style name="BaseActionBarTitle">
+        <item name="android:textColor">@color/toolbar_text</item>
+        <item name="android:textSize">@dimen/text_20sp</item>
+    </style>
+
+    <style name="BaseActionBarSubtitle">
+        <item name="android:textColor">@color/toolbar_sub_text</item>
+        <item name="android:textSize">@dimen/text_12sp</item>
+    </style>
+
+</resources>
