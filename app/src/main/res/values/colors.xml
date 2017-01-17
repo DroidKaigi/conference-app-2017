@@ -2,6 +2,12 @@
 <resources>
     <!-- Theme & Accent -->
     <color name="theme">@color/purple</color>
+    <color name="dark_theme">@color/dark_purple</color>
     <color name="accent">@color/red</color>
+
+    <!-- Toolbar-->
+    <color name="toolbar_background">@color/theme</color>
+    <color name="toolbar_text">@color/white</color>
+    <color name="toolbar_sub_text">@color/white</color>
 
 </resources>
