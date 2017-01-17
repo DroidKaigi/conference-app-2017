@@ -70,9 +70,9 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:386954482545:android:03c88945a71a4ca6",
+        "mobilesdk_app_id": "1:386954482545:android:06820a6f02ddd758",
         "android_client_info": {
-          "package_name": "io.github.droidkaigi.confsched2017.debug"
+          "package_name": "io.github.droidkaigi.confsched2017.develop"
         }
       },
       "oauth_client": [
