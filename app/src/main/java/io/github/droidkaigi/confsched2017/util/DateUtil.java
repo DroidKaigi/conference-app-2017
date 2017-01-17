@@ -23,6 +23,10 @@ public class DateUtil {
 
     private static final String FORMAT_PROGRAM_START_DATE = "MM/dd(E) kk:mm";
 
+    private DateUtil() {
+        throw new AssertionError("no instance!");
+    }
+
     @NonNull
     public static String getMonthDate(Date date, Context context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
