@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Vivid -->
+    <color name="purple">#7986cb</color>
+    <color name="ultra_light_blue">#89ecef</color>
+    <color name="light_blue">#4dd0e1</color>
+    <color name="light_green">#A3D68A</color>
+    <color name="red">#ff5252</color>
+
+    <!-- Pale -->
+    <color name="purple_alpha_15">#2658037C</color>
+    <color name="ultra_light_blue_alpha_15">#2689ecef</color>
+    <color name="light_blue_alpha_15">#264DD0E1</color>
+    <color name="light_green_alpha_15">#26A3D68A</color>
+    <color name="blue_alpha_15">#264151DC</color>
+    <color name="pink_alpha_15">#26DD8889</color>
+    <color name="red_alpha_15">#26FF5252</color>
+    <color name="yellow_alpha_15">#26ffeb3b</color>
+
+    <color name="purple_alpha_30">#2658037C</color>
+
+    <color name="purple_alpha_50">#8058037C</color>
+    <color name="ultra_light_blue_alpha_50">#8089ecef</color>
+    <color name="light_blue_alpha_50">#804DD0E1</color>
+    <color name="light_green_alpha_50">#80A3D68A</color>
+    <color name="blue_alpha_50">#804151DC</color>
+    <color name="pink_alpha_50">#80DD8889</color>
+    <color name="red_alpha_50">#80FF5252</color>
+    <color name="yellow_alpha_50">#80ffeb3b</color>
+
+    <!-- Greyscales -->
+    <color name="grey50">#FAFAFA</color>
+    <color name="grey200">#EEEEEE</color>
+    <color name="grey300">#E0E0E0</color>
+    <color name="grey400">#BDBDBD</color>
+    <color name="grey500">#9E9E9E</color>
+    <color name="grey600">#757575</color>
+    <color name="black">#000000</color>
+    <color name="black_alpha_12">#1F000000</color>
+    <color name="black_alpha_30">#4D000000</color>
+    <color name="black_alpha_54">#8A000000</color>
+    <color name="black_alpha_87">#DD000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="white_alpha_40">#B3FFFFFF</color>
+    <color name="white_alpha_95">#F2FFFFFF</color>
+
+</resources>
