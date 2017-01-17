@@ -2,14 +2,13 @@ package io.github.droidkaigi.confsched2017.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import com.android.annotations.Nullable;
 import com.github.gfx.android.orma.annotation.Column;
 import com.github.gfx.android.orma.annotation.PrimaryKey;
 import com.github.gfx.android.orma.annotation.Table;
 
-import android.support.annotation.Nullable;
-
 @Table
-public class Speaker {
+public class Topic {
 
     @PrimaryKey(auto = false)
     @Column(indexed = true)
@@ -22,16 +21,6 @@ public class Speaker {
 
     @Column
     @Nullable
-    @SerializedName("image_url")
-    public String imageUrl;
-
-    @Column
-    @Nullable
-    @SerializedName("twitter_name")
-    public String twitterName;
-
-    @Column
-    @Nullable
-    @SerializedName("github_name")
-    public String githubName;
+    @SerializedName("other")
+    public String other;
 }

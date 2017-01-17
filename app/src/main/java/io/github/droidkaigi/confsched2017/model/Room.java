@@ -6,10 +6,8 @@ import com.github.gfx.android.orma.annotation.Column;
 import com.github.gfx.android.orma.annotation.PrimaryKey;
 import com.github.gfx.android.orma.annotation.Table;
 
-import android.support.annotation.Nullable;
-
 @Table
-public class Speaker {
+public class Room {
 
     @PrimaryKey(auto = false)
     @Column(indexed = true)
@@ -20,18 +18,13 @@ public class Speaker {
     @SerializedName("name")
     public String name;
 
-    @Column
-    @Nullable
-    @SerializedName("image_url")
-    public String imageUrl;
+    @Override
+    public boolean equals(Object o) {
+        return o instanceof Room && ((Room) o).id == id || super.equals(o);
+    }
 
-    @Column
-    @Nullable
-    @SerializedName("twitter_name")
-    public String twitterName;
-
-    @Column
-    @Nullable
-    @SerializedName("github_name")
-    public String githubName;
+    @Override
+    public int hashCode() {
+        return id;
+    }
 }
