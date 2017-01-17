@@ -9,29 +9,25 @@ import com.github.gfx.android.orma.annotation.Table;
 import android.support.annotation.Nullable;
 
 @Table
-public class Speaker {
+public class Contributor {
 
     @PrimaryKey(auto = false)
-    @Column(indexed = true)
-    @SerializedName("id")
-    public int id;
-
-    @Column(indexed = true)
-    @SerializedName("name")
+    @Column("name")
+    @SerializedName("login")
     public String name;
 
-    @Column
+    @Column("avatar_url")
     @Nullable
-    @SerializedName("image_url")
-    public String imageUrl;
+    @SerializedName("avatar_url")
+    public String avatarUrl;
 
-    @Column
+    @Column("html_url")
     @Nullable
-    @SerializedName("twitter_name")
-    public String twitterName;
+    @SerializedName("html_url")
+    public String htmlUrl;
 
-    @Column
-    @Nullable
-    @SerializedName("github_name")
-    public String githubName;
+    @Column("contributions")
+    @SerializedName("contributions")
+    public int contributions;
+
 }
