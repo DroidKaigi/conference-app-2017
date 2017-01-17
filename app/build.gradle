@@ -1,5 +1,6 @@
 import com.android.ddmlib.DdmPreferences
 
+apply plugin: 'jacoco'
 apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'kotlin-android'
@@ -75,6 +76,7 @@ android {
             versionNameSuffix "-debug"
             debuggable true
             zipAlignEnabled true
+            testCoverageEnabled true
         }
         release {
             signingConfig signingConfigs.release
@@ -109,6 +111,43 @@ android {
 
     packagingOptions {
         exclude 'LICENSE.txt'
+    }
+
+    jacoco {
+        version "0.7.7.201606060606"
+    }
+
+    testOptions {
+        unitTests.all {
+            // configure the set of classes for JUnit tests
+            include project.hasProperty("testFilter") ? "**/*${project.ext.testFilter}*Test.class" : '**/*Test.class'
+            exclude '**/espresso/**/*.class'
+
+            // configure max heap size of the test JVM
+            maxHeapSize = '2048m'
+
+            // configure the test JVM arguments
+            jvmArgs '-XX:MaxPermSize=512m', '-XX:-UseSplitVerifier'
+
+            // Specify max number of processes (default is 1)
+            maxParallelForks = 1
+
+            // Specify max number of test classes to execute in a test process
+            // before restarting the process (default is unlimited)
+            forkEvery = 150
+
+            // configure whether failing tests should fail the build
+            ignoreFailures false
+
+            systemProperty 'robolectric.logging.enabled', 'true'
+
+            testLogging {
+                events 'passed', 'skipped', 'failed', 'standardError'
+            }
+            jacoco {
+                includeNoLocationClasses = true
+            }
+        }
     }
 }
 
@@ -180,4 +219,59 @@ dependencies {
     testCompile "org.jetbrains.kotlin:kotlin-test-junit:1.0.6"
     testCompile 'com.taroid.knit:knit:0.1.2'
     testCompile 'com.github.sys1yagi:kmockito:0.1.2'
+}
+
+jacoco {
+    toolVersion = "0.7.7.201606060606"
+}
+
+// A list of directories which should be included in coverage report
+def coverageSourceDirs = ['src/main/java']
+// A list of files which should be excluded from coverage report since they are generated and/or framework code
+def coverageExcludeFiles = ['**/R.class', '**/R$*.class', '**/DataBindingInfo.class', '**/android/databinding/*.*', '**/com/android/**/*.*', '**/BR.class']
+
+task jacocoTestReportProduction(type: JacocoReport, dependsOn: ['testProductionDebugUnitTest']) {
+    group = "Reporting"
+    description = "Generate Jacoco coverage reports after running tests."
+    reports {
+        xml.enabled true
+        html.enabled true
+        csv.enabled false
+        xml.destination "${buildDir}/reports/jacoco/test/jacocoTestReportProd.xml"
+        html.destination "${buildDir}/reports/coverage/prod"
+        classDirectories = files(
+                fileTree(
+                        dir: "${buildDir}/intermediates/classes/production/debug",
+                        exclude: coverageExcludeFiles))
+    }
+    sourceDirectories = files(coverageSourceDirs)
+    executionData = files "${buildDir}/jacoco/testProductionDebugUnitTest.exec"
+
+    doLast {
+        println "jacoco xml report has been generated to file://${buildDir}/reports/jacoco/test/jacocoTestReportProd.xml"
+        println "jacoco html report has been generated to file://${reports.html.destination}/index.html"
+    }
+}
+
+task jacocoTestReportDevelop(type: JacocoReport, dependsOn: ['testDevelopDebugUnitTest']) {
+    group = "Reporting"
+    description = "Generate Jacoco coverage reports after running tests."
+    reports {
+        xml.enabled true
+        html.enabled true
+        csv.enabled false
+        xml.destination "${buildDir}/reports/jacoco/test/jacocoTestReportDevelop.xml"
+        html.destination "${buildDir}/reports/coverage/develop"
+        classDirectories = files(
+                fileTree(
+                        dir: "${buildDir}/intermediates/classes/develop/debug",
+                        exclude: coverageExcludeFiles))
+    }
+    sourceDirectories = files(coverageSourceDirs)
+    executionData = files "${buildDir}/jacoco/testDevelopDebugUnitTest.exec"
+
+    doLast {
+        println "jacoco xml report has been generated to file://${buildDir}/reports/jacoco/test/jacocoTestReportDevelop.xml"
+        println "jacoco html report has been generated to file://${reports.html.destination}/index.html"
+    }
 }
