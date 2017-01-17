@@ -8,6 +8,7 @@ buildscript {
         classpath 'com.android.tools.build:gradle:2.2.3'
         classpath 'me.tatarka:gradle-retrolambda:3.4.0'
         classpath 'me.tatarka.retrolambda.projectlombok:lombok.ast:0.2.3.a2'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.0.6"
     }
 
     configurations.classpath.exclude group: 'com.android.tools.external.lombok'
@@ -18,5 +19,7 @@ allprojects {
         jcenter()
         mavenCentral()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        maven { url 'http://dl.bintray.com/ngsw-taro/maven' }
+        maven { url 'https://jitpack.io' }
     }
 }
