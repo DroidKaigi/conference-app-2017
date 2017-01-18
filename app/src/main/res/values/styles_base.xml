@@ -3,22 +3,27 @@
     <!--==================== Text ====================-->
     <style name="TextTitle">
         <item name="android:textSize">@dimen/text_20sp</item>
+        <item name="fontPath">@string/font_noto_cjk_medium</item>
     </style>
 
     <style name="TextSubheading">
         <item name="android:textSize">@dimen/text_16sp</item>
+        <item name="fontPath">@string/font_noto_cjk_regular</item>
     </style>
 
     <style name="TextBody2">
         <item name="android:textSize">@dimen/text_14sp</item>
+        <item name="fontPath">@string/font_noto_cjk_medium</item>
     </style>
 
     <style name="TextBody1">
         <item name="android:textSize">@dimen/text_14sp</item>
+        <item name="fontPath">@string/font_noto_cjk_regular</item>
     </style>
 
     <style name="TextCaption">
         <item name="android:textSize">@dimen/text_12sp</item>
+        <item name="fontPath">@string/font_noto_cjk_regular</item>
     </style>
 
 
@@ -35,6 +40,7 @@
     <style name="Button" parent="Widget.AppCompat.Button">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
+        <item name="fontPath">@string/font_noto_cjk_medium</item>
     </style>
 
     <style name="Button.Accent">
@@ -112,11 +118,13 @@
     <style name="BaseActionBarTitle">
         <item name="android:textColor">@color/toolbar_text</item>
         <item name="android:textSize">@dimen/text_20sp</item>
+        <item name="fontPath">@string/font_noto_cjk_medium</item>
     </style>
 
     <style name="BaseActionBarSubtitle">
         <item name="android:textColor">@color/toolbar_sub_text</item>
         <item name="android:textSize">@dimen/text_12sp</item>
+        <item name="fontPath">@string/font_noto_cjk_medium</item>
     </style>
 
 </resources>
