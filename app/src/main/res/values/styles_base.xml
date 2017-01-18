@@ -1,5 +1,82 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
+    <!--==================== Text ====================-->
+    <style name="TextTitle">
+        <item name="android:textSize">@dimen/text_20sp</item>
+    </style>
+
+    <style name="TextSubheading">
+        <item name="android:textSize">@dimen/text_16sp</item>
+    </style>
+
+    <style name="TextBody2">
+        <item name="android:textSize">@dimen/text_14sp</item>
+    </style>
+
+    <style name="TextBody1">
+        <item name="android:textSize">@dimen/text_14sp</item>
+    </style>
+
+    <style name="TextCaption">
+        <item name="android:textSize">@dimen/text_12sp</item>
+    </style>
+
+
+    <!--==================== Clicker ====================-->
+    <style name="ClickCover">
+        <item name="android:background">@drawable/clickable</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+
+    <!--==================== Button ====================-->
+    <style name="Button" parent="Widget.AppCompat.Button">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <style name="Button.Accent">
+        <item name="android:gravity">center</item>
+        <item name="android:padding">@dimen/space_8dp</item>
+        <item name="android:textSize">@dimen/text_16sp</item>
+        <item name="backgroundTint">@color/accent</item>
+    </style>
+
+
+    <!--==================== Border ====================-->
+    <style name="Border">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/line_1dp</item>
+        <item name="android:background">@color/grey200</item>
+    </style>
+
+
+    <!-- Component -->
+    <style name="BaseRecyclerView">
+        <item name="android:clipToPadding">false</item>
+        <item name="android:fadingEdge">none</item>
+        <item name="android:scrollbarStyle">outsideOverlay</item>
+        <item name="android:scrollingCache">false</item>
+    </style>
+
+    <style name="DialogWindowAnimation">
+        <item name="android:windowEnterAnimation">@anim/dialog_fade_enter</item>
+        <item name="android:windowExitAnimation">@anim/dialog_fade_exit</item>
+    </style>
+
+    <style name="TabLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/theme</item>
+        <item name="android:elevation" tools:targetApi="lollipop">@dimen/elevation_2dp</item>
+        <item name="elevation">@dimen/elevation_2dp</item>
+        <item name="tabIndicatorColor">@color/accent</item>
+        <item name="tabTextColor">@color/white_alpha_40</item>
+    </style>
+
+
     <!--==================== Toolbar & Actionbar ====================-->
     <style name="BaseToolbar" parent="@style/Widget.AppCompat.Toolbar">
         <!-- Don't change to `@color/toolbar_background`. This is workaround for a bug on API 16. -->
