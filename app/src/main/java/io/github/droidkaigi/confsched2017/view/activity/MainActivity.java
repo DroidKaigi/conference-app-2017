@@ -5,14 +5,29 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.databinding.ActivityMainBinding;
+import io.github.droidkaigi.confsched2017.view.fragment.InformationFragment;
+import io.github.droidkaigi.confsched2017.view.fragment.MapFragment;
+import io.github.droidkaigi.confsched2017.view.fragment.SessionsFragment;
+import io.github.droidkaigi.confsched2017.view.fragment.SettingsFragment;
 import io.github.droidkaigi.confsched2017.view.helper.BottomNavigationViewHelper;
 
 public class MainActivity extends BaseActivity {
 
     private ActivityMainBinding binding;
+
+    private Fragment sessionsFragment;
+
+    private Fragment mapFragment;
+
+    private Fragment informationFragment;
+
+    private Fragment settingsFragment;
 
     public static void start(@NonNull Activity activity) {
         Intent intent = new Intent(activity, MainActivity.class);
@@ -27,6 +42,7 @@ public class MainActivity extends BaseActivity {
         getComponent().inject(this);
 
         initView();
+        initFragments(savedInstanceState);
     }
 
     private void initView() {
@@ -34,19 +50,64 @@ public class MainActivity extends BaseActivity {
         binding.bottomNav.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.nav_sessions:
-                    // TODO
+                    switchFragment(sessionsFragment, SessionsFragment.TAG);
                     break;
                 case R.id.nav_map:
-                    // TODO
+                    switchFragment(mapFragment, MapFragment.TAG);
                     break;
                 case R.id.nav_information:
-                    // TODO
+                    switchFragment(informationFragment, InformationFragment.TAG);
                     break;
                 case R.id.nav_settings:
-                    // TODO
+                    switchFragment(settingsFragment, SettingsFragment.TAG);
                     break;
             }
             return false;
         });
+    }
+
+    private void initFragments(Bundle savedInstanceState) {
+        final FragmentManager manager = getSupportFragmentManager();
+        sessionsFragment = manager.findFragmentByTag(SessionsFragment.TAG);
+        mapFragment = manager.findFragmentByTag(MapFragment.TAG);
+        informationFragment = manager.findFragmentByTag(InformationFragment.TAG);
+        settingsFragment = manager.findFragmentByTag(SettingsFragment.TAG);
+
+        if (sessionsFragment == null) {
+            sessionsFragment = SessionsFragment.newInstance();
+        }
+        if (mapFragment == null) {
+            mapFragment = MapFragment.newInstance();
+        }
+        if (informationFragment == null) {
+            informationFragment = InformationFragment.newInstance();
+        }
+        if (settingsFragment == null) {
+            settingsFragment = SettingsFragment.newInstance();
+        }
+
+        if (savedInstanceState == null) {
+            switchFragment(sessionsFragment, SessionsFragment.TAG);
+        }
+    }
+
+    private void switchFragment(@NonNull Fragment fragment, @NonNull String tag) {
+        if (fragment.isAdded()) {
+            return;
+        }
+
+        final FragmentManager manager = getSupportFragmentManager();
+        final FragmentTransaction ft = manager.beginTransaction();
+
+        final Fragment currentFragment = manager.findFragmentById(R.id.content_view);
+        if (currentFragment != null) {
+            ft.detach(currentFragment);
+        }
+        if (fragment.isDetached()) {
+            ft.attach(fragment);
+        } else {
+            ft.add(R.id.content_view, fragment, tag);
+        }
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit();
     }
 }
