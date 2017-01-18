@@ -33,8 +33,9 @@
                 android:layout_gravity="start"
                 android:background="@color/nav_background"
                 android:elevation="@dimen/elevation_4dp"
-                android:theme="@style/BaseBottomNavigationTheme"
                 app:elevation="@dimen/elevation_4dp"
+                app:itemIconTint="@color/bottom_navigation_item"
+                app:itemTextColor="@color/bottom_navigation_item"
                 app:menu="@menu/bottom_nav"
                 tools:targetApi="lollipop"
                 />

@@ -48,6 +48,7 @@ public class MainActivity extends BaseActivity {
     private void initView() {
         BottomNavigationViewHelper.disableShiftingMode(binding.bottomNav);
         binding.bottomNav.setOnNavigationItemSelectedListener(item -> {
+            item.setChecked(true);
             switch (item.getItemId()) {
                 case R.id.nav_sessions:
                     switchFragment(sessionsFragment, SessionsFragment.TAG);
