@@ -31,4 +31,8 @@
     <dimen name="elevation_2dp">2dp</dimen>
     <dimen name="elevation_4dp">4dp</dimen>
 
+
+    <!-- Component -->
+    <dimen name="bottom_nav_height">56dp</dimen>
+
 </resources>

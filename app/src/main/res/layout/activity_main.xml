@@ -1,18 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/activity_main"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="io.github.droidkaigi.confsched2017.view.activity.MainActivity"
         >
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:src="@drawable/ic_logo"
-        />
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
 
-</FrameLayout>
+        <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                style="@style/BaseToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:title="@string/app_name"
+                />
+
+        <FrameLayout
+                android:id="@+id/content_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/bottom_nav"
+                android:layout_below="@id/toolbar"
+                />
+
+        <android.support.design.widget.CustomBottomNavigationView
+                android:id="@+id/bottom_nav"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/bottom_nav_height"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="start"
+                android:background="@color/nav_background"
+                android:elevation="@dimen/elevation_4dp"
+                android:theme="@style/BaseBottomNavigationTheme"
+                app:elevation="@dimen/elevation_4dp"
+                app:menu="@menu/bottom_nav"
+                tools:targetApi="lollipop"
+                />
+
+    </RelativeLayout>
+
+</layout>

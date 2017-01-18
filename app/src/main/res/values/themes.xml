@@ -51,4 +51,9 @@
         <item name="colorControlNormal">@color/toolbar_text</item>
     </style>
 
+    <style name="BaseBottomNavigationTheme" parent="ThemeOverlay.AppCompat.Light">
+        <item name="colorPrimary">@color/nav_active</item>
+        <item name="android:textColorSecondary">@color/nav_inactive</item>
+    </style>
+
 </resources>

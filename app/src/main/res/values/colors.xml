@@ -10,4 +10,9 @@
     <color name="toolbar_text">@color/white</color>
     <color name="toolbar_sub_text">@color/white</color>
 
+    <!-- Navigation -->
+    <color name="nav_background">@color/white</color>
+    <color name="nav_active">@color/theme</color>
+    <color name="nav_inactive">@color/grey400</color>
+
 </resources>
