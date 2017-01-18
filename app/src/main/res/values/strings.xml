@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">DroidKaigi 2017</string>
+
+    <string name="sessions">Sessions</string>
+    <string name="map">Map</string>
+    <string name="information">Information</string>
+    <string name="settings">Settings</string>
+
 </resources>
