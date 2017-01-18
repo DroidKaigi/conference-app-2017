@@ -10,5 +10,5 @@ resp = JSON.parse(project.show)
 p resp['data']
 
 # upload file
-resp = project.upload_file(file: 'strings.xml', file_format: 'ANDROID_XML', is_keeping_all_strings: 'false')
+resp = project.upload_file(file: 'app/src/main/res/values/strings.xml', file_format: 'ANDROID_XML', is_keeping_all_strings: 'false')
 p resp.code # => 202
