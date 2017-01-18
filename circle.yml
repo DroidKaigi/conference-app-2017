@@ -27,3 +27,5 @@ deployment:
     branch: master
     commands:
       - ./deploy.sh
+      - gem install onesky-ruby
+      - ruby oneskyapp_upload.rb
