@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- space -->
+    <dimen name="space_4dp">4dp</dimen>
+    <dimen name="space_8dp">8dp</dimen>
+    <dimen name="space_12dp">12dp</dimen>
+    <dimen name="space_16dp">16dp</dimen>
+    <dimen name="space_24dp">24dp</dimen>
+
+    <dimen name="icon_space_4dp">4dp</dimen>
+
+    <dimen name="line_space_1dp">1dp</dimen>
+    <dimen name="line_space_2dp">2dp</dimen>
+
+
     <!-- Text -->
     <dimen name="text_12sp">12sp</dimen>
     <dimen name="text_14sp">14sp</dimen>
@@ -9,7 +22,13 @@
     <dimen name="text_24sp">24sp</dimen>
 
 
+    <!-- Line -->
+    <dimen name="line_1dp">1dp</dimen>
+    <dimen name="line_2dp">2dp</dimen>
+
+
     <!-- Elevation -->
     <dimen name="elevation_2dp">2dp</dimen>
+    <dimen name="elevation_4dp">4dp</dimen>
 
 </resources>
