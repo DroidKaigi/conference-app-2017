@@ -17,6 +17,11 @@ def preDexEnabled = "true".equals(System.getProperty("pre-dex", "true"))
 
 def packageName = "io.github.droidkaigi.confsched2017"
 
+// for debug info
+def gitSha = 'git rev-parse --short HEAD'.execute([], project.rootDir).text.trim()
+def gitBranch = (System.getenv("CIRCLE_BRANCH") != null) ? System.getenv("CIRCLE_BRANCH") : 'git rev-parse --abbrev-ref HEAD'.execute([], project.rootDir).text.trim()
+def buildTime = new Date().format("yyyy-MM-dd'T'HH:mm'Z'", TimeZone.getTimeZone("UTC"))
+
 android {
     compileSdkVersion compile_sdk_version as int
     buildToolsVersion build_tools_version
@@ -38,6 +43,9 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         buildConfigField "String", "CONFERENCE_TIMEZONE", "\"Asia/Tokyo\""
+        buildConfigField "String", "GIT_SHA", "\"${gitSha}\""
+        buildConfigField "String", "GIT_BRANCH", "\"${gitBranch}\""
+        buildConfigField "String", "BUILD_TIME", "\"${buildTime}\""
 
         // Referred to https://github.com/circleci/EspressoSample to make the Espresso tests work on CircleCI.
         DdmPreferences.setTimeOut(60000)
