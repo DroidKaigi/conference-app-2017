@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2017.view.activity;
 
+import android.content.Context;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
@@ -14,6 +15,7 @@ import android.view.MenuItem;
 import io.github.droidkaigi.confsched2017.MainApplication;
 import io.github.droidkaigi.confsched2017.di.ActivityComponent;
 import io.github.droidkaigi.confsched2017.di.ActivityModule;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
@@ -30,6 +32,11 @@ public abstract class BaseActivity extends AppCompatActivity {
             activityComponent = mainApplication.getComponent().plus(new ActivityModule(this));
         }
         return activityComponent;
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
     @Override

@@ -8,6 +8,7 @@ import io.github.droidkaigi.confsched2017.di.AppModule;
 import io.github.droidkaigi.confsched2017.di.DaggerAppComponent;
 import io.github.droidkaigi.confsched2017.log.CrashLogTree;
 import timber.log.Timber;
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 public class MainApplication extends Application {
 
@@ -25,6 +26,17 @@ public class MainApplication extends Application {
         appComponent = DaggerAppComponent.builder()
                 .appModule(new AppModule(this))
                 .build();
+
+        initCalligraphy();
+
         Timber.plant(new CrashLogTree()); // TODO initialize Firebase before this line
+    }
+
+    private void initCalligraphy() {
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                .setDefaultFontPath(getString(R.string.font_noto_cjk_medium))
+                .setFontAttrId(R.attr.fontPath)
+                .build()
+        );
     }
 }
