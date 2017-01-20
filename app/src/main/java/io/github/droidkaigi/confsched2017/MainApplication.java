@@ -1,5 +1,7 @@
 package io.github.droidkaigi.confsched2017;
 
+import com.squareup.leakcanary.LeakCanary;
+
 import android.app.Application;
 import android.support.annotation.NonNull;
 
@@ -28,6 +30,7 @@ public class MainApplication extends Application {
                 .build();
 
         initCalligraphy();
+        initLeakCanary();
 
         Timber.plant(new CrashLogTree()); // TODO initialize Firebase before this line
     }
@@ -38,5 +41,12 @@ public class MainApplication extends Application {
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         );
+    }
+
+    private void initLeakCanary() {
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            return;
+        }
+        LeakCanary.install(this);
     }
 }
