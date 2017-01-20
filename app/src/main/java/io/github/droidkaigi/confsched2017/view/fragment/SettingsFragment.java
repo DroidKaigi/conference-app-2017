@@ -8,12 +8,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import javax.inject.Inject;
+
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.databinding.FragmentSettingsBinding;
+import io.github.droidkaigi.confsched2017.viewmodel.SettingsViewModel;
 
-public class SettingsFragment extends BaseFragment {
+public class SettingsFragment extends BaseFragment implements SettingsViewModel.Callback {
 
     public static final String TAG = SettingsFragment.class.getSimpleName();
+
+    @Inject
+    SettingsViewModel viewModel;
 
     private FragmentSettingsBinding binding;
 
@@ -33,11 +39,14 @@ public class SettingsFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
         binding = DataBindingUtil.bind(view);
 
-        initView();
+        viewModel.setCallback(this);
+        binding.setViewModel(viewModel);
+
         return binding.getRoot();
     }
 
-    private void initView() {
-        //
+    @Override
+    public void changeHeadsUpEnabled(boolean enabled) {
+        binding.headsUpSwitchRow.setEnabled(enabled);
     }
 }

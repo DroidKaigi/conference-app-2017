@@ -1,0 +1,11 @@
+<resources>
+
+    <style name="SettingTitleText" parent="TextBody2">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="SettingDescriptionText" parent="TextCaption">
+        <item name="android:textColor">@color/grey600</item>
+    </style>
+
+</resources>

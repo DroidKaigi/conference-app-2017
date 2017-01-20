@@ -1,19 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        >
 
-    <RelativeLayout
+    <data>
+
+        <variable
+                name="viewModel"
+                type="io.github.droidkaigi.confsched2017.viewmodel.SettingsViewModel"
+                />
+    </data>
+
+    <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             >
 
-        <TextView
-                style="@style/TextTitle"
-                android:layout_width="wrap_content"
+        <LinearLayout
+                android:id="@+id/root_view"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="@string/settings"
-                />
+                android:orientation="vertical"
+                >
 
-    </RelativeLayout>
+            <io.github.droidkaigi.confsched2017.view.customview.SettingSwitchRowView
+                    android:id="@+id/local_time_switch_row"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:settingDefaultValue="@{viewModel.shouldShowLocalTime(context)}"
+                    app:settingDescription="@string/settings_local_time_description"
+                    app:settingOnCheckedChanged="@{(v, checked) -> viewModel.onCheckedShowLocalTimeSetting(context, checked)}"
+                    app:settingTitle="@string/settings_local_time"
+                    />
+
+            <View style="@style/Border" />
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/space_16dp"
+                    >
+
+                <TextView
+                        style="@style/TextSubheading"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings_notification_group"
+                        android:textColor="?attr/colorPrimary"
+                        />
+
+            </RelativeLayout>
+
+            <io.github.droidkaigi.confsched2017.view.customview.SettingSwitchRowView
+                    android:id="@+id/notification_switch_row"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:settingDefaultValue="@{viewModel.shouldNotify(context)}"
+                    app:settingDescription="@string/settings_notification_description"
+                    app:settingOnCheckedChanged="@{(v, checked) -> viewModel.onCheckedNotificationSetting(context, checked)}"
+                    app:settingTitle="@string/settings_notification"
+                    />
+
+            <View
+                    style="@style/Border"
+                    android:visibility="@{viewModel.getShowHeadsUpSettingVisibility}"
+                    />
+
+            <io.github.droidkaigi.confsched2017.view.customview.SettingSwitchRowView
+                    android:id="@+id/heads_up_switch_row"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="@{viewModel.getShowHeadsUpSettingVisibility}"
+                    app:settingDefaultValue="@{viewModel.isHeadsUp(context)}"
+                    app:settingDescription="@string/settings_heads_up_notification_description"
+                    app:settingEnabled="@{viewModel.shouldNotify(context)}"
+                    app:settingOnCheckedChanged="@{(v, checked) -> viewModel.onCheckedHeadsUpSetting(context, checked)}"
+                    app:settingTitle="@string/settings_heads_up_notification"
+                    />
+
+            <View
+                    android:id="@+id/heads_up_border"
+                    style="@style/Border"
+                    android:visibility="@{viewModel.getShowHeadsUpSettingVisibility}"
+                    />
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </layout>
