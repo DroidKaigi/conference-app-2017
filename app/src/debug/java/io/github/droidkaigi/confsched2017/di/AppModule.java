@@ -1,5 +1,7 @@
 package io.github.droidkaigi.confsched2017.di;
 
+import com.facebook.stetho.okhttp3.StethoInterceptor;
+
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -15,9 +17,11 @@ import okhttp3.Cache;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 
+/**
+ * Created by KeishinYokomaku on 2017/01/20.
+ */
 @Module
 public class AppModule {
-
     static final String CACHE_FILE_NAME = "okhttp.cache";
 
     static final long MAX_CACHE_SIZE = 4 * 1024 * 1024;
@@ -41,8 +45,7 @@ public class AppModule {
         File cacheDir = new File(context.getCacheDir(), CACHE_FILE_NAME);
         Cache cache = new Cache(cacheDir, MAX_CACHE_SIZE);
 
-        OkHttpClient.Builder c = new OkHttpClient.Builder().cache(cache).addInterceptor(interceptor);
-
+        OkHttpClient.Builder c = new OkHttpClient.Builder().cache(cache).addInterceptor(interceptor).addInterceptor(new StethoInterceptor());
         return c.build();
     }
 
