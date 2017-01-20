@@ -1,7 +1,5 @@
 package io.github.droidkaigi.confsched2017.di;
 
-import com.facebook.stetho.okhttp3.StethoInterceptor;
-
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -12,7 +10,6 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import io.github.droidkaigi.confsched2017.BuildConfig;
 import io.reactivex.disposables.CompositeDisposable;
 import okhttp3.Cache;
 import okhttp3.Interceptor;
