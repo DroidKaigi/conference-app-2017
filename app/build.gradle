@@ -193,8 +193,10 @@ dependencies {
     compile 'uk.co.chrisjenx:calligraphy:2.2.0'
 
     // Android Utility
-    debugCompile 'com.facebook.stetho:stetho:1.4.2'
     compile 'com.jakewharton.timber:timber:4.3.1'
+    debugCompile 'com.facebook.stetho:stetho:1.4.2'
+    debugCompile 'com.facebook.stetho:stetho-okhttp3:1.4.2'
+    debugCompile 'com.facebook.stetho:stetho-timber:1.4.2@aar'
     compile 'com.squareup.picasso:picasso:2.5.2'
     annotationProcessor 'com.github.gfx.android.orma:orma-processor:4.1.0'
     compile 'com.github.gfx.android.orma:orma:4.1.0'
@@ -202,9 +204,9 @@ dependencies {
     annotationProcessor 'com.rejasupotaro:kvs-schema-compiler:5.0.1'
 
     // Debug
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
-    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
-    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
 
     // Test
     testCompile 'junit:junit:4.12'

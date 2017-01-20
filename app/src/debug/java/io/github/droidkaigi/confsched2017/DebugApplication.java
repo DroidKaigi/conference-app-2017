@@ -1,6 +1,9 @@
 package io.github.droidkaigi.confsched2017;
 
 import com.facebook.stetho.Stetho;
+import com.facebook.stetho.timber.StethoTree;
+
+import timber.log.Timber;
 
 public final class DebugApplication extends MainApplication {
 
@@ -9,5 +12,6 @@ public final class DebugApplication extends MainApplication {
         super.onCreate();
 
         Stetho.initializeWithDefaults(this);
+        Timber.plant(new StethoTree());
     }
 }

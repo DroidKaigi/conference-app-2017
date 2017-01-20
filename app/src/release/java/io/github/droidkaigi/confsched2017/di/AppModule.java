@@ -15,9 +15,11 @@ import okhttp3.Cache;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 
+/**
+ * Created by KeishinYokomaku on 2017/01/20.
+ */
 @Module
 public class AppModule {
-
     static final String CACHE_FILE_NAME = "okhttp.cache";
 
     static final long MAX_CACHE_SIZE = 4 * 1024 * 1024;
