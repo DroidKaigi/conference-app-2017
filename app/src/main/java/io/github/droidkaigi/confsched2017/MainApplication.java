@@ -5,6 +5,7 @@ import com.squareup.leakcanary.LeakCanary;
 import android.app.Application;
 import android.support.annotation.NonNull;
 
+import io.github.droidkaigi.confsched2017.di.AndroidModule;
 import io.github.droidkaigi.confsched2017.di.AppComponent;
 import io.github.droidkaigi.confsched2017.di.AppModule;
 import io.github.droidkaigi.confsched2017.di.DaggerAppComponent;
@@ -27,6 +28,7 @@ public class MainApplication extends Application {
 
         appComponent = DaggerAppComponent.builder()
                 .appModule(new AppModule(this))
+                .androidModule(new AndroidModule(this))
                 .build();
 
         initCalligraphy();

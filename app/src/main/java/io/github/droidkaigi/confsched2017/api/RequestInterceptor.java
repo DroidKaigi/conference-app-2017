@@ -21,9 +21,9 @@ public class RequestInterceptor implements Interceptor {
     final Context context;
 
     @Inject
-    public RequestInterceptor(Context context) {
+    public RequestInterceptor(Context context, ConnectivityManager connectivityManager) {
         this.context = context;
-        this.connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        this.connectivityManager = connectivityManager;
     }
 
     @Override
