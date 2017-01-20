@@ -1,6 +1,5 @@
 package io.github.droidkaigi.confsched2017.viewmodel;
 
-import android.content.Context;
 import android.databinding.BaseObservable;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -14,24 +13,27 @@ public final class SettingsViewModel extends BaseObservable implements ViewModel
 
     private Callback callback;
 
+    private final DefaultPrefs defaultPrefs;
+
     @Inject
-    SettingsViewModel() {
+    SettingsViewModel(DefaultPrefs defaultPrefs) {
+        this.defaultPrefs = defaultPrefs;
     }
 
     public void setCallback(@NonNull Callback callback) {
         this.callback = callback;
     }
 
-    public boolean shouldNotify(Context context) {
-        return DefaultPrefs.get(context).getNotificationFlag();
+    public boolean shouldNotify() {
+        return defaultPrefs.getNotificationFlag();
     }
 
-    public boolean isHeadsUp(Context context) {
-        return DefaultPrefs.get(context).getHeadsUpFlag();
+    public boolean isHeadsUp() {
+        return defaultPrefs.getHeadsUpFlag();
     }
 
-    public boolean shouldShowLocalTime(Context context) {
-        return DefaultPrefs.get(context).getShowLocalTimeFlag();
+    public boolean shouldShowLocalTime() {
+        return defaultPrefs.getShowLocalTimeFlag();
     }
 
     public int getShowHeadsUpSettingVisibility() {
@@ -42,16 +44,16 @@ public final class SettingsViewModel extends BaseObservable implements ViewModel
         }
     }
 
-    public void onCheckedHeadsUpSetting(Context context, boolean isChecked) {
-        DefaultPrefs.get(context).putHeadsUpFlag(isChecked);
+    public void onCheckedHeadsUpSetting(boolean isChecked) {
+        defaultPrefs.putHeadsUpFlag(isChecked);
     }
 
-    public void onCheckedShowLocalTimeSetting(Context context, boolean isChecked) {
-        DefaultPrefs.get(context).putShowLocalTimeFlag(isChecked);
+    public void onCheckedShowLocalTimeSetting(boolean isChecked) {
+        defaultPrefs.putShowLocalTimeFlag(isChecked);
     }
 
-    public void onCheckedNotificationSetting(Context context, boolean isChecked) {
-        DefaultPrefs.get(context).putNotificationFlag(isChecked);
+    public void onCheckedNotificationSetting(boolean isChecked) {
+        defaultPrefs.putNotificationFlag(isChecked);
         if (callback != null) {
             callback.changeHeadsUpEnabled(isChecked);
         }

@@ -27,9 +27,9 @@
                     android:id="@+id/local_time_switch_row"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:settingDefaultValue="@{viewModel.shouldShowLocalTime(context)}"
+                    app:settingDefaultValue="@{viewModel.shouldShowLocalTime}"
                     app:settingDescription="@string/settings_local_time_description"
-                    app:settingOnCheckedChanged="@{(v, checked) -> viewModel.onCheckedShowLocalTimeSetting(context, checked)}"
+                    app:settingOnCheckedChanged="@{(v, checked) -> viewModel.onCheckedShowLocalTimeSetting(checked)}"
                     app:settingTitle="@string/settings_local_time"
                     />
 
@@ -55,9 +55,9 @@
                     android:id="@+id/notification_switch_row"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:settingDefaultValue="@{viewModel.shouldNotify(context)}"
+                    app:settingDefaultValue="@{viewModel.shouldNotify}"
                     app:settingDescription="@string/settings_notification_description"
-                    app:settingOnCheckedChanged="@{(v, checked) -> viewModel.onCheckedNotificationSetting(context, checked)}"
+                    app:settingOnCheckedChanged="@{(v, checked) -> viewModel.onCheckedNotificationSetting(checked)}"
                     app:settingTitle="@string/settings_notification"
                     />
 
@@ -71,10 +71,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:visibility="@{viewModel.getShowHeadsUpSettingVisibility}"
-                    app:settingDefaultValue="@{viewModel.isHeadsUp(context)}"
+                    app:settingDefaultValue="@{viewModel.isHeadsUp}"
                     app:settingDescription="@string/settings_heads_up_notification_description"
-                    app:settingEnabled="@{viewModel.shouldNotify(context)}"
-                    app:settingOnCheckedChanged="@{(v, checked) -> viewModel.onCheckedHeadsUpSetting(context, checked)}"
+                    app:settingEnabled="@{viewModel.shouldNotify}"
+                    app:settingOnCheckedChanged="@{(v, checked) -> viewModel.onCheckedHeadsUpSetting(checked)}"
                     app:settingTitle="@string/settings_heads_up_notification"
                     />
 

@@ -12,6 +12,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import io.github.droidkaigi.confsched2017.pref.DefaultPrefs;
 import io.reactivex.disposables.CompositeDisposable;
 import okhttp3.Cache;
 import okhttp3.Interceptor;
@@ -22,6 +23,7 @@ import okhttp3.OkHttpClient;
  */
 @Module
 public class AppModule {
+
     static final String CACHE_FILE_NAME = "okhttp.cache";
 
     static final long MAX_CACHE_SIZE = 4 * 1024 * 1024;
@@ -45,7 +47,8 @@ public class AppModule {
         File cacheDir = new File(context.getCacheDir(), CACHE_FILE_NAME);
         Cache cache = new Cache(cacheDir, MAX_CACHE_SIZE);
 
-        OkHttpClient.Builder c = new OkHttpClient.Builder().cache(cache).addInterceptor(interceptor).addInterceptor(new StethoInterceptor());
+        OkHttpClient.Builder c = new OkHttpClient.Builder().cache(cache).addInterceptor(interceptor)
+                .addInterceptor(new StethoInterceptor());
         return c.build();
     }
 
@@ -59,4 +62,8 @@ public class AppModule {
         return new CompositeDisposable();
     }
 
+    @Provides
+    public DefaultPrefs provideDefaultPrefs() {
+        return DefaultPrefs.get(context);
+    }
 }
