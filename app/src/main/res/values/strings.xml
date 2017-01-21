@@ -6,4 +6,14 @@
     <string name="information">Information</string>
     <string name="settings">Settings</string>
 
+
+    <!-- Settings -->
+    <string name="settings_notification_group">Notification</string>
+    <string name="settings_notification">Notification</string>
+    <string name="settings_notification_description">Choose whether to receive notification in this app.</string>
+    <string name="settings_heads_up_notification">Heads-up Notification</string>
+    <string name="settings_heads_up_notification_description">Choose whether to use Heads-up Notification.</string>
+    <string name="settings_local_time">Show local times</string>
+    <string name="settings_local_time_description">Use your local time instead of the conference\’s local time.</string>
+
 </resources>

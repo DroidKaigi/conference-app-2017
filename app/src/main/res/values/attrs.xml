@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="SettingSwitchRow">
+        <attr name="settingTitle" format="string" />
+        <attr name="settingDescription" format="string" />
+    </declare-styleable>
+
+</resources>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/clickable"
+            android:padding="@dimen/space_16dp"
+            >
+
+        <TextView
+                android:id="@+id/setting_title"
+                style="@style/SettingTitleText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/setting_switch"
+                android:layout_toStartOf="@+id/setting_switch"
+                android:ellipsize="end"
+                android:lines="1"
+                android:text="@string/settings_notification"
+                />
+
+        <TextView
+                android:id="@+id/setting_description"
+                style="@style/SettingDescriptionText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/setting_title"
+                android:layout_marginTop="@dimen/space_8dp"
+                android:layout_toLeftOf="@+id/setting_switch"
+                android:layout_toStartOf="@+id/setting_switch"
+                />
+
+        <android.support.v7.widget.SwitchCompat
+                android:id="@+id/setting_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/space_16dp"
+                android:layout_marginStart="@dimen/space_16dp"
+                android:paddingBottom="@dimen/space_4dp"
+                android:paddingEnd="@dimen/space_8dp"
+                android:paddingLeft="@dimen/space_8dp"
+                android:paddingRight="@dimen/space_8dp"
+                android:paddingStart="@dimen/space_8dp"
+                android:paddingTop="@dimen/space_4dp"
+                />
+
+    </RelativeLayout>
+
+</layout>
