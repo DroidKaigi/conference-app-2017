@@ -42,12 +42,10 @@ public final class SessionsRemoteDataSource implements SessionsDataSource {
 
     @Override
     public Maybe<Session> find(int sessionId, String languageId) {
-        return findAll(languageId).map(sessions -> {
-            return Stream.of(sessions)
-                    .filter(session -> session.id == sessionId)
-                    .findSingle()
-                    .get();
-        }).toMaybe();
+        return findAll(languageId).map(sessions -> Stream.of(sessions)
+                .filter(session -> session.id == sessionId)
+                .findSingle()
+                .get()).toMaybe();
     }
 
     @Override
