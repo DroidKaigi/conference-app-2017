@@ -14,7 +14,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,6 +38,7 @@ import io.github.droidkaigi.confsched2017.viewmodel.SessionViewModel;
 import io.github.droidkaigi.confsched2017.viewmodel.SessionsViewModel;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import timber.log.Timber;
 
 public class SessionsFragment extends BaseFragment implements SessionViewModel.Callback {
 
@@ -88,6 +88,12 @@ public class SessionsFragment extends BaseFragment implements SessionViewModel.C
         compositeDisposable.dispose();
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        viewModel.destroy();
+    }
+
     private int getScreenWidth() {
         Display display = getActivity().getWindowManager().getDefaultDisplay();
         Point size = new Point();
@@ -100,7 +106,7 @@ public class SessionsFragment extends BaseFragment implements SessionViewModel.C
         Disposable disposable = viewModel.getSessions(languageId, getContext())
                 .subscribe(
                         this::renderSessions,
-                        throwable -> Log.e(TAG, "Failed to show sessions.", throwable)
+                        throwable -> Timber.e(TAG, "Failed to show sessions.", throwable)
                 );
         compositeDisposable.add(disposable);
     }
@@ -161,8 +167,8 @@ public class SessionsFragment extends BaseFragment implements SessionViewModel.C
                 View view = LayoutInflater.from(getContext()).inflate(R.layout.view_sessions_header_cell, null);
                 TextView txtRoomName = (TextView) view.findViewById(R.id.txt_room_name);
                 txtRoomName.setText(room.name);
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT,
-                        1f);
+                LinearLayout.LayoutParams params =
+                        new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1f);
                 txtRoomName.setLayoutParams(params);
                 binding.headerRow.addView(view);
             }

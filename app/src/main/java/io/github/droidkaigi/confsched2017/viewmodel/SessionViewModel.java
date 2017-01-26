@@ -1,16 +1,12 @@
 package io.github.droidkaigi.confsched2017.viewmodel;
 
-import org.lucasr.twowayview.widget.SpannableGridLayoutManager;
-
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import android.databinding.BindingAdapter;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.content.res.ResourcesCompat;
 import android.view.View;
 
 import java.util.Date;
@@ -42,7 +38,7 @@ public class SessionViewModel extends BaseObservable implements ViewModel {
 
     private int colSpan = 1;
 
-    private int titleMaxLines = 4;
+    private int titleMaxLines = 3;
 
     private int speakerNameMaxLines = 1;
 
@@ -55,6 +51,8 @@ public class SessionViewModel extends BaseObservable implements ViewModel {
     private boolean isClickable;
 
     private int checkVisibility;
+
+    private int normalSessionItemVisibility;
 
     private Callback callback;
 
@@ -79,11 +77,20 @@ public class SessionViewModel extends BaseObservable implements ViewModel {
         decideRowSpan(session);
         this.colSpan = decideColSpan(session, roomCount);
 
-        this.backgroundResId = R.drawable.clickable_white;
-        this.categoryColorResId = decideCategoryColorResId(session.topic);
-        this.isClickable = true;
-
         this.checkVisibility = isMySession ? View.VISIBLE : View.GONE;
+
+        if (session.isBreak()) {
+            this.isClickable = true;
+            this.backgroundResId = R.drawable.bg_empty_session;
+            this.categoryColorResId = android.R.color.transparent;
+            this.normalSessionItemVisibility = View.GONE;
+        } else {
+            this.isClickable = false;
+            this.backgroundResId = R.drawable.clickable_white;
+            this.categoryColorResId = decideCategoryColorResId(session.topic);
+            this.normalSessionItemVisibility = View.VISIBLE;
+        }
+
     }
 
     private SessionViewModel(int rowSpan, int colSpan) {
@@ -92,6 +99,7 @@ public class SessionViewModel extends BaseObservable implements ViewModel {
         this.backgroundResId = R.drawable.bg_empty_session;
         this.categoryColorResId = android.R.color.transparent;
         this.checkVisibility = View.GONE;
+        this.normalSessionItemVisibility = View.GONE;
     }
 
     static SessionViewModel createEmpty(int rowSpan) {
@@ -140,7 +148,8 @@ public class SessionViewModel extends BaseObservable implements ViewModel {
     }
 
     private void decideRowSpan(@NonNull Session session) {
-        if (session.durationMin > 30) {
+        // Break time is over 30 min, but one row is good
+        if (session.durationMin > 30 && !session.isBreak()) {
             this.rowSpan = this.rowSpan * 2;
             this.titleMaxLines = this.titleMaxLines * 2;
             this.speakerNameMaxLines = this.speakerNameMaxLines * 3;
@@ -160,32 +169,6 @@ public class SessionViewModel extends BaseObservable implements ViewModel {
     @Override
     public void destroy() {
         callback = null;
-    }
-
-    @BindingAdapter("twowayview_rowSpan")
-    public static void setTwowayViewRowSpan(View view, int rowSpan) {
-        final SpannableGridLayoutManager.LayoutParams lp = (SpannableGridLayoutManager.LayoutParams) view.getLayoutParams();
-        lp.rowSpan = rowSpan;
-        view.setLayoutParams(lp);
-    }
-
-    @BindingAdapter("twowayview_colSpan")
-    public static void setTwowayViewColSpan(View view, int colSpan) {
-        final SpannableGridLayoutManager.LayoutParams lp = (SpannableGridLayoutManager.LayoutParams) view.getLayoutParams();
-        lp.colSpan = colSpan;
-        view.setLayoutParams(lp);
-    }
-
-    @BindingAdapter("sessionCellBackground")
-    public static void setSessionCellBackground(View view, @DrawableRes int backgroundResId) {
-        view.setBackgroundResource(backgroundResId);
-    }
-
-    @BindingAdapter("sessionCategoryColor")
-    public static void setSessionCategoryColor(View view, @ColorRes int colorResId) {
-        if (colorResId > 0) {
-            view.setBackgroundColor(ResourcesCompat.getColor(view.getResources(), colorResId, null));
-        }
     }
 
     public String getShortStime() {
@@ -242,6 +225,10 @@ public class SessionViewModel extends BaseObservable implements ViewModel {
 
     public int getCategoryColorResId() {
         return categoryColorResId;
+    }
+
+    public int getNormalSessionItemVisibility() {
+        return normalSessionItemVisibility;
     }
 
     @Bindable

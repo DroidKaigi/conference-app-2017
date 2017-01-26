@@ -38,6 +38,7 @@
                 android:layout_marginRight="-6dp"
                 android:layout_marginStart="-6dp"
                 android:layout_marginTop="@dimen/space_minus_4dp"
+                android:visibility="@{viewModel.normalSessionItemVisibility}"
                 app:sessionCategoryColor="@{viewModel.categoryColorResId}"
                 />
 
@@ -74,29 +75,6 @@
                 app:fontPath="@string/font_noto_cjk_medium"
                 />
 
-        <TextView
-                android:id="@+id/txt_language"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/categoryBorder"
-                android:layout_marginLeft="@dimen/space_4dp"
-                android:layout_marginStart="@dimen/space_4dp"
-                android:layout_marginTop="@dimen/space_4dp"
-                android:layout_toEndOf="@id/txt_minutes"
-                android:layout_toRightOf="@id/txt_minutes"
-                android:background="@drawable/tag_language"
-                android:ellipsize="end"
-                android:lines="1"
-                android:paddingEnd="@dimen/space_4dp"
-                android:paddingLeft="@dimen/space_4dp"
-                android:paddingRight="@dimen/space_4dp"
-                android:paddingStart="@dimen/space_4dp"
-                android:text="@{viewModel.languageId}"
-                android:textAppearance="@style/TextCaption"
-                android:textColor="@color/grey500"
-                android:textSize="@dimen/session_table_cell_title_text_size"
-                />
-
         <ImageView
                 android:id="@+id/img_check"
                 android:layout_width="14dp"
@@ -126,10 +104,30 @@
                 />
 
         <TextView
-                android:id="@+id/txt_speaker_name"
+                android:id="@+id/txt_language"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/txt_title"
+                android:layout_marginTop="@dimen/session_table_cell_text_margin"
+                android:background="@drawable/tag_language"
+                android:ellipsize="end"
+                android:lines="1"
+                android:paddingEnd="@dimen/space_4dp"
+                android:paddingLeft="@dimen/space_4dp"
+                android:paddingRight="@dimen/space_4dp"
+                android:paddingStart="@dimen/space_4dp"
+                android:text="@{viewModel.languageId}"
+                android:textAppearance="@style/TextCaption"
+                android:textColor="@color/grey500"
+                android:textSize="@dimen/session_table_cell_title_text_size"
+                android:visibility="@{viewModel.normalSessionItemVisibility}"
+                />
+
+        <TextView
+                android:id="@+id/txt_speaker_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txt_language"
                 android:layout_marginTop="@dimen/session_table_cell_text_margin"
                 android:drawableLeft="@drawable/ic_person_10_selector"
                 android:drawablePadding="2dp"
@@ -140,7 +138,7 @@
                 android:textAppearance="@style/TextCaption"
                 android:textColor="@color/grey500"
                 android:textSize="@dimen/session_table_cell_title_text_size"
-                android:visibility="@{viewModel.checkVisibility}"
+                android:visibility="@{viewModel.normalSessionItemVisibility}"
                 />
 
     </RelativeLayout>

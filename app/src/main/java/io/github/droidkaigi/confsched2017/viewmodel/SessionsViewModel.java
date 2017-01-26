@@ -48,7 +48,7 @@ public class SessionsViewModel implements ViewModel {
                     List<SessionViewModel> viewModels = Stream.of(sessions)
                             .map(session -> {
                                 // TODO Check the session is checked or not.
-                                return new SessionViewModel(session, context, rooms.size(), true);
+                                return new SessionViewModel(session, context, rooms.size(), false);
                             })
                             .collect(Collectors.toList());
                     return adjustViewModels(viewModels, context);
