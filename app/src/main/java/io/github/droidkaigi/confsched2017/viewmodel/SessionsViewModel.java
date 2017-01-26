@@ -42,8 +42,8 @@ public class SessionsViewModel implements ViewModel {
     public Single<List<SessionViewModel>> getSessions(String languageId, Context context) {
         return sessionsRepository.findAll(languageId)
                 .map(sessions -> {
-                    this.rooms = createRooms(sessions);
-                    this.stimes = createStimes(sessions);
+                    this.rooms = extractRooms(sessions);
+                    this.stimes = extractStimes(sessions);
 
                     List<SessionViewModel> viewModels = Stream.of(sessions)
                             .map(session -> {
@@ -69,7 +69,7 @@ public class SessionsViewModel implements ViewModel {
 
         final List<SessionViewModel> adjustedViewModels = new ArrayList<>();
 
-        // Formatted date that user can see. Ex) 9, March
+        // Format date that user can see. Ex) 9, March
         String lastFormattedDate = null;
         for (Date stime : stimes) {
             if (lastFormattedDate == null) {
@@ -83,9 +83,9 @@ public class SessionsViewModel implements ViewModel {
                 SessionViewModel viewModel = sessionMap.get(generateStimeRoomKey(stime, room.name));
                 if (viewModel != null) {
                     if (!lastFormattedDate.equals(viewModel.getFormattedDate())) {
-                        // Changed the date
+                        // Change the date
                         lastFormattedDate = viewModel.getFormattedDate();
-                        // Added empty row which divides the days
+                        // Add empty row which divides the days
                         adjustedViewModels.add(SessionViewModel.createEmpty(1, rooms.size()));
                     }
                     sameTimeViewModels.add(viewModel);
@@ -123,7 +123,7 @@ public class SessionsViewModel implements ViewModel {
         return DateUtil.getLongFormatDate(stime) + "_" + roomName;
     }
 
-    private List<Date> createStimes(List<Session> sessions) {
+    private List<Date> extractStimes(List<Session> sessions) {
         return Stream.of(sessions)
                 .map(session -> session.stime)
                 .sorted()
@@ -131,7 +131,7 @@ public class SessionsViewModel implements ViewModel {
                 .collect(Collectors.toList());
     }
 
-    private List<Room> createRooms(List<Session> sessions) {
+    private List<Room> extractRooms(List<Session> sessions) {
         return Stream.of(sessions)
                 .map(session -> session.room)
                 .filter(room -> room != null && room.id != 0)
