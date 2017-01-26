@@ -7,6 +7,10 @@
     <string name="settings">Settings</string>
 
 
+    <!-- Sessions -->
+    <string name="session_minutes">(%1$d min)</string>
+
+
     <!-- Settings -->
     <string name="settings_notification_group">Notification</string>
     <string name="settings_notification">Notification</string>

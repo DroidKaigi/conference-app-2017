@@ -64,4 +64,10 @@ public class AppModule {
     public DefaultPrefs provideDefaultPrefs() {
         return DefaultPrefs.get(context);
     }
+
+    @Singleton
+    @Provides
+    public OrmaDatabase provideOrmaDatabase(Context context) {
+        return OrmaDatabase.builder(context).build();
+    }
 }

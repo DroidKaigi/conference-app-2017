@@ -1,19 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        >
 
-    <RelativeLayout
+    <data>
+
+        <variable
+                name="viewModel"
+                type="io.github.droidkaigi.confsched2017.viewmodel.SessionsViewModel"
+                />
+    </data>
+
+    <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             >
 
+        <HorizontalScrollView
+                android:id="@+id/root"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+
+            <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    >
+
+                <LinearLayout
+                        android:id="@+id/header_row"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/session_table_header_row_height"
+                        android:layout_alignEnd="@+id/recycler_view"
+                        android:layout_alignLeft="@+id/recycler_view"
+                        android:layout_alignRight="@+id/recycler_view"
+                        android:layout_alignStart="@+id/recycler_view"
+                        android:background="@color/white"
+                        android:divider="@drawable/divider"
+                        android:orientation="horizontal"
+                        android:showDividers="middle"
+                        />
+
+                <View
+                        android:id="@+id/border"
+                        style="@style/Border"
+                        android:layout_alignEnd="@+id/recycler_view"
+                        android:layout_alignLeft="@+id/recycler_view"
+                        android:layout_alignRight="@+id/recycler_view"
+                        android:layout_alignStart="@+id/recycler_view"
+                        android:layout_below="@id/header_row"
+                        android:background="@color/grey300"
+                        />
+
+                <org.lucasr.twowayview.widget.TwoWayView
+                        android:id="@+id/recycler_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_below="@id/border"
+                        android:orientation="vertical"
+                        android:scrollbars="vertical"
+                        app:twowayview_layoutManager="org.lucasr.twowayview.widget.SpannableGridLayoutManager"
+                        app:twowayview_numColumns="6"
+                        app:twowayview_numRows="3"
+                        />
+
+            </RelativeLayout>
+
+        </HorizontalScrollView>
+
         <TextView
-                style="@style/TextTitle"
+                android:id="@+id/txt_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="@string/sessions"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="48dp"
+                android:background="@drawable/bg_session_date"
+                android:paddingBottom="@dimen/space_4dp"
+                android:paddingEnd="@dimen/space_12dp"
+                android:paddingLeft="@dimen/space_12dp"
+                android:paddingRight="@dimen/space_12dp"
+                android:paddingStart="@dimen/space_12dp"
+                android:paddingTop="@dimen/space_4dp"
+                android:textAppearance="@style/TextSubheading"
+                android:textColor="@color/white"
                 />
 
-    </RelativeLayout>
+    </FrameLayout>
 
 </layout>

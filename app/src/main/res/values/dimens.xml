@@ -7,6 +7,7 @@
     <dimen name="space_12dp">12dp</dimen>
     <dimen name="space_16dp">16dp</dimen>
     <dimen name="space_24dp">24dp</dimen>
+    <dimen name="space_minus_4dp">-4dp</dimen>
 
     <dimen name="icon_space_4dp">4dp</dimen>
 
@@ -34,5 +35,18 @@
 
     <!-- Component -->
     <dimen name="bottom_nav_height">56dp</dimen>
+
+    <dimen name="tag_radius">4dp</dimen>
+    <dimen name="tag_padding_horizontal">8dp</dimen>
+    <dimen name="tag_padding_vertical">4dp</dimen>
+    <dimen name="tag_border_width">1dp</dimen>
+
+
+    <!-- Session -->
+    <dimen name="session_table_header_row_height">36dp</dimen>
+    <dimen name="session_table_cell_text_margin">2dp</dimen>
+    <dimen name="session_table_border_width">1dp</dimen>
+    <dimen name="session_table_cell_title_text_size">10sp</dimen>
+    <dimen name="session_table_min_width">670dp</dimen>
 
 </resources>
