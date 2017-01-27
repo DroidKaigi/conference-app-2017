@@ -116,22 +116,20 @@ public class SessionViewModel extends BaseObservable implements ViewModel {
         }
 
         switch (topic.id) {
-            case 1:
+            case Topic.ID_PRODUCTIVITY_AND_TOOLING:
                 return R.color.light_green_alpha_50;
-            case 2:
-                return R.color.ultra_light_blue_alpha_50;
-            case 3:
-                return R.color.light_blue_alpha_50;
-            case 4:
-                return R.color.blue_alpha_50;
-            case 5:
-                return R.color.light_green_alpha_50;
-            case 6:
-                return R.color.pink_alpha_50;
-            case 7:
-                return R.color.red_alpha_50;
-            case 8:
+            case Topic.ID_ARCHITECTURE_AND_DEVELOPMENT_PROCESS_METHODOLOGY:
                 return R.color.yellow_alpha_50;
+            case Topic.ID_HARDWARE:
+                return R.color.red_alpha_50;
+            case Topic.ID_UI_AND_DESIGN:
+                return R.color.blue_alpha_50;
+            case Topic.ID_QUALITY_AND_SUSTAINABILITY:
+                return R.color.light_green_alpha_50;
+            case Topic.ID_PLATFORM:
+                return R.color.pink_alpha_50;
+            case Topic.ID_OTHER:
+                return R.color.purple_alpha_50;
             default:
                 return R.color.purple_alpha_50;
         }

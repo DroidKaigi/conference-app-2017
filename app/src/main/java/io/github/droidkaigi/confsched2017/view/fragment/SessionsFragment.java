@@ -106,7 +106,7 @@ public class SessionsFragment extends BaseFragment implements SessionViewModel.C
         Disposable disposable = viewModel.getSessions(languageId, getContext())
                 .subscribe(
                         this::renderSessions,
-                        throwable -> Timber.e(TAG, "Failed to show sessions.", throwable)
+                        throwable -> Timber.tag(TAG).e(throwable, "Failed to show sessions.")
                 );
         compositeDisposable.add(disposable);
     }

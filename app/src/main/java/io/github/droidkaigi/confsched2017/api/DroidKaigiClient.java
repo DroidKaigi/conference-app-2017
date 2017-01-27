@@ -22,7 +22,7 @@ import retrofit2.http.GET;
 @Singleton
 public class DroidKaigiClient {
 
-    private static final String SESSIONS_API_ROUTES = "/DroidKaigi/2017/435d15bb2e866de2084276dc063cf5dc130e483e/docs/";
+    private static final String SESSIONS_API_ROUTES = "/DroidKaigi/2017/master/docs/";
 
     private final DroidKaigiService droidKaigiService;
 
