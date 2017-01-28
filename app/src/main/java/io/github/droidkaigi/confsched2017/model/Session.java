@@ -24,6 +24,7 @@ public class Session {
     public String title;
 
     @Column
+    @Nullable
     @SerializedName("desc")
     public String desc;
 

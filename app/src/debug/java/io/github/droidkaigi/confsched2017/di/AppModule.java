@@ -12,6 +12,8 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import io.github.droidkaigi.confsched2017.api.RequestInterceptor;
+import io.github.droidkaigi.confsched2017.model.OrmaDatabase;
 import io.github.droidkaigi.confsched2017.pref.DefaultPrefs;
 import io.reactivex.disposables.CompositeDisposable;
 import okhttp3.Cache;
@@ -65,5 +67,16 @@ public class AppModule {
     @Provides
     public DefaultPrefs provideDefaultPrefs() {
         return DefaultPrefs.get(context);
+    }
+
+    @Singleton
+    @Provides
+    public OrmaDatabase provideOrmaDatabase(Context context) {
+        return OrmaDatabase.builder(context).build();
+    }
+
+    @Provides
+    public Interceptor provideRequestInterceptor(RequestInterceptor interceptor) {
+        return interceptor;
     }
 }
