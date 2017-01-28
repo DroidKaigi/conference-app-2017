@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="SessionDetailExpandedToolbarTitle">
+        <item name="android:textSize">@dimen/text_24sp</item>
+        <item name="fontPath">@string/font_noto_cjk_medium</item>
+        <item name="android:shadowColor">@color/black</item>
+        <item name="android:shadowRadius">1</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:maxLines">4</item>
+    </style>
+
+    <style name="SessionDetailCollapsedToolbarTitle">
+        <item name="android:textSize">@dimen/text_20sp</item>
+        <item name="fontPath">@string/font_noto_cjk_medium</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="SessionDetailTitle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:lines">1</item>
+        <item name="android:textAppearance">@style/TextTitle</item>
+    </style>
+
+    <style name="SessionTag">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingBottom">@dimen/tag_padding_vertical</item>
+        <item name="android:paddingEnd" tools:targetApi="jelly_bean_mr1">
+            @dimen/tag_padding_horizontal
+        </item>
+        <item name="android:paddingLeft">@dimen/tag_padding_horizontal</item>
+        <item name="android:paddingTop">@dimen/tag_padding_vertical</item>
+        <item name="android:paddingRight">@dimen/tag_padding_horizontal</item>
+        <item name="android:paddingStart" tools:targetApi="jelly_bean_mr1">
+            @dimen/tag_padding_horizontal
+        </item>
+        <item name="android:textAppearance">@style/TextCaption</item>
+        <item name="android:textColor">@color/grey500</item>
+    </style>
+
+</resources>

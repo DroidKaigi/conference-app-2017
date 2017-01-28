@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:aapt="http://schemas.android.com/aapt"
+        >
+    <aapt:attr name="android:drawable">
+        <vector xmlns:android="http://schemas.android.com/apk/res/android"
+                android:width="24dp"
+                android:height="24dp"
+                android:viewportHeight="24"
+                android:viewportWidth="24"
+                >
+            <group
+                    android:name="group"
+                    android:pivotX="12.0"
+                    android:pivotY="12.0"
+                    android:rotation="360.0"
+                    >
+                <path
+                        android:name="ic_check"
+                        android:fillColor="@color/white"
+                        android:pathData="M21,7L17,11L13,15L9,19L6.205,16.205L3.41,13.41L4.83,12L6.915,14.085L9,16.17L12.53,12.6433L16.06,9.1166L19.59,5.59z"
+                        />
+            </group>
+        </vector>
+    </aapt:attr>
+    <target android:name="group">
+        <aapt:attr name="android:animation">
+            <set xmlns:android="http://schemas.android.com/apk/res/android">
+                <objectAnimator
+                        android:name="group"
+                        android:duration="@integer/fab_vector_animation_mills"
+                        android:interpolator="@android:anim/accelerate_decelerate_interpolator"
+                        android:propertyName="rotation"
+                        android:valueFrom="360"
+                        android:valueTo="90"
+                        android:valueType="floatType"
+                        />
+            </set>
+        </aapt:attr>
+    </target>
+    <target android:name="ic_check">
+        <aapt:attr name="android:animation">
+            <objectAnimator xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:name="ic_check"
+                    android:duration="@integer/fab_vector_animation_mills"
+                    android:interpolator="@android:anim/accelerate_decelerate_interpolator"
+                    android:propertyName="pathData"
+                    android:valueFrom="M21,7L17,11L13,15L9,19L6.205,16.205L3.41,13.41L4.83,12L6.915,14.085L9,16.17L12.53,12.6433L16.06,9.1166L19.59,5.59z"
+                    android:valueTo="M19,13L13,13L13,19L11,19L11,13L5,13L5,11L11,11L11,5L13,5L13,11L19,11z"
+                    android:valueType="pathType"
+                    />
+        </aapt:attr>
+    </target>
+</animated-vector>

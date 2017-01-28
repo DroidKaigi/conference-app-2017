@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">DroidKaigi 2017</string>
 
+    <string name="lang_en">English</string>
+    <string name="lang_ja">Japanese</string>
+
     <string name="sessions">Sessions</string>
     <string name="map">Map</string>
     <string name="information">Information</string>
@@ -9,6 +12,13 @@
 
     <!-- Sessions -->
     <string name="session_minutes">(%1$d min)</string>
+    <string name="session_detail">Session Detail</string>
+    <string name="speaker">Speaker</string>
+    <string name="session_time_range">%1$s - %2$s (%3$d min)</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="slide_and_video">Slide＆Video</string>
+    <string name="send_feedback">Send feedback</string>
 
 
     <!-- Settings -->

@@ -6,14 +6,13 @@ import android.databinding.Bindable;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.view.View;
 
 import java.util.Date;
 
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.model.Session;
-import io.github.droidkaigi.confsched2017.model.Topic;
+import io.github.droidkaigi.confsched2017.model.TopicColor;
 import io.github.droidkaigi.confsched2017.util.DateUtil;
 
 public class SessionViewModel extends BaseObservable implements ViewModel {
@@ -46,7 +45,7 @@ public class SessionViewModel extends BaseObservable implements ViewModel {
     private int backgroundResId;
 
     @ColorRes
-    private int categoryColorResId;
+    private int topicColorResId;
 
     private boolean isClickable;
 
@@ -80,14 +79,14 @@ public class SessionViewModel extends BaseObservable implements ViewModel {
         this.checkVisibility = isMySession ? View.VISIBLE : View.GONE;
 
         if (session.isBreak()) {
-            this.isClickable = true;
+            this.isClickable = false;
             this.backgroundResId = R.drawable.bg_empty_session;
-            this.categoryColorResId = android.R.color.transparent;
+            this.topicColorResId = android.R.color.transparent;
             this.normalSessionItemVisibility = View.GONE;
         } else {
-            this.isClickable = false;
+            this.isClickable = true;
             this.backgroundResId = R.drawable.clickable_white;
-            this.categoryColorResId = decideCategoryColorResId(session.topic);
+            this.topicColorResId = TopicColor.from(session.topic).middleColorResId;
             this.normalSessionItemVisibility = View.VISIBLE;
         }
 
@@ -96,8 +95,9 @@ public class SessionViewModel extends BaseObservable implements ViewModel {
     private SessionViewModel(int rowSpan, int colSpan) {
         this.rowSpan = rowSpan;
         this.colSpan = colSpan;
+        this.isClickable = false;
         this.backgroundResId = R.drawable.bg_empty_session;
-        this.categoryColorResId = android.R.color.transparent;
+        this.topicColorResId = android.R.color.transparent;
         this.checkVisibility = View.GONE;
         this.normalSessionItemVisibility = View.GONE;
     }
@@ -108,31 +108,6 @@ public class SessionViewModel extends BaseObservable implements ViewModel {
 
     static SessionViewModel createEmpty(int rowSpan, int colSpan) {
         return new SessionViewModel(rowSpan, colSpan);
-    }
-
-    private int decideCategoryColorResId(@Nullable Topic topic) {
-        if (topic == null) {
-            return R.color.purple_alpha_15;
-        }
-
-        switch (topic.id) {
-            case Topic.ID_PRODUCTIVITY_AND_TOOLING:
-                return R.color.light_green_alpha_50;
-            case Topic.ID_ARCHITECTURE_AND_DEVELOPMENT_PROCESS_METHODOLOGY:
-                return R.color.yellow_alpha_50;
-            case Topic.ID_HARDWARE:
-                return R.color.red_alpha_50;
-            case Topic.ID_UI_AND_DESIGN:
-                return R.color.blue_alpha_50;
-            case Topic.ID_QUALITY_AND_SUSTAINABILITY:
-                return R.color.light_green_alpha_50;
-            case Topic.ID_PLATFORM:
-                return R.color.pink_alpha_50;
-            case Topic.ID_OTHER:
-                return R.color.purple_alpha_50;
-            default:
-                return R.color.purple_alpha_50;
-        }
     }
 
     private int decideColSpan(@NonNull Session session, int roomCount) {
@@ -221,8 +196,8 @@ public class SessionViewModel extends BaseObservable implements ViewModel {
         return speakerNameMaxLines;
     }
 
-    public int getCategoryColorResId() {
-        return categoryColorResId;
+    public int getTopicColorResId() {
+        return topicColorResId;
     }
 
     public int getNormalSessionItemVisibility() {

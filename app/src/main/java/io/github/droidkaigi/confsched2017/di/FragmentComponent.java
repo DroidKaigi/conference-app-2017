@@ -4,6 +4,7 @@ import dagger.Subcomponent;
 import io.github.droidkaigi.confsched2017.di.scope.FragmentScope;
 import io.github.droidkaigi.confsched2017.view.fragment.InformationFragment;
 import io.github.droidkaigi.confsched2017.view.fragment.MapFragment;
+import io.github.droidkaigi.confsched2017.view.fragment.SessionDetailFragment;
 import io.github.droidkaigi.confsched2017.view.fragment.SessionsFragment;
 import io.github.droidkaigi.confsched2017.view.fragment.SettingsFragment;
 
@@ -18,5 +19,7 @@ public interface FragmentComponent {
     void inject(InformationFragment fragment);
 
     void inject(SettingsFragment fragment);
+
+    void inject(SessionDetailFragment fragment);
 
 }

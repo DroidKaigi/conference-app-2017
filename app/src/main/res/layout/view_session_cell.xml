@@ -17,7 +17,7 @@
             android:background="@drawable/clickable_white"
             android:clickable="@{viewModel.clickable}"
             android:clipToPadding="false"
-            android:onClick="@{viewModel::showSessionDetail}"
+            android:onClick="@{viewModel.showSessionDetail}"
             android:paddingBottom="@dimen/space_4dp"
             android:paddingEnd="6dp"
             android:paddingLeft="6dp"
@@ -39,7 +39,7 @@
                 android:layout_marginStart="-6dp"
                 android:layout_marginTop="@dimen/space_minus_4dp"
                 android:visibility="@{viewModel.normalSessionItemVisibility}"
-                app:sessionCategoryColor="@{viewModel.categoryColorResId}"
+                app:sessionTopicColor="@{viewModel.topicColorResId}"
                 />
 
         <TextView

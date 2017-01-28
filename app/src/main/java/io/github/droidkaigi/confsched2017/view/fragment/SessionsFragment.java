@@ -32,6 +32,7 @@ import io.github.droidkaigi.confsched2017.databinding.FragmentSessionsBinding;
 import io.github.droidkaigi.confsched2017.databinding.ViewSessionCellBinding;
 import io.github.droidkaigi.confsched2017.model.Room;
 import io.github.droidkaigi.confsched2017.model.Session;
+import io.github.droidkaigi.confsched2017.view.activity.SessionDetailActivity;
 import io.github.droidkaigi.confsched2017.view.customview.ArrayRecyclerAdapter;
 import io.github.droidkaigi.confsched2017.view.customview.BindingHolder;
 import io.github.droidkaigi.confsched2017.viewmodel.SessionViewModel;
@@ -177,7 +178,7 @@ public class SessionsFragment extends BaseFragment implements SessionViewModel.C
 
     @Override
     public void showSessionDetail(@NonNull Session session) {
-        // TODO
+        startActivity(SessionDetailActivity.createIntent(getContext(), session.id));
     }
 
     public class SessionsAdapter extends ArrayRecyclerAdapter<SessionViewModel, BindingHolder<ViewSessionCellBinding>> {

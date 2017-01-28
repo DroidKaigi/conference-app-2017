@@ -2,21 +2,29 @@ package io.github.droidkaigi.confsched2017.view.helper;
 
 import com.squareup.picasso.Picasso;
 
+import net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout;
+
 import org.lucasr.twowayview.widget.SpannableGridLayoutManager;
 
+import android.content.res.ColorStateList;
 import android.databinding.BindingAdapter;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.text.TextUtils;
+import android.text.util.Linkify;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import io.github.droidkaigi.confsched2017.R;
+import io.github.droidkaigi.confsched2017.model.Topic;
 import io.github.droidkaigi.confsched2017.view.customview.SettingSwitchRowView;
+import io.github.droidkaigi.confsched2017.view.customview.transformation.CropCircleTransformation;
 
 public class DataBindingHelper {
 
@@ -39,6 +47,36 @@ public class DataBindingHelper {
                     .placeholder(placeholderResId)
                     .error(placeholderResId)
                     .into(imageView);
+        }
+    }
+
+    @BindingAdapter({"speakerImageUrl", "speakerImageSize"})
+    public static void setSpeakerImageUrlWithSize(ImageView imageView, @Nullable String imageUrl, float sizeInDimen) {
+        setImageUrlWithSize(imageView, imageUrl, sizeInDimen, R.drawable.ic_speaker_placeholder);
+    }
+
+    private static void setImageUrlWithSize(ImageView imageView, @Nullable String imageUrl, float sizeInDimen,
+            int placeholderResId) {
+        if (TextUtils.isEmpty(imageUrl)) {
+            imageView.setImageDrawable(ContextCompat.getDrawable(imageView.getContext(), placeholderResId));
+        } else {
+            final int size = Math.round(sizeInDimen);
+            imageView.setBackground(ContextCompat.getDrawable(imageView.getContext(), R.drawable.circle_border_grey200));
+            Picasso.with(imageView.getContext())
+                    .load(imageUrl)
+                    .resize(size, size)
+                    .centerInside()
+                    .placeholder(placeholderResId)
+                    .error(placeholderResId)
+                    .transform(new CropCircleTransformation())
+                    .into(imageView);
+        }
+    }
+
+    @BindingAdapter("textLinkify")
+    public static void setTextLinkify(TextView textView, boolean isLinkify) {
+        if (isLinkify) {
+            Linkify.addLinks(textView, Linkify.ALL);
         }
     }
 
@@ -84,10 +122,52 @@ public class DataBindingHelper {
         view.setBackgroundResource(backgroundResId);
     }
 
-    @BindingAdapter("sessionCategoryColor")
+    @BindingAdapter("sessionTopicColor")
     public static void setSessionCategoryColor(View view, @ColorRes int colorResId) {
         if (colorResId > 0) {
             view.setBackgroundColor(ResourcesCompat.getColor(view.getResources(), colorResId, null));
+        }
+    }
+
+    @BindingAdapter("topicVividColor")
+    public static void setTopicVividColor(CollapsingToolbarLayout view, @ColorRes int colorResId) {
+        view.setContentScrimColor(ContextCompat.getColor(view.getContext(), colorResId));
+    }
+
+    @BindingAdapter("topicVividColor")
+    public static void setTopicVividColor(TextView view, @ColorRes int colorResId) {
+        view.setTextColor(ContextCompat.getColor(view.getContext(), colorResId));
+    }
+
+    @BindingAdapter("topicVividColor")
+    public static void setTopicVividColor(FloatingActionButton view, @ColorRes int colorResId) {
+        view.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(view.getContext(), colorResId)));
+    }
+
+    @BindingAdapter("coverFadeBackground")
+    public static void setCoverFadeBackground(View view, @ColorRes int colorResId) {
+        view.setBackgroundResource(colorResId);
+    }
+
+    @BindingAdapter("sessionStatus")
+    public static void setSessionStatus(FloatingActionButton view, boolean isMySession) {
+        if (isMySession) {
+            view.setImageResource(R.drawable.avd_check_to_add_24dp);
+            view.setSelected(true);
+        } else {
+            view.setImageResource(R.drawable.avd_add_to_check_24dp);
+            view.setSelected(false);
+        }
+    }
+
+    @SuppressWarnings("unused")
+    @BindingAdapter("topic")
+    public static void setTopic(TextView textView, @Nullable Topic topic) {
+        if (topic != null) {
+            textView.setBackgroundResource(R.drawable.tag_language);
+            textView.setText(topic.name);
+        } else {
+            textView.setVisibility(View.INVISIBLE);
         }
     }
 
