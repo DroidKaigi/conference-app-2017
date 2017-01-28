@@ -2,6 +2,7 @@ package io.github.droidkaigi.confsched2017.repository.sessions;
 
 import android.support.annotation.NonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -30,9 +31,20 @@ public final class MySessionsLocalDataSource implements MySessionsDataSource {
 
     @Override
     public Single<List<MySession>> findAll() {
-        return mySessionRelation().selector().executeAsObservable().toList()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
+        // TODO
+        if (mySessionRelation().isEmpty()) {
+            return Single.create(emitter -> {
+                try {
+                    emitter.onSuccess(new ArrayList<>());
+                } catch (Exception e) {
+                    emitter.onError(e);
+                }
+            });
+        } else {
+            return mySessionRelation().selector().executeAsObservable().toList()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread());
+        }
     }
 
     @Override

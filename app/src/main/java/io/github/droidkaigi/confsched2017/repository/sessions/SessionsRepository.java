@@ -28,6 +28,7 @@ public class SessionsRepository implements SessionsDataSource {
         this.localDataSourse = localDataSource;
         this.remoteDataSourse = remoteDataSource;
         this.cachedSessions = new LinkedHashMap<>();
+        this.isDirty = true;
     }
 
     @Override

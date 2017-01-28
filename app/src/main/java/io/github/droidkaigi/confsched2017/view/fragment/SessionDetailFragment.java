@@ -19,8 +19,10 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 
+import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.databinding.FragmentSessionDetailBinding;
 import io.github.droidkaigi.confsched2017.repository.sessions.SessionsRepository;
+import io.github.droidkaigi.confsched2017.view.helper.AnimationHelper;
 import io.github.droidkaigi.confsched2017.viewmodel.SessionDetailViewModel;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -138,6 +140,8 @@ public class SessionDetailFragment extends BaseFragment implements SessionDetail
 
     @Override
     public void onClickFab() {
-        //
+        AnimationHelper.startVDAnimation(binding.fab,
+                R.drawable.avd_add_to_check_24dp, R.drawable.avd_check_to_add_24dp,
+                getResources().getInteger(R.integer.fab_vector_animation_mills));
     }
 }
