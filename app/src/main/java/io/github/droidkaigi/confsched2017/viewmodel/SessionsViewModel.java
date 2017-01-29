@@ -15,8 +15,10 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import io.github.droidkaigi.confsched2017.model.MySession;
 import io.github.droidkaigi.confsched2017.model.Room;
 import io.github.droidkaigi.confsched2017.model.Session;
+import io.github.droidkaigi.confsched2017.repository.sessions.MySessionsRepository;
 import io.github.droidkaigi.confsched2017.repository.sessions.SessionsRepository;
 import io.github.droidkaigi.confsched2017.util.DateUtil;
 import io.reactivex.Single;
@@ -25,13 +27,16 @@ public class SessionsViewModel implements ViewModel {
 
     private SessionsRepository sessionsRepository;
 
+    private MySessionsRepository mySessionsRepository;
+
     private List<Room> rooms;
 
     private List<Date> stimes;
 
     @Inject
-    SessionsViewModel(SessionsRepository sessionsRepository) {
+    SessionsViewModel(SessionsRepository sessionsRepository, MySessionsRepository mySessionsRepository) {
         this.sessionsRepository = sessionsRepository;
+        this.mySessionsRepository = mySessionsRepository;
     }
 
     @Override
@@ -40,15 +45,21 @@ public class SessionsViewModel implements ViewModel {
     }
 
     public Single<List<SessionViewModel>> getSessions(String languageId, Context context) {
-        return sessionsRepository.findAll(languageId)
-                .map(sessions -> {
+        return Single.zip(sessionsRepository.findAll(languageId),
+                mySessionsRepository.findAll(),
+                (sessions, mySessions) -> {
+                    final Map<Integer, MySession> mySessionMap = new LinkedHashMap<>();
+                    for (MySession mySession : mySessions) {
+                        mySessionMap.put(mySession.session.id, mySession);
+                    }
+
                     this.rooms = extractRooms(sessions);
                     this.stimes = extractStimes(sessions);
 
                     List<SessionViewModel> viewModels = Stream.of(sessions)
                             .map(session -> {
-                                // TODO Check the session is checked or not.
-                                return new SessionViewModel(session, context, rooms.size(), false);
+                                boolean isMySession = mySessionMap.containsKey(session.id);
+                                return new SessionViewModel(session, context, rooms.size(), isMySession);
                             })
                             .collect(Collectors.toList());
                     return adjustViewModels(viewModels, context);

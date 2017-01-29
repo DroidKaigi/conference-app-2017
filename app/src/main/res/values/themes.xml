@@ -40,9 +40,50 @@
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
+    <style name="AppTheme.ColoredStatusBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="colorAccent">@color/white_alpha_95</item>
+    </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar.LightGreen">
+        <item name="colorPrimary">@color/light_green</item>
+        <item name="colorPrimaryDark">@color/dark_light_green</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar.LightBlue">
+        <item name="colorPrimary">@color/light_blue</item>
+        <item name="colorPrimaryDark">@color/dark_light_blue</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar.Blue">
+        <item name="colorPrimary">@color/blue</item>
+        <item name="colorPrimaryDark">@color/dark_blue</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar.Purple">
+        <item name="colorPrimary">@color/purple</item>
+        <item name="colorPrimaryDark">@color/dark_purple</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar.Pink">
+        <item name="colorPrimary">@color/pink</item>
+        <item name="colorPrimaryDark">@color/dark_pink</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar.Red">
+        <item name="colorPrimary">@color/red</item>
+        <item name="colorPrimaryDark">@color/dark_red</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar.Yellow">
+        <item name="colorPrimary">@color/yellow</item>
+        <item name="colorPrimaryDark">@color/dark_yellow</item>
     </style>
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

@@ -39,7 +39,7 @@
                 android:layout_marginStart="-6dp"
                 android:layout_marginTop="@dimen/space_minus_4dp"
                 android:visibility="@{viewModel.normalSessionItemVisibility}"
-                app:sessionCategoryColor="@{viewModel.categoryColorResId}"
+                app:sessionTopicColor="@{viewModel.topicColorResId}"
                 />
 
         <TextView

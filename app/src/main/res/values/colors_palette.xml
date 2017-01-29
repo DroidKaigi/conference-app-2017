@@ -5,9 +5,20 @@
     <color name="purple">#7986cb</color>
     <color name="dark_purple">#6c78b6</color>
     <color name="ultra_light_blue">#89ecef</color>
+    <color name="dark_ultra_light_blue">#7bd4d7</color>
     <color name="light_blue">#4dd0e1</color>
+    <color name="dark_light_blue">#45bbca</color>
     <color name="light_green">#A3D68A</color>
+    <color name="dark_light_green">#92c07c</color>
     <color name="red">#ff5252</color>
+    <color name="dark_red">#e54949</color>
+    <color name="yellow">#ffeb3b</color>
+    <color name="dark_yellow">#e5d335</color>
+    <color name="blue">#4151DC</color>
+    <color name="dark_blue">#3a48c6</color>
+    <color name="pink">#DD8889</color>
+    <color name="dark_pink">#c67a7b</color>
+
 
     <!-- Pale -->
     <color name="purple_alpha_15">#2658037C</color>
@@ -30,6 +41,7 @@
     <color name="red_alpha_50">#80FF5252</color>
     <color name="yellow_alpha_50">#80ffeb3b</color>
 
+    
     <!-- Greyscales -->
     <color name="grey50">#FAFAFA</color>
     <color name="grey200">#EEEEEE</color>
