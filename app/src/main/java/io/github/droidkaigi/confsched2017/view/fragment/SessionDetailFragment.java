@@ -15,13 +15,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.Locale;
-
 import javax.inject.Inject;
 
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.databinding.FragmentSessionDetailBinding;
-import io.github.droidkaigi.confsched2017.repository.sessions.SessionsRepository;
 import io.github.droidkaigi.confsched2017.view.helper.AnimationHelper;
 import io.github.droidkaigi.confsched2017.viewmodel.SessionDetailViewModel;
 import io.reactivex.disposables.CompositeDisposable;
@@ -32,9 +29,6 @@ public class SessionDetailFragment extends BaseFragment implements SessionDetail
     private static final String TAG = SessionDetailFragment.class.getSimpleName();
 
     private static final String ARG_SESSION_ID = "session_id";
-
-    @Inject
-    SessionsRepository repository;
 
     @Inject
     SessionDetailViewModel viewModel;
@@ -56,13 +50,9 @@ public class SessionDetailFragment extends BaseFragment implements SessionDetail
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final int sessionId = getArguments().getInt(ARG_SESSION_ID);
-        final String languageId = Locale.getDefault().getLanguage().toLowerCase();
-        Disposable disposable = repository.find(sessionId, languageId)
+        Disposable disposable = viewModel.findSession(sessionId)
                 .subscribe(
-                        session -> {
-                            viewModel.setSession(session);
-                            initTheme();
-                        },
+                        session -> initTheme(),
                         throwable -> Log.e(TAG, "Failed to find session.", throwable)
                 );
         compositeDisposable.add(disposable);

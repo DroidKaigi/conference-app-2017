@@ -123,7 +123,7 @@ public class DataBindingHelper {
     }
 
     @BindingAdapter("sessionTopicColor")
-    public static void setSessionCategoryColor(View view, @ColorRes int colorResId) {
+    public static void setSessionTopicColor(View view, @ColorRes int colorResId) {
         if (colorResId > 0) {
             view.setBackgroundColor(ResourcesCompat.getColor(view.getResources(), colorResId, null));
         }

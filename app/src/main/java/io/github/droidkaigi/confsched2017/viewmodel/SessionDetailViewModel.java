@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 
 import java.util.Date;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -21,6 +22,7 @@ import io.github.droidkaigi.confsched2017.repository.sessions.MySessionsReposito
 import io.github.droidkaigi.confsched2017.repository.sessions.SessionsRepository;
 import io.github.droidkaigi.confsched2017.util.DateUtil;
 import io.github.droidkaigi.confsched2017.util.LocaleUtil;
+import io.reactivex.Maybe;
 
 public class SessionDetailViewModel extends BaseObservable implements ViewModel {
 
@@ -66,7 +68,7 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
         this.mySessionsRepository = mySessionsRepository;
     }
 
-    public void setSession(@NonNull Session session) {
+    private void setSession(@NonNull Session session) {
         this.session = session;
         this.sessionTitle = session.title;
         TopicColor topicColor = TopicColor.from(session.topic);
@@ -81,6 +83,15 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
         if (session.lang != null) {
             this.languageResId = decideLanguageResId(session.lang.toUpperCase());
         }
+    }
+
+    public Maybe<Session> findSession(int sessionId) {
+        final String languageId = Locale.getDefault().getLanguage().toLowerCase();
+        return sessionsRepository.find(sessionId, languageId)
+                .map(session -> {
+                    setSession(session);
+                    return session;
+                });
     }
 
     private int decideLanguageResId(@NonNull String languageId) {
@@ -124,22 +135,12 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
     public void onClickFab(@SuppressWarnings("unused") View view) {
         if (mySessionsRepository.isExist(session.id)) {
             mySessionsRepository.delete(session)
-                    .subscribe(
-                            (result) -> {
-                                Log.d(TAG, "Deleted my session");
-                            },
-                            throwable -> {
-                                Log.e(TAG, "Failed to delete my session", throwable);
-                            });
+                    .subscribe((result) -> Log.d(TAG, "Deleted my session"),
+                            throwable -> Log.e(TAG, "Failed to delete my session", throwable));
         } else {
             mySessionsRepository.save(session)
-                    .subscribe(
-                            () -> {
-                                Log.d(TAG, "Saved my session");
-                            },
-                            throwable -> {
-                                Log.e(TAG, "Failed to save my session", throwable);
-                            });
+                    .subscribe(() -> Log.d(TAG, "Saved my session"),
+                            throwable -> Log.e(TAG, "Failed to save my session", throwable));
         }
 
         if (callback != null) {
