@@ -54,4 +54,10 @@
 
     <dimen name="detail_header_height">200dp</dimen>
 
+
+    <!-- Information -->
+    <dimen name="info_logo_width">240dp</dimen>
+    <dimen name="info_social_icon_margin">@dimen/space_16dp</dimen>
+    <dimen name="info_social_icon_size">36dp</dimen>
+
 </resources>
