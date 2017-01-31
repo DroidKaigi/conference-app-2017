@@ -13,6 +13,8 @@
 
 ## Building and Contributing
 
+If you would like to contribute code you can do so through GitHub by forking the repository and sending a pull request (on a branch other than `master`).
+
 ### Environment Setup
 
 This app depends on several libraries and plugins so make sure to set them up correctly.
