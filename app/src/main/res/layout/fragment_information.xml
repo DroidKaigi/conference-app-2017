@@ -3,6 +3,14 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         >
 
+    <data>
+
+        <variable
+                name="viewModel"
+                type="io.github.droidkaigi.confsched2017.viewmodel.InformationViewModel"
+                />
+    </data>
+
     <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -59,6 +67,7 @@
                             android:id="@+id/img_twitter"
                             android:layout_width="@dimen/info_social_icon_size"
                             android:layout_height="@dimen/info_social_icon_size"
+                            android:onClick="@{viewModel::onClickTwitter}"
                             app:srcCompat="@drawable/ic_twitter_36_vector"
                             />
 
@@ -68,6 +77,7 @@
                             android:layout_height="@dimen/info_social_icon_size"
                             android:layout_marginLeft="@dimen/info_social_icon_margin"
                             android:layout_marginStart="@dimen/info_social_icon_margin"
+                            android:onClick="@{viewModel::onClickFacebook}"
                             app:srcCompat="@drawable/ic_facebook_36_vector"
                             />
 
@@ -77,6 +87,7 @@
                             android:layout_height="@dimen/info_social_icon_size"
                             android:layout_marginLeft="@dimen/info_social_icon_margin"
                             android:layout_marginStart="@dimen/info_social_icon_margin"
+                            android:onClick="@{viewModel::onClickGitHub}"
                             app:srcCompat="@drawable/ic_github_36_vector"
                             />
 
@@ -86,6 +97,7 @@
                             android:layout_height="@dimen/info_social_icon_size"
                             android:layout_marginLeft="@dimen/info_social_icon_margin"
                             android:layout_marginStart="@dimen/info_social_icon_margin"
+                            android:onClick="@{viewModel::onClickDroidKaigiWeb}"
                             android:src="@drawable/ic_droidkaigi_36"
                             />
 
@@ -95,6 +107,7 @@
                             android:layout_height="@dimen/info_social_icon_size"
                             android:layout_marginLeft="@dimen/info_social_icon_margin"
                             android:layout_marginStart="@dimen/info_social_icon_margin"
+                            android:onClick="@{viewModel::onClickYouTube}"
                             android:src="@drawable/ic_youtube_36"
                             />
 
@@ -105,6 +118,7 @@
             <io.github.droidkaigi.confsched2017.view.customview.InfoRowView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:onClick="@{viewModel::onClickSponsors}"
                     app:infoDescription="@string/info_sponsors_description"
                     app:infoTitle="@string/info_sponsors_title"
                     />
@@ -112,6 +126,7 @@
             <io.github.droidkaigi.confsched2017.view.customview.InfoRowView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:onClick="@{viewModel::onClickQuestionnaire}"
                     app:infoDescription="@string/info_questionnaire_description"
                     app:infoTitle="@string/info_questionnaire_title"
                     />
@@ -119,6 +134,7 @@
             <io.github.droidkaigi.confsched2017.view.customview.InfoRowView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:onClick="@{viewModel::onClickContributors}"
                     app:infoDescription="@string/info_contributors_description"
                     app:infoTitle="@string/info_contributors_title"
                     />
@@ -126,6 +142,7 @@
             <io.github.droidkaigi.confsched2017.view.customview.InfoRowView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:onClick="@{viewModel::onClickLicence}"
                     app:infoDescription="@string/info_licence_description"
                     app:infoTitle="@string/info_licence_title"
                     />
@@ -133,6 +150,8 @@
             <io.github.droidkaigi.confsched2017.view.customview.InfoRowView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:onClick="@{viewModel::onClickDevInfo}"
+                    app:infoRowDescription="@{viewModel.versionName}"
                     app:infoTitle="@string/info_dev_info_title"
                     />
 
