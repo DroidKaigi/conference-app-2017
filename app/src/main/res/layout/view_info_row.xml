@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/clickable"
+            android:orientation="vertical"
+            android:padding="@dimen/space_16dp"
+            >
+
+        <TextView
+                android:id="@+id/txt_info_title"
+                style="@style/InfoTitle"
+                />
+
+        <TextView
+                android:id="@+id/txt_info_description"
+                style="@style/InfoDescription"
+                android:layout_marginTop="@dimen/space_8dp"
+                />
+
+    </LinearLayout>
+
+</layout>

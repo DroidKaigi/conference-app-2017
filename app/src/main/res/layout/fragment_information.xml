@@ -1,19 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        >
 
-    <RelativeLayout
+    <data>
+
+        <variable
+                name="viewModel"
+                type="io.github.droidkaigi.confsched2017.viewmodel.InformationViewModel"
+                />
+    </data>
+
+    <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             >
 
-        <TextView
-                style="@style/TextTitle"
-                android:layout_width="wrap_content"
+        <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="@string/information"
-                />
+                android:divider="@drawable/divider"
+                android:orientation="vertical"
+                android:showDividers="middle"
+                >
 
-    </RelativeLayout>
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/space_16dp"
+                    android:layout_marginEnd="@dimen/space_16dp"
+                    android:layout_marginLeft="@dimen/space_16dp"
+                    android:layout_marginRight="@dimen/space_16dp"
+                    android:layout_marginStart="@dimen/space_16dp"
+                    android:layout_marginTop="@dimen/space_8dp"
+                    android:orientation="vertical"
+                    >
+
+                <ImageView
+                        android:layout_width="@dimen/info_logo_width"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/img_logo"
+                        />
+
+                <TextView
+                        style="@style/InfoDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_8dp"
+                        android:text="@string/info_about_droidkaigi"
+                        android:textAppearance="@style/TextBody1"
+                        android:textColor="@color/black"
+                        />
+
+                <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/space_16dp"
+                        android:orientation="horizontal"
+                        >
+
+                    <ImageView
+                            android:id="@+id/img_twitter"
+                            android:layout_width="@dimen/info_social_icon_size"
+                            android:layout_height="@dimen/info_social_icon_size"
+                            android:onClick="@{viewModel::onClickTwitter}"
+                            app:srcCompat="@drawable/ic_twitter_36_vector"
+                            />
+
+                    <ImageView
+                            android:id="@+id/img_facebook"
+                            android:layout_width="@dimen/info_social_icon_size"
+                            android:layout_height="@dimen/info_social_icon_size"
+                            android:layout_marginLeft="@dimen/info_social_icon_margin"
+                            android:layout_marginStart="@dimen/info_social_icon_margin"
+                            android:onClick="@{viewModel::onClickFacebook}"
+                            app:srcCompat="@drawable/ic_facebook_36_vector"
+                            />
+
+                    <ImageView
+                            android:id="@+id/img_github"
+                            android:layout_width="@dimen/info_social_icon_size"
+                            android:layout_height="@dimen/info_social_icon_size"
+                            android:layout_marginLeft="@dimen/info_social_icon_margin"
+                            android:layout_marginStart="@dimen/info_social_icon_margin"
+                            android:onClick="@{viewModel::onClickGitHub}"
+                            app:srcCompat="@drawable/ic_github_36_vector"
+                            />
+
+                    <ImageView
+                            android:id="@+id/img_web"
+                            android:layout_width="@dimen/info_social_icon_size"
+                            android:layout_height="@dimen/info_social_icon_size"
+                            android:layout_marginLeft="@dimen/info_social_icon_margin"
+                            android:layout_marginStart="@dimen/info_social_icon_margin"
+                            android:onClick="@{viewModel::onClickDroidKaigiWeb}"
+                            android:src="@drawable/ic_droidkaigi_36"
+                            />
+
+                    <ImageView
+                            android:id="@+id/img_youtube"
+                            android:layout_width="@dimen/info_social_icon_size"
+                            android:layout_height="@dimen/info_social_icon_size"
+                            android:layout_marginLeft="@dimen/info_social_icon_margin"
+                            android:layout_marginStart="@dimen/info_social_icon_margin"
+                            android:onClick="@{viewModel::onClickYouTube}"
+                            android:src="@drawable/ic_youtube_36"
+                            />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <io.github.droidkaigi.confsched2017.view.customview.InfoRowView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{viewModel::onClickSponsors}"
+                    app:infoDescription="@string/info_sponsors_description"
+                    app:infoTitle="@string/info_sponsors_title"
+                    />
+
+            <io.github.droidkaigi.confsched2017.view.customview.InfoRowView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{viewModel::onClickQuestionnaire}"
+                    app:infoDescription="@string/info_questionnaire_description"
+                    app:infoTitle="@string/info_questionnaire_title"
+                    />
+
+            <io.github.droidkaigi.confsched2017.view.customview.InfoRowView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{viewModel::onClickContributors}"
+                    app:infoDescription="@string/info_contributors_description"
+                    app:infoTitle="@string/info_contributors_title"
+                    />
+
+            <io.github.droidkaigi.confsched2017.view.customview.InfoRowView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{viewModel::onClickLicence}"
+                    app:infoDescription="@string/info_licence_description"
+                    app:infoTitle="@string/info_licence_title"
+                    />
+
+            <io.github.droidkaigi.confsched2017.view.customview.InfoRowView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{viewModel::onClickDevInfo}"
+                    app:infoRowDescription="@{viewModel.versionName}"
+                    app:infoTitle="@string/info_dev_info_title"
+                    />
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </layout>

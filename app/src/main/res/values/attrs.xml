@@ -6,4 +6,9 @@
         <attr name="settingDescription" format="string" />
     </declare-styleable>
 
+    <declare-styleable name="InfoRow">
+        <attr name="infoTitle" format="string" />
+        <attr name="infoDescription" format="string" />
+    </declare-styleable>
+
 </resources>

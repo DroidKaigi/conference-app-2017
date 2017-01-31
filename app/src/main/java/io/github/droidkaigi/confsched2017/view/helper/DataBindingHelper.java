@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.model.Topic;
+import io.github.droidkaigi.confsched2017.view.customview.InfoRowView;
 import io.github.droidkaigi.confsched2017.view.customview.SettingSwitchRowView;
 import io.github.droidkaigi.confsched2017.view.customview.transformation.CropCircleTransformation;
 
@@ -170,5 +171,15 @@ public class DataBindingHelper {
             textView.setVisibility(View.INVISIBLE);
         }
     }
+
+
+    //--------------------------------------------------------------
+    // Information
+    //--------------------------------------------------------------
+    @BindingAdapter("infoRowDescription")
+    public static void setInfoRowDescription(InfoRowView view, String description) {
+        view.setDescription(description);
+    }
+
 
 }
