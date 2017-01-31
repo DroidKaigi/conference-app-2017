@@ -57,7 +57,7 @@ Custom attributes are also used like below.
     app:speakerImageUrl="@{session.speaker.imageUrl}" />
 ```
 
-BindingAdapter like `speakerImageUrl` is written in `DataBindingAttributeUtil.java`.
+BindingAdapter like `speakerImageUrl` is written in `DataBindingHelper.java`.
 
 ```java
 @BindingAdapter("speakerImageUrl")
@@ -101,7 +101,7 @@ src/main/java/io/github/droidkaigi/confsched2017/di
 This project uses ORM library [Android-Orma](http://gfx.github.io/Android-Orma/).
 Android-Orma is a lightning-fast and annotation based wrapper library of SQLiteDatabase.
 
-Some model classes in `model` package have `@Table` annotation.
+Some model classes in `model` package having `@Table` annotation.
 
 ```java
 @Table
@@ -118,7 +118,7 @@ public class Session {
 }
 ```
 
-These classes are saved in database via `dao/SessionDao`.
+These classes are saved in database via `repository/XXXLocalDataSource`.
 To know more about Android-Orma, see [document](http://gfx.github.io/Android-Orma/).
 
 ### Task Management
