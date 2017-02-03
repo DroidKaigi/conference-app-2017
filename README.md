@@ -1,49 +1,44 @@
-# ![](app/src/main/res/mipmap-mdpi/ic_launcher.png) DroidKaigi 2017 official Android app [![Circle CI](https://circleci.com/gh/DroidKaigi/conference-app-2017/tree/master.svg?style=svg)](https://circleci.com/gh/DroidKaigi/conference-app-2017/tree/master) [![Stories in Ready](https://badge.waffle.io/DroidKaigi/conference-app-2017.svg?label=ready&title=Ready)](http://waffle.io/DroidKaigi/conference-app-2017)
+# ![](app/src/main/res/mipmap-mdpi/ic_launcher.png) DroidKaigi 2017 official Android app [![CircleCI](https://circleci.com/gh/DroidKaigi/conference-app-2017.svg?style=svg)](https://circleci.com/gh/DroidKaigi/conference-app-2017) [![Stories in Ready](https://badge.waffle.io/DroidKaigi/conference-app-2017.svg?label=ready&title=Ready)](http://waffle.io/DroidKaigi/conference-app-2017)
 
 [DroidKaigi 2017](https://droidkaigi.github.io/2017/en/) is a conference tailored for developers on 9th and 10th March 2017.
 
 [<img src="https://dply.me/rlr6yr/button/large" alt="Try it on your device via DeployGate">](https://dply.me/564onq#install)
 
-## Features
+
+# Features
+<img src="doc/screenshot_sessions.png" width="300" />  <img src="doc/screenshot_session_detail.png" width="300" />
 
 - View conference schedule and details of each session
 - Set notification for upcoming sessions on your preference
 - View a map
 - Search sessions and speakers
 
-## Building and Contributing
 
-If you would like to contribute code you can do so through GitHub by forking the repository and sending a pull request (on a branch other than `master`).
+# Contributing
+We use [waffle.io](https://waffle.io/DroidKaigi/conference-app-2017) to manage tasks. If you'd like to contribute to the project but are not sure where to start off, please look for issues labelled [welcome contribute)](https://github.com/DroidKaigi/conference-app-2017/labels/welcome%20contribute).
 
-### Environment Setup
+We've designated these issues as good candidates for easy contribution. You can always fork the repository and send a pull request (on a branch other than `master`).
 
+
+# Development Environment
 This app depends on several libraries and plugins so make sure to set them up correctly.
 
-#### Java8 & retrolambda support
-
+## Java8 & retrolambda support
 This project uses Java8 and [retrolambda](https://github.com/orfjackal/retrolambda). If you haven't set up Java8 yet, install it from [here](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html), and set env `JAVA_HOME` or `JAVA8_HOME`.
 
-#### Kotlin
-
+## Kotlin
 Tests are written in Kotlin!
 
-### Architecture
-
-The app is built upon MVVM architecture using DataBinding, dependency injection and OR-mapper.
-
-#### DataBinding
-
+## DataBinding
 This project tries to use [DataBinding](http://developer.android.com/intl/ja/tools/data-binding/guide.html).
 
 ```xml
 <TextView
-    android:id="@+id/txt_place"
-    style="@style/Tag"
-    android:layout_marginEnd="@dimen/spacing_xsmall"
-    android:layout_marginRight="@dimen/spacing_xsmall"
-    android:layout_marginTop="@dimen/spacing_xsmall"
-    android:background="@drawable/tag_language"
-    android:text="@{session.place.name}" /
+  android:id="@+id/txt_title"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:maxLines="@{viewModel.titleMaxLines}"
+  android:text="@{viewModel.title}" />
 ```
 
 Custom attributes are also used like below.
@@ -51,34 +46,33 @@ Custom attributes are also used like below.
 ```xml
 <ImageView
     android:id="@+id/img_speaker"
-    android:layout_width="@dimen/user_image_small"
-    android:layout_height="@dimen/user_image_small"
-    android:layout_below="@id/tag_container"
-    android:layout_marginTop="@dimen/spacing_small"
-    android:contentDescription="@string/speaker"
-    app:speakerImageUrl="@{session.speaker.imageUrl}" />
+    android:layout_width="@dimen/image_size"
+    android:layout_height="@dimen/image_size"
+    app:photoImageUrl="@{viewModel.imageUrl}" />
 ```
 
-BindingAdapter like `speakerImageUrl` is written in `DataBindingHelper.java`.
+BindingAdapter like `photoImageUrl` is written in `DataBindingHelper.java`.
 
 ```java
-@BindingAdapter("speakerImageUrl")
-public static void setSpeakerImageUrl(ImageView imageView, @Nullable String imageUrl) {
-    if (TextUtils.isEmpty(imageUrl)) {
-        imageView.setImageDrawable(ContextCompat.getDrawable(imageView.getContext(), R.drawable.ic_speaker_placeholder));
-    } else {
-        Picasso.with(imageView.getContext())
-                .load(imageUrl)
-                .placeholder(R.drawable.ic_speaker_placeholder)
-                .error(R.drawable.ic_speaker_placeholder)
-                .transform(new CropCircleTransformation())
-                .into(imageView);
-    }
+@BindingAdapter("photoImageUrl")
+public static void setPhotoImageUrl(ImageView imageView, @Nullable String imageUrl) {
+  setImageUrl(imageView, imageUrl, R.color.grey200);
+}
+
+private static void setImageUrl(ImageView imageView, @Nullable String imageUrl, @DrawableRes int placeholderResId) {
+  if (TextUtils.isEmpty(imageUrl)) {
+    imageView.setImageDrawable(ContextCompat.getDrawable(imageView.getContext(), placeholderResId));
+  } else {
+    Picasso.with(imageView.getContext())
+           .load(imageUrl)
+           .placeholder(placeholderResId)
+           .error(placeholderResId)
+           .into(imageView);
+  }
 }
 ```
 
-#### Dagger2
-
+## Dagger2
 This project uses DI library [Dagger2](http://google.github.io/dagger/).
 See classes in `di` package.
 
@@ -86,20 +80,19 @@ See classes in `di` package.
 src/main/java/io/github/droidkaigi/confsched2017/di
 |
 |--scope
-|  |--ActivityScope.java : Scope annotation for objects being alive within activity lifecycle
-|  |--FragmentScope.java : Scope annotation for objects being alive within fragment lifecycle
+|  |--ActivityScope.java  : Scope annotation for objects being alive within activity lifecycle
+|  |--FragmentScope.java  : Scope annotation for objects being alive within fragment lifecycle
 |
-|--AndroidModule.java    : Provides system services(e.g. PackageManager, ActivityManager)
-|--ActivityComponent.java:
-|--ActivityModule.java   : Provides activity-scoped objects
-|--AppComponent.java     :
-|--AppModule.java        : Provides application-scoped objects(e.g. SharedPreferences, HttpClient)
-|--FragmentComponent.java:
-|--FragmentModule.java   : Provides fragment-scoped objects
+|--AndroidModule.java     : Provides system services(e.g. PackageManager, ActivityManager)
+|--ActivityComponent.java :
+|--ActivityModule.java    : Provides activity-scoped objects
+|--AppComponent.java      :
+|--AppModule.java         : Provides application-scoped objects(e.g. SharedPreferences, HttpClient)
+|--FragmentComponent.java :
+|--FragmentModule.java    : Provides fragment-scoped objects
 ```
 
-#### Orma
-
+## Orma
 This project uses ORM library [Android-Orma](http://gfx.github.io/Android-Orma/).
 Android-Orma is a lightning-fast and annotation based wrapper library of SQLiteDatabase.
 
@@ -120,19 +113,88 @@ public class Session {
 }
 ```
 
-These classes are saved in database via `repository/XXXLocalDataSource`.
+These classes are saved and updated in database via `repository/XXXLocalDataSource`.
 To know more about Android-Orma, see [document](http://gfx.github.io/Android-Orma/).
 
-### Task Management
 
-We use [waffle.io](https://waffle.io/DroidKaigi/conference-app-2017) to manage tasks.
+# Architecture
+This app uses an simple MVVM (Model-View-ViewModel) architecture using DataBinding, dependency injection and OR-mapper.
 
-If you'd like to contribute to the project but are not sure where to start off, please look for issues labelled [welcome contribute)](https://github.com/DroidKaigi/conference-app-2017/labels/welcome%20contribute).
+![](doc/architecture.png)
 
-We've designated these issues as good candidates for easy contribution.
+## Model
+- In `model` package.
+- These models are POJO.
+- They are converted from API json response via [Retrofit2](https://square.github.io/retrofit/), and stored to Database via [Android-Orma](https://github.com/gfx/Android-Orma).
 
-## Credit
+```java
+@Table
+public class Speaker {
 
+  @PrimaryKey(auto = false)
+  @Column(indexed = true)
+  @SerializedName("id")
+  public int id;
+
+  @Column(indexed = true)
+  @SerializedName("name")
+  public String name;
+
+  @Column
+  @Nullable
+  @SerializedName("image_url")
+  public String imageUrl;
+
+  ...
+}
+```
+
+## View
+- In `view` package.
+- "View" is not only layout xml file. Activities and Fragments are also "View".
+- "View" is refreshed by viewModel when `onResume()` is called.
+
+## ViewModel
+- In `viewmodel` package
+- "ViewModel" has all properties which is shown in "View".
+- They are bind by DataBinding. In this app, `setText()` or `setImageResource()`, `setVisibility()` are not used.
+- The events such as `OnClickListener()` are also bind by DataBinding.
+
+```xml
+<RelativeLayout
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:background="@drawable/clickable_white"
+  android:clickable="@{viewModel.clickable}"
+  android:onClick="@{viewModel::showSessionDetail}"
+  app:sessionCellBackground="@{viewModel.backgroundResId}"
+  app:twowayview_colSpan="@{viewModel.colSpan}"
+  app:twowayview_rowSpan="@{viewModel.rowSpan}">
+
+  <View
+    android:id="@+id/categoryBorder"
+    android:layout_width="match_parent"
+    android:layout_height="3dp"
+    android:visibility="@{viewModel.normalSessionItemVisibility}"
+    app:sessionTopicColor="@{viewModel.topicColorResId}" />
+    ...
+
+</RelativeLayout>
+```
+
+- "ViewModel" has business logic.
+- If it's necessary to load data, "ViewModel" uses `Repository` class or `DefaultPref` class which are provided by [Dagger2](https://github.com/google/dagger).
+
+```java
+@Inject
+SessionsViewModel(SessionsRepository sessionsRepository, MySessionsRepository mySessionsRepository) {
+  this.sessionsRepository = sessionsRepository;
+  this.mySessionsRepository = mySessionsRepository;
+}
+```
+
+
+# Credit
 This project uses some modern Android libraries.
 
 - Android Support Libraries
@@ -144,27 +206,27 @@ This project uses some modern Android libraries.
   - Design
   - RecyclerView
   - CustomTabs
-- Firebase, Dagger2 and Gson - Google
-- Retrofit2, Picasso, OkHttp3, AssertJ and LeakCanary - Square
-- Android-Orma - gfx
-- TwoWayView - Lucas Rocha
-- RxJava2 and RxAndroid2 - ReactiveX
-- Lightweight Stream API - Victor Melnik
-- Timber - JakeWharton
-- Calligraphy - Christopher Jenkins
-- Stetho - Facebook
-- PermissionsDispatcher - hotchemi
-- kvs-schema - rejasupotaro
-- Robolectric - Robolectric
-- Mockito - Mockito
-- Kotlin - JetBrains
-- Knit - Taro Nagasawa
-- Kmockito - sys1yagi
+- [Firebase](https://firebase.google.com/), [Dagger2](http://google.github.io/dagger/) and [Gson](https://github.com/google/gson) - Google
+- [Retrofit2](http://square.github.io/retrofit/), [Picasso](http://square.github.io/picasso/), [OkHttp3](https://github.com/square/okhttp), [AssertJ](https://github.com/square/assertj-android) and [LeakCanary](https://github.com/square/leakcanary) - Square
+- [Android-Orma](https://github.com/gfx/Android-Orma) - gfx
+- [TwoWayView](https://github.com/lucasr/twoway-view) - Lucas Rocha
+- [RxJava2](https://github.com/ReactiveX/RxJava) and [RxAndroid2]([RxAndroid](https://github.com/ReactiveX/RxAndroid)) - ReactiveX
+- [Lightweight Stream API](https://github.com/aNNiMON/Lightweight-Stream-API) - Victor Melnik
+- [Timber](https://github.com/JakeWharton/timber) - JakeWharton
+- [Calligraphy](https://github.com/chrisjenx/Calligraphy) - Christopher Jenkins
+- [Stetho](http://facebook.github.io/stetho/) - Facebook
+- [PermissionsDispatcher](https://github.com/hotchemi/PermissionsDispatcher) - hotchemi
+- [kvs-schema](https://github.com/rejasupotaro/kvs-schema) - rejasupotaro
+- [Robolectric](http://robolectric.org/) - Robolectric
+- [Mockito](http://site.mockito.org/) - Mockito
+- [Kotlin](https://kotlinlang.org/) - JetBrains
+- [Knit](https://github.com/ntaro/knit) - Taro Nagasawa
+- [Kmockito](https://github.com/sys1yagi/kmockito) - sys1yagi
 
-## License
 
+# License
 ```
-Copyright 2017 Yusuke Konishi
+Copyright 2017 DroidKaigi
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
