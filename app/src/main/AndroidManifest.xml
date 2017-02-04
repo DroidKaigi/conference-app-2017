@@ -36,6 +36,14 @@
                 android:label="@string/session_detail"
                 android:theme="@style/AppTheme.NoActionBar"
                 />
+
+        <activity
+                android:name=".view.activity.SponsorsActivity"
+                android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+                android:exported="false"
+                android:label="@string/sponsors"
+                android:theme="@style/AppTheme.ColoredStatusBar"
+                />
     </application>
 
 </manifest>

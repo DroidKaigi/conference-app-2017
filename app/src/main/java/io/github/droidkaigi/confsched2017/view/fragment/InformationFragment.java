@@ -12,6 +12,7 @@ import javax.inject.Inject;
 
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.databinding.FragmentInformationBinding;
+import io.github.droidkaigi.confsched2017.view.activity.SponsorsActivity;
 import io.github.droidkaigi.confsched2017.viewmodel.InformationViewModel;
 
 public class InformationFragment extends BaseFragment implements InformationViewModel.Callback {
@@ -53,7 +54,7 @@ public class InformationFragment extends BaseFragment implements InformationView
 
     @Override
     public void showSponsorsPage() {
-        // TODO
+        SponsorsActivity.start(getActivity());
     }
 
     @Override

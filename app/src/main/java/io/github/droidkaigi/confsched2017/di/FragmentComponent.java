@@ -7,6 +7,7 @@ import io.github.droidkaigi.confsched2017.view.fragment.MapFragment;
 import io.github.droidkaigi.confsched2017.view.fragment.SessionDetailFragment;
 import io.github.droidkaigi.confsched2017.view.fragment.SessionsFragment;
 import io.github.droidkaigi.confsched2017.view.fragment.SettingsFragment;
+import io.github.droidkaigi.confsched2017.view.fragment.SponsorsFragment;
 
 @FragmentScope
 @Subcomponent(modules = FragmentModule.class)
@@ -21,5 +22,7 @@ public interface FragmentComponent {
     void inject(SettingsFragment fragment);
 
     void inject(SessionDetailFragment fragment);
+
+    void inject(SponsorsFragment fragment);
 
 }

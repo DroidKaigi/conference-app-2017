@@ -60,9 +60,10 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         ActionBar bar = getSupportActionBar();
         if (bar != null) {
+            bar.setTitle(toolbar.getTitle());
             bar.setDisplayHomeAsUpEnabled(true);
             bar.setDisplayShowHomeEnabled(true);
-            bar.setDisplayShowTitleEnabled(false);
+            bar.setDisplayShowTitleEnabled(true);
             bar.setHomeButtonEnabled(true);
         }
     }

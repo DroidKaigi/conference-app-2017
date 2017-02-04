@@ -120,7 +120,7 @@
                     android:layout_height="wrap_content"
                     android:onClick="@{viewModel::onClickSponsors}"
                     app:infoDescription="@string/info_sponsors_description"
-                    app:infoTitle="@string/info_sponsors_title"
+                    app:infoTitle="@string/sponsors"
                     />
 
             <io.github.droidkaigi.confsched2017.view.customview.InfoRowView

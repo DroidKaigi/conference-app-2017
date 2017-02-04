@@ -33,7 +33,6 @@
 
     <!-- Information -->
     <string name="info_about_droidkaigi">DroidKaigi is an Android conference for Engineers to share and communicate Android technical information.</string>
-    <string name="info_sponsors_title">Sponsors</string>
     <string name="info_sponsors_description">DroidKaigi is supported by many sponsors. Thank you so much!</string>
     <string name="info_questionnaire_title">Questionnaire</string>
     <string name="info_questionnaire_description">Pleare cooperate with the questionnaire to improve DroidKaigi.</string>
@@ -42,5 +41,9 @@
     <string name="info_licence_title">Licence</string>
     <string name="info_licence_description">This app uses many awesome libraries. Thank you so much!</string>
     <string name="info_dev_info_title">Dev info</string>
+
+
+    <!-- Sponsors -->
+    <string name="sponsors">Sponsors</string>
 
 </resources>
