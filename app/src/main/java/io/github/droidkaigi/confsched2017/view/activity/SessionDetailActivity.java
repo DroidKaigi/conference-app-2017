@@ -26,7 +26,7 @@ public class SessionDetailActivity extends BaseActivity {
         getComponent().inject(this);
 
         final int sessionId = getIntent().getIntExtra(EXTRA_SESSION_ID, 0);
-        replaceFragment(SessionDetailFragment.create(sessionId), R.id.content_view);
+        replaceFragment(SessionDetailFragment.newInstance(sessionId), R.id.content_view);
     }
 
 }

@@ -119,7 +119,9 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
     }
 
     public void onClickFeedbackButton(@SuppressWarnings("unused") View view) {
-        //
+        if (callback != null) {
+            callback.onClickFeedback();
+        }
     }
 
     public void onClickSlideIcon(@SuppressWarnings("unused") View view) {
@@ -201,5 +203,7 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
     public interface Callback {
 
         void onClickFab();
+
+        void onClickFeedback();
     }
 }
