@@ -6,6 +6,7 @@ import io.github.droidkaigi.confsched2017.di.scope.ActivityScope;
 import io.github.droidkaigi.confsched2017.view.activity.ContributorsActivity;
 import io.github.droidkaigi.confsched2017.view.activity.MainActivity;
 import io.github.droidkaigi.confsched2017.view.activity.SessionDetailActivity;
+import io.github.droidkaigi.confsched2017.view.activity.SessionFeedbackActivity;
 import io.github.droidkaigi.confsched2017.view.activity.SponsorsActivity;
 
 @ActivityScope
@@ -19,6 +20,8 @@ public interface ActivityComponent {
     void inject(SponsorsActivity activity);
 
     void inject(ContributorsActivity activity);
+
+    void inject(SessionFeedbackActivity activity);
 
     FragmentComponent plus(FragmentModule module);
 }

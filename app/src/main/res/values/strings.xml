@@ -49,4 +49,8 @@
     <!-- Contributors -->
     <string name="contributors">Contributors</string>
 
+
+    <!-- Session feedback -->
+    <string name="session_feedback">Session feedback</string>
+
 </resources>

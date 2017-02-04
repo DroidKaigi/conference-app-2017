@@ -6,6 +6,7 @@ import io.github.droidkaigi.confsched2017.view.fragment.ContributorsFragment;
 import io.github.droidkaigi.confsched2017.view.fragment.InformationFragment;
 import io.github.droidkaigi.confsched2017.view.fragment.MapFragment;
 import io.github.droidkaigi.confsched2017.view.fragment.SessionDetailFragment;
+import io.github.droidkaigi.confsched2017.view.fragment.SessionFeedbackFragment;
 import io.github.droidkaigi.confsched2017.view.fragment.SessionsFragment;
 import io.github.droidkaigi.confsched2017.view.fragment.SettingsFragment;
 import io.github.droidkaigi.confsched2017.view.fragment.SponsorsFragment;
@@ -27,5 +28,7 @@ public interface FragmentComponent {
     void inject(SponsorsFragment fragment);
 
     void inject(ContributorsFragment fragment);
+
+    void inject(SessionFeedbackFragment fragment);
 
 }

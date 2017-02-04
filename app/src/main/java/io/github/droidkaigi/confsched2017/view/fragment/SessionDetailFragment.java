@@ -19,6 +19,7 @@ import javax.inject.Inject;
 
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.databinding.FragmentSessionDetailBinding;
+import io.github.droidkaigi.confsched2017.view.activity.SessionFeedbackActivity;
 import io.github.droidkaigi.confsched2017.view.helper.AnimationHelper;
 import io.github.droidkaigi.confsched2017.viewmodel.SessionDetailViewModel;
 import io.reactivex.disposables.CompositeDisposable;
@@ -36,9 +37,11 @@ public class SessionDetailFragment extends BaseFragment implements SessionDetail
     @Inject
     CompositeDisposable compositeDisposable;
 
+    private int sessionId;
+
     private FragmentSessionDetailBinding binding;
 
-    public static SessionDetailFragment create(int sessionId) {
+    public static SessionDetailFragment newInstance(int sessionId) {
         SessionDetailFragment fragment = new SessionDetailFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_SESSION_ID, sessionId);
@@ -49,7 +52,7 @@ public class SessionDetailFragment extends BaseFragment implements SessionDetail
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final int sessionId = getArguments().getInt(ARG_SESSION_ID);
+        sessionId = getArguments().getInt(ARG_SESSION_ID);
         Disposable disposable = viewModel.findSession(sessionId)
                 .subscribe(
                         session -> initTheme(),
@@ -133,5 +136,10 @@ public class SessionDetailFragment extends BaseFragment implements SessionDetail
         AnimationHelper.startVDAnimation(binding.fab,
                 R.drawable.avd_add_to_check_24dp, R.drawable.avd_check_to_add_24dp,
                 getResources().getInteger(R.integer.fab_vector_animation_mills));
+    }
+
+    @Override
+    public void onClickFeedback() {
+        startActivity(SessionFeedbackActivity.createIntent(getContext(), sessionId));
     }
 }
