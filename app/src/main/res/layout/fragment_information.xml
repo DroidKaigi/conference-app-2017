@@ -136,7 +136,7 @@
                     android:layout_height="wrap_content"
                     android:onClick="@{viewModel::onClickContributors}"
                     app:infoDescription="@string/info_contributors_description"
-                    app:infoTitle="@string/info_contributors_title"
+                    app:infoTitle="@string/contributors"
                     />
 
             <io.github.droidkaigi.confsched2017.view.customview.InfoRowView
