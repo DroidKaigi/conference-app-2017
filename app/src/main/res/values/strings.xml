@@ -1,4 +1,11 @@
 <resources>
+    <!-- Translations are managed at this page: https://droidkaigi2017.oneskyapp.com/
+
+     DO NOT MANUALLY EDIT TRANSLATIONS.
+
+     -->
+
+    <!-- App name. -->
     <string name="app_name">DroidKaigi 2017</string>
 
     <string name="lang_en">English</string>
@@ -37,6 +44,7 @@
     <string name="info_questionnaire_title">Questionnaire</string>
     <string name="info_questionnaire_description">Pleare cooperate with the questionnaire to improve DroidKaigi.</string>
     <string name="info_contributors_description">Awesome contributors for this app. you can contribute from https://github.com/DroidKaigi/conference-app-2017</string>
+    <string name="info_help_translate">Your contribution is much appreciated! Tap here to contribute.</string>
     <string name="info_licence_title">Licence</string>
     <string name="info_licence_description">This app uses many awesome libraries. Thank you so much!</string>
     <string name="info_dev_info_title">Dev info</string>
@@ -49,6 +57,7 @@
     <!-- Contributors -->
     <string name="contributors">Contributors</string>
 
+    <string name="help_translate">Help Translate</string>
 
     <!-- Session feedback -->
     <string name="session_feedback">Session feedback</string>

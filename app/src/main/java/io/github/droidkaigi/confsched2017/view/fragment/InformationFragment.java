@@ -1,7 +1,9 @@
 package io.github.droidkaigi.confsched2017.view.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -66,6 +68,14 @@ public class InformationFragment extends BaseFragment implements InformationView
     @Override
     public void showContributorsPage() {
         ContributorsActivity.start(getActivity());
+    }
+
+    @Override
+    public void showTranslationsPage() {
+        Uri uri = Uri.parse("https://droidkaigi2017.oneskyapp.com/collaboration");
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        if (intent.resolveActivity(getContext().getPackageManager()) != null)
+            startActivity(intent);
     }
 
     @Override
