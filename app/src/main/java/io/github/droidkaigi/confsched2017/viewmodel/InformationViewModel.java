@@ -44,6 +44,12 @@ public final class InformationViewModel implements ViewModel {
         }
     }
 
+    public void onClickHelpTranslate(@SuppressWarnings("unused") View view) {
+        if (callback != null) {
+            callback.showTranslationsPage();
+        }
+    }
+
     public void onClickLicence(@SuppressWarnings("unused") View view) {
         if (callback != null) {
             callback.showLicencePage();
@@ -98,6 +104,8 @@ public final class InformationViewModel implements ViewModel {
         void showQuesionnairePage();
 
         void showContributorsPage();
+
+        void showTranslationsPage();
 
         void showLicencePage();
 
