@@ -185,7 +185,7 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
     }
 
     private void registerAlarm() {
-        long time = System.currentTimeMillis() + 5000L; // TODO 5 sec after for development
+        long time = this.session.stime.getTime() - 10 * 60 * 1000;
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, time, createAlarmIntent());
     }
