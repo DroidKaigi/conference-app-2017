@@ -12,7 +12,7 @@ import android.util.Log;
 
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.pref.DefaultPrefs;
-import io.github.droidkaigi.confsched2017.view.activity.SessionDetailActivity;
+import io.github.droidkaigi.confsched2017.view.activity.MainActivity;
 
 public class NotificationReceiver extends BroadcastReceiver {
 
@@ -41,8 +41,9 @@ public class NotificationReceiver extends BroadcastReceiver {
         int sessionId = intent.getIntExtra(KEY_SESSION_ID, 0);
         String title = intent.getStringExtra(KEY_TITLE);
         String text = intent.getStringExtra(KEY_TEXT);
-        Intent intent1 = SessionDetailActivity.createIntent(context, sessionId);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent1, 0);
+        Intent openIntent = new Intent(context, MainActivity.class);
+        openIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, openIntent, 0);
         Notification notification = new NotificationCompat.Builder(context)
                 .setTicker(title)
                 .setContentTitle(title)
