@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<resources>
+    <string name="lang_en">英語</string>
+    <string name="lang_ja">日本語</string>
+    <string name="sessions">セッション</string>
+    <string name="map">地図</string>
+    <string name="information">情報</string>
+    <string name="settings">設定</string>
+    <!-- Sessions -->
+    <string name="session_minutes">(%1$d分)</string>
+    <string name="session_detail">セッション詳細</string>
+    <string name="speaker">スピーカー</string>
+    <string name="session_time_range">%1$s〜%2$s (%3$d分)</string>
+    <string name="title">タイトル</string>
+    <string name="description">内容</string>
+    <string name="slide_and_video">資料＆動画</string>
+    <string name="send_feedback">フィードバックを送る</string>
+    <!-- Settings -->
+    <string name="settings_notification_group">通知</string>
+    <string name="settings_notification">通知</string>
+    <string name="settings_notification_description">このアプリで通知を受け取るかどうかを選択できます。</string>
+    <string name="settings_heads_up_notification">ヘッドアップ通知</string>
+    <string name="settings_heads_up_notification_description">ヘッドアップ通知を受け取るかどうかを選択できます。</string>
+    <string name="settings_local_time">現在地の時間を表示する</string>
+    <string name="settings_local_time_description">DroidKaigiの現地時間の代わりに現在地の時間を使用します。</string>
+    <!-- Information -->
+    <string name="info_about_droidkaigi">DroidKaigiは、エンジニアがAndroid技術情報の共有とコミュニケーションを取ることを目的にしたカンファレンスです。</string>
+    <string name="info_sponsors_description">DroidKaigiは多くのスポンサーによってサポートされています。 ありがとうございます！</string>
+    <string name="info_questionnaire_title">アンケート</string>
+    <string name="info_questionnaire_description">DroidKaigiをより良くするためにアンケートにご協力ください。</string>
+    <string name="info_licence_title">ライセンス</string>
+    <string name="info_licence_description">このアプリは多くの素晴らしいライブラリを利用してます。作者のみなさま、ありがとうございます！</string>
+    <string name="info_dev_info_title">開発情報</string>
+    <!-- Sponsors -->
+    <string name="sponsors">スポンサー</string>
+    <!-- Contributors -->
+    <string name="contributors">コントリビュータ</string>
+    <!-- Session feedback -->
+    <string name="session_feedback">セッションフィードバック</string>
+    <string name="info_sponsors_title">スポンサー</string>
+    <string name="info_contributors_title">コントリビュータ</string>
+</resources>
