@@ -51,7 +51,7 @@ public class DroidKaigiClient {
 
     interface DroidKaigiService {
 
-        @GET(SESSIONS_API_ROUTES + "sessions.json?token=ABNd3k5hfVr6unDSgoRxdCFuWiTFADkrks5YlmbFwA%3D%3D")
+        @GET(SESSIONS_API_ROUTES + "sessions.json?token=ABNd3lUiEqKMb-LLwYsWE0h312DBQRgFks5YoFwfwA%3D%3D")
         Single<List<Session>> getSessionsJa();
     }
 }

@@ -8,6 +8,8 @@
     <!-- App name. -->
     <string name="app_name">DroidKaigi 2017</string>
 
+    <string name="close">Close</string>
+
     <string name="lang_en">English</string>
     <string name="lang_ja">Japanese</string>
 
@@ -61,5 +63,10 @@
 
     <!-- Session feedback -->
     <string name="session_feedback">Session feedback</string>
+
+
+    <!-- Search -->
+    <string name="search">Search</string>
+    <string name="search_hint">Search by keywords</string>
 
 </resources>

@@ -35,6 +35,7 @@
 
 
     <!-- Component -->
+    <dimen name="user_image">36dp</dimen>
     <dimen name="user_image_large">48dp</dimen>
     <dimen name="bottom_nav_height">56dp</dimen>
 
