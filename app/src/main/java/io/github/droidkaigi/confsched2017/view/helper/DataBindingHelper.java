@@ -8,6 +8,8 @@ import org.lucasr.twowayview.widget.SpannableGridLayoutManager;
 
 import android.content.res.ColorStateList;
 import android.databinding.BindingAdapter;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
@@ -181,5 +183,18 @@ public class DataBindingHelper {
         view.setDescription(description);
     }
 
+
+    //--------------------------------------------------------------
+    // SearchResult
+    //--------------------------------------------------------------
+    @BindingAdapter("searchResultIcon")
+    public static void setSearchResultIcon(TextView textView, @DrawableRes int iconResId) {
+        Drawable icon = ContextCompat.getDrawable(textView.getContext(), iconResId);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            textView.setCompoundDrawablesRelativeWithIntrinsicBounds(icon, null, null, null);
+        } else {
+            textView.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
+        }
+    }
 
 }

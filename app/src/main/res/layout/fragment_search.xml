@@ -10,9 +10,11 @@
     </data>
 
     <RelativeLayout
+            android:id="@+id/cover"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/black_alpha_87"
+            android:background="@color/black_alpha_54"
+            android:onClick="@{viewModel::onClickCover}"
             >
 
         <android.support.v7.widget.RecyclerView
