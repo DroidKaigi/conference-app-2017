@@ -22,15 +22,13 @@ import retrofit2.http.GET;
 @Singleton
 public class DroidKaigiClient {
 
-    private static final String SESSIONS_API_ROUTES = "/DroidKaigi/2017/master/docs/";
-
     private final DroidKaigiService droidKaigiService;
 
     @Inject
     public DroidKaigiClient(OkHttpClient client) {
         Retrofit droidkaigiRetrofit = new Retrofit.Builder()
                 .client(client)
-                .baseUrl("https://raw.githubusercontent.com")
+                .baseUrl("https://droidkaigi.github.io")
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(createGson()))
                 .build();
@@ -51,7 +49,7 @@ public class DroidKaigiClient {
 
     interface DroidKaigiService {
 
-        @GET(SESSIONS_API_ROUTES + "sessions.json?token=ABNd3lUiEqKMb-LLwYsWE0h312DBQRgFks5YoFwfwA%3D%3D")
+        @GET("/2017/sessions.json")
         Single<List<Session>> getSessionsJa();
     }
 }
