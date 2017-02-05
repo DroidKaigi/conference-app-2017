@@ -8,15 +8,19 @@ import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 
 import io.github.droidkaigi.confsched2017.R;
+import io.github.droidkaigi.confsched2017.pref.DefaultPrefs;
 import io.github.droidkaigi.confsched2017.view.activity.SessionDetailActivity;
 
 public class NotificationReceiver extends BroadcastReceiver {
 
-    public static final String KEY_SESSION_ID = "session_id";
-    public static final String KEY_TITLE = "title";
-    public static final String KEY_TEXT = "text";
+    private static final String TAG = NotificationReceiver.class.getSimpleName();
+
+    private static final String KEY_SESSION_ID = "session_id";
+    private static final String KEY_TITLE = "title";
+    private static final String KEY_TEXT = "text";
 
     private static final int NOTIFICATION_ID = 1;
 
@@ -30,6 +34,10 @@ public class NotificationReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        if (!DefaultPrefs.get(context).getNotificationFlag()) {
+            Log.v(TAG, "Notification is disabled.");
+            return;
+        }
         int sessionId = intent.getIntExtra(KEY_SESSION_ID, 0);
         String title = intent.getStringExtra(KEY_TITLE);
         String text = intent.getStringExtra(KEY_TEXT);
