@@ -20,7 +20,7 @@
                 android:id="@+id/web_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:url="@{viewModel.licenseFilePath}"
+                app:webViewUrl="@{viewModel.licenseFilePath}"
                 app:webViewClient="@{viewModel.webViewClient}"
                 />
 

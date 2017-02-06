@@ -85,7 +85,7 @@ public class DataBindingHelper {
         }
     }
 
-    @BindingAdapter("url")
+    @BindingAdapter("webViewUrl")
     public static void loadUrl(WebView webView, String url) {
         if (TextUtils.isEmpty(url)) {
             return;
