@@ -103,7 +103,7 @@
   license: #LICENSE#
   skip: true
 - artifact: com.github.gfx.android.orma:orma:+
-  name: orma
+  name: Android Orma
   copyrightHolder: FUJI Goro (gfx)
   license: The Apache License, Version 2.0
 - artifact: com.google.android.gms:play-services-basement:+
@@ -117,7 +117,7 @@
   license: #LICENSE#
   skip: true
 - artifact: com.google.android:flexbox:+
-  name: flexbox-layout
+  name: FlexboxLayout
   copyrightHolder: Google Inc.
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
@@ -178,7 +178,7 @@
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: https://github.com/JakeWharton/timber
 - artifact: com.rejasupotaro:kvs-schema:+
-  name: kvs-schema
+  name: KVS Schema
   copyrightHolder: Kentaro Takiguchi
   license: MIT License
 - artifact: com.squareup.leakcanary:leakcanary-android-no-op:+
@@ -215,7 +215,7 @@
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: https://github.com/ReactiveX/RxAndroid
 - artifact: io.reactivex.rxjava2:rxjava:+
-  name: rxjava
+  name: RxJava
   copyrightHolder: RxJava Contributors
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
