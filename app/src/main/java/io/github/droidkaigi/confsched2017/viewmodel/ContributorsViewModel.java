@@ -36,7 +36,9 @@ public final class ContributorsViewModel extends BaseObservable implements ViewM
         void onClickContributor(Contributor contributor);
     }
 
-    public Single<List<Contributor>> getContributors() {
-        return contributorsRepository.findAll();
+    public Single<List<ContributorViewModel>> getContributors() {
+        return contributorsRepository.findAll().map(contributors ->
+                Stream.of(contributors).map(ContributorViewModel::new)
+                        .collect(Collectors.toList()));
     }
 }

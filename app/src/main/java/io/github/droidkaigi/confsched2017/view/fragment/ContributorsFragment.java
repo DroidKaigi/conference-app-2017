@@ -12,7 +12,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import io.github.droidkaigi.confsched2017.databinding.FragmentContributorsBinding;
-import io.github.droidkaigi.confsched2017.model.Contributor;
+import io.github.droidkaigi.confsched2017.viewmodel.ContributorViewModel;
 import io.github.droidkaigi.confsched2017.viewmodel.ContributorsViewModel;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -73,7 +73,7 @@ public class ContributorsFragment extends BaseFragment {
         //
     }
 
-    private void renderContributors(List<Contributor> contributors) {
+    private void renderContributors(List<ContributorViewModel> contributors) {
         // TODO render contributors
     }
 }
