@@ -3,14 +3,21 @@ package io.github.droidkaigi.confsched2017.view.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import io.github.droidkaigi.confsched2017.databinding.FragmentContributorsBinding;
+import io.github.droidkaigi.confsched2017.model.Contributor;
 import io.github.droidkaigi.confsched2017.viewmodel.ContributorsViewModel;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 
 public class ContributorsFragment extends BaseFragment {
 
@@ -18,6 +25,9 @@ public class ContributorsFragment extends BaseFragment {
 
     @Inject
     ContributorsViewModel viewModel;
+
+    @Inject
+    CompositeDisposable compositeDisposable;
 
     private FragmentContributorsBinding binding;
 
@@ -31,6 +41,18 @@ public class ContributorsFragment extends BaseFragment {
         getComponent().inject(this);
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Disposable disposable = viewModel.getContributors()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        this::renderContributors,
+                        throwable -> Log.e(TAG, "Failed to find contributors.", throwable)
+                );
+        compositeDisposable.add(disposable);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -41,7 +63,17 @@ public class ContributorsFragment extends BaseFragment {
         return binding.getRoot();
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        compositeDisposable.dispose();
+    }
+
     private void initView() {
         //
+    }
+
+    private void renderContributors(List<Contributor> contributors) {
+        // TODO render contributors
     }
 }
