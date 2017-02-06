@@ -35,9 +35,7 @@ public final class SessionsRemoteDataSource implements SessionsDataSource {
                         }
                     }
                     return sessions;
-                })
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
+                });
     }
 
     @Override

@@ -45,9 +45,7 @@ public final class SessionsLocalDataSource implements SessionsDataSource {
 
     @Override
     public Single<List<Session>> findAll(String languageId) {
-        return sessionRelation().selector().executeAsObservable().toList()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
+        return sessionRelation().selector().executeAsObservable().toList();
     }
 
     @Override

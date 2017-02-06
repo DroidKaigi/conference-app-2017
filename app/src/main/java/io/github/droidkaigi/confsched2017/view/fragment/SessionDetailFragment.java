@@ -22,8 +22,10 @@ import io.github.droidkaigi.confsched2017.databinding.FragmentSessionDetailBindi
 import io.github.droidkaigi.confsched2017.view.activity.SessionFeedbackActivity;
 import io.github.droidkaigi.confsched2017.view.helper.AnimationHelper;
 import io.github.droidkaigi.confsched2017.viewmodel.SessionDetailViewModel;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class SessionDetailFragment extends BaseFragment implements SessionDetailViewModel.Callback {
 
@@ -54,6 +56,8 @@ public class SessionDetailFragment extends BaseFragment implements SessionDetail
         super.onCreate(savedInstanceState);
         sessionId = getArguments().getInt(ARG_SESSION_ID);
         Disposable disposable = viewModel.findSession(sessionId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         session -> initTheme(),
                         throwable -> Log.e(TAG, "Failed to find session.", throwable)
