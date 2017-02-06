@@ -1,4 +1,4 @@
-package io.github.droidkaigi.confsched2017.repository.sessions;
+package io.github.droidkaigi.confsched2017.repository.contributors;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;

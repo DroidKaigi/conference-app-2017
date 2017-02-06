@@ -8,7 +8,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import io.github.droidkaigi.confsched2017.model.Contributor;
-import io.github.droidkaigi.confsched2017.repository.sessions.ContributorsRepository;
+import io.github.droidkaigi.confsched2017.repository.contributors.ContributorsRepository;
 import io.reactivex.Single;
 
 public final class ContributorsViewModel extends BaseObservable implements ViewModel {
