@@ -28,7 +28,7 @@ final class ContributorsLocalDataSource {
                 .subscribeOn(Schedulers.io());
     }
 
-    void updateAllSync(List<Contributor> contributors) {
+    private void updateAllSync(List<Contributor> contributors) {
         orma.prepareInsertIntoContributor(OnConflict.REPLACE).executeAll(contributors);
     }
 
