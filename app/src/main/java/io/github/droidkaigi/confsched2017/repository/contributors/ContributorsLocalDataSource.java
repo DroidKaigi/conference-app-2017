@@ -12,7 +12,7 @@ import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-final class ContributorsLocalDataSource implements ContributorsReadWriteDataSource {
+public class ContributorsLocalDataSource implements ContributorsReadWriteDataSource {
 
     private final OrmaDatabase orma;
 
