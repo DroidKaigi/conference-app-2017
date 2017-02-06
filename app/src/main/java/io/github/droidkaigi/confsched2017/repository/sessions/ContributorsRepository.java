@@ -30,7 +30,7 @@ public class ContributorsRepository {
         this.isDirty = true;
     }
 
-    public Single<List<Contributor>> getContributors() {
+    public Single<List<Contributor>> findAll() {
         if (cachedContributors != null && !cachedContributors.isEmpty() && !isDirty) {
             return Single.create(emitter -> {
                 try {
@@ -42,15 +42,15 @@ public class ContributorsRepository {
         }
 
         if (isDirty) {
-            return getContributorsFromRemote();
+            return findAllFromRemote();
         } else {
-            return getContributorsFromLocal();
+            return findAllFromLocal();
         }
     }
 
 
-    private Single<List<Contributor>> getContributorsFromRemote() {
-        return remoteDataSourse.getContributors().map(
+    private Single<List<Contributor>> findAllFromRemote() {
+        return remoteDataSourse.findAll().map(
                 contributors -> {
                     refreshCache(contributors);
                     localDataSource.updateAllAsync(contributors);
@@ -58,10 +58,10 @@ public class ContributorsRepository {
                 });
     }
 
-    private Single<List<Contributor>> getContributorsFromLocal() {
-        return localDataSource.getContributors().flatMap(contributors -> {
+    private Single<List<Contributor>> findAllFromLocal() {
+        return localDataSource.findAll().flatMap(contributors -> {
             if (contributors.isEmpty()) {
-                return getContributorsFromRemote();
+                return findAllFromRemote();
             } else {
                 refreshCache(contributors);
                 return Single.create(emitter -> emitter.onSuccess(contributors));

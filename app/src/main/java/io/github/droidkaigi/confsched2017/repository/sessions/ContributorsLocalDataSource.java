@@ -21,7 +21,7 @@ final class ContributorsLocalDataSource {
         this.orma = orma;
     }
 
-    Single<List<Contributor>> getContributors() {
+    Single<List<Contributor>> findAll() {
         return orma.selectFromContributor()
                 .executeAsObservable()
                 .toList()

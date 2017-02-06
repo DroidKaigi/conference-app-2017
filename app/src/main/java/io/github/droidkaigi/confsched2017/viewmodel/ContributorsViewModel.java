@@ -37,6 +37,6 @@ public final class ContributorsViewModel extends BaseObservable implements ViewM
     }
 
     public Single<List<Contributor>> getContributors() {
-        return contributorsRepository.getContributors();
+        return contributorsRepository.findAll();
     }
 }

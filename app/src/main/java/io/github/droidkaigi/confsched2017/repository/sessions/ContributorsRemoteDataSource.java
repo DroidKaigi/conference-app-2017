@@ -18,7 +18,7 @@ public class ContributorsRemoteDataSource {
         this.client = client;
     }
 
-    Single<List<Contributor>> getContributors() {
+    Single<List<Contributor>> findAll() {
         return client.getContributors().subscribeOn(Schedulers.io());
     }
 
