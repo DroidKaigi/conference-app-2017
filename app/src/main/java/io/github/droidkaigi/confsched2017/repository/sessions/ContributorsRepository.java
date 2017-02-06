@@ -1,0 +1,83 @@
+package io.github.droidkaigi.confsched2017.repository.sessions;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+import io.github.droidkaigi.confsched2017.model.Contributor;
+import io.reactivex.Single;
+
+@Singleton
+public class ContributorsRepository {
+
+    private final ContributorsLocalDataSource localDataSource;
+
+    private final ContributorsRemoteDataSource remoteDataSourse;
+
+    private Map<String, Contributor> cachedContributors;
+
+    private boolean isDirty;
+
+    @Inject
+    ContributorsRepository(ContributorsLocalDataSource localDataSource, ContributorsRemoteDataSource remoteDataSource) {
+        this.localDataSource = localDataSource;
+        this.remoteDataSourse = remoteDataSource;
+        this.cachedContributors = new LinkedHashMap<>();
+        this.isDirty = true;
+    }
+
+    public Single<List<Contributor>> getContributors() {
+        if (cachedContributors != null && !cachedContributors.isEmpty() && !isDirty) {
+            return Single.create(emitter -> {
+                try {
+                    emitter.onSuccess(new ArrayList<>(cachedContributors.values()));
+                } catch (Exception e) {
+                    emitter.onError(e);
+                }
+            });
+        }
+
+        if (isDirty) {
+            return getContributorsFromRemote();
+        } else {
+            return getContributorsFromLocal();
+        }
+    }
+
+
+    private Single<List<Contributor>> getContributorsFromRemote() {
+        return remoteDataSourse.getContributors().map(
+                contributors -> {
+                    refreshCache(contributors);
+                    localDataSource.updateAllAsync(contributors);
+                    return contributors;
+                });
+    }
+
+    private Single<List<Contributor>> getContributorsFromLocal() {
+        return localDataSource.getContributors().flatMap(contributors -> {
+            if (contributors.isEmpty()) {
+                return getContributorsFromRemote();
+            } else {
+                refreshCache(contributors);
+                return Single.create(emitter -> emitter.onSuccess(contributors));
+            }
+        });
+    }
+
+    private void refreshCache(List<Contributor> contributors) {
+        if (cachedContributors == null) {
+            cachedContributors = new LinkedHashMap<>();
+        }
+        cachedContributors.clear();
+        for (Contributor contributor : contributors) {
+            cachedContributors.put(contributor.name, contributor);
+        }
+        isDirty = false;
+    }
+
+}
