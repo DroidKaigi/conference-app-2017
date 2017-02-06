@@ -34,13 +34,15 @@ public class NotificationReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (!DefaultPrefs.get(context).getNotificationFlag()) {
+        DefaultPrefs prefs = DefaultPrefs.get(context);
+        if (!prefs.getNotificationFlag()) {
             Timber.tag(TAG).v("Notification is disabled.");
             return;
         }
         int sessionId = intent.getIntExtra(KEY_SESSION_ID, 0);
         String title = intent.getStringExtra(KEY_TITLE);
         String text = intent.getStringExtra(KEY_TEXT);
+        int priority = prefs.getHeadsUpFlag() ? NotificationCompat.PRIORITY_HIGH : NotificationCompat.PRIORITY_DEFAULT;
         Intent openIntent = new Intent(context, MainActivity.class);
         openIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, openIntent, 0);
@@ -52,6 +54,8 @@ public class NotificationReceiver extends BroadcastReceiver {
                 .setColor(ContextCompat.getColor(context, R.color.theme))
                 .setAutoCancel(true)
                 .setContentIntent(pendingIntent)
+                .setDefaults(NotificationCompat.DEFAULT_ALL)
+                .setPriority(priority)
                 .build();
         NotificationManagerCompat.from(context).notify(NOTIFICATION_ID, notification);
     }
