@@ -3,7 +3,6 @@ package io.github.droidkaigi.confsched2017.view.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +17,7 @@ import io.github.droidkaigi.confsched2017.viewmodel.ContributorsViewModel;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import timber.log.Timber;
 
 public class ContributorsFragment extends BaseFragment {
 
@@ -48,7 +48,7 @@ public class ContributorsFragment extends BaseFragment {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         this::renderContributors,
-                        throwable -> Log.e(TAG, "Failed to find contributors.", throwable)
+                        throwable -> Timber.tag(TAG).e(throwable, "Failed to show sessions.")
                 );
         compositeDisposable.add(disposable);
     }
