@@ -185,6 +185,9 @@ dependencies {
     compile 'com.google.firebase:firebase-core:10.0.1'
     compile 'com.google.firebase:firebase-crash:10.0.1'
 
+    // Google Maps
+    compile 'com.google.android.gms:play-services-maps:10.0.1'
+
     // Network
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'

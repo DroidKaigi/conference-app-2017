@@ -7,6 +7,17 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
+    <!-- required for MapView v2 -->
+    <permission
+        android:name="io.github.droidkaigi.confsched2017.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="io.github.droidkaigi.confsched2017.permission.MAPS_RECEIVE" />
+
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+
     <application
             android:name=".MainApplication"
             android:allowBackup="true"
@@ -16,6 +27,15 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme.ColoredStatusBar"
             >
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
         <activity
                 android:name=".view.activity.MainActivity"
                 android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
