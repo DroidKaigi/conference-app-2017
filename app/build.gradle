@@ -162,6 +162,14 @@ android {
     }
 }
 
+configurations {
+    all {
+        resolutionStrategy {
+            force "com.android.support:support-annotations:${support_lib_version}"
+        }
+    }
+}
+
 dependencies {
     // Support Library
     compile "com.android.support:support-v4:${support_lib_version}"
@@ -219,26 +227,14 @@ dependencies {
     // Test
     testCompile 'junit:junit:4.12'
     testCompile "org.robolectric:robolectric:3.2.2"
-    testCompile('com.squareup.assertj:assertj-android:1.1.1') {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    }
+    testCompile 'com.squareup.assertj:assertj-android:1.1.1'
     testCompile 'org.mockito:mockito-core:2.7.0'
     androidTestCompile 'org.mockito:mockito-android:2.7.0'
-    androidTestCompile('com.android.support.test:runner:0.4.1') {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    }
-    androidTestCompile('com.android.support.test:rules:0.4.1') {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    }
-    androidTestCompile('com.squareup.assertj:assertj-android:1.1.1') {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    }
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.1') {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    }
-    androidTestCompile('com.android.support.test.espresso:espresso-intents:2.2.1') {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    }
+    androidTestCompile 'com.android.support.test:runner:0.4.1'
+    androidTestCompile 'com.android.support.test:rules:0.4.1'
+    androidTestCompile 'com.squareup.assertj:assertj-android:1.1.1'
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.1'
+    androidTestCompile 'com.android.support.test.espresso:espresso-intents:2.2.1'
     testCompile 'junit:junit:4.12'
     testCompile "org.jetbrains.kotlin:kotlin-stdlib:1.0.6"
     testCompile "org.jetbrains.kotlin:kotlin-test-junit:1.0.6"
