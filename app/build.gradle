@@ -5,6 +5,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'kotlin-android'
+apply plugin: 'com.cookpad.android.licensetools'
 
 // Manifest version
 def versionMajor = 0
