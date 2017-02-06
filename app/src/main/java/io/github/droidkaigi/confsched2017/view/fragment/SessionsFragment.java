@@ -64,6 +64,9 @@ public class SessionsFragment extends BaseFragment implements SessionViewModel.C
         return new SessionsFragment();
     }
 
+    public SessionsFragment() {
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

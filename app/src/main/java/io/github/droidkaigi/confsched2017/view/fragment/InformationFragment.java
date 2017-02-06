@@ -30,6 +30,9 @@ public class InformationFragment extends BaseFragment implements InformationView
         return new InformationFragment();
     }
 
+    public InformationFragment() {
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

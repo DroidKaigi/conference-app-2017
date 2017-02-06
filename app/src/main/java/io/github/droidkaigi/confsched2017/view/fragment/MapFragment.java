@@ -19,6 +19,9 @@ public class MapFragment extends BaseFragment {
         return new MapFragment();
     }
 
+    public MapFragment() {
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
