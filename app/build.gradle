@@ -297,5 +297,7 @@ task jacocoTestReportDevelop(type: JacocoReport, dependsOn: ['testDevelopDebugUn
     }
 }
 
+tasks['check'].dependsOn checkLicenses
+
 // MUST BE AT THE BOTTOM
 apply plugin: 'com.google.gms.google-services'
