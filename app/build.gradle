@@ -2,7 +2,6 @@ import com.android.ddmlib.DdmPreferences
 
 apply plugin: 'jacoco'
 apply plugin: 'com.android.application'
-apply plugin: 'com.google.gms.google-services'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'kotlin-android'
 
@@ -296,3 +295,6 @@ task jacocoTestReportDevelop(type: JacocoReport, dependsOn: ['testDevelopDebugUn
         println "jacoco html report has been generated to file://${reports.html.destination}/index.html"
     }
 }
+
+// MUST BE AT THE BOTTOM
+apply plugin: 'com.google.gms.google-services'
