@@ -23,7 +23,7 @@ public final class InformationViewModel implements ViewModel {
     }
 
     public String getVersionName() {
-        return versionName;
+        return versionName + " " + BuildConfig.GIT_SHA;
     }
 
     public void onClickSponsors(@SuppressWarnings("unused") View view) {
