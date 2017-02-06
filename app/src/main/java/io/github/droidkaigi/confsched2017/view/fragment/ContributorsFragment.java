@@ -25,7 +25,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import timber.log.Timber;
 
-public class ContributorsFragment extends BaseFragment {
+public class ContributorsFragment extends BaseFragment implements ContributorsViewModel.Callback {
 
     public static final String TAG = ContributorsFragment.class.getSimpleName();
 
@@ -54,6 +54,7 @@ public class ContributorsFragment extends BaseFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        viewModel.setCallback(this);
         Disposable disposable = viewModel.getContributors()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -87,6 +88,12 @@ public class ContributorsFragment extends BaseFragment {
 
     private void renderContributors(List<ContributorViewModel> contributors) {
         adapter.addAllWithNotify(contributors);
+    }
+
+    @Override
+    public void onClickContributor(String htmlUrl) {
+        // TODO implement here
+        Timber.d("htmlUrl: %s", htmlUrl);
     }
 
     private static class Adapter
