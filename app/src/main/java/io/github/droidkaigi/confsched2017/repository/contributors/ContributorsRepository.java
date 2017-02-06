@@ -12,11 +12,11 @@ import io.github.droidkaigi.confsched2017.model.Contributor;
 import io.reactivex.Single;
 
 @Singleton
-public class ContributorsRepository implements ContributorsDataSource {
+public class ContributorsRepository implements ContributorsReadDataSource {
 
-    private final ContributorsLocalDataSource localDataSource;
+    private final ContributorsReadWriteDataSource localDataSource;
 
-    private final ContributorsRemoteDataSource remoteDataSourse;
+    private final ContributorsReadDataSource remoteDataSourse;
 
     private Map<String, Contributor> cachedContributors;
 

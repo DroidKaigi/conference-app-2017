@@ -9,7 +9,7 @@ import io.github.droidkaigi.confsched2017.model.Contributor;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 
-public class ContributorsRemoteDataSource implements ContributorsDataSource {
+public class ContributorsRemoteDataSource implements ContributorsReadDataSource {
 
     private final DroidKaigiClient client;
 
