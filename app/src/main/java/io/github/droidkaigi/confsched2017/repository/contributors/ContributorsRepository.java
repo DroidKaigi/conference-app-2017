@@ -30,14 +30,6 @@ public class ContributorsRepository implements ContributorsReadDataSource {
         this.isDirty = true;
     }
 
-    /* for test */
-    ContributorsRepository(ContributorsReadWriteDataSource localDataSource, ContributorsReadDataSource remoteDataSource) {
-        this.localDataSource = localDataSource;
-        this.remoteDataSourse = remoteDataSource;
-        this.cachedContributors = new LinkedHashMap<>();
-        this.isDirty = true;
-    }
-
     @Override
     public Single<List<Contributor>> findAll() {
         if (cachedContributors != null && !cachedContributors.isEmpty() && !isDirty) {
