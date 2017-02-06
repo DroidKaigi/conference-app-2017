@@ -86,10 +86,7 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
         this.dashVideoIconVisibility = session.movieUrl != null && session.movieDashUrl != null ? View.VISIBLE : View.GONE;
         this.roomVisibility = session.room != null ? View.VISIBLE : View.GONE;
         this.topicVisibility = session.topic != null ? View.VISIBLE : View.GONE;
-
-        if (session.lang != null) {
-            this.languageResId = decideLanguageResId(session.lang.toUpperCase());
-        }
+        this.languageResId = session.lang != null ? decideLanguageResId(session.lang.toUpperCase()) : R.string.lang_en;
     }
 
     public Maybe<Session> findSession(int sessionId) {
