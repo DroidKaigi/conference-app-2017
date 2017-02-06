@@ -7,7 +7,7 @@
         <objectAnimator
                 android:duration="@android:integer/config_shortAnimTime"
                 android:propertyName="translationZ"
-                android:valueTo="@dimen/elevation_touch_raise"
+                android:valueTo="@dimen/elevation_6dp"
                 />
     </item>
     <item>

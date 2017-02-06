@@ -32,7 +32,7 @@
     <!-- Elevation -->
     <dimen name="elevation_2dp">2dp</dimen>
     <dimen name="elevation_4dp">4dp</dimen>
-    <dimen name="elevation_touch_raise">6dp</dimen>
+    <dimen name="elevation_6dp">6dp</dimen>
 
 
     <!-- Component -->
