@@ -5,7 +5,6 @@ import org.lucasr.twowayview.widget.DividerItemDecoration;
 import org.lucasr.twowayview.widget.SpannableGridLayoutManager;
 
 import android.content.Context;
-import android.databinding.DataBindingUtil;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -73,8 +72,7 @@ public class SessionsFragment extends BaseFragment implements SessionViewModel.C
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
-        View view = inflater.inflate(R.layout.fragment_sessions, container, false);
-        binding = DataBindingUtil.bind(view);
+        binding = FragmentSessionsBinding.inflate(inflater, container, false);
         binding.setViewModel(viewModel);
 
         initView();

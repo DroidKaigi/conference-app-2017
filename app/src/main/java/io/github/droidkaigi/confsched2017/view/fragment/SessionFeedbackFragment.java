@@ -1,7 +1,6 @@
 package io.github.droidkaigi.confsched2017.view.fragment;
 
 import android.content.Context;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -11,7 +10,6 @@ import android.view.ViewGroup;
 
 import javax.inject.Inject;
 
-import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.databinding.FragmentSessionFeedbackBinding;
 import io.github.droidkaigi.confsched2017.viewmodel.SessionFeedbackViewModel;
 import io.reactivex.disposables.CompositeDisposable;
@@ -56,8 +54,7 @@ public class SessionFeedbackFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_session_feedback, container, false);
-        binding = DataBindingUtil.bind(view);
+        binding = FragmentSessionFeedbackBinding.inflate(inflater, container, false);
         binding.setViewModel(viewModel);
 
         initView();
