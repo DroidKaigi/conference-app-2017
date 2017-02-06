@@ -7,7 +7,6 @@ import com.taroid.knit.should
 import io.github.droidkaigi.confsched2017.model.*
 import io.reactivex.Completable
 import io.reactivex.Single
-import io.reactivex.observers.TestObserver
 import org.junit.Test
 import org.mockito.Mockito
 import java.sql.Date
@@ -23,17 +22,15 @@ class MySessionsRepositoryTest {
         val expected = Array(10) { i -> newDummyMySession(i) }.toList()
         localDataSource.findAll().invoked.thenReturn(Single.just(expected))
 
-        with(TestObserver<List<MySession>>()) {
-            repository.findAll().subscribe(this)
-            localDataSource.verify(Mockito.times(1)).findAll()
+        repository.findAll().test().run {
             assertNoErrors()
             assertResult(expected)
             assertComplete()
+            localDataSource.verify(Mockito.times(1)).findAll()
         }
 
         // check if found sessions are cached
-        with(TestObserver<List<MySession>>()) {
-            repository.findAll().subscribe(this)
+        repository.findAll().test().run {
             assertNoErrors()
             assertResult(expected)
             assertComplete()
@@ -46,15 +43,13 @@ class MySessionsRepositoryTest {
     fun save() {
         val session = newDummySession(1)
         localDataSource.save(session).invoked.thenReturn(Completable.complete())
-        with(TestObserver<Any>()) {
-            repository.save(session).subscribe(this)
+        repository.save(session).test().run {
             assertNoErrors()
             assertComplete()
         }
 
          // check if session is cached
-        with(TestObserver<List<MySession>>()) {
-            repository.findAll().subscribe(this)
+        repository.findAll().test().run {
             assertNoErrors()
             assertResult(listOf(MySession(session)))
             assertComplete()
@@ -73,16 +68,14 @@ class MySessionsRepositoryTest {
         repository.save(session2)
 
         localDataSource.delete(session1).invoked.thenReturn(Single.just(1))
-        with(TestObserver<Int>()) {
-            repository.delete(session1).subscribe(this)
+        repository.delete(session1).test().run {
             assertNoErrors()
             assertResult(1)
             assertComplete()
         }
 
         // check if cached session1 is deleted
-        with(TestObserver<List<MySession>>()) {
-            repository.findAll().subscribe(this)
+        repository.findAll().test().run {
             assertNoErrors()
             assertResult(listOf(MySession(session2)))
             assertComplete()
