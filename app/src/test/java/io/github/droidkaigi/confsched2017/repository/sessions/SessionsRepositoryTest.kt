@@ -11,7 +11,6 @@ import io.reactivex.Single
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.ArgumentMatchers
 import org.mockito.Mockito.*
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
@@ -49,7 +48,7 @@ class SessionsRepositoryTest {
         val sessions = listOf(Session())
         val client = mockDroidKaigiClient(sessions)
         val ormaDatabase = mock<OrmaDatabase>().apply {
-            transactionAsCompletable(ArgumentMatchers.any()).invoked.thenReturn(Completable.complete())
+            transactionAsCompletable(any()).invoked.thenReturn(Completable.complete())
         }
         val cachedSessions: Map<Int, Session> = spy(mutableMapOf())
 
@@ -69,7 +68,7 @@ class SessionsRepositoryTest {
                     assertComplete()
 
                     client.verify().getSessions(eq(Session.LANG_JA_ID))
-                    ormaDatabase.verify().transactionAsCompletable(ArgumentMatchers.any())
+                    ormaDatabase.verify().transactionAsCompletable(any())
                     cachedSessions.verify(never()).values
                 }
 
@@ -126,7 +125,7 @@ class SessionsRepositoryTest {
     }
 
     fun mockDroidKaigiClient(sessions: List<Session>) = mock<DroidKaigiClient>().apply {
-        getSessions(ArgumentMatchers.anyString()).invoked.thenReturn(
+        getSessions(anyString()).invoked.thenReturn(
                 Single.just(sessions)
         )
     }
