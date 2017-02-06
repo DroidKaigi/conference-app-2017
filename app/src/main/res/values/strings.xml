@@ -61,6 +61,9 @@
 
     <string name="help_translate">Help Translate</string>
 
+    <!-- Licenses -->
+    <string name="licenses">Licenses</string>
+
     <!-- Session feedback -->
     <string name="session_feedback">Session feedback</string>
 

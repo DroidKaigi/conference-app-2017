@@ -35,6 +35,8 @@
     <string name="sponsors">スポンサー</string>
     <!-- Contributors -->
     <string name="contributors">コントリビュータ</string>
+    <!-- Licenses -->
+    <string name="licenses">オープンソースライセンス</string>
     <!-- Session feedback -->
     <string name="session_feedback">セッションフィードバック</string>
     <string name="info_sponsors_title">スポンサー</string>
