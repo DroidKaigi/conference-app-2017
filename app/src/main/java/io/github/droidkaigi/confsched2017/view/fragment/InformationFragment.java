@@ -2,7 +2,6 @@ package io.github.droidkaigi.confsched2017.view.fragment;
 
 import android.content.Context;
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,7 +11,6 @@ import android.view.ViewGroup;
 
 import javax.inject.Inject;
 
-import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.databinding.FragmentInformationBinding;
 import io.github.droidkaigi.confsched2017.view.activity.ContributorsActivity;
 import io.github.droidkaigi.confsched2017.view.activity.SponsorsActivity;
@@ -40,8 +38,7 @@ public class InformationFragment extends BaseFragment implements InformationView
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_information, container, false);
-        binding = DataBindingUtil.bind(view);
+        binding = FragmentInformationBinding.inflate(inflater, container, false);
 
         viewModel.setCallback(this);
         binding.setViewModel(viewModel);

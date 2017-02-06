@@ -4,7 +4,6 @@ import com.annimon.stream.Stream;
 
 import android.app.Activity;
 import android.content.Context;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -111,8 +110,7 @@ public class SearchFragment extends BaseFragment implements SearchViewModel.Call
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_search, container, false);
-        binding = DataBindingUtil.bind(view);
+        binding = FragmentSearchBinding.inflate(inflater, container, false);
         binding.setViewModel(viewModel);
 
         initRecyclerView();
