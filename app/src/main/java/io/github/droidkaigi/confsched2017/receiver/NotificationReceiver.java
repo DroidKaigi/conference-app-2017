@@ -8,11 +8,11 @@ import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.pref.DefaultPrefs;
 import io.github.droidkaigi.confsched2017.view.activity.MainActivity;
+import timber.log.Timber;
 
 public class NotificationReceiver extends BroadcastReceiver {
 
@@ -35,7 +35,7 @@ public class NotificationReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if (!DefaultPrefs.get(context).getNotificationFlag()) {
-            Log.v(TAG, "Notification is disabled.");
+            Timber.tag(TAG).v("Notification is disabled.");
             return;
         }
         int sessionId = intent.getIntExtra(KEY_SESSION_ID, 0);
