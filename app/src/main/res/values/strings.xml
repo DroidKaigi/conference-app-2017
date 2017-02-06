@@ -69,4 +69,7 @@
     <string name="search">Search</string>
     <string name="search_hint">Search by keywords</string>
 
+    <!-- Licenses -->
+    <string name="licenses">Licenses</string>
+
 </resources>

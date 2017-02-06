@@ -39,4 +39,8 @@
     <string name="session_feedback">セッションフィードバック</string>
     <string name="info_sponsors_title">スポンサー</string>
     <string name="info_contributors_title">コントリビュータ</string>
+
+    <!-- Licenses -->
+    <string name="licenses">ライセンス</string>
+
 </resources>

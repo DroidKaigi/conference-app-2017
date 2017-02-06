@@ -13,6 +13,7 @@ import javax.inject.Inject;
 
 import io.github.droidkaigi.confsched2017.databinding.FragmentInformationBinding;
 import io.github.droidkaigi.confsched2017.view.activity.ContributorsActivity;
+import io.github.droidkaigi.confsched2017.view.activity.LicensesActivity;
 import io.github.droidkaigi.confsched2017.view.activity.SponsorsActivity;
 import io.github.droidkaigi.confsched2017.viewmodel.InformationViewModel;
 
@@ -77,7 +78,7 @@ public class InformationFragment extends BaseFragment implements InformationView
 
     @Override
     public void showLicencePage() {
-        // TODO
+        startActivity(LicensesActivity.createIntent(getContext()));
     }
 
     @Override
