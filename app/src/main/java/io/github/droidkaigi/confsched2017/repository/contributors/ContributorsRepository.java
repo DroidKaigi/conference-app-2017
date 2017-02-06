@@ -12,7 +12,7 @@ import io.github.droidkaigi.confsched2017.model.Contributor;
 import io.reactivex.Single;
 
 @Singleton
-public class ContributorsRepository {
+public class ContributorsRepository implements ContributorsDataSource {
 
     private final ContributorsLocalDataSource localDataSource;
 
@@ -30,6 +30,7 @@ public class ContributorsRepository {
         this.isDirty = true;
     }
 
+    @Override
     public Single<List<Contributor>> findAll() {
         if (cachedContributors != null && !cachedContributors.isEmpty() && !isDirty) {
             return Single.create(emitter -> {
