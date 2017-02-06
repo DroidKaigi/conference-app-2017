@@ -12,7 +12,6 @@ import java.util.Date;
 
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.model.Session;
-import io.github.droidkaigi.confsched2017.model.TopicColor;
 import io.github.droidkaigi.confsched2017.util.DateUtil;
 
 public class SessionViewModel extends BaseObservable implements ViewModel {
@@ -53,6 +52,8 @@ public class SessionViewModel extends BaseObservable implements ViewModel {
 
     private int normalSessionItemVisibility;
 
+    private int languageVisibility;
+
     private Callback callback;
 
     SessionViewModel(@NonNull Session session, Context context, int roomCount, boolean isMySession) {
@@ -70,6 +71,7 @@ public class SessionViewModel extends BaseObservable implements ViewModel {
         if (session.lang != null) {
             this.languageId = session.lang.toUpperCase();
         }
+        this.languageVisibility = session.lang != null ? View.VISIBLE : View.GONE;
 
         this.minutes = context.getString(R.string.session_minutes, session.durationMin);
 
@@ -202,6 +204,10 @@ public class SessionViewModel extends BaseObservable implements ViewModel {
 
     public int getNormalSessionItemVisibility() {
         return normalSessionItemVisibility;
+    }
+
+    public int getLanguageVisibility() {
+        return languageVisibility;
     }
 
     @Bindable

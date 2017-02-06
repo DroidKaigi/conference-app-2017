@@ -12,17 +12,21 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import io.github.droidkaigi.confsched2017.model.Contributor;
 import io.github.droidkaigi.confsched2017.model.Session;
 import io.reactivex.Single;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 
 @Singleton
 public class DroidKaigiClient {
 
     private final DroidKaigiService droidKaigiService;
+
+    private final GithubService githubService;
 
     @Inject
     public DroidKaigiClient(OkHttpClient client) {
@@ -33,6 +37,13 @@ public class DroidKaigiClient {
                 .addConverterFactory(GsonConverterFactory.create(createGson()))
                 .build();
         droidKaigiService = droidkaigiRetrofit.create(DroidKaigiService.class);
+
+        Retrofit githubRetrofit = new Retrofit.Builder().client(client)
+                .baseUrl("https://api.github.com")
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(createGson()))
+                .build();
+        githubService = githubRetrofit.create(GithubService.class);
     }
 
     private static Gson createGson() {
@@ -47,9 +58,20 @@ public class DroidKaigiClient {
         }
     }
 
+    public Single<List<Contributor>> getContributors() {
+        return githubService.getContributors("DroidKaigi", "conference-app-2017");
+    }
+
     interface DroidKaigiService {
 
         @GET("/2017/sessions.json")
         Single<List<Session>> getSessionsJa();
+    }
+
+    interface GithubService {
+
+        @GET("/repos/{owner}/{repo}/contributors")
+        Single<List<Contributor>> getContributors(@Path("owner") String owner,
+                @Path("repo") String repo);
     }
 }

@@ -1,118 +1,25 @@
-- artifact: com.android.databinding:adapters:+
-  name: adapters
+- artifact: com.android.databinding:+:+
+  name: databinding
   copyrightHolder: #COPYRIGHT_HOLDER#
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   skip: true
-- artifact: com.android.databinding:baseLibrary:+
-  name: com.android.databinding.baseLibrary
-  copyrightHolder: #COPYRIGHT_HOLDER#
-  license: The Apache Software License, Version 2.0
-  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
-  url: http://tools.android.com/
-  skip: true
-- artifact: com.android.databinding:library:+
-  name: library
-  copyrightHolder: #COPYRIGHT_HOLDER#
-  license: The Apache Software License, Version 2.0
-  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
-  skip: true
-- artifact: com.android.support:animated-vector-drawable:+
-  name: animated-vector-drawable
-  copyrightHolder: #COPYRIGHT_HOLDER#
-  license: #LICENSE#
-  skip: true
-- artifact: com.android.support:appcompat-v7:+
-  name: appcompat-v7
-  copyrightHolder: #COPYRIGHT_HOLDER#
-  license: #LICENSE#
-  skip: true
-- artifact: com.android.support:customtabs:+
-  name: customtabs
-  copyrightHolder: #COPYRIGHT_HOLDER#
-  license: #LICENSE#
-  skip: true
-- artifact: com.android.support:design:+
-  name: design
-  copyrightHolder: #COPYRIGHT_HOLDER#
-  license: #LICENSE#
-  skip: true
-- artifact: com.android.support:recyclerview-v7:+
-  name: recyclerview-v7
-  copyrightHolder: #COPYRIGHT_HOLDER#
-  license: #LICENSE#
-  skip: true
-- artifact: com.android.support:support-annotations:+
-  name: support-annotations
-  copyrightHolder: #COPYRIGHT_HOLDER#
-  license: #LICENSE#
-  skip: true
-- artifact: com.android.support:support-compat:+
-  name: support-compat
-  copyrightHolder: #COPYRIGHT_HOLDER#
-  license: #LICENSE#
-  skip: true
-- artifact: com.android.support:support-core-ui:+
-  name: support-core-ui
-  copyrightHolder: #COPYRIGHT_HOLDER#
-  license: #LICENSE#
-  skip: true
-- artifact: com.android.support:support-core-utils:+
-  name: support-core-utils
-  copyrightHolder: #COPYRIGHT_HOLDER#
-  license: #LICENSE#
-  skip: true
-- artifact: com.android.support:support-fragment:+
-  name: support-fragment
-  copyrightHolder: #COPYRIGHT_HOLDER#
-  license: #LICENSE#
-  skip: true
-- artifact: com.android.support:support-media-compat:+
-  name: support-media-compat
-  copyrightHolder: #COPYRIGHT_HOLDER#
-  license: #LICENSE#
-  skip: true
-- artifact: com.android.support:support-v4:+
+- artifact: com.android.support:+:+
   name: Android Support Libraries
   copyrightHolder: Android Open Source Project
   license: The Apache License, Version 2.0
-- artifact: com.android.support:support-vector-drawable:+
-  name: support-vector-drawable
-  copyrightHolder: #COPYRIGHT_HOLDER#
-  license: #LICENSE#
-  skip: true
-- artifact: com.android.support:transition:+
-  name: transition
-  copyrightHolder: #COPYRIGHT_HOLDER#
-  license: #LICENSE#
-  skip: true
 - artifact: com.annimon:stream:+
   name: Lightweight-Stream-API
   copyrightHolder: Victor Melnik
   license: The Apache License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: https://github.com/aNNiMON/Lightweight-Stream-API
-- artifact: com.github.gfx.android.orma:orma-annotations:+
-  name: orma-annotations
-  copyrightHolder: #COPYRIGHT_HOLDER#
-  license: #LICENSE#
-  skip: true
-- artifact: com.github.gfx.android.orma:orma-migration:+
-  name: orma-migration
-  copyrightHolder: #COPYRIGHT_HOLDER#
-  license: #LICENSE#
-  skip: true
-- artifact: com.github.gfx.android.orma:orma:+
+- artifact: com.github.gfx.android.orma:+:+
   name: Android Orma
   copyrightHolder: FUJI Goro (gfx)
   license: The Apache License, Version 2.0
-- artifact: com.google.android.gms:play-services-basement:+
-  name: play-services-basement
-  copyrightHolder: #COPYRIGHT_HOLDER#
-  license: #LICENSE#
-  skip: true
-- artifact: com.google.android.gms:play-services-tasks:+
-  name: play-services-tasks
+- artifact: com.google.android.gms:+:+
+  name: play-services
   copyrightHolder: #COPYRIGHT_HOLDER#
   license: #LICENSE#
   skip: true
@@ -130,33 +37,8 @@
   name: Dagger
   copyrightHolder: Dagger Authors
   license: The Apache License, Version 2.0
-- artifact: com.google.firebase:firebase-analytics-impl:+
-  name: firebase-analytics-impl
-  copyrightHolder: #COPYRIGHT_HOLDER#
-  license: #LICENSE#
-  skip: true
-- artifact: com.google.firebase:firebase-analytics:+
-  name: firebase-analytics
-  copyrightHolder: #COPYRIGHT_HOLDER#
-  license: #LICENSE#
-  skip: true
-- artifact: com.google.firebase:firebase-common:+
-  name: firebase-common
-  copyrightHolder: #COPYRIGHT_HOLDER#
-  license: #LICENSE#
-  skip: true
-- artifact: com.google.firebase:firebase-core:+
-  name: firebase-core
-  copyrightHolder: #COPYRIGHT_HOLDER#
-  license: #LICENSE#
-  skip: true
-- artifact: com.google.firebase:firebase-crash:+
-  name: firebase-crash
-  copyrightHolder: #COPYRIGHT_HOLDER#
-  license: #LICENSE#
-  skip: true
-- artifact: com.google.firebase:firebase-iid:+
-  name: firebase-iid
+- artifact: com.google.firebase:+:+
+  name: firebase
   copyrightHolder: #COPYRIGHT_HOLDER#
   license: #LICENSE#
   skip: true
@@ -199,12 +81,7 @@
   name: Picasso
   copyrightHolder: Square, Inc.
   license: The Apache Software License, Version 2.0
-- artifact: com.squareup.retrofit2:converter-gson:+
-  name: "Converter: Gson"
-  copyrightHolder: Square, Inc.
-  license: The Apache Software License, Version 2.0
-  skip: true
-- artifact: com.squareup.retrofit2:retrofit:+
+- artifact: com.squareup.retrofit2:+:+
   name: Retrofit
   copyrightHolder: Square, Inc.
   license: The Apache Software License, Version 2.0
@@ -236,19 +113,12 @@
   name: ANTLR 4 Runtime
   copyrightHolder: Antlr Project
   license: BSD 3-clause license
-- artifact: org.lucasr.twowayview:core:+
+- artifact: org.lucasr.twowayview:+:+
   name: TwoWayView Library
   copyrightHolder: Lucas Rocha
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: https://github.com/lucasr/twoway-view
-- artifact: org.lucasr.twowayview:layouts:+
-  name: TwoWayView Layouts Library
-  copyrightHolder: #COPYRIGHT_HOLDER#
-  license: The Apache Software License, Version 2.0
-  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
-  url: https://github.com/lucasr/twoway-view
-  skip: true
 - artifact: org.reactivestreams:reactive-streams:+
   name: reactive-streams
   copyrightHolder: reactive-streams

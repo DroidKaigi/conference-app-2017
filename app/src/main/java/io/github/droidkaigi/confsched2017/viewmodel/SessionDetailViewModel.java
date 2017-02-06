@@ -17,9 +17,9 @@ import javax.inject.Inject;
 
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.model.Session;
-import io.github.droidkaigi.confsched2017.model.TopicColor;
 import io.github.droidkaigi.confsched2017.repository.sessions.MySessionsRepository;
 import io.github.droidkaigi.confsched2017.repository.sessions.SessionsRepository;
+import io.github.droidkaigi.confsched2017.util.AlarmUtil;
 import io.github.droidkaigi.confsched2017.util.DateUtil;
 import io.github.droidkaigi.confsched2017.util.LocaleUtil;
 import io.reactivex.Maybe;
@@ -58,6 +58,10 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
 
     private int dashVideoIconVisibility;
 
+    private int roomVisibility;
+
+    private int topicVisibility;
+
     private Callback callback;
 
     @Inject
@@ -79,10 +83,9 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
         this.isMySession = mySessionsRepository.isExist(session.id);
         this.slideIconVisibility = session.slideUrl != null ? View.VISIBLE : View.GONE;
         this.dashVideoIconVisibility = session.movieUrl != null && session.movieDashUrl != null ? View.VISIBLE : View.GONE;
-
-        if (session.lang != null) {
-            this.languageResId = decideLanguageResId(session.lang.toUpperCase());
-        }
+        this.roomVisibility = session.room != null ? View.VISIBLE : View.GONE;
+        this.topicVisibility = session.topic != null ? View.VISIBLE : View.GONE;
+        this.languageResId = session.lang != null ? decideLanguageResId(session.lang.toUpperCase()) : R.string.lang_en;
     }
 
     public Maybe<Session> findSession(int sessionId) {
@@ -139,10 +142,12 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
             mySessionsRepository.delete(session)
                     .subscribe((result) -> Log.d(TAG, "Deleted my session"),
                             throwable -> Log.e(TAG, "Failed to delete my session", throwable));
+            AlarmUtil.unregisterAlarm(context, session);
         } else {
             mySessionsRepository.save(session)
                     .subscribe(() -> Log.d(TAG, "Saved my session"),
                             throwable -> Log.e(TAG, "Failed to save my session", throwable));
+            AlarmUtil.registerAlarm(context, session);
         }
 
         if (callback != null) {
@@ -194,6 +199,14 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
 
     public int getDashVideoIconVisibility() {
         return dashVideoIconVisibility;
+    }
+
+    public int getTopicVisibility() {
+        return topicVisibility;
+    }
+
+    public int getRoomVisibility() {
+        return roomVisibility;
     }
 
     public void setCallback(Callback callback) {

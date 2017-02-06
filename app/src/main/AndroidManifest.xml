@@ -5,6 +5,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
             android:name=".MainApplication"
@@ -75,6 +76,11 @@
                   android:label="@string/licenses"
                   android:theme="@style/AppTheme.ColoredStatusBar"
                   />
+
+        <receiver
+                android:name=".receiver.NotificationReceiver"
+                android:exported="false"
+                />
     </application>
 
 </manifest>

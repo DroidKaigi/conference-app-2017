@@ -28,8 +28,8 @@
     <string name="info_sponsors_description">DroidKaigiは多くのスポンサーによってサポートされています。 ありがとうございます！</string>
     <string name="info_questionnaire_title">アンケート</string>
     <string name="info_questionnaire_description">DroidKaigiをより良くするためにアンケートにご協力ください。</string>
-    <string name="info_licence_title">ライセンス</string>
-    <string name="info_licence_description">このアプリは多くの素晴らしいライブラリを利用してます。作者のみなさま、ありがとうございます！</string>
+    <string name="info_license_title">ライセンス</string>
+    <string name="info_license_description">このアプリは多くの素晴らしいライブラリを利用してます。作者のみなさま、ありがとうございます！</string>
     <string name="info_dev_info_title">開発情報</string>
     <!-- Sponsors -->
     <string name="sponsors">スポンサー</string>
@@ -41,4 +41,7 @@
     <string name="session_feedback">セッションフィードバック</string>
     <string name="info_sponsors_title">スポンサー</string>
     <string name="info_contributors_title">コントリビュータ</string>
+    <!-- Notification -->
+    <string name="notitication_title">%1$s がもうすぐ始まります。</string>
+    <string name="notification_message">%1$s ~ %2$s @ %3$s</string>
 </resources>

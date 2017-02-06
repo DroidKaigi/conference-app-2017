@@ -14,9 +14,9 @@ import java.util.Date;
 @Table
 public class Session {
 
-    public static final String LANG_EN_ID = "en";
+    public static final String LANG_EN_ID = "EN";
 
-    public static final String LANG_JA_ID = "ja";
+    public static final String LANG_JA_ID = "JA";
 
     @PrimaryKey(auto = false)
     @Column(indexed = true)
