@@ -70,7 +70,7 @@ public class DroidKaigiClient {
 
     interface GithubService {
 
-        @GET("/repos/{owner}/{repo}/contributors?per_page=100")
+        @GET("/repos/{owner}/{repo}/contributors")
         Single<List<Contributor>> getContributors(@Path("owner") String owner,
                 @Path("repo") String repo);
     }
