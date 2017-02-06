@@ -38,16 +38,16 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
     private String sessionTitle;
 
     @ColorRes
-    private int sessionVividColorResId;
+    private int sessionVividColorResId = TopicColor.NONE.vividColorResId;
 
     @ColorRes
-    private int sessionPaleColorResId;
+    private int sessionPaleColorResId = TopicColor.NONE.paleColorResId;
 
     @StyleRes
-    private int sessionThemeResId;
+    private int sessionThemeResId = TopicColor.NONE.themeId;
 
     @StringRes
-    private int languageResId;
+    private int languageResId = R.string.lang_en;
 
     private String sessionTimeRange;
 
