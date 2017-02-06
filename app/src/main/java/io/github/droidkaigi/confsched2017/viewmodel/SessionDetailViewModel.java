@@ -23,6 +23,7 @@ import io.github.droidkaigi.confsched2017.repository.sessions.SessionsRepository
 import io.github.droidkaigi.confsched2017.util.AlarmUtil;
 import io.github.droidkaigi.confsched2017.util.DateUtil;
 import io.github.droidkaigi.confsched2017.util.LocaleUtil;
+import io.github.droidkaigi.confsched2017.util.StringUtil;
 import io.reactivex.Maybe;
 
 public class SessionDetailViewModel extends BaseObservable implements ViewModel {
@@ -83,6 +84,12 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
 
         if (session.lang != null) {
             this.languageResId = decideLanguageResId(session.lang.toUpperCase());
+        } else {
+            boolean englishTitle = StringUtil.isHalfWidthCharacters(session.title);
+            if (englishTitle) {
+                this.languageResId = decideLanguageResId(Session.LANG_EN_ID);
+            }
+            this.languageResId = decideLanguageResId(Session.LANG_JA_ID);
         }
     }
 
