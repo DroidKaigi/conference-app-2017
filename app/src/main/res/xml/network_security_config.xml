@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
-    <domain-config cleartextTrafficPermitted="false">
-        <domain includeSubdomains="true">raw.githubusercontent.com</domain>
-    </domain-config>
+    <base-config cleartextTrafficPermitted="false">
+                <!-- add more config here-->
+    </base-config>
 </network-security-config>
