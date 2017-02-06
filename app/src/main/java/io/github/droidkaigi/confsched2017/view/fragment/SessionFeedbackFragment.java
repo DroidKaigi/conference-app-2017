@@ -39,6 +39,9 @@ public class SessionFeedbackFragment extends BaseFragment {
         return fragment;
     }
 
+    public SessionFeedbackFragment() {
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

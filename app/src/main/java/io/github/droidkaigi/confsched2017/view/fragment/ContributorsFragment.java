@@ -35,6 +35,9 @@ public class ContributorsFragment extends BaseFragment {
         return new ContributorsFragment();
     }
 
+    public ContributorsFragment() {
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

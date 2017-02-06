@@ -51,6 +51,9 @@ public class SearchFragment extends BaseFragment implements SearchViewModel.Call
         return new SearchFragment();
     }
 
+    public SearchFragment() {
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

@@ -49,6 +49,9 @@ public class SessionDetailFragment extends BaseFragment implements SessionDetail
         return fragment;
     }
 
+    public SessionDetailFragment() {
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

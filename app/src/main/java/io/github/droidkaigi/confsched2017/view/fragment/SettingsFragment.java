@@ -25,6 +25,9 @@ public class SettingsFragment extends BaseFragment implements SettingsViewModel.
         return new SettingsFragment();
     }
 
+    public SettingsFragment() {
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

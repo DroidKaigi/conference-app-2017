@@ -29,6 +29,9 @@ public class LicensesFragment extends BaseFragment implements LicensesViewModel.
         return new LicensesFragment();
     }
 
+    public LicensesFragment() {
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
