@@ -17,7 +17,6 @@ import javax.inject.Inject;
 
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.model.Session;
-import io.github.droidkaigi.confsched2017.model.TopicColor;
 import io.github.droidkaigi.confsched2017.repository.sessions.MySessionsRepository;
 import io.github.droidkaigi.confsched2017.repository.sessions.SessionsRepository;
 import io.github.droidkaigi.confsched2017.util.AlarmUtil;

@@ -12,7 +12,6 @@ import java.util.Date;
 
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.model.Session;
-import io.github.droidkaigi.confsched2017.model.TopicColor;
 import io.github.droidkaigi.confsched2017.util.DateUtil;
 
 public class SessionViewModel extends BaseObservable implements ViewModel {
