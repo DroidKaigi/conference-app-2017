@@ -151,19 +151,7 @@ public class SessionsFragment extends BaseFragment implements SessionViewModel.C
         binding.root.setOnTouchListener((v, event) -> {
             MotionEvent e = MotionEvent.obtain(event);
             e.setLocation(e.getX() + binding.root.getScrollX(), e.getY() - binding.headerRow.getHeight());
-
-            boolean isScrolling = binding.recyclerView.getScrollState() == RecyclerView.SCROLL_STATE_DRAGGING;
-
-            binding.recyclerView.onTouchEvent(e);
-
-            if (!isScrolling && binding.recyclerView.getScrollState() == RecyclerView.SCROLL_STATE_IDLE
-                    && e.getDownTime() > e.getEventTime() - ViewConfiguration.getTapTimeout() && e.getAction() == MotionEvent.ACTION_UP) {
-                MotionEvent down = MotionEvent.obtain(e);
-                down.setAction(MotionEvent.ACTION_DOWN);
-                binding.recyclerView.forceToDispatchTouchEvent(down);
-                binding.recyclerView.forceToDispatchTouchEvent(e);
-            }
-
+            binding.recyclerView.forceToDispatchTouchEvent(e);
             return false;
         });
         binding.recyclerView.clearOnScrollListeners();

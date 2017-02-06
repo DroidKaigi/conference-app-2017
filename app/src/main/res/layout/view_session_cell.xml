@@ -24,6 +24,7 @@
             android:paddingRight="6dp"
             android:paddingStart="6dp"
             android:paddingTop="@dimen/space_4dp"
+            android:stateListAnimator="@animator/raise"
             app:sessionCellBackground="@{viewModel.backgroundResId}"
             app:twowayview_colSpan="@{viewModel.colSpan}"
             app:twowayview_rowSpan="@{viewModel.rowSpan}"
