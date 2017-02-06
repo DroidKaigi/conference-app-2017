@@ -20,6 +20,7 @@ import io.github.droidkaigi.confsched2017.model.Session;
 import io.github.droidkaigi.confsched2017.model.TopicColor;
 import io.github.droidkaigi.confsched2017.repository.sessions.MySessionsRepository;
 import io.github.droidkaigi.confsched2017.repository.sessions.SessionsRepository;
+import io.github.droidkaigi.confsched2017.util.AlarmUtil;
 import io.github.droidkaigi.confsched2017.util.DateUtil;
 import io.github.droidkaigi.confsched2017.util.LocaleUtil;
 import io.reactivex.Maybe;
@@ -139,10 +140,12 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
             mySessionsRepository.delete(session)
                     .subscribe((result) -> Log.d(TAG, "Deleted my session"),
                             throwable -> Log.e(TAG, "Failed to delete my session", throwable));
+            AlarmUtil.unregisterAlarm(context, session);
         } else {
             mySessionsRepository.save(session)
                     .subscribe(() -> Log.d(TAG, "Saved my session"),
                             throwable -> Log.e(TAG, "Failed to save my session", throwable));
+            AlarmUtil.registerAlarm(context, session);
         }
 
         if (callback != null) {

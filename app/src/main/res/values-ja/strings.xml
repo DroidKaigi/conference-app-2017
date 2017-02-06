@@ -41,4 +41,7 @@
     <string name="session_feedback">セッションフィードバック</string>
     <string name="info_sponsors_title">スポンサー</string>
     <string name="info_contributors_title">コントリビュータ</string>
+    <!-- Notification -->
+    <string name="notitication_title">%1$s がもうすぐ始まります。</string>
+    <string name="notification_message">%1$s ~ %2$s @ %3$s</string>
 </resources>
