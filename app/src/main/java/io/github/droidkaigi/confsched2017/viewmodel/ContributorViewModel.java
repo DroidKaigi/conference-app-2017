@@ -1,6 +1,7 @@
 package io.github.droidkaigi.confsched2017.viewmodel;
 
 import android.databinding.BaseObservable;
+import android.support.annotation.NonNull;
 
 import io.github.droidkaigi.confsched2017.model.Contributor;
 
@@ -18,7 +19,7 @@ public class ContributorViewModel extends BaseObservable implements ViewModel {
 
     private int contributions;
 
-    public ContributorViewModel(Contributor contributor) {
+    public ContributorViewModel(@NonNull Contributor contributor) {
         this.contributor = contributor;
         this.avatarUrl = contributor.avatarUrl;
         this.name = contributor.name;
