@@ -2,7 +2,9 @@ package io.github.droidkaigi.confsched2017.view.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +13,11 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.databinding.FragmentContributorsBinding;
+import io.github.droidkaigi.confsched2017.databinding.ViewContributorCellBinding;
+import io.github.droidkaigi.confsched2017.view.customview.ArrayRecyclerAdapter;
+import io.github.droidkaigi.confsched2017.view.customview.BindingHolder;
 import io.github.droidkaigi.confsched2017.viewmodel.ContributorViewModel;
 import io.github.droidkaigi.confsched2017.viewmodel.ContributorsViewModel;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -23,6 +29,8 @@ public class ContributorsFragment extends BaseFragment {
 
     public static final String TAG = ContributorsFragment.class.getSimpleName();
 
+    private static final int COLUMN_COUNT = 3;
+
     @Inject
     ContributorsViewModel viewModel;
 
@@ -30,6 +38,8 @@ public class ContributorsFragment extends BaseFragment {
     CompositeDisposable compositeDisposable;
 
     private FragmentContributorsBinding binding;
+
+    private Adapter adapter;
 
     public static ContributorsFragment newInstance() {
         return new ContributorsFragment();
@@ -70,10 +80,33 @@ public class ContributorsFragment extends BaseFragment {
     }
 
     private void initView() {
-        //
+        adapter = new Adapter(getContext());
+        binding.recyclerView.setAdapter(adapter);
+        binding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(), COLUMN_COUNT));
     }
 
     private void renderContributors(List<ContributorViewModel> contributors) {
-        // TODO render contributors
+        adapter.addAllWithNotify(contributors);
+    }
+
+    private static class Adapter
+            extends ArrayRecyclerAdapter<ContributorViewModel, BindingHolder<ViewContributorCellBinding>> {
+
+        public Adapter(@NonNull Context context) {
+            super(context);
+        }
+
+        @Override
+        public BindingHolder<ViewContributorCellBinding> onCreateViewHolder(ViewGroup parent, int viewType) {
+            return new BindingHolder<>(getContext(), parent, R.layout.view_contributor_cell);
+        }
+
+        @Override
+        public void onBindViewHolder(BindingHolder<ViewContributorCellBinding> holder, int position) {
+            ContributorViewModel viewModel = getItem(position);
+            ViewContributorCellBinding itemBinding = holder.binding;
+            itemBinding.setViewModel(viewModel);
+            itemBinding.executePendingBindings();
+        }
     }
 }
