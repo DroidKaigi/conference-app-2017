@@ -88,27 +88,42 @@ public class InformationFragment extends BaseFragment implements InformationView
 
     @Override
     public void showTwitter() {
-        // TODO
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/DroidKaigi"));
+        if (intent.resolveActivity(getContext().getPackageManager()) == null)
+            return;
+        startActivity(intent);
     }
 
     @Override
     public void showFacebook() {
-        // TODO
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/DroidKaigi/"));
+        if (intent.resolveActivity(getContext().getPackageManager()) == null)
+            return;
+        startActivity(intent);
     }
 
     @Override
     public void showGitHubRepository() {
-        // TODO
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/DroidKaigi/conference-app-2017/"));
+        if (intent.resolveActivity(getContext().getPackageManager()) == null)
+            return;
+        startActivity(intent);
     }
 
     @Override
     public void showDroidKaigiWeb() {
-        // TODO
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://droidkaigi.github.io/2017/"));
+        if (intent.resolveActivity(getContext().getPackageManager()) == null)
+            return;
+        startActivity(intent);
     }
 
     @Override
     public void showYouTube() {
-        // TODO
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/droidkaigi"));
+        if (intent.resolveActivity(getContext().getPackageManager()) == null)
+            return;
+        startActivity(intent);
     }
 
 }
