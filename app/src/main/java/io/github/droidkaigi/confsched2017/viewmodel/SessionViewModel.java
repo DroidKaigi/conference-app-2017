@@ -67,9 +67,8 @@ public class SessionViewModel extends BaseObservable implements ViewModel {
         if (session.room != null) {
             this.roomName = session.room.name;
         }
-        if (session.lang != null) {
-            this.languageId = session.lang.toUpperCase();
-        }
+       
+        this.languageId = session.lang != null ? session.lang.toUpperCase() : Session.LANG_EN_ID;
 
         this.minutes = context.getString(R.string.session_minutes, session.durationMin);
 
