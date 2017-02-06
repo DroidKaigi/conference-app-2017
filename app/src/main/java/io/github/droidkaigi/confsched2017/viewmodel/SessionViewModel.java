@@ -53,6 +53,8 @@ public class SessionViewModel extends BaseObservable implements ViewModel {
 
     private int normalSessionItemVisibility;
 
+    private int languageVisibility;
+
     private Callback callback;
 
     SessionViewModel(@NonNull Session session, Context context, int roomCount, boolean isMySession) {
@@ -67,8 +69,10 @@ public class SessionViewModel extends BaseObservable implements ViewModel {
         if (session.room != null) {
             this.roomName = session.room.name;
         }
-       
-        this.languageId = session.lang != null ? session.lang.toUpperCase() : Session.LANG_EN_ID;
+        if (session.lang != null) {
+            this.languageId = session.lang.toUpperCase();
+        }
+        this.languageVisibility = session.lang != null ? View.VISIBLE : View.GONE;
 
         this.minutes = context.getString(R.string.session_minutes, session.durationMin);
 
@@ -201,6 +205,10 @@ public class SessionViewModel extends BaseObservable implements ViewModel {
 
     public int getNormalSessionItemVisibility() {
         return normalSessionItemVisibility;
+    }
+
+    public int getLanguageVisibility() {
+        return languageVisibility;
     }
 
     @Bindable

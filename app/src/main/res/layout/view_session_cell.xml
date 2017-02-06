@@ -120,7 +120,7 @@
                 android:textAppearance="@style/TextCaption"
                 android:textColor="@color/grey500"
                 android:textSize="@dimen/session_table_cell_title_text_size"
-                android:visibility="@{viewModel.normalSessionItemVisibility}"
+                android:visibility="@{viewModel.languageVisibility}"
                 />
 
         <TextView
