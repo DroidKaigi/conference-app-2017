@@ -11,19 +11,12 @@
                 />
     </data>
 
-    <FrameLayout
+    <WebView
+            android:id="@+id/web_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            >
-
-        <WebView
-                android:id="@+id/web_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:webViewUrl="@{viewModel.licenseFilePath}"
-                app:webViewClient="@{viewModel.webViewClient}"
-                />
-
-    </FrameLayout>
+            app:webViewClient="@{viewModel.webViewClient}"
+            app:webViewUrl="@{viewModel.licenseFilePath}"
+            />
 
 </layout>
