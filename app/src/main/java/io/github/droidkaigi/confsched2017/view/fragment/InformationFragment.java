@@ -77,7 +77,7 @@ public class InformationFragment extends BaseFragment implements InformationView
     }
 
     @Override
-    public void showLicencePage() {
+    public void showLicensePage() {
         LicensesActivity.start(getActivity());
     }
 

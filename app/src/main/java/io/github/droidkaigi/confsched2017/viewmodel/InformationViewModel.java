@@ -50,9 +50,9 @@ public final class InformationViewModel implements ViewModel {
         }
     }
 
-    public void onClickLicence(@SuppressWarnings("unused") View view) {
+    public void onClickLicense(@SuppressWarnings("unused") View view) {
         if (callback != null) {
-            callback.showLicencePage();
+            callback.showLicensePage();
         }
     }
 
@@ -107,7 +107,7 @@ public final class InformationViewModel implements ViewModel {
 
         void showTranslationsPage();
 
-        void showLicencePage();
+        void showLicensePage();
 
         void showDevInfoPage();
 
