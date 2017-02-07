@@ -13,7 +13,7 @@ public class Contributor {
 
     @PrimaryKey(auto = false)
     @Column("name")
-    @SerializedName("login")
+    @SerializedName(value = "login", alternate = "name")
     public String name;
 
     @Column("avatar_url")

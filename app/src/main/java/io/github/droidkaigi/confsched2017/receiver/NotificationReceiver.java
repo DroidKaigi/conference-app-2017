@@ -24,7 +24,8 @@ public class NotificationReceiver extends BroadcastReceiver {
 
     private static final String KEY_TEXT = "text";
 
-    private static final int NOTIFICATION_ID = 1;
+    private static final String GROUP_NAME = "droidkaigi";
+    private static final int GROUP_NOTIFICATION_ID = 0;
 
     public static Intent createIntent(Context context, int sessionId, String title, String text) {
         Intent intent = new Intent(context, NotificationReceiver.class);
@@ -41,10 +42,36 @@ public class NotificationReceiver extends BroadcastReceiver {
             Timber.tag(TAG).v("Notification is disabled.");
             return;
         }
+
+        showGroupNotification(context);
+
+        showChildNotification(context, intent, prefs.getHeadsUpFlag());
+    }
+
+    /**
+     * Show group notification
+     * @param context Context
+     */
+    private void showGroupNotification(Context context) {
+        Notification groupNotification = new NotificationCompat.Builder(context)
+                .setSmallIcon(R.drawable.ic_notification)
+                .setColor(ContextCompat.getColor(context, R.color.theme))
+                .setGroup(GROUP_NAME)
+                .setGroupSummary(true)
+                .build();
+        NotificationManagerCompat.from(context).notify(GROUP_NOTIFICATION_ID, groupNotification);
+    }
+
+    /**
+     * Show child notification
+     * @param context Context
+     * @param intent Intent
+     */
+    private void showChildNotification(Context context, Intent intent, boolean headsUp) {
         int sessionId = intent.getIntExtra(KEY_SESSION_ID, 0);
         String title = intent.getStringExtra(KEY_TITLE);
         String text = intent.getStringExtra(KEY_TEXT);
-        int priority = prefs.getHeadsUpFlag() ? NotificationCompat.PRIORITY_HIGH : NotificationCompat.PRIORITY_DEFAULT;
+        int priority = headsUp ? NotificationCompat.PRIORITY_HIGH : NotificationCompat.PRIORITY_DEFAULT;
         Intent openIntent = SessionDetailActivity.createIntent(context, sessionId);
         openIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, openIntent, 0);
@@ -52,13 +79,14 @@ public class NotificationReceiver extends BroadcastReceiver {
                 .setTicker(title)
                 .setContentTitle(title)
                 .setContentText(text)
-                .setSmallIcon(R.mipmap.ic_launcher) // TODO Please replace this icon
+                .setSmallIcon(R.drawable.ic_notification)
                 .setColor(ContextCompat.getColor(context, R.color.theme))
                 .setAutoCancel(true)
                 .setContentIntent(pendingIntent)
                 .setDefaults(NotificationCompat.DEFAULT_ALL)
                 .setPriority(priority)
+                .setGroup(GROUP_NAME)
                 .build();
-        NotificationManagerCompat.from(context).notify(NOTIFICATION_ID, notification);
+        NotificationManagerCompat.from(context).notify(sessionId, notification);
     }
 }
