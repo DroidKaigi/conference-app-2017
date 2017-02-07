@@ -52,4 +52,13 @@ object DummyCreator {
         id = seed
         name = seed.toString()
     }
+
+    fun newContributor(seed: Int) = Contributor().apply {
+        val seedString = seed.toString()
+
+        name = seedString
+        avatarUrl = seedString
+        htmlUrl = seedString
+        contributions = seed
+    }
 }
