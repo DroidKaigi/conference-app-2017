@@ -21,8 +21,10 @@ dependencies:
 
 test:
   override:
-    - ./gradlew clean assembleProductionDebug check jacocoTestReportDevelop
-    - find . -name app*debug.apk -exec cp {} $CIRCLE_ARTIFACTS/ \;
+    - TERM=dumb ./gradlew assembleProductionDebug
+    - TERM=dumb ./gradlew check
+    - TERM=dumb ./gradlew jacocoTestReportDevelop
+    - find . -name app*debug.apk -exec mv {} $CIRCLE_ARTIFACTS/ \;
 
 deployment:
   production:
