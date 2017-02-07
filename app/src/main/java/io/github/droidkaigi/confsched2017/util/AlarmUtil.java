@@ -46,7 +46,7 @@ public class AlarmUtil {
                 DateUtil.getHourMinute(displaySTime),
                 DateUtil.getHourMinute(displayETime),
                 room);
-        Intent intent = NotificationReceiver.createIntent(context, session.id, title, text);
+        Intent intent = NotificationReceiver.createIntent(context, title, text);
         return PendingIntent.getBroadcast(context, REQ_CODE_NOTIFICATION,
                 intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
