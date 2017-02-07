@@ -5,12 +5,9 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.NavUtils;
-import android.support.v4.app.TaskStackBuilder;
 import android.view.MenuItem;
 
 import io.github.droidkaigi.confsched2017.R;
-import io.github.droidkaigi.confsched2017.receiver.NotificationReceiver;
 import io.github.droidkaigi.confsched2017.view.fragment.SessionDetailFragment;
 
 public class SessionDetailActivity extends BaseActivity {
@@ -37,15 +34,17 @@ public class SessionDetailActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                if (NotificationReceiver.checkLaunchFromNotification(getIntent())) {
-                    Intent upIntent = NavUtils.getParentActivityIntent(this);
-                    TaskStackBuilder.create(this)
-                            .addNextIntentWithParentStack(upIntent)
-                            .startActivities();
-                    return true;
-                }
+                upToMainActivity();
+                return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void upToMainActivity() {
+        Intent upIntent = new Intent(getApplicationContext(), MainActivity.class);
+        upIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivity(upIntent);
+        finish();
     }
 
 }

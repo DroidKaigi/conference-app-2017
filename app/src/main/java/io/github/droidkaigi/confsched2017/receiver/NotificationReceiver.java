@@ -5,7 +5,6 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.content.ContextCompat;
@@ -27,22 +26,12 @@ public class NotificationReceiver extends BroadcastReceiver {
 
     private static final int NOTIFICATION_ID = 1;
 
-    private static final String ACTION_FROM_NOTIFICATION = TAG + "_from_notification";
-
     public static Intent createIntent(Context context, int sessionId, String title, String text) {
         Intent intent = new Intent(context, NotificationReceiver.class);
         intent.putExtra(NotificationReceiver.KEY_SESSION_ID, sessionId);
         intent.putExtra(NotificationReceiver.KEY_TITLE, title);
         intent.putExtra(NotificationReceiver.KEY_TEXT, text);
         return intent;
-    }
-
-    public static boolean checkLaunchFromNotification(@Nullable Intent intent) {
-        if (intent == null) {
-            return false;
-        }
-        String action = intent.getAction();
-        return action != null && action.equals(NotificationReceiver.ACTION_FROM_NOTIFICATION);
     }
 
     @Override
@@ -58,7 +47,6 @@ public class NotificationReceiver extends BroadcastReceiver {
         int priority = prefs.getHeadsUpFlag() ? NotificationCompat.PRIORITY_HIGH : NotificationCompat.PRIORITY_DEFAULT;
         Intent openIntent = SessionDetailActivity.createIntent(context, sessionId);
         openIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        openIntent.setAction(ACTION_FROM_NOTIFICATION);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, openIntent, 0);
         Notification notification = new NotificationCompat.Builder(context)
                 .setTicker(title)
