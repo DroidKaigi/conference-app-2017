@@ -8,4 +8,7 @@ interface DroidKaigiService {
 
     @GET("/2017/sessions.json")
     fun getSessionsJa(): Single<List<Session>>
+
+    @GET("/2017/en/sessions.json")
+    fun getSessionsEn(): Single<List<Session>>
 }
