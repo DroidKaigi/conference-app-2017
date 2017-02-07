@@ -98,7 +98,7 @@
                             android:layout_marginLeft="@dimen/info_social_icon_margin"
                             android:layout_marginStart="@dimen/info_social_icon_margin"
                             android:onClick="@{viewModel::onClickDroidKaigiWeb}"
-                            android:src="@drawable/ic_droidkaigi_36"
+                            android:src="@drawable/ic_droidkaigi"
                             />
 
                     <ImageView
@@ -108,7 +108,7 @@
                             android:layout_marginLeft="@dimen/info_social_icon_margin"
                             android:layout_marginStart="@dimen/info_social_icon_margin"
                             android:onClick="@{viewModel::onClickYouTube}"
-                            android:src="@drawable/ic_youtube_36"
+                            app:srcCompat="@drawable/ic_youtube_36_vector"
                             />
 
                 </LinearLayout>
