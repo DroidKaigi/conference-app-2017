@@ -14,6 +14,7 @@ import org.junit.runner.RunWith
 import org.mockito.Mockito.*
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
+import java.util.Date
 
 @RunWith(RobolectricTestRunner::class)
 class SessionsRepositoryTest {
@@ -246,30 +247,29 @@ class SessionsRepositoryTest {
     }
 
     @Test
-    fun findLocalCache() {
-        val sessions = listOf(createSession(5), createSession(1), createSession(12))
-        val client = mockDroidKaigiClient(sessions)
+    fun findLocalStorage() {
         val ormaDatabase = OrmaDatabase
                 .builder(RuntimeEnvironment.application)
                 .name(null)
                 .build()
-        val cachedSessions: Map<Int, Session> = mock()
+        ormaDatabase
+                .insertIntoSession(createSession(12).apply {
+                    title = "awesome session"
+                    stime = Date()
+                    etime = Date()
+                    durationMin = 30
+                    type = "android"
+                })
 
+        val cachedSessions: Map<Int, Session> = mock()
+        val client: DroidKaigiClient = mock()
         val repository = SessionsRepository(
                 SessionsLocalDataSource(ormaDatabase),
                 SessionsRemoteDataSource(client)
-        ).apply {
-            this.cachedSessions = cachedSessions
-        }
+        )
 
-        // create cache
-        repository.findAll(Session.LANG_JA_ID)
-                .test()
-                .run{
-                    assertNoErrors()
-                }
-
-        repository.setIdDirty(true)
+        repository.cachedSessions = cachedSessions
+        repository.setIdDirty(false)
         repository.find(12, Session.LANG_JA_ID)
                 .test()
                 .run {
@@ -277,6 +277,7 @@ class SessionsRepositoryTest {
                     assertThat(values().first().id).isEqualTo(12)
                     assertComplete()
                     cachedSessions.verify(never()).get(eq(12))
+                    client.verify(never()).getSessions(anyString())
                 }
     }
 
