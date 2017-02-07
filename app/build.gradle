@@ -5,6 +5,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'kotlin-android'
 apply plugin: 'com.cookpad.android.licensetools'
+apply plugin: 'com.github.ben-manes.versions'
 
 // Manifest version
 def versionMajor = 0
@@ -297,6 +298,20 @@ task jacocoTestReportDevelop(type: JacocoReport, dependsOn: ['testDevelopDebugUn
 }
 
 tasks['check'].dependsOn checkLicenses
+
+// report only stable versions
+dependencyUpdates.resolutionStrategy = {
+    componentSelection { rules ->
+        rules.all { ComponentSelection selection ->
+            boolean rejected = ['alpha', 'beta', 'rc', 'cr', 'm'].any { qualifier ->
+                selection.candidate.version ==~ /(?i).*[.-]${qualifier}[.\d-]*/
+            }
+            if (rejected) {
+                selection.reject('Release candidate')
+            }
+        }
+    }
+}
 
 // MUST BE AT THE BOTTOM
 apply plugin: 'com.google.gms.google-services'
