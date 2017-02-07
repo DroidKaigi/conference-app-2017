@@ -15,6 +15,7 @@ dependencies:
     - echo y | android update sdk --no-ui --all --filter "build-tools-25.0.2"
   cache_directories:
     - ~/.android
+    - ~/.gradle
   override:
     - ./gradlew dependencies
 
