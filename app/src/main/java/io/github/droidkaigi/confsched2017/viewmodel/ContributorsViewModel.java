@@ -14,7 +14,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import io.github.droidkaigi.confsched2017.BR;
-import io.github.droidkaigi.confsched2017.model.Contributor;
 import io.github.droidkaigi.confsched2017.repository.contributors.ContributorsRepository;
 import io.reactivex.Single;
 
@@ -22,8 +21,7 @@ public final class ContributorsViewModel extends BaseObservable implements ViewM
 
     private final ContributorsRepository contributorsRepository;
 
-    @Nullable
-    private List<Contributor> contributors;
+    private int loadingVisibility;
 
     @Nullable
     private Callback callback;
@@ -43,9 +41,7 @@ public final class ContributorsViewModel extends BaseObservable implements ViewM
 
     public Single<List<ContributorViewModel>> getContributors() {
         return contributorsRepository.findAll().map(contributors -> {
-            this.contributors = contributors;
-            notifyPropertyChanged(BR.loadingVisibility);
-
+            setLoadingVisibility(View.GONE);
             return Stream.of(contributors).map(contributor -> {
                 ContributorViewModel viewModel = new ContributorViewModel(contributor);
                 viewModel.setCallback(this);
@@ -63,11 +59,12 @@ public final class ContributorsViewModel extends BaseObservable implements ViewM
 
     @Bindable
     public int getLoadingVisibility() {
-        if (this.contributors == null) {
-            return View.VISIBLE;
-        } else {
-            return View.GONE;
-        }
+        return loadingVisibility;
+    }
+
+    public void setLoadingVisibility(int visibility) {
+        this.loadingVisibility = visibility;
+        notifyPropertyChanged(BR.loadingVisibility);
     }
 
     public interface Callback {
