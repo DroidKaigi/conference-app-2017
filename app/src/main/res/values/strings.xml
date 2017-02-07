@@ -56,7 +56,7 @@
 
     <!-- Sponsors -->
     <string name="sponsors">Sponsors</string>
-
+    <string name="sponsors_file">sponsors_en.json</string>
 
     <!-- Contributors -->
     <string name="contributors">Contributors</string>
