@@ -20,7 +20,7 @@ class SessionsRepositoryTest {
 
     @Test
     fun hasCacheSessions() {
-        // false
+        // false. cache is null.
         run {
             val repository = SessionsRepository(
                     SessionsLocalDataSource(mock()),
@@ -30,7 +30,19 @@ class SessionsRepositoryTest {
             assertThat(repository.hasCacheSessions()).isFalse()
         }
 
-        // true
+        // false. repository has any cached session, but repository is dirty.
+        run {
+            val repository = SessionsRepository(
+                    SessionsLocalDataSource(mock()),
+                    SessionsRemoteDataSource(mock())
+            )
+            repository.cachedSessions = mapOf(0 to Session())
+            repository.setIdDirty(true)
+
+            assertThat(repository.hasCacheSessions()).isFalse()
+        }
+
+        // true.
         run {
             val repository = SessionsRepository(
                     SessionsLocalDataSource(mock()),
