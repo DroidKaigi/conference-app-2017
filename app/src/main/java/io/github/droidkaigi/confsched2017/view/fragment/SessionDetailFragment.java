@@ -58,7 +58,7 @@ public class SessionDetailFragment extends BaseFragment implements SessionDetail
         sessionId = getArguments().getInt(ARG_SESSION_ID);
         Disposable disposable = viewModel.findSession(sessionId)
                 .subscribe(
-                        session -> initTheme(),
+                        () -> initTheme(),
                         throwable -> Log.e(TAG, "Failed to find session.", throwable)
                 );
         compositeDisposable.add(disposable);
