@@ -54,7 +54,7 @@ public class NotificationReceiver extends BroadcastReceiver {
      */
     private void showGroupNotification(Context context) {
         Notification groupNotification = new NotificationCompat.Builder(context)
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.ic_notification)
                 .setColor(ContextCompat.getColor(context, R.color.theme))
                 .setGroup(GROUP_NAME)
                 .setGroupSummary(true)
@@ -79,7 +79,7 @@ public class NotificationReceiver extends BroadcastReceiver {
                 .setTicker(title)
                 .setContentTitle(title)
                 .setContentText(text)
-                .setSmallIcon(R.mipmap.ic_launcher) // TODO Please replace this icon
+                .setSmallIcon(R.drawable.ic_notification)
                 .setColor(ContextCompat.getColor(context, R.color.theme))
                 .setAutoCancel(true)
                 .setContentIntent(pendingIntent)
