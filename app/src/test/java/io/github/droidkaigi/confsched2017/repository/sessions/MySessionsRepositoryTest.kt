@@ -5,11 +5,11 @@ import com.sys1yagi.kmockito.mock
 import com.sys1yagi.kmockito.verify
 import com.taroid.knit.should
 import io.github.droidkaigi.confsched2017.model.*
+import io.github.droidkaigi.confsched2017.util.DummyCreator
 import io.reactivex.Completable
 import io.reactivex.Single
 import org.junit.Test
 import org.mockito.Mockito
-import java.sql.Date
 
 class MySessionsRepositoryTest {
 
@@ -19,7 +19,7 @@ class MySessionsRepositoryTest {
     @Test
     @Throws(Exception::class)
     fun findAll() {
-        val expected = Array(10) { i -> newDummyMySession(i) }.toList()
+        val expected = Array(10) { i -> DummyCreator.newMySession(i) }.toList()
         localDataSource.findAll().invoked.thenReturn(Single.just(expected))
 
         repository.findAll().test().run {
@@ -41,7 +41,7 @@ class MySessionsRepositoryTest {
     @Test
     @Throws(Exception::class)
     fun save() {
-        val session = newDummySession(1)
+        val session = DummyCreator.newSession(1)
         localDataSource.save(session).invoked.thenReturn(Completable.complete())
         repository.save(session).test().run {
             assertNoErrors()
@@ -60,8 +60,8 @@ class MySessionsRepositoryTest {
     @Test
     @Throws(Exception::class)
     fun delete() {
-        val session1 = newDummySession(1)
-        val session2 = newDummySession(2)
+        val session1 = DummyCreator.newSession(1)
+        val session2 = DummyCreator.newSession(2)
 
         // ready caches
         repository.save(session1)
@@ -90,53 +90,6 @@ class MySessionsRepositoryTest {
 
         localDataSource.isExist(1).invoked.thenReturn(true)
         repository.isExist(1).should be true
-    }
-
-    private fun newDummyMySession(seed: Int) = MySession().apply {
-        id = seed
-        session = newDummySession(seed)
-    }
-
-    private fun newDummySession(seed: Int) = Session().apply {
-            val seedString = seed.toString()
-            val seedLong = seed.toLong()
-
-            id = seed
-            title = seedString
-            desc = seedString
-            speaker = newDummySpeaker(seed)
-            stime = Date(seedLong)
-            etime = Date(seedLong)
-            durationMin = seed
-            type = seedString
-            topic = newDummyTopic(seed)
-            room = newDummyRoom(seed)
-            lang = seedString
-            slideUrl = seedString
-            movieUrl = seedString
-            movieDashUrl = seedString
-            shareUrl = seedString
-    }
-
-    private fun newDummySpeaker(seed: Int) = Speaker().apply {
-        val seedString = seed.toString()
-        id = seed
-        name = seedString
-        imageUrl = seedString
-        twitterName = seedString
-        githubName = seedString
-    }
-
-    private fun newDummyTopic(seed: Int) = Topic().apply {
-        val seedString = seed.toString()
-        id = seed
-        name = seedString
-        other = seedString
-    }
-
-    private fun newDummyRoom(seed: Int) = Room().apply {
-        id = seed
-        name = seed.toString()
     }
 
 }
