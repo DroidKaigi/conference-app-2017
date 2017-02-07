@@ -12,15 +12,14 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import io.github.droidkaigi.confsched2017.api.service.DroidKaigiService;
+import io.github.droidkaigi.confsched2017.api.service.GithubService;
 import io.github.droidkaigi.confsched2017.model.Contributor;
 import io.github.droidkaigi.confsched2017.model.Session;
 import io.reactivex.Single;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.GET;
-import retrofit2.http.Path;
-import retrofit2.http.Query;
 
 @Singleton
 public class DroidKaigiClient {
@@ -65,18 +64,5 @@ public class DroidKaigiClient {
 
     public Single<List<Contributor>> getContributors() {
         return githubService.getContributors("DroidKaigi", "conference-app-2017", INCLUDE_ANONYMOUS, MAX_PER_PAGE);
-    }
-
-    interface DroidKaigiService {
-
-        @GET("/2017/sessions.json")
-        Single<List<Session>> getSessionsJa();
-    }
-
-    interface GithubService {
-
-        @GET("/repos/{owner}/{repo}/contributors")
-        Single<List<Contributor>> getContributors(@Path("owner") String owner,
-                @Path("repo") String repo, @Query("anon") int anon, @Query("per_page") int perPage);
     }
 }
