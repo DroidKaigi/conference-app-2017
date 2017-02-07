@@ -3,6 +3,7 @@ package io.github.droidkaigi.confsched2017.api;
 import android.support.annotation.NonNull;
 
 import java.util.List;
+import java.util.Locale;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -24,6 +25,8 @@ public class DroidKaigiClient {
 
     private static final int MAX_PER_PAGE = 100;
 
+    private static final String LOCALE_JA = "ja";
+
     @Inject
     public DroidKaigiClient(DroidKaigiService droidKaigiService, GithubService githubService) {
         this.droidKaigiService = droidKaigiService;
@@ -31,10 +34,11 @@ public class DroidKaigiClient {
     }
 
     public Single<List<Session>> getSessions(@NonNull String languageId) {
-        // TODO
         switch (languageId) {
-            default:
+            case LOCALE_JA:
                 return droidKaigiService.getSessionsJa();
+            default:
+                return droidKaigiService.getSessionsEn();
         }
     }
 
