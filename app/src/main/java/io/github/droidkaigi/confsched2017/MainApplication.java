@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2017;
 
+import com.deploygate.sdk.DeployGate;
 import com.squareup.leakcanary.LeakCanary;
 
 import android.app.Application;
@@ -34,6 +35,7 @@ public class MainApplication extends Application {
         initCalligraphy();
         initLeakCanary();
 
+        DeployGate.install(this, null, true);
         Timber.plant(new CrashLogTree()); // TODO initialize Firebase before this line
     }
 
