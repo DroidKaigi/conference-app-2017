@@ -17,8 +17,6 @@ public class AlarmUtil {
 
     private static final long REMIND_DURATION_MINUTES_FOR_START = TimeUnit.MINUTES.toMillis(10);
 
-    private static final int REQ_CODE_NOTIFICATION = 1001;
-
     public static void registerAlarm(@NonNull Context context, @NonNull Session session) {
         long time = session.stime.getTime() - REMIND_DURATION_MINUTES_FOR_START;
         // To develop notification, please uncomment this line
@@ -47,7 +45,7 @@ public class AlarmUtil {
                 DateUtil.getHourMinute(displayETime),
                 room);
         Intent intent = NotificationReceiver.createIntent(context, session.id, title, text);
-        return PendingIntent.getBroadcast(context, REQ_CODE_NOTIFICATION,
+        return PendingIntent.getBroadcast(context, session.id,
                 intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 }
