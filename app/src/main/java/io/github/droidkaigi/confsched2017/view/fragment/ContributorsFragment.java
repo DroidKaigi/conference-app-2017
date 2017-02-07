@@ -68,7 +68,7 @@ public class ContributorsFragment extends BaseFragment implements ContributorsVi
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         this::renderContributors,
-                        throwable -> Timber.tag(TAG).e(throwable, "Failed to show sessions.")
+                        throwable -> Timber.tag(TAG).e(throwable, "Failed to show contributors.")
                 );
         compositeDisposable.add(disposable);
     }
