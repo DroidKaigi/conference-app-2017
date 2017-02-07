@@ -52,7 +52,7 @@ public class NotificationReceiver extends BroadcastReceiver {
                 .setTicker(title)
                 .setContentTitle(title)
                 .setContentText(text)
-                .setSmallIcon(R.mipmap.ic_launcher) // TODO Please replace this icon
+                .setSmallIcon(R.drawable.ic_notification)
                 .setColor(ContextCompat.getColor(context, R.color.theme))
                 .setAutoCancel(true)
                 .setContentIntent(pendingIntent)
