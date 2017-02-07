@@ -12,7 +12,7 @@ import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-final class ContributorsLocalDataSource {
+public class ContributorsLocalDataSource {
 
     private final OrmaDatabase orma;
 
@@ -21,7 +21,7 @@ final class ContributorsLocalDataSource {
         this.orma = orma;
     }
 
-    Single<List<Contributor>> findAll() {
+    public Single<List<Contributor>> findAll() {
         return orma.selectFromContributor()
                 .executeAsObservable()
                 .toList()
