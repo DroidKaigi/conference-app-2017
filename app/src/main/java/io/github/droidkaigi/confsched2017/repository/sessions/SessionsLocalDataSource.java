@@ -96,7 +96,6 @@ public final class SessionsLocalDataSource implements SessionsDataSource {
     public void updateAllAsync(List<Session> sessions) {
         orma.transactionAsCompletable(() -> updateAllSync(sessions))
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe();
     }
 
