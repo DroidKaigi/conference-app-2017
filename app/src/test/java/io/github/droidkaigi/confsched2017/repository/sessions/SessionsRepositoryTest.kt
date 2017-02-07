@@ -124,6 +124,55 @@ class SessionsRepositoryTest {
                 }
     }
 
+    @Test
+    fun hasCacheSession() {
+        // false cachedSessions is null
+        run {
+            val repository = SessionsRepository(
+                    SessionsLocalDataSource(mock()),
+                    SessionsRemoteDataSource(mock())
+            )
+
+            assertThat(repository.hasCacheSession(0)).isFalse()
+        }
+
+        // false sessionId not found
+        run {
+            val repository = SessionsRepository(
+                    SessionsLocalDataSource(mock()),
+                    SessionsRemoteDataSource(mock())
+            )
+            repository.cachedSessions = mapOf(1 to Session())
+            repository.setIdDirty(false)
+
+            assertThat(repository.hasCacheSession(0)).isFalse()
+        }
+
+        // false dirty
+        run {
+            val repository = SessionsRepository(
+                    SessionsLocalDataSource(mock()),
+                    SessionsRemoteDataSource(mock())
+            )
+            repository.cachedSessions = mapOf(1 to Session())
+            repository.setIdDirty(true)
+
+            assertThat(repository.hasCacheSession(1)).isFalse()
+        }
+
+        // true
+        run {
+            val repository = SessionsRepository(
+                    SessionsLocalDataSource(mock()),
+                    SessionsRemoteDataSource(mock())
+            )
+            repository.cachedSessions = mapOf(1 to Session())
+            repository.setIdDirty(false)
+
+            assertThat(repository.hasCacheSession(1)).isTrue()
+        }
+    }
+
     fun mockDroidKaigiClient(sessions: List<Session>) = mock<DroidKaigiClient>().apply {
         getSessions(anyString()).invoked.thenReturn(
                 Single.just(sessions)

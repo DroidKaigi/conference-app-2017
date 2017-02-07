@@ -54,7 +54,7 @@ public class SessionsRepository implements SessionsDataSource {
 
     @Override
     public Maybe<Session> find(int sessionId, String languageId) {
-        if (cachedSessions != null && cachedSessions.containsKey(sessionId) && !isDirty) {
+        if (hasCacheSession(sessionId)) {
             return Maybe.create(emitter -> {
                 try {
                     emitter.onSuccess(cachedSessions.get(sessionId));
@@ -114,6 +114,10 @@ public class SessionsRepository implements SessionsDataSource {
 
     boolean hasCacheSessions() {
         return cachedSessions != null && !cachedSessions.isEmpty() && !isDirty;
+    }
+
+    boolean hasCacheSession(int sessionId) {
+        return cachedSessions != null && cachedSessions.containsKey(sessionId) && !isDirty;
     }
 
 }
