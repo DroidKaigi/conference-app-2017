@@ -7,5 +7,5 @@ import retrofit2.http.GET
 interface DroidKaigiService {
 
     @GET("/2017/sessions.json")
-    abstract fun getSessionsJa(): Single<List<Session>>
+    fun getSessionsJa(): Single<List<Session>>
 }

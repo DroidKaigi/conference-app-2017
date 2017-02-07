@@ -44,7 +44,7 @@ class DroidKaigiClientTest {
     @Throws(Exception::class)
     fun getContributors() {
         val expected = Array(10) { DummyCreator.newContributor(it) }.toList()
-        githubService.getContributors("DroidKaigi", "conference-app-2017")
+        githubService.getContributors("DroidKaigi", "conference-app-2017", 1, 100)
                 .invoked.thenReturn(Single.just(expected))
 
         client.getContributors().test().run {
