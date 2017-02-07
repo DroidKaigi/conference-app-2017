@@ -3,7 +3,6 @@ package io.github.droidkaigi.confsched2017.view.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -14,6 +13,7 @@ import javax.inject.Inject;
 
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.databinding.FragmentLicensesBinding;
+import io.github.droidkaigi.confsched2017.view.helper.IntentHelper;
 import io.github.droidkaigi.confsched2017.viewmodel.LicensesViewModel;
 
 public class LicensesFragment extends BaseFragment implements LicensesViewModel.Callback {
@@ -52,10 +52,12 @@ public class LicensesFragment extends BaseFragment implements LicensesViewModel.
 
     @Override
     public void showExternalLink(String url) {
-        Uri uri = Uri.parse(url);
-        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        if (intent.resolveActivity(getContext().getPackageManager()) != null)
-            startActivity(intent);
+        Intent intent = IntentHelper.buildActionViewIntent(getContext(), url);
+        if (intent == null) {
+            return;
+        }
+
+        startActivity(intent);
     }
 
     @Override
