@@ -138,11 +138,7 @@
   licence: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: https://github.com/DeployGate/deploygate-android-sdk
-- artifact: org.jetbrains.kotlin:kotlin-runtime:+
-  name: kotlin-runtime
-  copyrightHolder: JetBrains Inc.
-  license: The Apache Software License, Version 2.0
-- artifact: org.jetbrains.kotlin:kotlin-stdlib:+
-  name: kotlin-stdlib
+- artifact: org.jetbrains.kotlin:+:+
+  name: Kotlin Runtime and Standard Library
   copyrightHolder: JetBrains Inc.
   license: The Apache Software License, Version 2.0
