@@ -62,4 +62,11 @@
     <dimen name="info_social_icon_margin">@dimen/space_16dp</dimen>
     <dimen name="info_social_icon_size">36dp</dimen>
 
+
+    <!-- Contributor -->
+    <dimen name="contributor_image">60dp</dimen>
+    <dimen name="contributor_image_margin">@dimen/space_16dp</dimen>
+    <dimen name="contributor_image_margin_bottom">@dimen/space_8dp</dimen>
+    <dimen name="contributor_cell_margin_bottom">@dimen/space_16dp</dimen>
+
 </resources>
