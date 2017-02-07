@@ -173,6 +173,27 @@ class SessionsRepositoryTest {
         }
     }
 
+    @Test
+    fun findRemoteRequestNotFound() {
+        val sessions = listOf(createSession(1), createSession(2))
+        val client = mockDroidKaigiClient(sessions)
+
+        val repository = SessionsRepository(
+                SessionsLocalDataSource(mock()),
+                SessionsRemoteDataSource(client)
+        )
+
+        repository.find(3, Session.LANG_JA_ID)
+                .test()
+                .run {
+                    assertNoErrors()
+                    assertNoValues()
+                    assertComplete()
+                }
+    }
+
+    fun createSession(sessionId: Int) = Session().apply { id = sessionId }
+
     fun mockDroidKaigiClient(sessions: List<Session>) = mock<DroidKaigiClient>().apply {
         getSessions(anyString()).invoked.thenReturn(
                 Single.just(sessions)
