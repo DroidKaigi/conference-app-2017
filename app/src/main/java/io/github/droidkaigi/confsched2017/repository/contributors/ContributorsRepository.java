@@ -12,11 +12,11 @@ import io.github.droidkaigi.confsched2017.model.Contributor;
 import io.reactivex.Single;
 
 @Singleton
-public class ContributorsRepository implements ContributorsReadDataSource {
+public class ContributorsRepository {
 
-    private final ContributorsReadWriteDataSource localDataSource;
+    private final ContributorsLocalDataSource localDataSource;
 
-    private final ContributorsReadDataSource remoteDataSourse;
+    private final ContributorsRemoteDataSource remoteDataSourse;
 
     private Map<String, Contributor> cachedContributors;
 
@@ -30,7 +30,6 @@ public class ContributorsRepository implements ContributorsReadDataSource {
         this.isDirty = true;
     }
 
-    @Override
     public Single<List<Contributor>> findAll() {
         if (cachedContributors != null && !cachedContributors.isEmpty() && !isDirty) {
             return Single.create(emitter -> {

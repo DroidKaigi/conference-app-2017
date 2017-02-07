@@ -12,7 +12,7 @@ import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class ContributorsLocalDataSource implements ContributorsReadWriteDataSource {
+public class ContributorsLocalDataSource {
 
     private final OrmaDatabase orma;
 
@@ -21,7 +21,6 @@ public class ContributorsLocalDataSource implements ContributorsReadWriteDataSou
         this.orma = orma;
     }
 
-    @Override
     public Single<List<Contributor>> findAll() {
         return orma.selectFromContributor()
                 .executeAsObservable()
@@ -33,8 +32,7 @@ public class ContributorsLocalDataSource implements ContributorsReadWriteDataSou
         orma.prepareInsertIntoContributor(OnConflict.REPLACE).executeAll(contributors);
     }
 
-    @Override
-    public void updateAllAsync(List<Contributor> contributors) {
+    void updateAllAsync(List<Contributor> contributors) {
         orma.transactionAsCompletable(() -> updateAllSync(contributors))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

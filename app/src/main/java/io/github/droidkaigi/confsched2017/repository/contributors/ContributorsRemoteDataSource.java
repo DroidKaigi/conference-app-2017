@@ -9,7 +9,7 @@ import io.github.droidkaigi.confsched2017.model.Contributor;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 
-public class ContributorsRemoteDataSource implements ContributorsReadDataSource {
+public class ContributorsRemoteDataSource {
 
     private final DroidKaigiClient client;
 
@@ -18,8 +18,7 @@ public class ContributorsRemoteDataSource implements ContributorsReadDataSource 
         this.client = client;
     }
 
-    @Override
-    public Single<List<Contributor>> findAll() {
+    Single<List<Contributor>> findAll() {
         return client.getContributors().subscribeOn(Schedulers.io());
     }
 
