@@ -1,5 +1,7 @@
 package io.github.droidkaigi.confsched2017.view.fragment;
 
+import com.annimon.stream.Optional;
+
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -99,12 +101,8 @@ public class ContributorsFragment extends BaseFragment implements ContributorsVi
 
     @Override
     public void onClickContributor(String htmlUrl) {
-        Intent intent = IntentHelper.buildActionViewIntent(getContext(), htmlUrl);
-        if (intent == null) {
-            return;
-        }
-
-        startActivity(intent);
+        Optional<Intent> intentOptional = IntentHelper.buildActionViewIntent(getContext(), htmlUrl);
+        intentOptional.ifPresent(this::startActivity);
     }
 
     private static class Adapter

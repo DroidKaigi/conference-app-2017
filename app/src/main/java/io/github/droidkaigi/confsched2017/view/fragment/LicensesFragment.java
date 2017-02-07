@@ -1,5 +1,7 @@
 package io.github.droidkaigi.confsched2017.view.fragment;
 
+import com.annimon.stream.Optional;
+
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -52,12 +54,8 @@ public class LicensesFragment extends BaseFragment implements LicensesViewModel.
 
     @Override
     public void showExternalLink(String url) {
-        Intent intent = IntentHelper.buildActionViewIntent(getContext(), url);
-        if (intent == null) {
-            return;
-        }
-
-        startActivity(intent);
+        Optional<Intent> intentOptional = IntentHelper.buildActionViewIntent(getContext(), url);
+        intentOptional.ifPresent(this::startActivity);
     }
 
     @Override

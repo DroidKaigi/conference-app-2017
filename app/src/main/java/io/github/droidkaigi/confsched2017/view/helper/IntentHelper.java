@@ -1,5 +1,7 @@
 package io.github.droidkaigi.confsched2017.view.helper;
 
+import com.annimon.stream.Optional;
+
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -15,25 +17,21 @@ public class IntentHelper {
      * Builds an intent of type Intent.ACTION_VIEW from the passed htmlUrl.
      * But, When intent.resolveActivity(context.getPackageManager()) == null is true, it return null.
      */
-    public static Intent buildActionViewIntent(@NonNull Context context, @NonNull String htmlUrl) {
+    public static Optional<Intent> buildActionViewIntent(@NonNull Context context, @NonNull String htmlUrl) {
         if (TextUtils.isEmpty(htmlUrl)) {
             Timber.i("buildActionViewIntent: url is null");
-            return null;
+            return Optional.empty();
         }
 
         Timber.i("buildActionViewIntent: url: %s", htmlUrl);
 
         if (!URLUtil.isNetworkUrl(htmlUrl)) {
-            return null;
+            return Optional.empty();
         }
 
         Uri uri = Uri.parse(htmlUrl);
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
 
-        if (intent.resolveActivity(context.getPackageManager()) == null) {
-            return null;
-        }
-
-        return intent;
+        return intent.resolveActivity(context.getPackageManager()) != null ? Optional.of(intent) : Optional.empty();
     }
 }

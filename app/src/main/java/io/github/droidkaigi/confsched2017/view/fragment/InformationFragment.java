@@ -1,5 +1,7 @@
 package io.github.droidkaigi.confsched2017.view.fragment;
 
+import com.annimon.stream.Optional;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -112,11 +114,7 @@ public class InformationFragment extends BaseFragment implements InformationView
     }
 
     public void showHtmlUrl(String htmlUrl) {
-        Intent intent = IntentHelper.buildActionViewIntent(getContext(), htmlUrl);
-        if (intent == null) {
-            return;
-        }
-
-        startActivity(intent);
+        Optional<Intent> intentOptional = IntentHelper.buildActionViewIntent(getContext(), htmlUrl);
+        intentOptional.ifPresent(this::startActivity);
     }
 }
