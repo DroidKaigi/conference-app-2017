@@ -20,6 +20,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 @Singleton
 public class DroidKaigiClient {
@@ -27,6 +28,8 @@ public class DroidKaigiClient {
     private final DroidKaigiService droidKaigiService;
 
     private final GithubService githubService;
+
+    private static final int INCLUDE_ANONYMOUS = 1;
 
     @Inject
     public DroidKaigiClient(OkHttpClient client) {
@@ -59,7 +62,7 @@ public class DroidKaigiClient {
     }
 
     public Single<List<Contributor>> getContributors() {
-        return githubService.getContributors("DroidKaigi", "conference-app-2017");
+        return githubService.getContributors("DroidKaigi", "conference-app-2017", INCLUDE_ANONYMOUS);
     }
 
     interface DroidKaigiService {
@@ -72,6 +75,6 @@ public class DroidKaigiClient {
 
         @GET("/repos/{owner}/{repo}/contributors")
         Single<List<Contributor>> getContributors(@Path("owner") String owner,
-                @Path("repo") String repo);
+                @Path("repo") String repo, @Query("anon") int anon);
     }
 }
