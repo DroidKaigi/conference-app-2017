@@ -81,14 +81,11 @@ public class SessionDetailFragment extends BaseFragment implements SessionDetail
             activity.setTaskDescription(taskDescription);
 
             // Change status bar scrim color
-            Window window = activity.getWindow();
-            if (window != null) {
-                TypedValue typedValue = new TypedValue();
-                activity.getTheme().resolveAttribute(R.attr.colorPrimaryDark, typedValue, true);
-                int colorPrimaryDark = typedValue.data;
-                if (colorPrimaryDark != 0) {
-                    binding.collapsingToolbar.setStatusBarScrimColor(colorPrimaryDark);
-                }
+            TypedValue typedValue = new TypedValue();
+            activity.getTheme().resolveAttribute(R.attr.colorPrimaryDark, typedValue, true);
+            int colorPrimaryDark = typedValue.data;
+            if (colorPrimaryDark != 0) {
+                binding.collapsingToolbar.setStatusBarScrimColor(colorPrimaryDark);
             }
         }
     }
