@@ -22,7 +22,7 @@ import io.github.droidkaigi.confsched2017.repository.sessions.SessionsRepository
 import io.github.droidkaigi.confsched2017.util.AlarmUtil;
 import io.github.droidkaigi.confsched2017.util.DateUtil;
 import io.github.droidkaigi.confsched2017.util.LocaleUtil;
-import io.reactivex.Maybe;
+import io.reactivex.Completable;
 
 public class SessionDetailViewModel extends BaseObservable implements ViewModel {
 
@@ -88,12 +88,12 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
         this.languageResId = session.lang != null ? decideLanguageResId(session.lang.toUpperCase()) : R.string.lang_en;
     }
 
-    public Maybe<Session> findSession(int sessionId) {
+    public Completable loadSession(int sessionId) {
         final String languageId = Locale.getDefault().getLanguage().toLowerCase();
-        return sessionsRepository.find(sessionId, languageId)
-                .map(session -> {
+        return  sessionsRepository.find(sessionId, languageId)
+                .flatMapCompletable(session -> {
                     setSession(session);
-                    return session;
+                    return Completable.complete();
                 });
     }
 
