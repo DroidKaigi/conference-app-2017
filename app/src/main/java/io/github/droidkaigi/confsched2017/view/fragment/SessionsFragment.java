@@ -206,7 +206,9 @@ public class SessionsFragment extends BaseFragment implements SessionViewModel.C
 
         adapter.reset(adjustedSessionViewModels);
 
-        binding.txtDate.setText(adjustedSessionViewModels.get(0).getFormattedDate());
+        if (TextUtils.isEmpty(binding.txtDate.getText())) {
+            binding.txtDate.setText(adjustedSessionViewModels.get(0).getFormattedDate());
+        }
     }
 
     private void renderHeaderRow(List<Room> rooms) {
