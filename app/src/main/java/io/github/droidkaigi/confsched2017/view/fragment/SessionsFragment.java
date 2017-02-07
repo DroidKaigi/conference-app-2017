@@ -44,8 +44,10 @@ import io.github.droidkaigi.confsched2017.view.customview.ArrayRecyclerAdapter;
 import io.github.droidkaigi.confsched2017.view.customview.BindingHolder;
 import io.github.droidkaigi.confsched2017.viewmodel.SessionViewModel;
 import io.github.droidkaigi.confsched2017.viewmodel.SessionsViewModel;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class SessionsFragment extends BaseFragment implements SessionViewModel.Callback {
@@ -111,13 +113,14 @@ public class SessionsFragment extends BaseFragment implements SessionViewModel.C
     @Override
     public void onStop() {
         super.onStop();
-        compositeDisposable.dispose();
+        compositeDisposable.clear();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         viewModel.destroy();
+        compositeDisposable.dispose();
     }
 
     private int getScreenWidth() {
@@ -130,6 +133,8 @@ public class SessionsFragment extends BaseFragment implements SessionViewModel.C
     private void showSessions() {
         String languageId = Locale.getDefault().getLanguage().toLowerCase();
         Disposable disposable = viewModel.getSessions(languageId, getContext())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         this::renderSessions,
                         throwable -> Timber.tag(TAG).e(throwable, "Failed to show sessions.")

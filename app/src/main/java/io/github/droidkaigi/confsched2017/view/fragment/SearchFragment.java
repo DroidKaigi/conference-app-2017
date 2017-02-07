@@ -35,6 +35,8 @@ import io.github.droidkaigi.confsched2017.view.customview.BindingHolder;
 import io.github.droidkaigi.confsched2017.view.customview.itemdecoration.DividerItemDecoration;
 import io.github.droidkaigi.confsched2017.viewmodel.SearchResultViewModel;
 import io.github.droidkaigi.confsched2017.viewmodel.SearchViewModel;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class SearchFragment extends BaseFragment implements SearchViewModel.Callback, SearchResultViewModel.Callback {
 
@@ -132,6 +134,8 @@ public class SearchFragment extends BaseFragment implements SearchViewModel.Call
 
     private void loadData() {
         viewModel.getSearchResultViewModels(getContext(), this)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         searchResultViewModels -> adapter.setAllList(searchResultViewModels),
                         throwable -> Log.e(TAG, "Search result load failed.", throwable)
