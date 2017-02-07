@@ -142,9 +142,17 @@
             <io.github.droidkaigi.confsched2017.view.customview.InfoRowView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:onClick="@{viewModel::onClickLicence}"
-                    app:infoDescription="@string/info_licence_description"
-                    app:infoTitle="@string/info_licence_title"
+                    android:onClick="@{viewModel::onClickHelpTranslate}"
+                    app:infoDescription="@string/info_help_translate"
+                    app:infoTitle="@string/help_translate"
+                    />
+
+            <io.github.droidkaigi.confsched2017.view.customview.InfoRowView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{viewModel::onClickLicense}"
+                    app:infoDescription="@string/info_license_description"
+                    app:infoTitle="@string/info_license_title"
                     />
 
             <io.github.droidkaigi.confsched2017.view.customview.InfoRowView

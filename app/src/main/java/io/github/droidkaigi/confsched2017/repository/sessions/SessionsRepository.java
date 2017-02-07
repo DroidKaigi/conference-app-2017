@@ -15,9 +15,9 @@ import io.reactivex.Single;
 @Singleton
 public class SessionsRepository implements SessionsDataSource {
 
-    private final SessionsDataSource localDataSourse;
+    private final SessionsDataSource localDataSource;
 
-    private final SessionsDataSource remoteDataSourse;
+    private final SessionsDataSource remoteDataSource;
 
     private Map<Integer, Session> cachedSessions;
 
@@ -25,8 +25,8 @@ public class SessionsRepository implements SessionsDataSource {
 
     @Inject
     public SessionsRepository(SessionsLocalDataSource localDataSource, SessionsRemoteDataSource remoteDataSource) {
-        this.localDataSourse = localDataSource;
-        this.remoteDataSourse = remoteDataSource;
+        this.localDataSource = localDataSource;
+        this.remoteDataSource = remoteDataSource;
         this.cachedSessions = new LinkedHashMap<>();
         this.isDirty = true;
     }
@@ -63,19 +63,19 @@ public class SessionsRepository implements SessionsDataSource {
         }
 
         if (isDirty) {
-            return remoteDataSourse.find(sessionId, languageId);
+            return remoteDataSource.find(sessionId, languageId);
         } else {
-            return localDataSourse.find(sessionId, languageId);
+            return localDataSource.find(sessionId, languageId);
         }
     }
 
     @Override
     public void updateAllAsync(List<Session> sessions) {
-        localDataSourse.updateAllAsync(sessions);
+        localDataSource.updateAllAsync(sessions);
     }
 
     private Single<List<Session>> findAllFromLocal(String languageId) {
-        return localDataSourse.findAll(languageId)
+        return localDataSource.findAll(languageId)
                 .flatMap(sessions -> {
                     if (sessions.isEmpty()) {
                         return findAllFromRemote(languageId);
@@ -87,7 +87,7 @@ public class SessionsRepository implements SessionsDataSource {
     }
 
     private Single<List<Session>> findAllFromRemote(String languageId) {
-        return remoteDataSourse.findAll(languageId)
+        return remoteDataSource.findAll(languageId)
                 .map(sessions -> {
                     refreshCache(sessions);
                     updateAllAsync(sessions);

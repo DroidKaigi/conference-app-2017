@@ -1,4 +1,5 @@
-# ![](app/src/main/res/mipmap-mdpi/ic_launcher.png) DroidKaigi 2017 official Android app [![CircleCI](https://circleci.com/gh/DroidKaigi/conference-app-2017.svg?style=svg)](https://circleci.com/gh/DroidKaigi/conference-app-2017) [![Stories in Ready](https://badge.waffle.io/DroidKaigi/conference-app-2017.svg?label=ready&title=Ready)](http://waffle.io/DroidKaigi/conference-app-2017)
+# ![](app/src/main/res/mipmap-mdpi/ic_launcher.png) DroidKaigi 2017 official Android app [![CircleCI](https://circleci.com/gh/DroidKaigi/conference-app-2017.svg?style=svg)](https://circleci.com/gh/DroidKaigi/conference-app-2017) [![Stories in Ready](https://badge.waffle.io/DroidKaigi/conference-app-2017.svg?label=ready&title=Ready)](http://waffle.io/DroidKaigi/conference-app-2017) [![codecov](https://codecov.io/gh/DroidKaigi/conference-app-2017/branch/master/graph/badge.svg?token=lVzTk1B5fE)](https://codecov.io/gh/DroidKaigi/conference-app-2017)
+
 
 [DroidKaigi 2017](https://droidkaigi.github.io/2017/en/) is a conference tailored for developers on 9th and 10th March 2017.
 
@@ -19,6 +20,7 @@ We use [waffle.io](https://waffle.io/DroidKaigi/conference-app-2017) to manage t
 
 We've designated these issues as good candidates for easy contribution. You can always fork the repository and send a pull request (on a branch other than `master`).
 
+We do accept suggestions for translations at [this page](https://droidkaigi2017.oneskyapp.com/collaboration).
 
 # Development Environment
 This app depends on several libraries and plugins so make sure to set them up correctly.

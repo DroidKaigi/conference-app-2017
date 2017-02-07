@@ -4,7 +4,9 @@ import dagger.Subcomponent;
 import io.github.droidkaigi.confsched2017.di.scope.FragmentScope;
 import io.github.droidkaigi.confsched2017.view.fragment.ContributorsFragment;
 import io.github.droidkaigi.confsched2017.view.fragment.InformationFragment;
+import io.github.droidkaigi.confsched2017.view.fragment.LicensesFragment;
 import io.github.droidkaigi.confsched2017.view.fragment.MapFragment;
+import io.github.droidkaigi.confsched2017.view.fragment.SearchFragment;
 import io.github.droidkaigi.confsched2017.view.fragment.SessionDetailFragment;
 import io.github.droidkaigi.confsched2017.view.fragment.SessionFeedbackFragment;
 import io.github.droidkaigi.confsched2017.view.fragment.SessionsFragment;
@@ -29,6 +31,10 @@ public interface FragmentComponent {
 
     void inject(ContributorsFragment fragment);
 
+    void inject(LicensesFragment fragment);
+
     void inject(SessionFeedbackFragment fragment);
+
+    void inject(SearchFragment fragment);
 
 }

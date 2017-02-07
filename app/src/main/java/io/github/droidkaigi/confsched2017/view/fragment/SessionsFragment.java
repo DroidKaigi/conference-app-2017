@@ -5,7 +5,6 @@ import org.lucasr.twowayview.widget.DividerItemDecoration;
 import org.lucasr.twowayview.widget.SpannableGridLayoutManager;
 
 import android.content.Context;
-import android.databinding.DataBindingUtil;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -16,7 +15,12 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.Display;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -32,6 +36,7 @@ import io.github.droidkaigi.confsched2017.databinding.FragmentSessionsBinding;
 import io.github.droidkaigi.confsched2017.databinding.ViewSessionCellBinding;
 import io.github.droidkaigi.confsched2017.model.Room;
 import io.github.droidkaigi.confsched2017.model.Session;
+import io.github.droidkaigi.confsched2017.view.activity.SearchActivity;
 import io.github.droidkaigi.confsched2017.view.activity.SessionDetailActivity;
 import io.github.droidkaigi.confsched2017.view.customview.ArrayRecyclerAdapter;
 import io.github.droidkaigi.confsched2017.view.customview.BindingHolder;
@@ -59,6 +64,9 @@ public class SessionsFragment extends BaseFragment implements SessionViewModel.C
         return new SessionsFragment();
     }
 
+    public SessionsFragment() {
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -68,13 +76,28 @@ public class SessionsFragment extends BaseFragment implements SessionViewModel.C
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_sessions, container, false);
-        binding = DataBindingUtil.bind(view);
+        setHasOptionsMenu(true);
+        binding = FragmentSessionsBinding.inflate(inflater, container, false);
         binding.setViewModel(viewModel);
 
         initView();
 
         return binding.getRoot();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater) {
+        menuInflater.inflate(R.menu.menu_sessions, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.item_search:
+                SearchActivity.start(getActivity());
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -128,6 +151,12 @@ public class SessionsFragment extends BaseFragment implements SessionViewModel.C
         adapter = new SessionsAdapter(getContext());
         binding.recyclerView.setAdapter(adapter);
 
+        binding.root.setOnTouchListener((v, event) -> {
+            MotionEvent e = MotionEvent.obtain(event);
+            e.setLocation(e.getX() + binding.root.getScrollX(), e.getY() - binding.headerRow.getHeight());
+            binding.recyclerView.forceToDispatchTouchEvent(e);
+            return false;
+        });
         binding.recyclerView.clearOnScrollListeners();
         binding.recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override

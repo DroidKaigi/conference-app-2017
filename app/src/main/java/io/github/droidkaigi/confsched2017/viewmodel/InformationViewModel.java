@@ -23,7 +23,7 @@ public final class InformationViewModel implements ViewModel {
     }
 
     public String getVersionName() {
-        return versionName;
+        return versionName + " " + BuildConfig.GIT_SHA;
     }
 
     public void onClickSponsors(@SuppressWarnings("unused") View view) {
@@ -44,9 +44,15 @@ public final class InformationViewModel implements ViewModel {
         }
     }
 
-    public void onClickLicence(@SuppressWarnings("unused") View view) {
+    public void onClickHelpTranslate(@SuppressWarnings("unused") View view) {
         if (callback != null) {
-            callback.showLicencePage();
+            callback.showTranslationsPage();
+        }
+    }
+
+    public void onClickLicense(@SuppressWarnings("unused") View view) {
+        if (callback != null) {
+            callback.showLicensePage();
         }
     }
 
@@ -99,7 +105,9 @@ public final class InformationViewModel implements ViewModel {
 
         void showContributorsPage();
 
-        void showLicencePage();
+        void showTranslationsPage();
+
+        void showLicensePage();
 
         void showDevInfoPage();
 

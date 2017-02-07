@@ -1,13 +1,9 @@
 package io.github.droidkaigi.confsched2017.view.helper;
 
-import com.squareup.picasso.Picasso;
-
-import net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout;
-
-import org.lucasr.twowayview.widget.SpannableGridLayoutManager;
-
 import android.content.res.ColorStateList;
 import android.databinding.BindingAdapter;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
@@ -17,9 +13,17 @@ import android.support.v4.content.res.ResourcesCompat;
 import android.text.TextUtils;
 import android.text.util.Linkify;
 import android.view.View;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
+
+import net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout;
+
+import org.lucasr.twowayview.widget.SpannableGridLayoutManager;
 
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.model.Topic;
@@ -81,6 +85,18 @@ public class DataBindingHelper {
         }
     }
 
+    @BindingAdapter("webViewUrl")
+    public static void loadUrl(WebView webView, String url) {
+        if (TextUtils.isEmpty(url)) {
+            return;
+        }
+        webView.loadUrl(url);
+    }
+
+    @BindingAdapter("webViewClient")
+    public static void setWebViewClient(WebView webView, WebViewClient client) {
+        webView.setWebViewClient(client);
+    }
 
     //--------------------------------------------------------------
     // Settings
@@ -181,5 +197,18 @@ public class DataBindingHelper {
         view.setDescription(description);
     }
 
+
+    //--------------------------------------------------------------
+    // SearchResult
+    //--------------------------------------------------------------
+    @BindingAdapter("searchResultIcon")
+    public static void setSearchResultIcon(TextView textView, @DrawableRes int iconResId) {
+        Drawable icon = ContextCompat.getDrawable(textView.getContext(), iconResId);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            textView.setCompoundDrawablesRelativeWithIntrinsicBounds(icon, null, null, null);
+        } else {
+            textView.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
+        }
+    }
 
 }

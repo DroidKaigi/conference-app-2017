@@ -1,12 +1,13 @@
-package io.github.droidkaigi.confsched2017.model;
+package io.github.droidkaigi.confsched2017.viewmodel;
 
 import android.support.annotation.ColorRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
 
 import io.github.droidkaigi.confsched2017.R;
+import io.github.droidkaigi.confsched2017.model.Topic;
 
-public enum TopicColor {
+enum TopicColor {
 
     PRODUCTIVITY_AND_TOOLING(1, R.color.light_green_alpha_15, R.color.light_green_alpha_50,
             R.color.light_green, R.style.AppTheme_NoActionBar_LightGreen),

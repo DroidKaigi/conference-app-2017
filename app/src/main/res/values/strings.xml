@@ -1,5 +1,14 @@
 <resources>
+    <!-- Translations are managed at this page: https://droidkaigi2017.oneskyapp.com/
+
+     DO NOT MANUALLY EDIT TRANSLATIONS.
+
+     -->
+
+    <!-- App name. -->
     <string name="app_name">DroidKaigi 2017</string>
+
+    <string name="close">Close</string>
 
     <string name="lang_en">English</string>
     <string name="lang_ja">Japanese</string>
@@ -36,9 +45,10 @@
     <string name="info_sponsors_description">DroidKaigi is supported by many sponsors. Thank you so much!</string>
     <string name="info_questionnaire_title">Questionnaire</string>
     <string name="info_questionnaire_description">Please cooperate with the questionnaire to improve DroidKaigi.</string>
-    <string name="info_contributors_description">Awesome contributors for this app. You can contribute from https://github.com/DroidKaigi/conference-app-2017</string>
-    <string name="info_licence_title">Licence</string>
-    <string name="info_licence_description">This app uses many awesome libraries. Thank you so much!</string>
+    <string name="info_contributors_description">Awesome contributors for this app. you can contribute from https://github.com/DroidKaigi/conference-app-2017</string>
+    <string name="info_help_translate">Your contribution is much appreciated! Tap here to contribute.</string>
+    <string name="info_license_title">Licenses</string>
+    <string name="info_license_description">This app uses many awesome libraries. Thank you so much!</string>
     <string name="info_dev_info_title">Dev info</string>
 
 
@@ -49,8 +59,19 @@
     <!-- Contributors -->
     <string name="contributors">Contributors</string>
 
+    <string name="help_translate">Help Translate</string>
+
+    <!-- Licenses -->
+    <string name="licenses">Licenses</string>
 
     <!-- Session feedback -->
     <string name="session_feedback">Session feedback</string>
+
+
+    <!-- Search -->
+    <string name="search">Search</string>
+    <string name="search_hint">Search by keywords</string>
+    <string name="notitication_title">%1$s will start soon</string>
+    <string name="notification_message">%1$s ~ %2$s @ %3$s</string>
 
 </resources>

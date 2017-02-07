@@ -24,6 +24,7 @@
             android:paddingRight="6dp"
             android:paddingStart="6dp"
             android:paddingTop="@dimen/space_4dp"
+            android:stateListAnimator="@animator/raise"
             app:sessionCellBackground="@{viewModel.backgroundResId}"
             app:twowayview_colSpan="@{viewModel.colSpan}"
             app:twowayview_rowSpan="@{viewModel.rowSpan}"
@@ -120,7 +121,7 @@
                 android:textAppearance="@style/TextCaption"
                 android:textColor="@color/grey500"
                 android:textSize="@dimen/session_table_cell_title_text_size"
-                android:visibility="@{viewModel.normalSessionItemVisibility}"
+                android:visibility="@{viewModel.languageVisibility}"
                 />
 
         <TextView

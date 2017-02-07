@@ -1,7 +1,8 @@
 package io.github.droidkaigi.confsched2017.view.fragment;
 
 import android.content.Context;
-import android.databinding.DataBindingUtil;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -10,9 +11,9 @@ import android.view.ViewGroup;
 
 import javax.inject.Inject;
 
-import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.databinding.FragmentInformationBinding;
 import io.github.droidkaigi.confsched2017.view.activity.ContributorsActivity;
+import io.github.droidkaigi.confsched2017.view.activity.LicensesActivity;
 import io.github.droidkaigi.confsched2017.view.activity.SponsorsActivity;
 import io.github.droidkaigi.confsched2017.viewmodel.InformationViewModel;
 
@@ -29,6 +30,9 @@ public class InformationFragment extends BaseFragment implements InformationView
         return new InformationFragment();
     }
 
+    public InformationFragment() {
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -38,8 +42,7 @@ public class InformationFragment extends BaseFragment implements InformationView
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_information, container, false);
-        binding = DataBindingUtil.bind(view);
+        binding = FragmentInformationBinding.inflate(inflater, container, false);
 
         viewModel.setCallback(this);
         binding.setViewModel(viewModel);
@@ -69,8 +72,16 @@ public class InformationFragment extends BaseFragment implements InformationView
     }
 
     @Override
-    public void showLicencePage() {
-        // TODO
+    public void showTranslationsPage() {
+        Uri uri = Uri.parse("https://droidkaigi2017.oneskyapp.com/collaboration");
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        if (intent.resolveActivity(getContext().getPackageManager()) != null)
+            startActivity(intent);
+    }
+
+    @Override
+    public void showLicensePage() {
+        LicensesActivity.start(getActivity());
     }
 
     @Override
@@ -80,27 +91,42 @@ public class InformationFragment extends BaseFragment implements InformationView
 
     @Override
     public void showTwitter() {
-        // TODO
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/DroidKaigi"));
+        if (intent.resolveActivity(getContext().getPackageManager()) == null)
+            return;
+        startActivity(intent);
     }
 
     @Override
     public void showFacebook() {
-        // TODO
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/DroidKaigi/"));
+        if (intent.resolveActivity(getContext().getPackageManager()) == null)
+            return;
+        startActivity(intent);
     }
 
     @Override
     public void showGitHubRepository() {
-        // TODO
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/DroidKaigi/conference-app-2017/"));
+        if (intent.resolveActivity(getContext().getPackageManager()) == null)
+            return;
+        startActivity(intent);
     }
 
     @Override
     public void showDroidKaigiWeb() {
-        // TODO
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://droidkaigi.github.io/2017/"));
+        if (intent.resolveActivity(getContext().getPackageManager()) == null)
+            return;
+        startActivity(intent);
     }
 
     @Override
     public void showYouTube() {
-        // TODO
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/droidkaigi"));
+        if (intent.resolveActivity(getContext().getPackageManager()) == null)
+            return;
+        startActivity(intent);
     }
 
 }
