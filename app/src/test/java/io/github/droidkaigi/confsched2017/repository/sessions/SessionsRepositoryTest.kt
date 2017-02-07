@@ -174,6 +174,25 @@ class SessionsRepositoryTest {
     }
 
     @Test
+    fun findRemoteRequestSuccess() {
+        val sessions = listOf(createSession(2), createSession(3))
+        val client = mockDroidKaigiClient(sessions)
+
+        val repository = SessionsRepository(
+                SessionsLocalDataSource(mock()),
+                SessionsRemoteDataSource(client)
+        )
+
+        repository.find(3, Session.LANG_JA_ID)
+                .test()
+                .run {
+                    assertNoErrors()
+                    assertThat(values().first().id).isEqualTo(3)
+                    assertComplete()
+                }
+    }
+
+    @Test
     fun findRemoteRequestNotFound() {
         val sessions = listOf(createSession(1), createSession(2))
         val client = mockDroidKaigiClient(sessions)
@@ -189,6 +208,63 @@ class SessionsRepositoryTest {
                     assertNoErrors()
                     assertNoValues()
                     assertComplete()
+                }
+    }
+
+    @Test
+    fun findHasSessions() {
+        val cachedSessions: Map<Int, Session> = spy(mutableMapOf(1 to createSession(1)))
+
+        val repository = SessionsRepository(
+                SessionsLocalDataSource(mock()),
+                SessionsRemoteDataSource(mock())
+        ).apply {
+            this.cachedSessions = cachedSessions
+        }
+
+        repository.setIdDirty(false)
+        repository.find(1, Session.LANG_JA_ID)
+                .test()
+                .run {
+                    assertNoErrors()
+                    assertThat(values().first().id).isEqualTo(1)
+                    assertComplete()
+                    cachedSessions.verify().get(eq(1))
+                }
+    }
+
+    @Test
+    fun findLocalCache() {
+        val sessions = listOf(createSession(5), createSession(1), createSession(12))
+        val client = mockDroidKaigiClient(sessions)
+        val ormaDatabase = OrmaDatabase
+                .builder(RuntimeEnvironment.application)
+                .name(null)
+                .build()
+        val cachedSessions: Map<Int, Session> = mock()
+
+        val repository = SessionsRepository(
+                SessionsLocalDataSource(ormaDatabase),
+                SessionsRemoteDataSource(client)
+        ).apply {
+            this.cachedSessions = cachedSessions
+        }
+
+        // create cache
+        repository.findAll(Session.LANG_JA_ID)
+                .test()
+                .run{
+                    assertNoErrors()
+                }
+
+        repository.setIdDirty(true)
+        repository.find(12, Session.LANG_JA_ID)
+                .test()
+                .run {
+                    assertNoErrors()
+                    assertThat(values().first().id).isEqualTo(12)
+                    assertComplete()
+                    cachedSessions.verify(never()).get(eq(12))
                 }
     }
 
