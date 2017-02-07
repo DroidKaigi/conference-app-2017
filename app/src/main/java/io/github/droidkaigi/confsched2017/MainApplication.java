@@ -35,7 +35,9 @@ public class MainApplication extends Application {
         initCalligraphy();
         initLeakCanary();
 
-        DeployGate.install(this, null, true);
+        if (!DeployGate.isInitialized()) {
+            DeployGate.install(this, null, true);
+        }
         Timber.plant(new CrashLogTree()); // TODO initialize Firebase before this line
     }
 
