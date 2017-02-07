@@ -44,14 +44,14 @@ class DateUtilTest {
     @Throws(Exception::class)
     fun getHourMinute_nonNull() {
         val actual = DateUtil.getHourMinute(Date(System.currentTimeMillis()))
-        assertNotNull(actual);
+        assertNotNull(actual)
     }
 
     @Test
     @Throws(Exception::class)
     fun getLongFormatDate_nonNull() {
         val actual = DateUtil.getLongFormatDate(null)
-        assertNotNull(actual);
+        assertNotNull(actual)
     }
 
     @Test
