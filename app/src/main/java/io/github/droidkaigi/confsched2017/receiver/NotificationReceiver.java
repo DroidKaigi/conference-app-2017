@@ -18,15 +18,13 @@ public class NotificationReceiver extends BroadcastReceiver {
 
     private static final String TAG = NotificationReceiver.class.getSimpleName();
 
-    private static final String KEY_SESSION_ID = "session_id";
     private static final String KEY_TITLE = "title";
     private static final String KEY_TEXT = "text";
 
     private static final int NOTIFICATION_ID = 1;
 
-    public static Intent createIntent(Context context, int sessionId, String title, String text) {
+    public static Intent createIntent(Context context, String title, String text) {
         Intent intent = new Intent(context, NotificationReceiver.class);
-        intent.putExtra(NotificationReceiver.KEY_SESSION_ID, sessionId);
         intent.putExtra(NotificationReceiver.KEY_TITLE, title);
         intent.putExtra(NotificationReceiver.KEY_TEXT, text);
         return intent;
@@ -39,7 +37,6 @@ public class NotificationReceiver extends BroadcastReceiver {
             Timber.tag(TAG).v("Notification is disabled.");
             return;
         }
-        int sessionId = intent.getIntExtra(KEY_SESSION_ID, 0);
         String title = intent.getStringExtra(KEY_TITLE);
         String text = intent.getStringExtra(KEY_TEXT);
         int priority = prefs.getHeadsUpFlag() ? NotificationCompat.PRIORITY_HIGH : NotificationCompat.PRIORITY_DEFAULT;
