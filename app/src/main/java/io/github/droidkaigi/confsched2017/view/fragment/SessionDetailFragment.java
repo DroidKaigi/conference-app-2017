@@ -11,9 +11,11 @@ import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 
 import javax.inject.Inject;
 
@@ -58,14 +60,6 @@ public class SessionDetailFragment extends BaseFragment implements SessionDetail
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sessionId = getArguments().getInt(ARG_SESSION_ID);
-        Disposable disposable = viewModel.loadSession(sessionId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        () -> initTheme(),
-                        throwable -> Log.e(TAG, "Failed to find session.", throwable)
-                );
-        compositeDisposable.add(disposable);
     }
 
     @Override
@@ -85,6 +79,17 @@ public class SessionDetailFragment extends BaseFragment implements SessionDetail
                     new ActivityManager.TaskDescription(viewModel.getSessionTitle(), null,
                             ContextCompat.getColor(activity, viewModel.getSessionVividColorResId()));
             activity.setTaskDescription(taskDescription);
+
+            // Change status bar scrim color
+            Window window = activity.getWindow();
+            if (window != null) {
+                TypedValue typedValue = new TypedValue();
+                activity.getTheme().resolveAttribute(R.attr.colorPrimaryDark, typedValue, true);
+                int colorPrimaryDark = typedValue.data;
+                if (colorPrimaryDark != 0) {
+                    binding.collapsingToolbar.setStatusBarScrimColor(colorPrimaryDark);
+                }
+            }
         }
     }
 
@@ -95,6 +100,14 @@ public class SessionDetailFragment extends BaseFragment implements SessionDetail
         viewModel.setCallback(this);
         binding.setViewModel(viewModel);
         setHasOptionsMenu(true);
+        Disposable disposable = viewModel.loadSession(sessionId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        () -> initTheme(),
+                        throwable -> Log.e(TAG, "Failed to find session.", throwable)
+                );
+        compositeDisposable.add(disposable);
         initToolbar();
         initScroll();
         return binding.getRoot();
