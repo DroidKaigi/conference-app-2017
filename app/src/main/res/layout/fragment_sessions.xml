@@ -23,19 +23,16 @@
                 android:layout_height="match_parent"
                 >
 
-            <RelativeLayout
+            <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:orientation="vertical"
                     >
 
                 <LinearLayout
                         android:id="@+id/header_row"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/session_table_header_row_height"
-                        android:layout_alignEnd="@+id/recycler_view"
-                        android:layout_alignLeft="@+id/recycler_view"
-                        android:layout_alignRight="@+id/recycler_view"
-                        android:layout_alignStart="@+id/recycler_view"
                         android:background="@color/white"
                         android:divider="@drawable/divider"
                         android:orientation="horizontal"
@@ -45,27 +42,21 @@
                 <View
                         android:id="@+id/border"
                         style="@style/Border"
-                        android:layout_alignEnd="@+id/recycler_view"
-                        android:layout_alignLeft="@+id/recycler_view"
-                        android:layout_alignRight="@+id/recycler_view"
-                        android:layout_alignStart="@+id/recycler_view"
-                        android:layout_below="@id/header_row"
                         android:background="@color/grey300"
                         />
 
                 <io.github.droidkaigi.confsched2017.view.customview.TouchlessTwoWayView
-                        android:id="@+id/recycler_view"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_below="@id/border"
-                        android:orientation="vertical"
-                        android:scrollbars="vertical"
-                        app:twowayview_layoutManager="org.lucasr.twowayview.widget.SpannableGridLayoutManager"
-                        app:twowayview_numColumns="6"
-                        app:twowayview_numRows="3"
-                        />
+                    android:id="@+id/recycler_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:scrollbars="vertical"
+                    app:twowayview_layoutManager="org.lucasr.twowayview.widget.SpannableGridLayoutManager"
+                    app:twowayview_numColumns="6"
+                    app:twowayview_numRows="3"
+                    />
 
-            </RelativeLayout>
+            </LinearLayout>
 
         </HorizontalScrollView>
 

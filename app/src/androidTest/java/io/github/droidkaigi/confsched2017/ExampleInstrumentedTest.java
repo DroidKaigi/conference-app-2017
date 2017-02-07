@@ -22,6 +22,14 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("io.github.droidkaigi.confsched2017", appContext.getPackageName());
+        final StringBuilder expectedPackageName = new StringBuilder("io.github.droidkaigi.confsched2017");
+        if (BuildConfig.FLAVOR.equals("develop")) {
+            expectedPackageName.append(".develop");
+        }
+        if (BuildConfig.DEBUG) {
+            expectedPackageName.append(".debug");
+        }
+
+        assertEquals(expectedPackageName.toString(), appContext.getPackageName());
     }
 }

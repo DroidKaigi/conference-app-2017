@@ -11,8 +11,10 @@ import javax.inject.Inject;
 import io.github.droidkaigi.confsched2017.api.DroidKaigiClient;
 import io.github.droidkaigi.confsched2017.model.Session;
 import io.reactivex.Maybe;
+import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 public final class SessionsRemoteDataSource implements SessionsDataSource {
@@ -35,17 +37,16 @@ public final class SessionsRemoteDataSource implements SessionsDataSource {
                         }
                     }
                     return sessions;
-                })
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
+                });
     }
 
     @Override
     public Maybe<Session> find(int sessionId, String languageId) {
-        return findAll(languageId).map(sessions -> Stream.of(sessions)
+        return findAll(languageId)
+                .toObservable()
+                .flatMap(Observable::fromIterable)
                 .filter(session -> session.id == sessionId)
-                .findSingle()
-                .get()).toMaybe();
+                .singleElement();
     }
 
     @Override

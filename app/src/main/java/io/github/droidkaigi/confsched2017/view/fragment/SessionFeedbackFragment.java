@@ -12,8 +12,10 @@ import javax.inject.Inject;
 
 import io.github.droidkaigi.confsched2017.databinding.FragmentSessionFeedbackBinding;
 import io.github.droidkaigi.confsched2017.viewmodel.SessionFeedbackViewModel;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class SessionFeedbackFragment extends BaseFragment {
 
@@ -37,6 +39,9 @@ public class SessionFeedbackFragment extends BaseFragment {
         args.putInt(ARG_SESSION_ID, sessionId);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    public SessionFeedbackFragment() {
     }
 
     @Override
@@ -63,6 +68,8 @@ public class SessionFeedbackFragment extends BaseFragment {
 
     private void initView() {
         Disposable disposable = viewModel.findSession(sessionId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         session -> {
                             // TODO

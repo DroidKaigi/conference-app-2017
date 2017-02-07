@@ -132,3 +132,9 @@
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: https://github.com/chrisjenx/Calligraphy
+- artifact: com.deploygate:sdk:+
+  name: DeployGate SDK
+  copyrightHolder: DeployGate, tnj, henteko
+  licence: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://github.com/DeployGate/deploygate-android-sdk

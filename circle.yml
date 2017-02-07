@@ -15,12 +15,14 @@ dependencies:
     - echo y | android update sdk --no-ui --all --filter "build-tools-25.0.2"
   cache_directories:
     - ~/.android
+    - ~/.gradle
   override:
     - ./gradlew dependencies
 
 test:
   override:
     - ./gradlew clean assembleProductionDebug check jacocoTestReportDevelop
+    - find . -name app*debug.apk -exec cp {} $CIRCLE_ARTIFACTS/ \;
 
 deployment:
   production:

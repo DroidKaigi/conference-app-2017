@@ -30,9 +30,9 @@ public class SettingSwitchRowView extends RelativeLayout {
 
     public SettingSwitchRowView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.view_setting_switch_row, this, true);
 
         if (!isInEditMode()) {
+            binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.view_setting_switch_row, this, true);
             TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SettingSwitchRow);
 
             String title = a.getString(R.styleable.SettingSwitchRow_settingTitle);
@@ -49,6 +49,8 @@ public class SettingSwitchRowView extends RelativeLayout {
             });
 
             a.recycle();
+        } else {
+            LayoutInflater.from(context).inflate(R.layout.view_setting_switch_row, this, true);
         }
     }
 

@@ -7,10 +7,11 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:2.2.3'
         classpath 'com.google.gms:google-services:3.0.0'
-        classpath 'me.tatarka:gradle-retrolambda:3.4.0'
+        classpath 'me.tatarka:gradle-retrolambda:3.5.0'
         classpath 'me.tatarka.retrolambda.projectlombok:lombok.ast:0.2.3.a2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.0.6"
         classpath 'com.cookpad.android.licensetools:license-tools-plugin:0.19.1'
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.13.0'
     }
 
     configurations.classpath.exclude group: 'com.android.tools.external.lombok'

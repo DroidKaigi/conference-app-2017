@@ -1,12 +1,8 @@
 package io.github.droidkaigi.confsched2017.di;
 
-import com.facebook.stetho.okhttp3.StethoInterceptor;
-
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
-
-import java.io.File;
 
 import javax.inject.Singleton;
 
@@ -16,19 +12,13 @@ import io.github.droidkaigi.confsched2017.api.RequestInterceptor;
 import io.github.droidkaigi.confsched2017.model.OrmaDatabase;
 import io.github.droidkaigi.confsched2017.pref.DefaultPrefs;
 import io.reactivex.disposables.CompositeDisposable;
-import okhttp3.Cache;
 import okhttp3.Interceptor;
-import okhttp3.OkHttpClient;
 
 /**
  * Created by KeishinYokomaku on 2017/01/20.
  */
 @Module
 public class AppModule {
-
-    static final String CACHE_FILE_NAME = "okhttp.cache";
-
-    static final long MAX_CACHE_SIZE = 4 * 1024 * 1024;
 
     static final String SHARED_PREF_NAME = "preferences";
 
@@ -41,17 +31,6 @@ public class AppModule {
     @Provides
     public Context provideContext() {
         return context;
-    }
-
-    @Singleton
-    @Provides
-    public OkHttpClient provideHttpClient(Context context, Interceptor interceptor) {
-        File cacheDir = new File(context.getCacheDir(), CACHE_FILE_NAME);
-        Cache cache = new Cache(cacheDir, MAX_CACHE_SIZE);
-
-        OkHttpClient.Builder c = new OkHttpClient.Builder().cache(cache).addInterceptor(interceptor)
-                .addInterceptor(new StethoInterceptor());
-        return c.build();
     }
 
     @Provides

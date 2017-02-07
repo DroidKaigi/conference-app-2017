@@ -16,7 +16,7 @@ import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public final class MySessionsLocalDataSource implements MySessionsDataSource {
+public class MySessionsLocalDataSource implements MySessionsDataSource {
 
     private final OrmaDatabase orma;
 

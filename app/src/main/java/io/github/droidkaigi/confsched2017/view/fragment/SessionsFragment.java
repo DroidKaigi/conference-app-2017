@@ -22,6 +22,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -36,14 +37,17 @@ import io.github.droidkaigi.confsched2017.databinding.FragmentSessionsBinding;
 import io.github.droidkaigi.confsched2017.databinding.ViewSessionCellBinding;
 import io.github.droidkaigi.confsched2017.model.Room;
 import io.github.droidkaigi.confsched2017.model.Session;
+import io.github.droidkaigi.confsched2017.util.ViewUtil;
 import io.github.droidkaigi.confsched2017.view.activity.SearchActivity;
 import io.github.droidkaigi.confsched2017.view.activity.SessionDetailActivity;
 import io.github.droidkaigi.confsched2017.view.customview.ArrayRecyclerAdapter;
 import io.github.droidkaigi.confsched2017.view.customview.BindingHolder;
 import io.github.droidkaigi.confsched2017.viewmodel.SessionViewModel;
 import io.github.droidkaigi.confsched2017.viewmodel.SessionsViewModel;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class SessionsFragment extends BaseFragment implements SessionViewModel.Callback {
@@ -62,6 +66,9 @@ public class SessionsFragment extends BaseFragment implements SessionViewModel.C
 
     public static SessionsFragment newInstance() {
         return new SessionsFragment();
+    }
+
+    public SessionsFragment() {
     }
 
     @Override
@@ -106,13 +113,14 @@ public class SessionsFragment extends BaseFragment implements SessionViewModel.C
     @Override
     public void onStop() {
         super.onStop();
-        compositeDisposable.dispose();
+        compositeDisposable.clear();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         viewModel.destroy();
+        compositeDisposable.dispose();
     }
 
     private int getScreenWidth() {
@@ -125,6 +133,8 @@ public class SessionsFragment extends BaseFragment implements SessionViewModel.C
     private void showSessions() {
         String languageId = Locale.getDefault().getLanguage().toLowerCase();
         Disposable disposable = viewModel.getSessions(languageId, getContext())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         this::renderSessions,
                         throwable -> Timber.tag(TAG).e(throwable, "Failed to show sessions.")
@@ -151,21 +161,20 @@ public class SessionsFragment extends BaseFragment implements SessionViewModel.C
         binding.root.setOnTouchListener((v, event) -> {
             MotionEvent e = MotionEvent.obtain(event);
             e.setLocation(e.getX() + binding.root.getScrollX(), e.getY() - binding.headerRow.getHeight());
-
-            boolean isScrolling = binding.recyclerView.getScrollState() == RecyclerView.SCROLL_STATE_DRAGGING;
-
-            binding.recyclerView.onTouchEvent(e);
-
-            if (!isScrolling && binding.recyclerView.getScrollState() == RecyclerView.SCROLL_STATE_IDLE
-                    && e.getDownTime() > e.getEventTime() - ViewConfiguration.getTapTimeout() && e.getAction() == MotionEvent.ACTION_UP) {
-                MotionEvent down = MotionEvent.obtain(e);
-                down.setAction(MotionEvent.ACTION_DOWN);
-                binding.recyclerView.forceToDispatchTouchEvent(down);
-                binding.recyclerView.forceToDispatchTouchEvent(e);
-            }
-
+            binding.recyclerView.forceToDispatchTouchEvent(e);
             return false;
         });
+
+        ViewUtil.addOneTimeOnGlobalLayoutListener(binding.headerRow, () -> {
+            if (binding.headerRow.getHeight() > 0) {
+                binding.recyclerView.getLayoutParams().height = binding.root.getHeight() - binding.border.getHeight() - binding.headerRow.getHeight();
+                binding.recyclerView.requestLayout();
+                return true;
+            } else {
+                return false;
+            }
+        });
+
         binding.recyclerView.clearOnScrollListeners();
         binding.recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override

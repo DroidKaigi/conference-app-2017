@@ -1,8 +1,9 @@
 package io.github.droidkaigi.confsched2017.view.fragment;
 
+import com.annimon.stream.Optional;
+
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import io.github.droidkaigi.confsched2017.databinding.FragmentInformationBinding
 import io.github.droidkaigi.confsched2017.view.activity.ContributorsActivity;
 import io.github.droidkaigi.confsched2017.view.activity.LicensesActivity;
 import io.github.droidkaigi.confsched2017.view.activity.SponsorsActivity;
+import io.github.droidkaigi.confsched2017.view.helper.IntentHelper;
 import io.github.droidkaigi.confsched2017.viewmodel.InformationViewModel;
 
 public class InformationFragment extends BaseFragment implements InformationViewModel.Callback {
@@ -28,6 +30,9 @@ public class InformationFragment extends BaseFragment implements InformationView
 
     public static InformationFragment newInstance() {
         return new InformationFragment();
+    }
+
+    public InformationFragment() {
     }
 
     @Override
@@ -70,10 +75,7 @@ public class InformationFragment extends BaseFragment implements InformationView
 
     @Override
     public void showTranslationsPage() {
-        Uri uri = Uri.parse("https://droidkaigi2017.oneskyapp.com/collaboration");
-        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        if (intent.resolveActivity(getContext().getPackageManager()) != null)
-            startActivity(intent);
+        showHtmlUrl("https://droidkaigi2017.oneskyapp.com/collaboration");
     }
 
     @Override
@@ -88,42 +90,31 @@ public class InformationFragment extends BaseFragment implements InformationView
 
     @Override
     public void showTwitter() {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/DroidKaigi"));
-        if (intent.resolveActivity(getContext().getPackageManager()) == null)
-            return;
-        startActivity(intent);
+        showHtmlUrl("https://twitter.com/DroidKaigi");
     }
 
     @Override
     public void showFacebook() {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/DroidKaigi/"));
-        if (intent.resolveActivity(getContext().getPackageManager()) == null)
-            return;
-        startActivity(intent);
+        showHtmlUrl("https://www.facebook.com/DroidKaigi/");
     }
 
     @Override
     public void showGitHubRepository() {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/DroidKaigi/conference-app-2017/"));
-        if (intent.resolveActivity(getContext().getPackageManager()) == null)
-            return;
-        startActivity(intent);
+        showHtmlUrl("https://github.com/DroidKaigi/conference-app-2017/");
     }
 
     @Override
     public void showDroidKaigiWeb() {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://droidkaigi.github.io/2017/"));
-        if (intent.resolveActivity(getContext().getPackageManager()) == null)
-            return;
-        startActivity(intent);
+        showHtmlUrl("https://droidkaigi.github.io/2017/");
     }
 
     @Override
     public void showYouTube() {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/droidkaigi"));
-        if (intent.resolveActivity(getContext().getPackageManager()) == null)
-            return;
-        startActivity(intent);
+        showHtmlUrl("https://www.youtube.com/droidkaigi");
     }
 
+    public void showHtmlUrl(String htmlUrl) {
+        Optional<Intent> intentOptional = IntentHelper.buildActionViewIntent(getContext(), htmlUrl);
+        intentOptional.ifPresent(this::startActivity);
+    }
 }

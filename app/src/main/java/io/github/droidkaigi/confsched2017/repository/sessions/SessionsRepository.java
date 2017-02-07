@@ -1,5 +1,7 @@
 package io.github.droidkaigi.confsched2017.repository.sessions;
 
+import android.support.annotation.VisibleForTesting;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -19,7 +21,7 @@ public class SessionsRepository implements SessionsDataSource {
 
     private final SessionsDataSource remoteDataSource;
 
-    private Map<Integer, Session> cachedSessions;
+    @VisibleForTesting Map<Integer, Session> cachedSessions;
 
     private boolean isDirty;
 
@@ -33,7 +35,7 @@ public class SessionsRepository implements SessionsDataSource {
 
     @Override
     public Single<List<Session>> findAll(String languageId) {
-        if (cachedSessions != null && !cachedSessions.isEmpty() && !isDirty) {
+        if (hasCacheSessions()) {
             return Single.create(emitter -> {
                 try {
                     emitter.onSuccess(new ArrayList<>(cachedSessions.values()));
@@ -52,7 +54,7 @@ public class SessionsRepository implements SessionsDataSource {
 
     @Override
     public Maybe<Session> find(int sessionId, String languageId) {
-        if (cachedSessions != null && cachedSessions.containsKey(sessionId) && !isDirty) {
+        if (hasCacheSession(sessionId)) {
             return Maybe.create(emitter -> {
                 try {
                     emitter.onSuccess(cachedSessions.get(sessionId));
@@ -109,4 +111,13 @@ public class SessionsRepository implements SessionsDataSource {
     public void setIdDirty(boolean isDirty) {
         this.isDirty = isDirty;
     }
+
+    boolean hasCacheSessions() {
+        return cachedSessions != null && !cachedSessions.isEmpty() && !isDirty;
+    }
+
+    boolean hasCacheSession(int sessionId) {
+        return cachedSessions != null && cachedSessions.containsKey(sessionId) && !isDirty;
+    }
+
 }
