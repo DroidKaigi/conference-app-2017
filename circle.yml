@@ -21,7 +21,7 @@ dependencies:
 test:
   override:
     - ./gradlew clean assembleProductionDebug check jacocoTestReportDevelop
-    - find . -name app*debug.apk -exec mv {} $CIRCLE_ARTIFACTS/ \;
+    - find . -name app*debug.apk -exec cp {} $CIRCLE_ARTIFACTS/ \;
 
 deployment:
   production:
