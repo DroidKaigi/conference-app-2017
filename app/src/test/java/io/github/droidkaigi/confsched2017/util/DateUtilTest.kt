@@ -1,6 +1,7 @@
 package io.github.droidkaigi.confsched2017.util
 
 import android.os.Build
+import com.taroid.knit.should
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.fail
 import org.junit.Test
@@ -51,5 +52,23 @@ class DateUtilTest {
     fun getLongFormatDate_nonNull() {
         val actual = DateUtil.getLongFormatDate(null)
         assertNotNull(actual);
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun getMinutes_etime_moreOverMinute_stime() {
+        val stime = Date(1483196400000)
+        val etime = Date(1483196459999)
+
+        DateUtil.getMinutes(stime, etime).should be 0
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun getMinutes_returnDifferenceInMinutes() {
+        val stime = Date(1483196400000)
+        val etime = Date(1483196460000)
+
+        DateUtil.getMinutes(stime, etime).should be 1
     }
 }
