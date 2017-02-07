@@ -113,13 +113,14 @@ public class SessionsFragment extends BaseFragment implements SessionViewModel.C
     @Override
     public void onStop() {
         super.onStop();
-        compositeDisposable.dispose();
+        compositeDisposable.clear();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         viewModel.destroy();
+        compositeDisposable.dispose();
     }
 
     private int getScreenWidth() {
