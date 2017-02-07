@@ -11,7 +11,7 @@ import android.support.v4.content.ContextCompat;
 
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.pref.DefaultPrefs;
-import io.github.droidkaigi.confsched2017.view.activity.MainActivity;
+import io.github.droidkaigi.confsched2017.view.activity.SessionDetailActivity;
 import timber.log.Timber;
 
 public class NotificationReceiver extends BroadcastReceiver {
@@ -19,7 +19,9 @@ public class NotificationReceiver extends BroadcastReceiver {
     private static final String TAG = NotificationReceiver.class.getSimpleName();
 
     private static final String KEY_SESSION_ID = "session_id";
+
     private static final String KEY_TITLE = "title";
+
     private static final String KEY_TEXT = "text";
 
     private static final int NOTIFICATION_ID = 1;
@@ -43,7 +45,7 @@ public class NotificationReceiver extends BroadcastReceiver {
         String title = intent.getStringExtra(KEY_TITLE);
         String text = intent.getStringExtra(KEY_TEXT);
         int priority = prefs.getHeadsUpFlag() ? NotificationCompat.PRIORITY_HIGH : NotificationCompat.PRIORITY_DEFAULT;
-        Intent openIntent = new Intent(context, MainActivity.class);
+        Intent openIntent = SessionDetailActivity.createIntent(context, sessionId);
         openIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, openIntent, 0);
         Notification notification = new NotificationCompat.Builder(context)
