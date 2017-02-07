@@ -88,7 +88,7 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
         this.languageResId = session.lang != null ? decideLanguageResId(session.lang.toUpperCase()) : R.string.lang_en;
     }
 
-    public Completable findSession(int sessionId) {
+    public Completable loadSession(int sessionId) {
         final String languageId = Locale.getDefault().getLanguage().toLowerCase();
         return  sessionsRepository.find(sessionId, languageId)
                 .flatMapCompletable(session -> {

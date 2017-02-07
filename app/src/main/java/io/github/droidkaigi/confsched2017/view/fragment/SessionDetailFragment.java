@@ -56,7 +56,7 @@ public class SessionDetailFragment extends BaseFragment implements SessionDetail
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sessionId = getArguments().getInt(ARG_SESSION_ID);
-        Disposable disposable = viewModel.findSession(sessionId)
+        Disposable disposable = viewModel.loadSession(sessionId)
                 .subscribe(
                         () -> initTheme(),
                         throwable -> Log.e(TAG, "Failed to find session.", throwable)
