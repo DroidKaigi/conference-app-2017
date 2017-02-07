@@ -24,8 +24,6 @@ public class NotificationReceiver extends BroadcastReceiver {
 
     private static final String KEY_TEXT = "text";
 
-    private static final int NOTIFICATION_ID = 1;
-
     public static Intent createIntent(Context context, int sessionId, String title, String text) {
         Intent intent = new Intent(context, NotificationReceiver.class);
         intent.putExtra(NotificationReceiver.KEY_SESSION_ID, sessionId);
@@ -59,6 +57,6 @@ public class NotificationReceiver extends BroadcastReceiver {
                 .setDefaults(NotificationCompat.DEFAULT_ALL)
                 .setPriority(priority)
                 .build();
-        NotificationManagerCompat.from(context).notify(NOTIFICATION_ID, notification);
+        NotificationManagerCompat.from(context).notify(sessionId, notification);
     }
 }
