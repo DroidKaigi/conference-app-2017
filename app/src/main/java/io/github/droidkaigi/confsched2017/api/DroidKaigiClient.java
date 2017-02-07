@@ -31,6 +31,8 @@ public class DroidKaigiClient {
 
     private static final int INCLUDE_ANONYMOUS = 1;
 
+    private static final int MAX_PER_PAGE = 100;
+
     @Inject
     public DroidKaigiClient(OkHttpClient client) {
         Retrofit droidkaigiRetrofit = new Retrofit.Builder()
@@ -62,7 +64,7 @@ public class DroidKaigiClient {
     }
 
     public Single<List<Contributor>> getContributors() {
-        return githubService.getContributors("DroidKaigi", "conference-app-2017", INCLUDE_ANONYMOUS);
+        return githubService.getContributors("DroidKaigi", "conference-app-2017", INCLUDE_ANONYMOUS, MAX_PER_PAGE);
     }
 
     interface DroidKaigiService {
@@ -75,6 +77,6 @@ public class DroidKaigiClient {
 
         @GET("/repos/{owner}/{repo}/contributors")
         Single<List<Contributor>> getContributors(@Path("owner") String owner,
-                @Path("repo") String repo, @Query("anon") int anon);
+                @Path("repo") String repo, @Query("anon") int anon, @Query("per_page") int perPage);
     }
 }
