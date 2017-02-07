@@ -1,5 +1,7 @@
 package io.github.droidkaigi.confsched2017.view.fragment;
 
+import com.annimon.stream.Optional;
+
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -21,6 +23,7 @@ import io.github.droidkaigi.confsched2017.databinding.FragmentContributorsBindin
 import io.github.droidkaigi.confsched2017.databinding.ViewContributorCellBinding;
 import io.github.droidkaigi.confsched2017.view.customview.ArrayRecyclerAdapter;
 import io.github.droidkaigi.confsched2017.view.customview.BindingHolder;
+import io.github.droidkaigi.confsched2017.view.helper.IntentHelper;
 import io.github.droidkaigi.confsched2017.viewmodel.ContributorViewModel;
 import io.github.droidkaigi.confsched2017.viewmodel.ContributorsViewModel;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -98,14 +101,8 @@ public class ContributorsFragment extends BaseFragment implements ContributorsVi
 
     @Override
     public void onClickContributor(String htmlUrl) {
-        Timber.i("contributor htmlUrl: %s", htmlUrl);
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(htmlUrl));
-
-        if (intent.resolveActivity(getContext().getPackageManager()) == null) {
-            return;
-        }
-
-        startActivity(intent);
+        Optional<Intent> intentOptional = IntentHelper.buildActionViewIntent(getContext(), htmlUrl);
+        intentOptional.ifPresent(this::startActivity);
     }
 
     private static class Adapter
