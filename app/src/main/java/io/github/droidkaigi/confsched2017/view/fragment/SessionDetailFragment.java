@@ -51,15 +51,18 @@ public class SessionDetailFragment extends BaseFragment implements SessionDetail
         return fragment;
     }
 
+    public SessionDetailFragment() {
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sessionId = getArguments().getInt(ARG_SESSION_ID);
-        Disposable disposable = viewModel.findSession(sessionId)
+        Disposable disposable = viewModel.loadSession(sessionId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        session -> initTheme(),
+                        () -> initTheme(),
                         throwable -> Log.e(TAG, "Failed to find session.", throwable)
                 );
         compositeDisposable.add(disposable);

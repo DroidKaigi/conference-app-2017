@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        >
+
+    <data>
+
+        <variable
+                name="viewModel"
+                type="io.github.droidkaigi.confsched2017.viewmodel.ContributorViewModel"
+                />
+    </data>
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:onClick="@{viewModel::onClickContributor}"
+            >
+
+        <ImageView
+                android:id="@+id/avatar"
+                android:layout_width="@dimen/contributor_image"
+                android:layout_height="@dimen/contributor_image"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/contributor_image_margin_bottom"
+                android:layout_marginLeft="@dimen/contributor_image_margin"
+                android:layout_marginRight="@dimen/contributor_image_margin"
+                android:layout_marginTop="@dimen/contributor_image_margin"
+                app:speakerImageSize="@{@dimen/contributor_image}"
+                app:speakerImageUrl="@{viewModel.avatarUrl}"
+                />
+
+        <TextView
+                android:id="@+id/name"
+                style="@style/TextBody1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/avatar"
+                android:layout_marginBottom="@dimen/contributor_cell_margin_bottom"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="2"
+                android:text="@{viewModel.name}"
+                android:textColor="@color/black"
+                />
+
+    </RelativeLayout>
+
+</layout>
