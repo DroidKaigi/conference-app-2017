@@ -68,7 +68,7 @@
                             android:layout_width="@dimen/info_social_icon_size"
                             android:layout_height="@dimen/info_social_icon_size"
                             android:onClick="@{viewModel::onClickTwitter}"
-                            app:srcCompat="@drawable/ic_twitter_vector_36"
+                            app:srcCompat="@drawable/ic_twitter_36_vector"
                             />
 
                     <ImageView
@@ -78,7 +78,7 @@
                             android:layout_marginLeft="@dimen/info_social_icon_margin"
                             android:layout_marginStart="@dimen/info_social_icon_margin"
                             android:onClick="@{viewModel::onClickFacebook}"
-                            app:srcCompat="@drawable/ic_facebook_vector_36"
+                            app:srcCompat="@drawable/ic_facebook_36_vector"
                             />
 
                     <ImageView
@@ -88,7 +88,7 @@
                             android:layout_marginLeft="@dimen/info_social_icon_margin"
                             android:layout_marginStart="@dimen/info_social_icon_margin"
                             android:onClick="@{viewModel::onClickGitHub}"
-                            app:srcCompat="@drawable/ic_github_vector_36"
+                            app:srcCompat="@drawable/ic_github_36_vector"
                             />
 
                     <ImageView
@@ -108,7 +108,7 @@
                             android:layout_marginLeft="@dimen/info_social_icon_margin"
                             android:layout_marginStart="@dimen/info_social_icon_margin"
                             android:onClick="@{viewModel::onClickYouTube}"
-                            app:srcCompat="@drawable/ic_youtube_vector_36"
+                            app:srcCompat="@drawable/ic_youtube_36_vector"
                             />
 
                 </LinearLayout>
