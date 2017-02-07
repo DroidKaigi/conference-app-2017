@@ -69,7 +69,7 @@
                 android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
                 android:exported="false"
                 android:label="@string/search"
-                android:theme="@style/AppTheme.ColoredStatusBar"
+                android:theme="@style/AppTheme.Translucent"
                 />
 
         <activity android:name=".view.activity.LicensesActivity"
