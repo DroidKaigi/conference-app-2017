@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
@@ -58,6 +59,7 @@ public class NotificationReceiver extends BroadcastReceiver {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             Notification groupNotification = new NotificationCompat.Builder(context)
                     .setSmallIcon(R.drawable.ic_notification)
+                    .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher))
                     .setColor(ContextCompat.getColor(context, R.color.theme))
                     .setGroup(GROUP_NAME)
                     .setGroupSummary(true)
@@ -84,6 +86,7 @@ public class NotificationReceiver extends BroadcastReceiver {
                 .setContentTitle(title)
                 .setContentText(text)
                 .setSmallIcon(R.drawable.ic_notification)
+                .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher))
                 .setColor(ContextCompat.getColor(context, R.color.theme))
                 .setAutoCancel(true)
                 .setContentIntent(pendingIntent)
