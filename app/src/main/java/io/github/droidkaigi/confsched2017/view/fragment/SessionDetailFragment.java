@@ -18,7 +18,6 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 
 import javax.inject.Inject;
 
@@ -98,7 +97,10 @@ public class SessionDetailFragment extends BaseFragment implements SessionDetail
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        () -> initTheme(),
+                        () -> {
+                            initTheme();
+                            binding.setViewModel(viewModel);
+                        },
                         throwable -> Log.e(TAG, "Failed to find session.", throwable)
                 );
         compositeDisposable.add(disposable);
