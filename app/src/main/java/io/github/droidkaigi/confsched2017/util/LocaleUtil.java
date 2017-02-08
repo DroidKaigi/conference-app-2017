@@ -8,12 +8,17 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.TimeZone;
 
 import io.github.droidkaigi.confsched2017.BuildConfig;
 import io.github.droidkaigi.confsched2017.pref.DefaultPrefs;
 
 public class LocaleUtil {
+
+    public static final String LANG_JA = "ja";
+
+    public static final String LANG_EN = "en";
 
     private static final String TAG = LocaleUtil.class.getSimpleName();
 

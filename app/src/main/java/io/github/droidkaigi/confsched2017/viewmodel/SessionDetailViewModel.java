@@ -99,9 +99,9 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
 
     private int decideLanguageResId(@NonNull String languageId) {
         switch (languageId) {
-            case Session.LANG_EN_ID:
+            case LocaleUtil.LANG_EN:
                 return R.string.lang_en;
-            case Session.LANG_JA_ID:
+            case LocaleUtil.LANG_JA:
                 return R.string.lang_ja;
             default:
                 return R.string.lang_en;
