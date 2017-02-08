@@ -36,6 +36,8 @@ import io.github.droidkaigi.confsched2017.view.customview.itemdecoration.Divider
 import io.github.droidkaigi.confsched2017.viewmodel.SearchResultViewModel;
 import io.github.droidkaigi.confsched2017.viewmodel.SearchViewModel;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class SearchFragment extends BaseFragment implements SearchViewModel.Callback, SearchResultViewModel.Callback {
@@ -44,6 +46,9 @@ public class SearchFragment extends BaseFragment implements SearchViewModel.Call
 
     @Inject
     SearchViewModel viewModel;
+
+    @Inject
+    CompositeDisposable compositeDisposable;
 
     private SearchResultsAdapter adapter;
 
@@ -124,6 +129,24 @@ public class SearchFragment extends BaseFragment implements SearchViewModel.Call
         return binding.getRoot();
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        compositeDisposable.clear();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        viewModel.destroy();
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        compositeDisposable.dispose();
+    }
+
     private void initRecyclerView() {
         adapter = new SearchResultsAdapter(getContext());
 
@@ -133,13 +156,14 @@ public class SearchFragment extends BaseFragment implements SearchViewModel.Call
     }
 
     private void loadData() {
-        viewModel.getSearchResultViewModels(getContext(), this)
+        Disposable disposable = viewModel.getSearchResultViewModels(getContext(), this)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         searchResultViewModels -> adapter.setAllList(searchResultViewModels),
                         throwable -> Log.e(TAG, "Search result load failed.", throwable)
                 );
+        compositeDisposable.add(disposable);
     }
 
     @Override
