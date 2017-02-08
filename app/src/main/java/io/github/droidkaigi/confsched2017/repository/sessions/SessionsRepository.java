@@ -37,11 +37,7 @@ public class SessionsRepository implements SessionsDataSource {
     public Single<List<Session>> findAll(String languageId) {
         if (hasCacheSessions()) {
             return Single.create(emitter -> {
-                try {
-                    emitter.onSuccess(new ArrayList<>(cachedSessions.values()));
-                } catch (Exception e) {
-                    emitter.onError(e);
-                }
+                emitter.onSuccess(new ArrayList<>(cachedSessions.values()));
             });
         }
 
@@ -56,11 +52,7 @@ public class SessionsRepository implements SessionsDataSource {
     public Maybe<Session> find(int sessionId, String languageId) {
         if (hasCacheSession(sessionId)) {
             return Maybe.create(emitter -> {
-                try {
-                    emitter.onSuccess(cachedSessions.get(sessionId));
-                } catch (Exception e) {
-                    emitter.onError(e);
-                }
+                emitter.onSuccess(cachedSessions.get(sessionId));
             });
         }
 
