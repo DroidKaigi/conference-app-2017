@@ -3,6 +3,7 @@ package io.github.droidkaigi.confsched2017.api;
 import android.support.annotation.NonNull;
 
 import java.util.List;
+import java.util.Locale;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -13,6 +14,7 @@ import io.github.droidkaigi.confsched2017.api.service.GoogleFormService;
 import io.github.droidkaigi.confsched2017.model.Contributor;
 import io.github.droidkaigi.confsched2017.model.Session;
 import io.github.droidkaigi.confsched2017.model.SessionFeedback;
+import io.github.droidkaigi.confsched2017.util.LocaleUtil;
 import io.reactivex.Single;
 import retrofit2.Response;
 
@@ -37,10 +39,11 @@ public class DroidKaigiClient {
     }
 
     public Single<List<Session>> getSessions(@NonNull String languageId) {
-        // TODO
         switch (languageId) {
-            default:
+            case LocaleUtil.LANG_JA:
                 return droidKaigiService.getSessionsJa();
+            default:
+                return droidKaigiService.getSessionsEn();
         }
     }
 

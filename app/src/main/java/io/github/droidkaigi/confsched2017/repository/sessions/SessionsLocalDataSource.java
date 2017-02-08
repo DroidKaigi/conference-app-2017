@@ -15,7 +15,6 @@ import io.github.droidkaigi.confsched2017.model.Topic;
 import io.github.droidkaigi.confsched2017.model.Topic_Relation;
 import io.reactivex.Maybe;
 import io.reactivex.Single;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public final class SessionsLocalDataSource implements SessionsDataSource {
@@ -53,11 +52,13 @@ public final class SessionsLocalDataSource implements SessionsDataSource {
         return sessionRelation().selector().idEq(sessionId).executeAsObservable().firstElement();
     }
 
-    void deleteAll() {
+    @Override
+    public void deleteAll() {
         sessionRelation().deleter().execute();
         speakerRelation().deleter().execute();
         topicRelation().deleter().execute();
         placeRelation().deleter().execute();
+
     }
 
     private void insertSpeaker(Speaker speaker) {

@@ -92,9 +92,9 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    private void switchFragment(@NonNull Fragment fragment, @NonNull String tag) {
+    private boolean switchFragment(@NonNull Fragment fragment, @NonNull String tag) {
         if (fragment.isAdded()) {
-            return;
+            return false;
         }
 
         final FragmentManager manager = getSupportFragmentManager();
@@ -109,6 +109,22 @@ public class MainActivity extends BaseActivity {
         } else {
             ft.add(R.id.content_view, fragment, tag);
         }
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit();
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .commit();
+
+        // NOTE: When this method is called by user's continuous hitting at the same time,
+        // transactions are queued, so necessary to reflect commit instantly before next transaction starts.
+        manager.executePendingTransactions();
+
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (switchFragment(sessionsFragment, SessionsFragment.TAG)) {
+            binding.bottomNav.getMenu().findItem(R.id.nav_sessions).setChecked(true);
+            return;
+        }
+        super.onBackPressed();
     }
 }

@@ -14,4 +14,5 @@ public interface SessionsDataSource {
 
     public void updateAllAsync(List<Session> sessions);
 
+    void deleteAll();
 }

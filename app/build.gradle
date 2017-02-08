@@ -228,6 +228,8 @@ dependencies {
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    debugCompile 'com.tomoima.debot:debot:2.0.0'
+    releaseCompile 'com.tomoima.debot:debot-no-op:2.0.0'
 
     // Test
     testCompile 'junit:junit:4.12'

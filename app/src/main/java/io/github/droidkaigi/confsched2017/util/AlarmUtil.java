@@ -4,6 +4,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.support.annotation.NonNull;
 
 import java.util.Date;
@@ -23,7 +24,11 @@ public class AlarmUtil {
         //time = System.currentTimeMillis() + 5000;
         if (System.currentTimeMillis() < time) {
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-            alarmManager.set(AlarmManager.RTC_WAKEUP, time, createAlarmIntent(context, session));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, time, createAlarmIntent(context, session));
+            } else {
+                alarmManager.set(AlarmManager.RTC_WAKEUP, time, createAlarmIntent(context, session));
+            }
         }
     }
 
