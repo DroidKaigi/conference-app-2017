@@ -1,7 +1,5 @@
 package io.github.droidkaigi.confsched2017.repository.sessions;
 
-import com.annimon.stream.Stream;
-
 import android.text.TextUtils;
 
 import java.util.List;
@@ -13,9 +11,6 @@ import io.github.droidkaigi.confsched2017.model.Session;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.Single;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Function;
-import io.reactivex.schedulers.Schedulers;
 
 public final class SessionsRemoteDataSource implements SessionsDataSource {
 

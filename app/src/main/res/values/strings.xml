@@ -58,6 +58,7 @@
 
     <!-- Contributors -->
     <string name="contributors">Contributors</string>
+    <string name="contributors_people">(%1$d people)</string>
 
     <string name="help_translate">Help Translate</string>
 

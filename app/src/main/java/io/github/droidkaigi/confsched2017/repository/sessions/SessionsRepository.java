@@ -17,9 +17,9 @@ import io.reactivex.Single;
 @Singleton
 public class SessionsRepository implements SessionsDataSource {
 
-    private final SessionsDataSource localDataSource;
+    private final SessionsLocalDataSource localDataSource;
 
-    private final SessionsDataSource remoteDataSource;
+    private final SessionsRemoteDataSource remoteDataSource;
 
     @VisibleForTesting Map<Integer, Session> cachedSessions;
 
