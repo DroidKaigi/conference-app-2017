@@ -149,7 +149,7 @@
   license: MIT License
   licenseUrl: https://api.github.com/licenses/mit
   url: https://github.com/sys1yagi/fragment-creator
-- artifact: com.tomoima.debot:+
+- artifact: com.tomoima.debot:+:+
   name: debot
   copyrightHolder: Tomoaki Imai
   license: The Apache License, Version 2.0
