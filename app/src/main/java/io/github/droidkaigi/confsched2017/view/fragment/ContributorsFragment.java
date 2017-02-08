@@ -20,7 +20,6 @@ import javax.inject.Inject;
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.databinding.FragmentContributorsBinding;
 import io.github.droidkaigi.confsched2017.databinding.ViewContributorCellBinding;
-import io.github.droidkaigi.confsched2017.view.activity.ContributorsActivity;
 import io.github.droidkaigi.confsched2017.view.customview.ArrayRecyclerAdapter;
 import io.github.droidkaigi.confsched2017.view.customview.BindingHolder;
 import io.github.droidkaigi.confsched2017.view.helper.IntentHelper;
@@ -102,7 +101,7 @@ public class ContributorsFragment extends BaseFragment implements ContributorsVi
                 .select(AppCompatActivity.class)
                 .map(AppCompatActivity::getSupportActionBar)
                 .ifPresent(actionBar -> actionBar.setTitle(
-                        actionBar.getTitle() + " " + getString(R.string.people, contributors.size())));
+                        actionBar.getTitle() + " " + getString(R.string.contributors_people, contributors.size())));
     }
 
     @Override
