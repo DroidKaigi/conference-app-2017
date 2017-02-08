@@ -33,11 +33,7 @@ public class ContributorsRepository {
     public Single<List<Contributor>> findAll() {
         if (cachedContributors != null && !cachedContributors.isEmpty() && !isDirty) {
             return Single.create(emitter -> {
-                try {
-                    emitter.onSuccess(new ArrayList<>(cachedContributors.values()));
-                } catch (Exception e) {
-                    emitter.onError(e);
-                }
+                emitter.onSuccess(new ArrayList<>(cachedContributors.values()));
             });
         }
 
