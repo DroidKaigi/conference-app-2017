@@ -4,30 +4,26 @@ machine:
   environment:
     ANDROID_HOME: /usr/local/android-sdk-linux
     JAVA_OPTS: "-Xms512m -Xmx1024m"
-    GRADLE_OPTS: '-Dorg.gradle.parallel=false -Dorg.gradle.jvmargs="-Xmx2048m -XX:+HeapDumpOnOutOfMemoryError"'
+    GRADLE_OPTS: '-Dorg.gradle.parallel=false -Dorg.gradle.daemon=false -Dorg.gradle.jvmargs="-Xmx1056m -XX:+HeapDumpOnOutOfMemoryError"'
+    TERM: dumb
 
 dependencies:
   pre:
+    - echo y | android -s update sdk -u -a -t "tools" # update Android SDK that includes sdkmanager(1)
     - mkdir -p $ANDROID_HOME/licenses
     - echo -e "8933bad161af4178b1185d1a37fbf41ea5269c55" > $ANDROID_HOME/licenses/android-sdk-license
     - echo -e "84831b9409646a918e30573bab4c9c91346d8abd" > $ANDROID_HOME/licenses/android-sdk-preview-license
-    - echo y | android update sdk --no-ui --all --filter "tools,platform-tools,android-25,extra-android-support,extra-android-m2repository,extra-google-m2repository,extra-google-google_play_services"
-    - echo y | android update sdk --no-ui --all --filter "build-tools-25.0.2"
-    - mkdir -p $ANDROID_HOME/extras/android/m2repository/com/android/support/constraint/constraint-layout/
-    - mkdir -p $ANDROID_HOME/extras/android/m2repository/com/android/support/constraint/constraint-layout-solver/
-    - wget https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-1.0.0-beta4.zip -O /tmp/temp.zip && unzip /tmp/temp.zip -d /tmp/
-    - mv /tmp/constraintlayout $ANDROID_HOME/extras/android/m2repository/com/android/support/constraint/constraint-layout/1.0.0-beta4
-    - wget https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-solver-1.0.0-beta4.zip -O /tmp/temp.zip && unzip /tmp/temp.zip -d /tmp/
-    - mv /tmp/solver $ANDROID_HOME/extras/android/m2repository/com/android/support/constraint/constraint-layout-solver/1.0.0-beta4
-  cache_directories:
-    - ~/.android
-    - ~/.gradle
+    - $ANDROID_HOME/tools/bin/sdkmanager "platform-tools" "extras;android;m2repository" "extras;google;m2repository"
+    - $ANDROID_HOME/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.0-beta4"
+    - $ANDROID_HOME/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.0-beta4"
   override:
-    - ./gradlew dependencies
+    - ./gradlew app:dependencies
 
 test:
   override:
-    - ./gradlew clean assembleProductionDebug check jacocoTestReportDevelop
+    - ./gradlew assembleProductionDebug
+    - ./gradlew check
+    - ./gradlew jacocoTestReportDevelop
     - find . -name app*debug.apk -exec cp {} $CIRCLE_ARTIFACTS/ \;
 
 deployment:
