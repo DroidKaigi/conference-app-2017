@@ -46,11 +46,11 @@ public class ContributorsFragment extends BaseFragment implements ContributorsVi
 
     private Adapter adapter;
 
-    public ContributorsFragment() {
-    }
-
     public static ContributorsFragment newInstance() {
         return new ContributorsFragment();
+    }
+
+    public ContributorsFragment() {
     }
 
     @Override
