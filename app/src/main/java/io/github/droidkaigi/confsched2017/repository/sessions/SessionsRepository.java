@@ -73,7 +73,6 @@ public class SessionsRepository implements SessionsDataSource {
      */
     @Override
     public void deleteAll() {
-        System.out.print("=========== thread " + Thread.currentThread().getName());
         cachedSessions.clear();
         localDataSource.deleteAll();
         isDirty = true;
