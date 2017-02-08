@@ -13,5 +13,6 @@ public final class DebugApplication extends MainApplication {
 
         Stetho.initializeWithDefaults(this);
         Timber.plant(new StethoTree());
+        Timber.plant(new Timber.DebugTree());
     }
 }
