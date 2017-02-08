@@ -214,6 +214,9 @@ dependencies {
     compile 'com.github.gfx.android.orma:orma:4.1.0'
     compile 'com.rejasupotaro:kvs-schema:5.0.1'
     annotationProcessor 'com.rejasupotaro:kvs-schema-compiler:5.0.1'
+    compile 'com.github.sys1yagi.fragment-creator:library:0.8.2'
+    annotationProcessor 'com.github.sys1yagi.fragment-creator:processor:0.8.2'
+
 
     // UI
     compile 'org.lucasr.twowayview:core:1.0.0-SNAPSHOT@aar'
