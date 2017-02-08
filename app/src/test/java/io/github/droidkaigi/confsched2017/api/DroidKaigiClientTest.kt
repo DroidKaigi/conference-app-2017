@@ -28,14 +28,14 @@ class DroidKaigiClientTest {
         val expected = Array(10) { DummyCreator.newSession(it) }.toList()
         droidKaigiService.getSessionsJa().invoked.thenReturn(Single.just(expected))
 
-        client.getSessions(Session.LANG_JA_ID).test().run {
+        client.getSessions(LocaleUtil.LANG_JA).test().run {
             assertNoErrors()
             assertResult(expected)
             assertComplete()
         }
 
         // TODO: multilingual
-        client.getSessions(Session.LANG_EN_ID).test().run {
+        client.getSessions(LocaleUtil.LANG_EN).test().run {
             assertNoErrors()
             assertResult(expected)
             assertComplete()

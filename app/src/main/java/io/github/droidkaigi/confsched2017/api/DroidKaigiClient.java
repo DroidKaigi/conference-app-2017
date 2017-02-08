@@ -14,6 +14,7 @@ import io.github.droidkaigi.confsched2017.api.service.GoogleFormService;
 import io.github.droidkaigi.confsched2017.model.Contributor;
 import io.github.droidkaigi.confsched2017.model.Session;
 import io.github.droidkaigi.confsched2017.model.SessionFeedback;
+import io.github.droidkaigi.confsched2017.util.LocaleUtil;
 import io.reactivex.Single;
 import retrofit2.Response;
 
@@ -30,8 +31,6 @@ public class DroidKaigiClient {
 
     private static final int MAX_PER_PAGE = 100;
 
-    private static final String LOCALE_JA = "ja";
-
     @Inject
     public DroidKaigiClient(DroidKaigiService droidKaigiService, GithubService githubService, GoogleFormService googleFormService) {
         this.droidKaigiService = droidKaigiService;
@@ -41,7 +40,7 @@ public class DroidKaigiClient {
 
     public Single<List<Session>> getSessions(@NonNull String languageId) {
         switch (languageId) {
-            case LOCALE_JA:
+            case LocaleUtil.LANG_JA:
                 return droidKaigiService.getSessionsJa();
             default:
                 return droidKaigiService.getSessionsEn();
