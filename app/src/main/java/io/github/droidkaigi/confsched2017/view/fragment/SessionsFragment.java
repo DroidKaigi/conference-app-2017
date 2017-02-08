@@ -8,12 +8,14 @@ import android.content.Context;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.Display;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -156,11 +158,57 @@ public class SessionsFragment extends BaseFragment implements SessionViewModel.C
         adapter = new SessionsAdapter(getContext());
         binding.recyclerView.setAdapter(adapter);
 
+        GestureDetector gestureDetector = new GestureDetector(getContext(), new GestureDetector.OnGestureListener() {
+            private boolean ignoreMotionEventTillDown = false;
+
+            @Override
+            public boolean onDown(MotionEvent motionEvent) {
+                ignoreMotionEventTillDown = true;
+                return false;
+            }
+
+            @Override
+            public void onShowPress(MotionEvent motionEvent) {
+            }
+
+            @Override
+            public boolean onSingleTapUp(MotionEvent motionEvent) {
+                return false;
+            }
+
+            @Override
+            public boolean onScroll(MotionEvent event1, MotionEvent event2, float v, float v1) {
+
+                // Send cancel event for item clicked when horizontal scrolling.
+                if (ignoreMotionEventTillDown) {
+                    final long now = SystemClock.uptimeMillis();
+                    MotionEvent cancelEvent = MotionEvent.obtain(now, now,
+                            MotionEvent.ACTION_CANCEL, 0.0f, 0.0f, 0);
+                    binding.recyclerView.forceToDispatchTouchEvent(cancelEvent);
+                    ignoreMotionEventTillDown = false;
+                }
+
+                return false;
+            }
+
+            @Override
+            public void onLongPress(MotionEvent motionEvent) {
+            }
+
+            @Override
+            public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
+                return false;
+            }
+        });
+
         binding.root.setOnTouchListener((v, event) -> {
+            boolean isHandle = gestureDetector.onTouchEvent(event);
+
             MotionEvent e = MotionEvent.obtain(event);
             e.setLocation(e.getX() + binding.root.getScrollX(), e.getY() - binding.headerRow.getHeight());
             binding.recyclerView.forceToDispatchTouchEvent(e);
-            return false;
+
+            return isHandle;
         });
 
         ViewUtil.addOneTimeOnGlobalLayoutListener(binding.headerRow, () -> {
