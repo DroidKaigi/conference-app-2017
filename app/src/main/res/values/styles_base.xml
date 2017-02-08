@@ -101,6 +101,7 @@
         <item name="actionMenuTextColor">@color/toolbar_text</item>
         <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
         <item name="theme">@style/ToolbarTheme</item>
+        <item name="contentInsetStartWithNavigation">0dp</item>
     </style>
 
     <style name="ToolbarTheme" parent="Theme.AppCompat.Light.NoActionBar">
