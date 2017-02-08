@@ -143,3 +143,9 @@
   copyrightHolder: #COPYRIGHT_HOLDER#
   license: #LICENSE#
   skip: true
+- artifact: com.github.sys1yagi.fragment-creator:library:+
+  name: Fragment Creator
+  copyrightHolder: Toshihiro Yagi
+  license: MIT License
+  licenseUrl: https://api.github.com/licenses/mit
+  url: https://github.com/sys1yagi/fragment-creator
