@@ -44,7 +44,6 @@
     <dimen name="tag_padding_horizontal">8dp</dimen>
     <dimen name="tag_padding_vertical">4dp</dimen>
     <dimen name="tag_border_width">1dp</dimen>
-    <dimen name="fab_margin">16dp</dimen>
 
 
     <!-- Session -->
