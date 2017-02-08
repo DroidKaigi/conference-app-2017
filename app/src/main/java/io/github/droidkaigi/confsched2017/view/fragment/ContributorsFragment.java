@@ -63,7 +63,7 @@ public class ContributorsFragment extends BaseFragment implements ContributorsVi
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel.setCallback(this);
-        getContributors(false);
+        loadContributors(false);
     }
 
     @Nullable
@@ -108,10 +108,10 @@ public class ContributorsFragment extends BaseFragment implements ContributorsVi
 
     @Override
     public void onSwipeRefresh() {
-        getContributors(true);
+        loadContributors(true);
     }
 
-    private void getContributors(boolean refresh) {
+    private void loadContributors(boolean refresh) {
         Disposable disposable = viewModel.getContributors(refresh)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
