@@ -202,13 +202,13 @@ public class SessionsFragment extends BaseFragment implements SessionViewModel.C
         });
 
         binding.root.setOnTouchListener((v, event) -> {
-            boolean isHandle = gestureDetector.onTouchEvent(event);
+            gestureDetector.onTouchEvent(event);
 
             MotionEvent e = MotionEvent.obtain(event);
             e.setLocation(e.getX() + binding.root.getScrollX(), e.getY() - binding.headerRow.getHeight());
             binding.recyclerView.forceToDispatchTouchEvent(e);
 
-            return isHandle;
+            return false;
         });
 
         ViewUtil.addOneTimeOnGlobalLayoutListener(binding.headerRow, () -> {
