@@ -23,6 +23,7 @@ test:
   override:
     - ./gradlew assembleProductionDebug
     - ./gradlew lint
+    - ./gradlew checkLicenses
     - ./gradlew jacocoTestReportDevelop
     - find . -name app*debug.apk -exec cp {} $CIRCLE_ARTIFACTS/ \;
 
