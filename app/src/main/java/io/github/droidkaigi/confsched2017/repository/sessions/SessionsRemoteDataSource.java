@@ -49,4 +49,8 @@ public final class SessionsRemoteDataSource implements SessionsDataSource {
         // Do nothing
     }
 
+    @Override
+    public void deleteAll() {
+        // Do nothing
+    }
 }
