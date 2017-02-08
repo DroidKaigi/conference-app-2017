@@ -1,5 +1,8 @@
 package io.github.droidkaigi.confsched2017.view.fragment;
 
+import com.sys1yagi.fragmentcreator.annotation.Args;
+import com.sys1yagi.fragmentcreator.annotation.FragmentCreator;
+
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,11 +22,10 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class SessionFeedbackFragment extends BaseFragment implements SessionFeedbackViewModel.Callback{
+@FragmentCreator
+public class SessionFeedbackFragment extends BaseFragment implements SessionFeedbackViewModel.Callback {
 
     public static final String TAG = SessionFeedbackFragment.class.getSimpleName();
-
-    private static final String ARG_SESSION_ID = "session_id";
 
     @Inject
     SessionFeedbackViewModel viewModel;
@@ -31,17 +33,10 @@ public class SessionFeedbackFragment extends BaseFragment implements SessionFeed
     @Inject
     CompositeDisposable compositeDisposable;
 
-    private int sessionId;
+    @Args
+    int sessionId;
 
     private FragmentSessionFeedbackBinding binding;
-
-    public static SessionFeedbackFragment newInstance(int sessionId) {
-        SessionFeedbackFragment fragment = new SessionFeedbackFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_SESSION_ID, sessionId);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     public SessionFeedbackFragment() {
     }
@@ -49,7 +44,7 @@ public class SessionFeedbackFragment extends BaseFragment implements SessionFeed
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        sessionId = getArguments().getInt(ARG_SESSION_ID);
+        SessionFeedbackFragmentCreator.read(this);
         viewModel.setCallback(this);
     }
 

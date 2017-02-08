@@ -9,6 +9,7 @@ import android.view.MenuItem;
 
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.view.fragment.SessionDetailFragment;
+import io.github.droidkaigi.confsched2017.view.fragment.SessionDetailFragmentCreator;
 
 public class SessionDetailActivity extends BaseActivity {
 
@@ -27,7 +28,7 @@ public class SessionDetailActivity extends BaseActivity {
         getComponent().inject(this);
 
         final int sessionId = getIntent().getIntExtra(EXTRA_SESSION_ID, 0);
-        replaceFragment(SessionDetailFragment.newInstance(sessionId), R.id.content_view);
+        replaceFragment(SessionDetailFragmentCreator.newBuilder(sessionId).build(), R.id.content_view);
     }
 
     @Override
