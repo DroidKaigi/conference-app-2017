@@ -75,6 +75,7 @@
                 android:paddingTop="@dimen/space_4dp"
                 android:textAppearance="@style/TextSubheading"
                 android:textColor="@color/white"
+                android:visibility="gone"
                 />
 
         <FrameLayout

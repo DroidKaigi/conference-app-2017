@@ -16,6 +16,7 @@ import dagger.Provides;
 import io.github.droidkaigi.confsched2017.api.RequestInterceptor;
 import io.github.droidkaigi.confsched2017.api.service.DroidKaigiService;
 import io.github.droidkaigi.confsched2017.api.service.GithubService;
+import io.github.droidkaigi.confsched2017.api.service.GoogleFormService;
 import io.github.droidkaigi.confsched2017.model.OrmaDatabase;
 import io.github.droidkaigi.confsched2017.pref.DefaultPrefs;
 import io.reactivex.disposables.CompositeDisposable;
@@ -90,6 +91,17 @@ public class AppModule {
                 .addConverterFactory(GsonConverterFactory.create(createGson()))
                 .build()
                 .create(GithubService.class);
+    }
+
+    @Singleton
+    @Provides
+    public GoogleFormService provideGoogleFormService(OkHttpClient client) {
+        return new Retrofit.Builder().client(client)
+                .baseUrl("https://docs.google.com/forms/d/")
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(createGson()))
+                .build()
+                .create(GoogleFormService.class);
     }
 
     private static Gson createGson() {

@@ -1,5 +1,8 @@
 package io.github.droidkaigi.confsched2017.view.fragment;
 
+import com.sys1yagi.fragmentcreator.annotation.Args;
+import com.sys1yagi.fragmentcreator.annotation.FragmentCreator;
+
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
@@ -15,7 +18,6 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 
 import javax.inject.Inject;
 
@@ -29,6 +31,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
+@FragmentCreator
 public class SessionDetailFragment extends BaseFragment implements SessionDetailViewModel.Callback {
 
     private static final String TAG = SessionDetailFragment.class.getSimpleName();
@@ -41,17 +44,10 @@ public class SessionDetailFragment extends BaseFragment implements SessionDetail
     @Inject
     CompositeDisposable compositeDisposable;
 
-    private int sessionId;
+    @Args
+    int sessionId;
 
     private FragmentSessionDetailBinding binding;
-
-    public static SessionDetailFragment newInstance(int sessionId) {
-        SessionDetailFragment fragment = new SessionDetailFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_SESSION_ID, sessionId);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     public SessionDetailFragment() {
     }
@@ -59,7 +55,7 @@ public class SessionDetailFragment extends BaseFragment implements SessionDetail
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        sessionId = getArguments().getInt(ARG_SESSION_ID);
+        SessionDetailFragmentCreator.read(this);
     }
 
     @Override
@@ -101,7 +97,10 @@ public class SessionDetailFragment extends BaseFragment implements SessionDetail
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        () -> initTheme(),
+                        () -> {
+                            initTheme();
+                            binding.setViewModel(viewModel);
+                        },
                         throwable -> Log.e(TAG, "Failed to find session.", throwable)
                 );
         compositeDisposable.add(disposable);

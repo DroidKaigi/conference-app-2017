@@ -5,6 +5,7 @@ import com.sys1yagi.kmockito.mock
 import com.sys1yagi.kmockito.verify
 import io.github.droidkaigi.confsched2017.api.service.DroidKaigiService
 import io.github.droidkaigi.confsched2017.api.service.GithubService
+import io.github.droidkaigi.confsched2017.api.service.GoogleFormService
 import io.github.droidkaigi.confsched2017.model.Session
 import io.github.droidkaigi.confsched2017.util.DummyCreator
 import io.reactivex.Single
@@ -17,7 +18,9 @@ class DroidKaigiClientTest {
 
     private val githubService = mock<GithubService>()
 
-    private val client = DroidKaigiClient(droidKaigiService, githubService)
+    private val googleFormService = mock<GoogleFormService>()
+
+    private val client = DroidKaigiClient(droidKaigiService, githubService, googleFormService)
 
     @Test
     @Throws(Exception::class)
@@ -53,5 +56,4 @@ class DroidKaigiClientTest {
             assertComplete()
         }
     }
-
 }

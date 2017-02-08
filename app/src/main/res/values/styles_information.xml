@@ -6,7 +6,7 @@
         <item name="android:ellipsize">end</item>
         <item name="android:lines">1</item>
         <item name="android:textColor">@color/theme</item>
-        <item name="android:textAppearance">@style/TextTitle</item>
+        <item name="android:textAppearance">@style/TextSubheading</item>
     </style>
 
     <style name="InfoDescription">
