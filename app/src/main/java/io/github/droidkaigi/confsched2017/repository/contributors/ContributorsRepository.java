@@ -30,6 +30,10 @@ public class ContributorsRepository {
         this.isDirty = true;
     }
 
+    public void setDirty(boolean isDirty) {
+        this.isDirty = isDirty;
+    }
+
     public Single<List<Contributor>> findAll() {
         if (cachedContributors != null && !cachedContributors.isEmpty() && !isDirty) {
             return Single.create(emitter -> {
