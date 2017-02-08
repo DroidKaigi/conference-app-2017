@@ -2,6 +2,7 @@ package io.github.droidkaigi.confsched2017;
 
 import com.deploygate.sdk.DeployGate;
 import com.squareup.leakcanary.LeakCanary;
+import com.tomoima.debot.DebotConfigurator;
 
 import android.app.Application;
 import android.support.annotation.NonNull;
@@ -39,6 +40,8 @@ public class MainApplication extends Application {
             DeployGate.install(this, null, true);
         }
         Timber.plant(new CrashLogTree()); // TODO initialize Firebase before this line
+        
+        DebotConfigurator.configureWithDefault(this);
     }
 
     private void initCalligraphy() {
