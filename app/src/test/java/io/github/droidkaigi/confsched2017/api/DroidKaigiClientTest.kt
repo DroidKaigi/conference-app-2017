@@ -6,12 +6,13 @@ import com.sys1yagi.kmockito.verify
 import io.github.droidkaigi.confsched2017.api.service.DroidKaigiService
 import io.github.droidkaigi.confsched2017.api.service.GithubService
 import io.github.droidkaigi.confsched2017.api.service.GoogleFormService
-import io.github.droidkaigi.confsched2017.model.Session
+import io.github.droidkaigi.confsched2017.model.SessionFeedback
 import io.github.droidkaigi.confsched2017.util.DummyCreator
 import io.github.droidkaigi.confsched2017.util.LocaleUtil
 import io.reactivex.Single
 import org.junit.Test
 import org.mockito.Mockito
+import retrofit2.Response
 
 class DroidKaigiClientTest {
 
@@ -57,5 +58,21 @@ class DroidKaigiClientTest {
             assertResult(expected)
             assertComplete()
         }
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun submitSessionFeedback() {
+        val res = Response.success<Void>(null)
+        googleFormService.submitSessionFeedback(0)
+                .invoked.thenReturn(Single.just(res))
+
+        val feedBack = SessionFeedback(0)
+        client.submitSessionFeedback(feedBack).test().run {
+            assertNoErrors()
+            assertValue(res)
+            assertComplete()
+        }
+        googleFormService.verify().submitSessionFeedback(0)
     }
 }
