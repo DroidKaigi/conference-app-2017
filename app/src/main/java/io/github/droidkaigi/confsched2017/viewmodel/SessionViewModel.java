@@ -87,11 +87,10 @@ public class SessionViewModel extends BaseObservable implements ViewModel {
             this.normalSessionItemVisibility = View.GONE;
         } else {
             this.isClickable = true;
-            this.backgroundResId = R.drawable.clickable_white;
+            this.backgroundResId = session.isLiveAt(new Date())? R.drawable.clickable_purple : R.drawable.clickable_white;
             this.topicColorResId = TopicColor.from(session.topic).middleColorResId;
             this.normalSessionItemVisibility = View.VISIBLE;
         }
-
     }
 
     private SessionViewModel(int rowSpan, int colSpan) {
