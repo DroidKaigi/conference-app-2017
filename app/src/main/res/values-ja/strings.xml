@@ -35,6 +35,7 @@
     <string name="sponsors">スポンサー</string>
     <!-- Contributors -->
     <string name="contributors">コントリビュータ</string>
+    <string name="people">(%1$d人)</string>
     <!-- Licenses -->
     <string name="licenses">オープンソースライセンス</string>
     <!-- Session feedback -->
