@@ -28,7 +28,7 @@ public class HttpClientModule {
         Cache cache = new Cache(cacheDir, MAX_CACHE_SIZE);
 
         OkHttpClient.Builder c = new OkHttpClient.Builder().cache(cache).addInterceptor(interceptor)
-                .addInterceptor(new StethoInterceptor());
+                .addNetworkInterceptor(new StethoInterceptor());
         return c.build();
     }
 }
