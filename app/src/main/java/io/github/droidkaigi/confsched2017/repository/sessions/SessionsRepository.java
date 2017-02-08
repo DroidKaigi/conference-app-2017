@@ -68,6 +68,17 @@ public class SessionsRepository implements SessionsDataSource {
         localDataSource.updateAllAsync(sessions);
     }
 
+    /**
+     * Clear all caches. only for debug purposes
+     */
+    @Override
+    public void deleteAll() {
+        System.out.print("=========== thread " + Thread.currentThread().getName());
+        cachedSessions.clear();
+        localDataSource.deleteAll();
+        isDirty = true;
+    }
+
     private Single<List<Session>> findAllFromLocal(String languageId) {
         return localDataSource.findAll(languageId)
                 .flatMap(sessions -> {

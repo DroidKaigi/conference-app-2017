@@ -48,6 +48,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         debot = Debot.getInstance();
+        debot.allowShake(this);
     }
 
     @Override

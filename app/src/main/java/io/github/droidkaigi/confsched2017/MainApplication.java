@@ -3,10 +3,14 @@ package io.github.droidkaigi.confsched2017;
 import com.deploygate.sdk.DeployGate;
 import com.squareup.leakcanary.LeakCanary;
 import com.tomoima.debot.DebotConfigurator;
+import com.tomoima.debot.DebotStrategyBuilder;
 
 import android.app.Application;
 import android.support.annotation.NonNull;
 
+import javax.inject.Inject;
+
+import io.github.droidkaigi.confsched2017.debug.ClearCache;
 import io.github.droidkaigi.confsched2017.di.AndroidModule;
 import io.github.droidkaigi.confsched2017.di.AppComponent;
 import io.github.droidkaigi.confsched2017.di.AppModule;
@@ -18,6 +22,9 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 public class MainApplication extends Application {
 
     AppComponent appComponent;
+
+    @Inject
+    ClearCache clearCache;
 
     @NonNull
     public AppComponent getComponent() {
@@ -32,7 +39,7 @@ public class MainApplication extends Application {
                 .appModule(new AppModule(this))
                 .androidModule(new AndroidModule(this))
                 .build();
-
+        appComponent.inject(this);
         initCalligraphy();
         initLeakCanary();
 
@@ -40,8 +47,11 @@ public class MainApplication extends Application {
             DeployGate.install(this, null, true);
         }
         Timber.plant(new CrashLogTree()); // TODO initialize Firebase before this line
-        
-        DebotConfigurator.configureWithDefault(this);
+
+        DebotStrategyBuilder builder = new DebotStrategyBuilder.Builder(this)
+                .registerMenu("Clear cache", clearCache)
+                .build();
+        DebotConfigurator.configureWithCustomizedMenu(this, builder.getStrategyList());
     }
 
     private void initCalligraphy() {
