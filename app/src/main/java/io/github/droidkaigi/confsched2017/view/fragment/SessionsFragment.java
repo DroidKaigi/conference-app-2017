@@ -159,15 +159,14 @@ public class SessionsFragment extends BaseFragment implements SessionViewModel.C
         adapter = new SessionsAdapter(getContext());
         binding.recyclerView.setAdapter(adapter);
 
-        final ClickGestureCanceler clickCanceler = new ClickGestureCanceler(getContext(), binding.recyclerView);
+        final ClickGestureCanceller clickCanceller = new ClickGestureCanceller(getContext(), binding.recyclerView);
 
         binding.root.setOnTouchListener((v, event) -> {
-            clickCanceler.sendCancelIfScrolling(event);
+            clickCanceller.sendCancelIfScrolling(event);
 
             MotionEvent e = MotionEvent.obtain(event);
             e.setLocation(e.getX() + binding.root.getScrollX(), e.getY() - binding.headerRow.getHeight());
             binding.recyclerView.forceToDispatchTouchEvent(e);
-
             return false;
         });
 
@@ -257,11 +256,11 @@ public class SessionsFragment extends BaseFragment implements SessionViewModel.C
         }
     }
 
-    private static class ClickGestureCanceler
+    private static class ClickGestureCanceller
     {
         private GestureDetector gestureDetector;
 
-        ClickGestureCanceler(final Context context, final TouchlessTwoWayView targetView) {
+        ClickGestureCanceller(final Context context, final TouchlessTwoWayView targetView) {
             gestureDetector = new GestureDetector(context, new GestureDetector.OnGestureListener() {
                 private boolean ignoreMotionEventOnScroll = false;
 
