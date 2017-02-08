@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.content.ContextCompat;
@@ -53,13 +54,16 @@ public class NotificationReceiver extends BroadcastReceiver {
      * @param context Context
      */
     private void showGroupNotification(Context context) {
-        Notification groupNotification = new NotificationCompat.Builder(context)
-                .setSmallIcon(R.drawable.ic_notification)
-                .setColor(ContextCompat.getColor(context, R.color.theme))
-                .setGroup(GROUP_NAME)
-                .setGroupSummary(true)
-                .build();
-        NotificationManagerCompat.from(context).notify(GROUP_NOTIFICATION_ID, groupNotification);
+        // Group notification is supported on Android N and Android Wear.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Notification groupNotification = new NotificationCompat.Builder(context)
+                    .setSmallIcon(R.drawable.ic_notification)
+                    .setColor(ContextCompat.getColor(context, R.color.theme))
+                    .setGroup(GROUP_NAME)
+                    .setGroupSummary(true)
+                    .build();
+            NotificationManagerCompat.from(context).notify(GROUP_NOTIFICATION_ID, groupNotification);
+        }
     }
 
     /**
@@ -75,7 +79,7 @@ public class NotificationReceiver extends BroadcastReceiver {
         Intent openIntent = SessionDetailActivity.createIntent(context, sessionId);
         openIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, openIntent, 0);
-        Notification notification = new NotificationCompat.Builder(context)
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
                 .setTicker(title)
                 .setContentTitle(title)
                 .setContentText(text)
@@ -84,9 +88,11 @@ public class NotificationReceiver extends BroadcastReceiver {
                 .setAutoCancel(true)
                 .setContentIntent(pendingIntent)
                 .setDefaults(NotificationCompat.DEFAULT_ALL)
-                .setPriority(priority)
-                .setGroup(GROUP_NAME)
-                .build();
-        NotificationManagerCompat.from(context).notify(sessionId, notification);
+                .setPriority(priority);
+        // Group notification is supported on Android N and Android Wear.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            builder.setGroup(GROUP_NAME).setGroupSummary(false);
+        }
+        NotificationManagerCompat.from(context).notify(sessionId, builder.build());
     }
 }
