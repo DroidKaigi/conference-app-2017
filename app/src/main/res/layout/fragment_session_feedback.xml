@@ -23,6 +23,15 @@
                 android:text="@={viewModel.sessionTitle}"
                 />
 
+        <Button
+                android:id="@+id/submit_feedback"
+                style="@style/Button.Grey"
+                android:layout_margin="@dimen/space_8dp"
+                android:onClick="@{viewModel::onClickSubmitFeedbackButton}"
+                android:layout_alignParentBottom="true"
+                android:text="@string/send_feedback"
+                />
     </RelativeLayout>
+
 
 </layout>
