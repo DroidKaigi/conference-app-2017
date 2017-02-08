@@ -98,7 +98,7 @@
                             android:layout_marginLeft="@dimen/info_social_icon_margin"
                             android:layout_marginStart="@dimen/info_social_icon_margin"
                             android:onClick="@{viewModel::onClickDroidKaigiWeb}"
-                            android:src="@drawable/ic_droidkaigi_36"
+                            android:src="@drawable/ic_droidkaigi"
                             />
 
                     <ImageView
@@ -108,7 +108,7 @@
                             android:layout_marginLeft="@dimen/info_social_icon_margin"
                             android:layout_marginStart="@dimen/info_social_icon_margin"
                             android:onClick="@{viewModel::onClickYouTube}"
-                            android:src="@drawable/ic_youtube_36"
+                            app:srcCompat="@drawable/ic_youtube_36_vector"
                             />
 
                 </LinearLayout>
@@ -150,9 +150,9 @@
             <io.github.droidkaigi.confsched2017.view.customview.InfoRowView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:onClick="@{viewModel::onClickLicence}"
-                    app:infoDescription="@string/info_licence_description"
-                    app:infoTitle="@string/info_licence_title"
+                    android:onClick="@{viewModel::onClickLicense}"
+                    app:infoDescription="@string/info_license_description"
+                    app:infoTitle="@string/info_license_title"
                     />
 
             <io.github.droidkaigi.confsched2017.view.customview.InfoRowView

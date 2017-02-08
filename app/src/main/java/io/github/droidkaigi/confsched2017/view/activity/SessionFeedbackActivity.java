@@ -11,6 +11,7 @@ import javax.inject.Inject;
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.databinding.ActivitySessionFeedbackBinding;
 import io.github.droidkaigi.confsched2017.view.fragment.SessionFeedbackFragment;
+import io.github.droidkaigi.confsched2017.view.fragment.SessionFeedbackFragmentCreator;
 import io.github.droidkaigi.confsched2017.viewmodel.SessionFeedbackViewModel;
 
 public class SessionFeedbackActivity extends BaseActivity {
@@ -39,6 +40,6 @@ public class SessionFeedbackActivity extends BaseActivity {
         initBackToolbar(binding.toolbar);
 
         final int sessionId = getIntent().getIntExtra(EXTRA_SESSION_ID, 0);
-        replaceFragment(SessionFeedbackFragment.newInstance(sessionId), R.id.content_view);
+        replaceFragment(SessionFeedbackFragmentCreator.newBuilder(sessionId).build(), R.id.content_view);
     }
 }

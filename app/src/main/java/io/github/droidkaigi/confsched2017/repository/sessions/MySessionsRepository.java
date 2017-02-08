@@ -18,13 +18,13 @@ import io.reactivex.Single;
 @Singleton
 public class MySessionsRepository implements MySessionsDataSource {
 
-    private final MySessionsDataSource localDataSourse;
+    private final MySessionsDataSource localDataSource;
 
     private Map<Integer, MySession> cachedMySessions;
 
     @Inject
     public MySessionsRepository(MySessionsLocalDataSource localDataSource) {
-        this.localDataSourse = localDataSource;
+        this.localDataSource = localDataSource;
         this.cachedMySessions = new LinkedHashMap<>();
     }
 
@@ -32,15 +32,11 @@ public class MySessionsRepository implements MySessionsDataSource {
     public Single<List<MySession>> findAll() {
         if (cachedMySessions != null && !cachedMySessions.isEmpty()) {
             return Single.create(emitter -> {
-                try {
-                    emitter.onSuccess(new ArrayList<>(cachedMySessions.values()));
-                } catch (Exception e) {
-                    emitter.onError(e);
-                }
+                emitter.onSuccess(new ArrayList<>(cachedMySessions.values()));
             });
         }
 
-        return localDataSourse.findAll()
+        return localDataSource.findAll()
                 .map(mySessions -> {
                     refreshCache(mySessions);
                     return mySessions;
@@ -50,18 +46,18 @@ public class MySessionsRepository implements MySessionsDataSource {
     @Override
     public Completable save(@NonNull Session session) {
         cachedMySessions.put(session.id, new MySession(session));
-        return localDataSourse.save(session);
+        return localDataSource.save(session);
     }
 
     @Override
     public Single<Integer> delete(@NonNull Session session) {
         cachedMySessions.remove(session.id);
-        return localDataSourse.delete(session);
+        return localDataSource.delete(session);
     }
 
     @Override
     public boolean isExist(int sessionId) {
-        return localDataSourse.isExist(sessionId);
+        return localDataSource.isExist(sessionId);
     }
 
     private void refreshCache(List<MySession> mySessions) {

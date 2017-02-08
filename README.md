@@ -1,4 +1,5 @@
-# ![](app/src/main/res/mipmap-mdpi/ic_launcher.png) DroidKaigi 2017 official Android app [![CircleCI](https://circleci.com/gh/DroidKaigi/conference-app-2017.svg?style=svg)](https://circleci.com/gh/DroidKaigi/conference-app-2017) [![Stories in Ready](https://badge.waffle.io/DroidKaigi/conference-app-2017.svg?label=ready&title=Ready)](http://waffle.io/DroidKaigi/conference-app-2017)
+# ![](app/src/main/res/mipmap-mdpi/ic_launcher.png) DroidKaigi 2017 official Android app [![CircleCI](https://circleci.com/gh/DroidKaigi/conference-app-2017.svg?style=svg)](https://circleci.com/gh/DroidKaigi/conference-app-2017) [![Stories in Ready](https://badge.waffle.io/DroidKaigi/conference-app-2017.svg?label=ready&title=Ready)](http://waffle.io/DroidKaigi/conference-app-2017) [![codecov](https://codecov.io/gh/DroidKaigi/conference-app-2017/branch/master/graph/badge.svg?token=lVzTk1B5fE)](https://codecov.io/gh/DroidKaigi/conference-app-2017)
+
 
 [DroidKaigi 2017](https://droidkaigi.github.io/2017/en/) is a conference tailored for developers on 9th and 10th March 2017.
 

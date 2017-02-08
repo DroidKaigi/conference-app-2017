@@ -1,5 +1,7 @@
 package io.github.droidkaigi.confsched2017.repository.sessions;
 
+import android.support.annotation.VisibleForTesting;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -15,31 +17,27 @@ import io.reactivex.Single;
 @Singleton
 public class SessionsRepository implements SessionsDataSource {
 
-    private final SessionsDataSource localDataSourse;
+    private final SessionsLocalDataSource localDataSource;
 
-    private final SessionsDataSource remoteDataSourse;
+    private final SessionsRemoteDataSource remoteDataSource;
 
-    private Map<Integer, Session> cachedSessions;
+    @VisibleForTesting Map<Integer, Session> cachedSessions;
 
     private boolean isDirty;
 
     @Inject
     public SessionsRepository(SessionsLocalDataSource localDataSource, SessionsRemoteDataSource remoteDataSource) {
-        this.localDataSourse = localDataSource;
-        this.remoteDataSourse = remoteDataSource;
+        this.localDataSource = localDataSource;
+        this.remoteDataSource = remoteDataSource;
         this.cachedSessions = new LinkedHashMap<>();
         this.isDirty = true;
     }
 
     @Override
     public Single<List<Session>> findAll(String languageId) {
-        if (cachedSessions != null && !cachedSessions.isEmpty() && !isDirty) {
+        if (hasCacheSessions()) {
             return Single.create(emitter -> {
-                try {
-                    emitter.onSuccess(new ArrayList<>(cachedSessions.values()));
-                } catch (Exception e) {
-                    emitter.onError(e);
-                }
+                emitter.onSuccess(new ArrayList<>(cachedSessions.values()));
             });
         }
 
@@ -52,30 +50,26 @@ public class SessionsRepository implements SessionsDataSource {
 
     @Override
     public Maybe<Session> find(int sessionId, String languageId) {
-        if (cachedSessions != null && cachedSessions.containsKey(sessionId) && !isDirty) {
+        if (hasCacheSession(sessionId)) {
             return Maybe.create(emitter -> {
-                try {
-                    emitter.onSuccess(cachedSessions.get(sessionId));
-                } catch (Exception e) {
-                    emitter.onError(e);
-                }
+                emitter.onSuccess(cachedSessions.get(sessionId));
             });
         }
 
         if (isDirty) {
-            return remoteDataSourse.find(sessionId, languageId);
+            return remoteDataSource.find(sessionId, languageId);
         } else {
-            return localDataSourse.find(sessionId, languageId);
+            return localDataSource.find(sessionId, languageId);
         }
     }
 
     @Override
     public void updateAllAsync(List<Session> sessions) {
-        localDataSourse.updateAllAsync(sessions);
+        localDataSource.updateAllAsync(sessions);
     }
 
     private Single<List<Session>> findAllFromLocal(String languageId) {
-        return localDataSourse.findAll(languageId)
+        return localDataSource.findAll(languageId)
                 .flatMap(sessions -> {
                     if (sessions.isEmpty()) {
                         return findAllFromRemote(languageId);
@@ -87,7 +81,7 @@ public class SessionsRepository implements SessionsDataSource {
     }
 
     private Single<List<Session>> findAllFromRemote(String languageId) {
-        return remoteDataSourse.findAll(languageId)
+        return remoteDataSource.findAll(languageId)
                 .map(sessions -> {
                     refreshCache(sessions);
                     updateAllAsync(sessions);
@@ -109,4 +103,13 @@ public class SessionsRepository implements SessionsDataSource {
     public void setIdDirty(boolean isDirty) {
         this.isDirty = isDirty;
     }
+
+    boolean hasCacheSessions() {
+        return cachedSessions != null && !cachedSessions.isEmpty() && !isDirty;
+    }
+
+    boolean hasCacheSession(int sessionId) {
+        return cachedSessions != null && cachedSessions.containsKey(sessionId) && !isDirty;
+    }
+
 }

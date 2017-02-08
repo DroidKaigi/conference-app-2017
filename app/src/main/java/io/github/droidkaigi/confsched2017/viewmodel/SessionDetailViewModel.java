@@ -17,12 +17,12 @@ import javax.inject.Inject;
 
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.model.Session;
-import io.github.droidkaigi.confsched2017.model.TopicColor;
 import io.github.droidkaigi.confsched2017.repository.sessions.MySessionsRepository;
 import io.github.droidkaigi.confsched2017.repository.sessions.SessionsRepository;
+import io.github.droidkaigi.confsched2017.util.AlarmUtil;
 import io.github.droidkaigi.confsched2017.util.DateUtil;
 import io.github.droidkaigi.confsched2017.util.LocaleUtil;
-import io.reactivex.Maybe;
+import io.reactivex.Completable;
 
 public class SessionDetailViewModel extends BaseObservable implements ViewModel {
 
@@ -37,16 +37,16 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
     private String sessionTitle;
 
     @ColorRes
-    private int sessionVividColorResId;
+    private int sessionVividColorResId = R.color.white;
 
     @ColorRes
-    private int sessionPaleColorResId;
+    private int sessionPaleColorResId = R.color.white;
 
     @StyleRes
-    private int sessionThemeResId;
+    private int sessionThemeResId = R.color.white;
 
     @StringRes
-    private int languageResId;
+    private int languageResId = R.string.lang_en;
 
     private String sessionTimeRange;
 
@@ -57,6 +57,10 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
     private int slideIconVisibility;
 
     private int dashVideoIconVisibility;
+
+    private int roomVisibility;
+
+    private int topicVisibility;
 
     private Callback callback;
 
@@ -79,26 +83,25 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
         this.isMySession = mySessionsRepository.isExist(session.id);
         this.slideIconVisibility = session.slideUrl != null ? View.VISIBLE : View.GONE;
         this.dashVideoIconVisibility = session.movieUrl != null && session.movieDashUrl != null ? View.VISIBLE : View.GONE;
-
-        if (session.lang != null) {
-            this.languageResId = decideLanguageResId(session.lang.toUpperCase());
-        }
+        this.roomVisibility = session.room != null ? View.VISIBLE : View.GONE;
+        this.topicVisibility = session.topic != null ? View.VISIBLE : View.GONE;
+        this.languageResId = session.lang != null ? decideLanguageResId(session.lang.toUpperCase()) : R.string.lang_en;
     }
 
-    public Maybe<Session> findSession(int sessionId) {
+    public Completable loadSession(int sessionId) {
         final String languageId = Locale.getDefault().getLanguage().toLowerCase();
-        return sessionsRepository.find(sessionId, languageId)
-                .map(session -> {
+        return  sessionsRepository.find(sessionId, languageId)
+                .flatMapCompletable(session -> {
                     setSession(session);
-                    return session;
+                    return Completable.complete();
                 });
     }
 
     private int decideLanguageResId(@NonNull String languageId) {
         switch (languageId) {
-            case Session.LANG_EN_ID:
+            case LocaleUtil.LANG_EN:
                 return R.string.lang_en;
-            case Session.LANG_JA_ID:
+            case LocaleUtil.LANG_JA:
                 return R.string.lang_ja;
             default:
                 return R.string.lang_en;
@@ -139,10 +142,12 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
             mySessionsRepository.delete(session)
                     .subscribe((result) -> Log.d(TAG, "Deleted my session"),
                             throwable -> Log.e(TAG, "Failed to delete my session", throwable));
+            AlarmUtil.unregisterAlarm(context, session);
         } else {
             mySessionsRepository.save(session)
                     .subscribe(() -> Log.d(TAG, "Saved my session"),
                             throwable -> Log.e(TAG, "Failed to save my session", throwable));
+            AlarmUtil.registerAlarm(context, session);
         }
 
         if (callback != null) {
@@ -194,6 +199,14 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
 
     public int getDashVideoIconVisibility() {
         return dashVideoIconVisibility;
+    }
+
+    public int getTopicVisibility() {
+        return topicVisibility;
+    }
+
+    public int getRoomVisibility() {
+        return roomVisibility;
     }
 
     public void setCallback(Callback callback) {

@@ -1,8 +1,9 @@
 package io.github.droidkaigi.confsched2017.view.fragment;
 
+import com.annimon.stream.Optional;
+
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -13,7 +14,9 @@ import javax.inject.Inject;
 
 import io.github.droidkaigi.confsched2017.databinding.FragmentInformationBinding;
 import io.github.droidkaigi.confsched2017.view.activity.ContributorsActivity;
+import io.github.droidkaigi.confsched2017.view.activity.LicensesActivity;
 import io.github.droidkaigi.confsched2017.view.activity.SponsorsActivity;
+import io.github.droidkaigi.confsched2017.view.helper.IntentHelper;
 import io.github.droidkaigi.confsched2017.viewmodel.InformationViewModel;
 
 public class InformationFragment extends BaseFragment implements InformationViewModel.Callback {
@@ -27,6 +30,9 @@ public class InformationFragment extends BaseFragment implements InformationView
 
     public static InformationFragment newInstance() {
         return new InformationFragment();
+    }
+
+    public InformationFragment() {
     }
 
     @Override
@@ -69,15 +75,12 @@ public class InformationFragment extends BaseFragment implements InformationView
 
     @Override
     public void showTranslationsPage() {
-        Uri uri = Uri.parse("https://droidkaigi2017.oneskyapp.com/collaboration");
-        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        if (intent.resolveActivity(getContext().getPackageManager()) != null)
-            startActivity(intent);
+        showHtmlUrl("https://droidkaigi2017.oneskyapp.com/collaboration");
     }
 
     @Override
-    public void showLicencePage() {
-        // TODO
+    public void showLicensePage() {
+        LicensesActivity.start(getActivity());
     }
 
     @Override
@@ -87,27 +90,31 @@ public class InformationFragment extends BaseFragment implements InformationView
 
     @Override
     public void showTwitter() {
-        // TODO
+        showHtmlUrl("https://twitter.com/DroidKaigi");
     }
 
     @Override
     public void showFacebook() {
-        // TODO
+        showHtmlUrl("https://www.facebook.com/DroidKaigi/");
     }
 
     @Override
     public void showGitHubRepository() {
-        // TODO
+        showHtmlUrl("https://github.com/DroidKaigi/conference-app-2017/");
     }
 
     @Override
     public void showDroidKaigiWeb() {
-        // TODO
+        showHtmlUrl("https://droidkaigi.github.io/2017/");
     }
 
     @Override
     public void showYouTube() {
-        // TODO
+        showHtmlUrl("https://www.youtube.com/droidkaigi");
     }
 
+    public void showHtmlUrl(String htmlUrl) {
+        Optional<Intent> intentOptional = IntentHelper.buildActionViewIntent(getContext(), htmlUrl);
+        intentOptional.ifPresent(this::startActivity);
+    }
 }

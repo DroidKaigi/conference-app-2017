@@ -1,55 +1,57 @@
 package io.github.droidkaigi.confsched2017.api;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-
 import android.support.annotation.NonNull;
 
 import java.util.List;
+import java.util.Locale;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import io.github.droidkaigi.confsched2017.api.service.DroidKaigiService;
+import io.github.droidkaigi.confsched2017.api.service.GithubService;
+import io.github.droidkaigi.confsched2017.api.service.GoogleFormService;
+import io.github.droidkaigi.confsched2017.model.Contributor;
 import io.github.droidkaigi.confsched2017.model.Session;
+import io.github.droidkaigi.confsched2017.model.SessionFeedback;
+import io.github.droidkaigi.confsched2017.util.LocaleUtil;
 import io.reactivex.Single;
-import okhttp3.OkHttpClient;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.GET;
+import retrofit2.Response;
 
 @Singleton
 public class DroidKaigiClient {
 
     private final DroidKaigiService droidKaigiService;
 
-    @Inject
-    public DroidKaigiClient(OkHttpClient client) {
-        Retrofit droidkaigiRetrofit = new Retrofit.Builder()
-                .client(client)
-                .baseUrl("https://droidkaigi.github.io")
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create(createGson()))
-                .build();
-        droidKaigiService = droidkaigiRetrofit.create(DroidKaigiService.class);
-    }
+    private final GithubService githubService;
 
-    private static Gson createGson() {
-        return new GsonBuilder().setDateFormat("yyyy/MM/dd HH:mm:ss").create();
+    private final GoogleFormService googleFormService;
+
+    private static final int INCLUDE_ANONYMOUS = 1;
+
+    private static final int MAX_PER_PAGE = 100;
+
+    @Inject
+    public DroidKaigiClient(DroidKaigiService droidKaigiService, GithubService githubService, GoogleFormService googleFormService) {
+        this.droidKaigiService = droidKaigiService;
+        this.githubService = githubService;
+        this.googleFormService = googleFormService;
     }
 
     public Single<List<Session>> getSessions(@NonNull String languageId) {
-        // TODO
         switch (languageId) {
-            default:
+            case LocaleUtil.LANG_JA:
                 return droidKaigiService.getSessionsJa();
+            default:
+                return droidKaigiService.getSessionsEn();
         }
     }
 
-    interface DroidKaigiService {
+    public Single<List<Contributor>> getContributors() {
+        return githubService.getContributors("DroidKaigi", "conference-app-2017", INCLUDE_ANONYMOUS, MAX_PER_PAGE);
+    }
 
-        @GET("/2017/sessions.json")
-        Single<List<Session>> getSessionsJa();
+    public Single<Response<Void>>submitSessionFeedback(SessionFeedback sessionFeedback){
+        return googleFormService.submitSessionFeedback(sessionFeedback.sessionId);
     }
 }

@@ -1,5 +1,8 @@
 package io.github.droidkaigi.confsched2017.view.fragment;
 
+import com.sys1yagi.fragmentcreator.annotation.Args;
+import com.sys1yagi.fragmentcreator.annotation.FragmentCreator;
+
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
@@ -11,6 +14,7 @@ import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,9 +26,12 @@ import io.github.droidkaigi.confsched2017.databinding.FragmentSessionDetailBindi
 import io.github.droidkaigi.confsched2017.view.activity.SessionFeedbackActivity;
 import io.github.droidkaigi.confsched2017.view.helper.AnimationHelper;
 import io.github.droidkaigi.confsched2017.viewmodel.SessionDetailViewModel;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
+@FragmentCreator
 public class SessionDetailFragment extends BaseFragment implements SessionDetailViewModel.Callback {
 
     private static final String TAG = SessionDetailFragment.class.getSimpleName();
@@ -37,28 +44,18 @@ public class SessionDetailFragment extends BaseFragment implements SessionDetail
     @Inject
     CompositeDisposable compositeDisposable;
 
-    private int sessionId;
+    @Args
+    int sessionId;
 
     private FragmentSessionDetailBinding binding;
 
-    public static SessionDetailFragment newInstance(int sessionId) {
-        SessionDetailFragment fragment = new SessionDetailFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_SESSION_ID, sessionId);
-        fragment.setArguments(args);
-        return fragment;
+    public SessionDetailFragment() {
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        sessionId = getArguments().getInt(ARG_SESSION_ID);
-        Disposable disposable = viewModel.findSession(sessionId)
-                .subscribe(
-                        session -> initTheme(),
-                        throwable -> Log.e(TAG, "Failed to find session.", throwable)
-                );
-        compositeDisposable.add(disposable);
+        SessionDetailFragmentCreator.read(this);
     }
 
     @Override
@@ -78,6 +75,14 @@ public class SessionDetailFragment extends BaseFragment implements SessionDetail
                     new ActivityManager.TaskDescription(viewModel.getSessionTitle(), null,
                             ContextCompat.getColor(activity, viewModel.getSessionVividColorResId()));
             activity.setTaskDescription(taskDescription);
+
+            // Change status bar scrim color
+            TypedValue typedValue = new TypedValue();
+            activity.getTheme().resolveAttribute(R.attr.colorPrimaryDark, typedValue, true);
+            int colorPrimaryDark = typedValue.data;
+            if (colorPrimaryDark != 0) {
+                binding.collapsingToolbar.setStatusBarScrimColor(colorPrimaryDark);
+            }
         }
     }
 
@@ -88,6 +93,17 @@ public class SessionDetailFragment extends BaseFragment implements SessionDetail
         viewModel.setCallback(this);
         binding.setViewModel(viewModel);
         setHasOptionsMenu(true);
+        Disposable disposable = viewModel.loadSession(sessionId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        () -> {
+                            initTheme();
+                            binding.setViewModel(viewModel);
+                        },
+                        throwable -> Log.e(TAG, "Failed to find session.", throwable)
+                );
+        compositeDisposable.add(disposable);
         initToolbar();
         initScroll();
         return binding.getRoot();

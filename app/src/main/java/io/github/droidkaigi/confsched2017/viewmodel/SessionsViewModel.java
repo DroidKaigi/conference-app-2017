@@ -4,8 +4,11 @@ import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 
 import android.content.Context;
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,6 +18,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import io.github.droidkaigi.confsched2017.BR;
 import io.github.droidkaigi.confsched2017.model.MySession;
 import io.github.droidkaigi.confsched2017.model.Room;
 import io.github.droidkaigi.confsched2017.model.Session;
@@ -23,7 +27,7 @@ import io.github.droidkaigi.confsched2017.repository.sessions.SessionsRepository
 import io.github.droidkaigi.confsched2017.util.DateUtil;
 import io.reactivex.Single;
 
-public class SessionsViewModel implements ViewModel {
+public class SessionsViewModel extends BaseObservable implements ViewModel {
 
     private SessionsRepository sessionsRepository;
 
@@ -55,6 +59,8 @@ public class SessionsViewModel implements ViewModel {
 
                     this.rooms = extractRooms(sessions);
                     this.stimes = extractStimes(sessions);
+
+                    notifyPropertyChanged(BR.loadingVisibility);
 
                     List<SessionViewModel> viewModels = Stream.of(sessions)
                             .map(session -> {
@@ -157,5 +163,14 @@ public class SessionsViewModel implements ViewModel {
 
     public List<Date> getStimes() {
         return stimes;
+    }
+
+    @Bindable
+    public int getLoadingVisibility() {
+        if (this.rooms == null) {
+            return View.VISIBLE;
+        } else {
+            return View.GONE;
+        }
     }
 }

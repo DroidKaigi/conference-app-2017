@@ -27,20 +27,22 @@ public class InfoRowView extends RelativeLayout {
 
     public InfoRowView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.view_info_row, this, true);
-
-        if (!isInEditMode()) {
-            TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.InfoRow);
-
-            String title = a.getString(R.styleable.InfoRow_infoTitle);
-            String description = a.getString(R.styleable.InfoRow_infoDescription);
-
-            binding.txtInfoTitle.setText(title);
-            binding.txtInfoDescription.setText(description);
-            DataBindingHelper.setTextLinkify(binding.txtInfoDescription, true);
-
-            a.recycle();
+        if (isInEditMode()) {
+            inflate(context, R.layout.view_info_row, this);
+            return;
         }
+
+        binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.view_info_row, this, true);
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.InfoRow);
+
+        String title = a.getString(R.styleable.InfoRow_infoTitle);
+        String description = a.getString(R.styleable.InfoRow_infoDescription);
+
+        binding.txtInfoTitle.setText(title);
+        binding.txtInfoDescription.setText(description);
+        DataBindingHelper.setTextLinkify(binding.txtInfoDescription, true);
+
+        a.recycle();
     }
 
     public void setTitle(String title) {

@@ -25,6 +25,9 @@ public class SponsorsFragment extends BaseFragment {
         return new SponsorsFragment();
     }
 
+    public SponsorsFragment() {
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.view.MenuItem;
 
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.view.fragment.SessionDetailFragment;
+import io.github.droidkaigi.confsched2017.view.fragment.SessionDetailFragmentCreator;
 
 public class SessionDetailActivity extends BaseActivity {
 
@@ -26,7 +28,24 @@ public class SessionDetailActivity extends BaseActivity {
         getComponent().inject(this);
 
         final int sessionId = getIntent().getIntExtra(EXTRA_SESSION_ID, 0);
-        replaceFragment(SessionDetailFragment.newInstance(sessionId), R.id.content_view);
+        replaceFragment(SessionDetailFragmentCreator.newBuilder(sessionId).build(), R.id.content_view);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                upToMainActivity();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void upToMainActivity() {
+        Intent upIntent = new Intent(getApplicationContext(), MainActivity.class);
+        upIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivity(upIntent);
+        finish();
     }
 
 }

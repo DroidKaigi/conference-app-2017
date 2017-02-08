@@ -45,9 +45,7 @@ public final class SessionsLocalDataSource implements SessionsDataSource {
 
     @Override
     public Single<List<Session>> findAll(String languageId) {
-        return sessionRelation().selector().executeAsObservable().toList()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
+        return sessionRelation().selector().executeAsObservable().toList();
     }
 
     @Override
@@ -98,7 +96,6 @@ public final class SessionsLocalDataSource implements SessionsDataSource {
     public void updateAllAsync(List<Session> sessions) {
         orma.transactionAsCompletable(() -> updateAllSync(sessions))
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe();
     }
 

@@ -30,26 +30,28 @@ public class SettingSwitchRowView extends RelativeLayout {
 
     public SettingSwitchRowView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.view_setting_switch_row, this, true);
-
-        if (!isInEditMode()) {
-            TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SettingSwitchRow);
-
-            String title = a.getString(R.styleable.SettingSwitchRow_settingTitle);
-            String description = a.getString(R.styleable.SettingSwitchRow_settingDescription);
-
-            binding.settingTitle.setText(title);
-            binding.settingDescription.setText(description);
-
-            binding.getRoot().setOnClickListener(v -> toggle());
-            binding.settingSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                if (onCheckedChangeListener != null) {
-                    onCheckedChangeListener.onCheckedChanged(buttonView, isChecked);
-                }
-            });
-
-            a.recycle();
+        if (isInEditMode()) {
+            inflate(context, R.layout.view_setting_switch_row, this);
+            return;
         }
+
+        binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.view_setting_switch_row, this, true);
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SettingSwitchRow);
+
+        String title = a.getString(R.styleable.SettingSwitchRow_settingTitle);
+        String description = a.getString(R.styleable.SettingSwitchRow_settingDescription);
+
+        binding.settingTitle.setText(title);
+        binding.settingDescription.setText(description);
+
+        binding.getRoot().setOnClickListener(v -> toggle());
+        binding.settingSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (onCheckedChangeListener != null) {
+                onCheckedChangeListener.onCheckedChanged(buttonView, isChecked);
+            }
+        });
+
+        a.recycle();
     }
 
     private void toggle() {

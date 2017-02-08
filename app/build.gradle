@@ -2,10 +2,11 @@ import com.android.ddmlib.DdmPreferences
 
 apply plugin: 'jacoco'
 apply plugin: 'com.android.application'
-apply plugin: 'com.google.gms.google-services'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'kotlin-android'
 apply plugin: 'com.google.firebase.firebase-crash'
+apply plugin: 'com.cookpad.android.licensetools'
+apply plugin: 'com.github.ben-manes.versions'
 
 // Manifest version
 def versionMajor = 0
@@ -181,6 +182,7 @@ dependencies {
     compile "com.android.support:customtabs:${support_lib_version}"
     compile "com.android.support:support-vector-drawable:${support_lib_version}"
     compile "com.android.support:animated-vector-drawable:${support_lib_version}"
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
 
     // Firebase(analytics, crash report)
     compile 'com.google.firebase:firebase-core:10.0.1'
@@ -200,11 +202,11 @@ dependencies {
     compile 'io.reactivex.rxjava2:rxjava:2.0.2'
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
     compile 'com.annimon:stream:1.1.4'
-    retrolambdaConfig 'net.orfjackal.retrolambda:retrolambda:2.3.0'
     compile 'uk.co.chrisjenx:calligraphy:2.2.0'
 
     // Android Utility
-    compile 'com.jakewharton.timber:timber:4.3.1'
+    compile 'com.deploygate:sdk:3.1.1'
+    compile 'com.jakewharton.timber:timber:4.5.1'
     debugCompile 'com.facebook.stetho:stetho:1.4.2'
     debugCompile 'com.facebook.stetho:stetho-okhttp3:1.4.2'
     debugCompile 'com.facebook.stetho:stetho-timber:1.4.2@aar'
@@ -213,6 +215,9 @@ dependencies {
     compile 'com.github.gfx.android.orma:orma:4.1.0'
     compile 'com.rejasupotaro:kvs-schema:5.0.1'
     annotationProcessor 'com.rejasupotaro:kvs-schema-compiler:5.0.1'
+    compile 'com.github.sys1yagi.fragment-creator:library:0.8.2'
+    annotationProcessor 'com.github.sys1yagi.fragment-creator:processor:0.8.2'
+
 
     // UI
     compile 'org.lucasr.twowayview:core:1.0.0-SNAPSHOT@aar'
@@ -231,11 +236,11 @@ dependencies {
     testCompile 'com.squareup.assertj:assertj-android:1.1.1'
     testCompile 'org.mockito:mockito-core:2.7.0'
     androidTestCompile 'org.mockito:mockito-android:2.7.0'
-    androidTestCompile 'com.android.support.test:runner:0.4.1'
-    androidTestCompile 'com.android.support.test:rules:0.4.1'
+    androidTestCompile 'com.android.support.test:runner:0.5'
+    androidTestCompile 'com.android.support.test:rules:0.5'
     androidTestCompile 'com.squareup.assertj:assertj-android:1.1.1'
-    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.1'
-    androidTestCompile 'com.android.support.test.espresso:espresso-intents:2.2.1'
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
+    androidTestCompile 'com.android.support.test.espresso:espresso-intents:2.2.2'
     testCompile 'junit:junit:4.12'
     testCompile "org.jetbrains.kotlin:kotlin-stdlib:1.0.6"
     testCompile "org.jetbrains.kotlin:kotlin-test-junit:1.0.6"
@@ -297,3 +302,22 @@ task jacocoTestReportDevelop(type: JacocoReport, dependsOn: ['testDevelopDebugUn
         println "jacoco html report has been generated to file://${reports.html.destination}/index.html"
     }
 }
+
+tasks['check'].dependsOn checkLicenses
+
+// report only stable versions
+dependencyUpdates.resolutionStrategy = {
+    componentSelection { rules ->
+        rules.all { ComponentSelection selection ->
+            boolean rejected = ['alpha', 'beta', 'rc', 'cr', 'm'].any { qualifier ->
+                selection.candidate.version ==~ /(?i).*[.-]${qualifier}[.\d-]*/
+            }
+            if (rejected) {
+                selection.reject('Release candidate')
+            }
+        }
+    }
+}
+
+// MUST BE AT THE BOTTOM
+apply plugin: 'com.google.gms.google-services'
