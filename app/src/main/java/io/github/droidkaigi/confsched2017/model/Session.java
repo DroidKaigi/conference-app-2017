@@ -109,6 +109,10 @@ public class Session {
         return type.toString().equals(this.type);
     }
 
+    public boolean isLiveAt(Date when) {
+        return stime.before(when) && etime.after(when);
+    }
+
     @Override
     public boolean equals(Object o) {
         return o instanceof Session && ((Session) o).id == id || super.equals(o);
