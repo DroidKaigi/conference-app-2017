@@ -8,6 +8,7 @@ import io.github.droidkaigi.confsched2017.api.service.GithubService
 import io.github.droidkaigi.confsched2017.api.service.GoogleFormService
 import io.github.droidkaigi.confsched2017.model.Session
 import io.github.droidkaigi.confsched2017.util.DummyCreator
+import io.github.droidkaigi.confsched2017.util.LocaleUtil
 import io.reactivex.Single
 import org.junit.Test
 import org.mockito.Mockito
@@ -27,6 +28,7 @@ class DroidKaigiClientTest {
     fun getSessions() {
         val expected = Array(10) { DummyCreator.newSession(it) }.toList()
         droidKaigiService.getSessionsJa().invoked.thenReturn(Single.just(expected))
+        droidKaigiService.getSessionsEn().invoked.thenReturn(Single.just(expected))
 
         client.getSessions(LocaleUtil.LANG_JA).test().run {
             assertNoErrors()
@@ -34,13 +36,13 @@ class DroidKaigiClientTest {
             assertComplete()
         }
 
-        // TODO: multilingual
         client.getSessions(LocaleUtil.LANG_EN).test().run {
             assertNoErrors()
             assertResult(expected)
             assertComplete()
         }
-        droidKaigiService.verify(Mockito.times(2)).getSessionsJa()
+        droidKaigiService.verify(Mockito.times(1)).getSessionsJa()
+        droidKaigiService.verify(Mockito.times(1)).getSessionsEn()
     }
 
     @Test
