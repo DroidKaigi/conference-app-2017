@@ -49,7 +49,7 @@ public class ContributorsRepository {
     }
 
 
-    private Single<List<Contributor>> findAllFromRemote() {
+    public Single<List<Contributor>> findAllFromRemote() {
         return remoteDataSourse.findAll().map(
                 contributors -> {
                     refreshCache(contributors);

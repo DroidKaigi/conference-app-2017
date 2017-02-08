@@ -63,7 +63,7 @@ public class ContributorsFragment extends BaseFragment implements ContributorsVi
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel.setCallback(this);
-        Disposable disposable = viewModel.getContributors()
+        Disposable disposable = viewModel.getContributors(false)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         this::renderContributors,
@@ -95,19 +95,32 @@ public class ContributorsFragment extends BaseFragment implements ContributorsVi
     }
 
     private void renderContributors(List<ContributorViewModel> contributors) {
-        adapter.addAllWithNotify(contributors);
+        adapter.clear();
+        adapter.addAll(contributors);
+        adapter.notifyDataSetChanged();
 
         Optional.ofNullable(getActivity())
                 .select(AppCompatActivity.class)
                 .map(AppCompatActivity::getSupportActionBar)
                 .ifPresent(actionBar -> actionBar.setTitle(
-                        actionBar.getTitle() + " " + getString(R.string.contributors_people, contributors.size())));
+                        getString(R.string.contributors) + " " + getString(R.string.contributors_people, contributors.size())));
     }
 
     @Override
     public void onClickContributor(String htmlUrl) {
         Optional<Intent> intentOptional = IntentHelper.buildActionViewIntent(getContext(), htmlUrl);
         intentOptional.ifPresent(this::startActivity);
+    }
+
+    @Override
+    public void onSwipeRefresh() {
+        Disposable disposable = viewModel.getContributors(true)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        this::renderContributors,
+                        throwable -> Timber.tag(TAG).e(throwable, "Failed to show contributors.")
+                );
+        compositeDisposable.add(disposable);
     }
 
     private static class Adapter
