@@ -16,7 +16,7 @@ public class ContributorsRepository {
 
     private final ContributorsLocalDataSource localDataSource;
 
-    private final ContributorsRemoteDataSource remoteDataSourse;
+    private final ContributorsRemoteDataSource remoteDataSource;
 
     private Map<String, Contributor> cachedContributors;
 
@@ -25,7 +25,7 @@ public class ContributorsRepository {
     @Inject
     ContributorsRepository(ContributorsLocalDataSource localDataSource, ContributorsRemoteDataSource remoteDataSource) {
         this.localDataSource = localDataSource;
-        this.remoteDataSourse = remoteDataSource;
+        this.remoteDataSource = remoteDataSource;
         this.cachedContributors = new LinkedHashMap<>();
         this.isDirty = true;
     }
@@ -50,7 +50,7 @@ public class ContributorsRepository {
 
 
     public Single<List<Contributor>> findAllFromRemote() {
-        return remoteDataSourse.findAll().map(
+        return remoteDataSource.findAll().map(
                 contributors -> {
                     refreshCache(contributors);
                     localDataSource.updateAllAsync(contributors);
