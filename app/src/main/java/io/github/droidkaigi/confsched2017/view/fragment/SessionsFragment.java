@@ -42,6 +42,7 @@ import io.github.droidkaigi.confsched2017.view.activity.SearchActivity;
 import io.github.droidkaigi.confsched2017.view.activity.SessionDetailActivity;
 import io.github.droidkaigi.confsched2017.view.customview.ArrayRecyclerAdapter;
 import io.github.droidkaigi.confsched2017.view.customview.BindingHolder;
+import io.github.droidkaigi.confsched2017.view.customview.TouchlessTwoWayView;
 import io.github.droidkaigi.confsched2017.viewmodel.SessionViewModel;
 import io.github.droidkaigi.confsched2017.viewmodel.SessionsViewModel;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -158,51 +159,10 @@ public class SessionsFragment extends BaseFragment implements SessionViewModel.C
         adapter = new SessionsAdapter(getContext());
         binding.recyclerView.setAdapter(adapter);
 
-        GestureDetector gestureDetector = new GestureDetector(getContext(), new GestureDetector.OnGestureListener() {
-            private boolean ignoreMotionEventTillDown = false;
-
-            @Override
-            public boolean onDown(MotionEvent motionEvent) {
-                ignoreMotionEventTillDown = true;
-                return false;
-            }
-
-            @Override
-            public void onShowPress(MotionEvent motionEvent) {
-            }
-
-            @Override
-            public boolean onSingleTapUp(MotionEvent motionEvent) {
-                return false;
-            }
-
-            @Override
-            public boolean onScroll(MotionEvent event1, MotionEvent event2, float v, float v1) {
-
-                // Send cancel event for item clicked when horizontal scrolling.
-                if (ignoreMotionEventTillDown) {
-                    final long now = SystemClock.uptimeMillis();
-                    MotionEvent cancelEvent = MotionEvent.obtain(now, now,
-                            MotionEvent.ACTION_CANCEL, 0.0f, 0.0f, 0);
-                    binding.recyclerView.forceToDispatchTouchEvent(cancelEvent);
-                    ignoreMotionEventTillDown = false;
-                }
-
-                return false;
-            }
-
-            @Override
-            public void onLongPress(MotionEvent motionEvent) {
-            }
-
-            @Override
-            public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
-                return false;
-            }
-        });
+        final ClickGestureCanceler clickCanceler = new ClickGestureCanceler(getContext(), binding.recyclerView);
 
         binding.root.setOnTouchListener((v, event) -> {
-            gestureDetector.onTouchEvent(event);
+            clickCanceler.sendCancelIfScrolling(event);
 
             MotionEvent e = MotionEvent.obtain(event);
             e.setLocation(e.getX() + binding.root.getScrollX(), e.getY() - binding.headerRow.getHeight());
@@ -294,6 +254,65 @@ public class SessionsFragment extends BaseFragment implements SessionViewModel.C
             viewModel.setCallback(SessionsFragment.this);
             holder.binding.setViewModel(viewModel);
             holder.binding.executePendingBindings();
+        }
+    }
+
+    private static class ClickGestureCanceler
+    {
+        private GestureDetector gestureDetector;
+
+        ClickGestureCanceler(final Context context, final TouchlessTwoWayView targetView) {
+            gestureDetector = new GestureDetector(context, new GestureDetector.OnGestureListener() {
+                private boolean ignoreMotionEventOnScroll = false;
+
+                @Override
+                public boolean onDown(MotionEvent motionEvent) {
+                    ignoreMotionEventOnScroll = true;
+                    return false;
+                }
+
+                @Override
+                public boolean onScroll(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
+
+                    // Send cancel event for item clicked when horizontal scrolling.
+                    if (ignoreMotionEventOnScroll) {
+                        final long now = SystemClock.uptimeMillis();
+                        MotionEvent cancelEvent = MotionEvent.obtain(now, now,
+                                MotionEvent.ACTION_CANCEL, 0.0f, 0.0f, 0);
+                        targetView.forceToDispatchTouchEvent(cancelEvent);
+                        ignoreMotionEventOnScroll = false;
+                    }
+
+                    return false;
+                }
+
+                @Override
+                public void onShowPress(MotionEvent motionEvent) {
+                    // Do nothing
+                }
+
+                @Override
+                public boolean onSingleTapUp(MotionEvent motionEvent) {
+                    // Do nothing
+                    return false;
+                }
+
+
+                @Override
+                public void onLongPress(MotionEvent motionEvent) {
+                    // Do nothing
+                }
+
+                @Override
+                public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
+                    // Do nothing
+                    return false;
+                }
+            });
+        }
+
+        public void sendCancelIfScrolling(MotionEvent event) {
+            gestureDetector.onTouchEvent(event);
         }
     }
 
