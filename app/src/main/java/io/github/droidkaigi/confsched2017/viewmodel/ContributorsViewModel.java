@@ -43,13 +43,10 @@ public final class ContributorsViewModel extends BaseObservable implements ViewM
     }
 
     public Single<List<ContributorViewModel>> getContributors(boolean refresh) {
-        Single<List<Contributor>> single;
         if (refresh) {
-            single = contributorsRepository.findAllFromRemote();
-        } else {
-            single = contributorsRepository.findAll();
+            contributorsRepository.setDirty(true);
         }
-        return single.map(contributors -> {
+        return contributorsRepository.findAll().map(contributors -> {
             setLoadingVisibility(View.GONE);
             setRefreshing(false);
             return Stream.of(contributors).map(contributor -> {

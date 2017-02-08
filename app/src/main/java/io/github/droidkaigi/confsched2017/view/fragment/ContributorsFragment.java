@@ -63,13 +63,7 @@ public class ContributorsFragment extends BaseFragment implements ContributorsVi
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel.setCallback(this);
-        Disposable disposable = viewModel.getContributors(false)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        this::renderContributors,
-                        throwable -> Timber.tag(TAG).e(throwable, "Failed to show contributors.")
-                );
-        compositeDisposable.add(disposable);
+        getContributors(false);
     }
 
     @Nullable
@@ -114,7 +108,11 @@ public class ContributorsFragment extends BaseFragment implements ContributorsVi
 
     @Override
     public void onSwipeRefresh() {
-        Disposable disposable = viewModel.getContributors(true)
+        getContributors(true);
+    }
+
+    private void getContributors(boolean refresh) {
+        Disposable disposable = viewModel.getContributors(refresh)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         this::renderContributors,
