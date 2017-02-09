@@ -73,7 +73,6 @@ class SessionsRepositoryTest {
             this.cachedSessions = cachedSessions
         }
 
-        // TODO I want to use enum for language id.
         repository.findAll(LocaleUtil.LANG_JA)
                 .test()
                 .run {
