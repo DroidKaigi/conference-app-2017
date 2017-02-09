@@ -114,7 +114,7 @@ public class SessionViewModel extends BaseObservable implements ViewModel {
     private int decideColSpan(@NonNull Session session, int roomCount) {
         if (session.isCeremony()) {
             return 3;
-        } else if (session.isBreak()) {
+        } else if (session.isBreak() || session.isDinner()) {
             return roomCount;
         } else {
             return 1;

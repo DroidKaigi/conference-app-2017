@@ -84,7 +84,7 @@ public class Session {
     public String shareUrl;
 
     private enum Type {
-        CEREMONY, SESSION, BREAK;
+        CEREMONY, SESSION, BREAK, DINNER;
 
         boolean matches(String type) {
             return name().equalsIgnoreCase(type);
@@ -101,6 +101,10 @@ public class Session {
 
     public boolean isBreak() {
         return Type.BREAK.matches(type);
+    }
+
+    public boolean isDinner() {
+        return Type.DINNER.matches(type);
     }
 
     public boolean isLiveAt(Date when) {
