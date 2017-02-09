@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import javax.inject.Inject;
 
 import io.github.droidkaigi.confsched2017.debug.ClearCache;
+import io.github.droidkaigi.confsched2017.debug.NotificationStrategy;
 import io.github.droidkaigi.confsched2017.di.AndroidModule;
 import io.github.droidkaigi.confsched2017.di.AppComponent;
 import io.github.droidkaigi.confsched2017.di.AppModule;
@@ -25,6 +26,9 @@ public class MainApplication extends Application {
 
     @Inject
     ClearCache clearCache;
+
+    @Inject
+    NotificationStrategy notificationStrategy;
 
     @NonNull
     public AppComponent getComponent() {
@@ -50,6 +54,7 @@ public class MainApplication extends Application {
 
         DebotStrategyBuilder builder = new DebotStrategyBuilder.Builder(this)
                 .registerMenu("Clear cache", clearCache)
+                .registerMenu("Test notification", notificationStrategy)
                 .build();
         DebotConfigurator.configureWithCustomizedMenu(this, builder.getStrategyList());
     }

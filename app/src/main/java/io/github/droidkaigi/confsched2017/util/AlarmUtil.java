@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.model.Session;
+import io.github.droidkaigi.confsched2017.pref.DefaultPrefs;
 import io.github.droidkaigi.confsched2017.receiver.NotificationReceiver;
 
 public class AlarmUtil {
@@ -20,8 +21,12 @@ public class AlarmUtil {
 
     public static void registerAlarm(@NonNull Context context, @NonNull Session session) {
         long time = session.stime.getTime() - REMIND_DURATION_MINUTES_FOR_START;
-        // To develop notification, please uncomment this line
-        //time = System.currentTimeMillis() + 5000;
+
+        DefaultPrefs prefs = DefaultPrefs.get(context);
+        if (prefs.getNotificationTestFlag()) {
+            time = System.currentTimeMillis() + TimeUnit.SECONDS.toMillis(5);
+        }
+
         if (System.currentTimeMillis() < time) {
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

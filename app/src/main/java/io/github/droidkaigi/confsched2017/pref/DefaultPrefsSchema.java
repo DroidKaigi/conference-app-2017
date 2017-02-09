@@ -18,4 +18,6 @@ public interface DefaultPrefsSchema {
     @Key(name = "show_local_time")
     boolean showLocalTimeFlag = false;
 
+    @Key(name = "notification_test_setting")
+    boolean notificationTestFlag = false;
 }
