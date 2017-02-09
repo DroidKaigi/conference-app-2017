@@ -16,6 +16,8 @@
     <string name="slide_and_video">資料＆動画</string>
     <string name="send_feedback">フィードバックを送る</string>
     <!-- Settings -->
+    <string name="settings_language">言語を設定</string>
+    <string name="settings_language_description">表示言語を変更できます。変更後はアプリが再起動されます。</string>
     <string name="settings_notification_group">通知</string>
     <string name="settings_notification">通知</string>
     <string name="settings_notification_description">このアプリで通知を受け取るかどうかを選択できます。</string>

@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2017.viewmodel;
 
+import android.content.Context;
 import android.databinding.BaseObservable;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -8,6 +9,7 @@ import android.view.View;
 import javax.inject.Inject;
 
 import io.github.droidkaigi.confsched2017.pref.DefaultPrefs;
+import io.github.droidkaigi.confsched2017.util.LocaleUtil;
 
 public final class SettingsViewModel extends BaseObservable implements ViewModel {
 
@@ -34,6 +36,16 @@ public final class SettingsViewModel extends BaseObservable implements ViewModel
 
     public boolean shouldShowLocalTime() {
         return defaultPrefs.getShowLocalTimeFlag();
+    }
+
+    public void onClickLanguage(@SuppressWarnings("UnusedParameters") View view) {
+        if (callback != null) {
+            callback.showLanguagesDialog();
+        }
+    }
+
+    public String getCurrentLanguage(Context context) {
+        return LocaleUtil.getCurrentLanguage(context);
     }
 
     public int getShowHeadsUpSettingVisibility() {
@@ -67,5 +79,8 @@ public final class SettingsViewModel extends BaseObservable implements ViewModel
     public interface Callback {
 
         void changeHeadsUpEnabled(boolean enabled);
+
+        void showLanguagesDialog();
+
     }
 }

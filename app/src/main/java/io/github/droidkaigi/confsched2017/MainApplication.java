@@ -18,6 +18,7 @@ import io.github.droidkaigi.confsched2017.di.AppModule;
 import io.github.droidkaigi.confsched2017.di.DaggerAppComponent;
 import io.github.droidkaigi.confsched2017.log.CrashLogTree;
 import io.github.droidkaigi.confsched2017.pref.DefaultPrefs;
+import io.github.droidkaigi.confsched2017.util.LocaleUtil;
 import timber.log.Timber;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
@@ -52,6 +53,7 @@ public class MainApplication extends Application {
             DeployGate.install(this, null, true);
         }
         Timber.plant(new CrashLogTree()); // TODO initialize Firebase before this line
+        LocaleUtil.initLocale(this);
 
         initDebot();
     }
