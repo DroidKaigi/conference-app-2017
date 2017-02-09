@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import javax.inject.Inject;
 
+import io.github.droidkaigi.confsched2017.MainApplication;
 import io.github.droidkaigi.confsched2017.pref.DefaultPrefs;
 
 public class NotificationStrategy extends DebotStrategy {
@@ -27,5 +28,8 @@ public class NotificationStrategy extends DebotStrategy {
             prefs.setNotificationTestFlag(true);
             Toast.makeText(activity, "Notification will be displayed after 5 seconds", Toast.LENGTH_SHORT).show();
         }
+
+        MainApplication application = (MainApplication) activity.getApplication();
+        application.initDebot();
     }
 }
