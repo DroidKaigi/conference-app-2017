@@ -73,19 +73,19 @@ class SessionsRepositoryTest {
             this.cachedSessions = cachedSessions
         }
 
-        repository.findAll(Locale.JAPAN)
+        repository.findAll(Locale.JAPANESE)
                 .test()
                 .run {
                     assertNoErrors()
                     assertResult(sessions)
                     assertComplete()
 
-                    client.verify().getSessions(eq(Locale.JAPAN))
+                    client.verify().getSessions(eq(Locale.JAPANESE))
                     ormaDatabase.verify().transactionAsCompletable(any())
                     cachedSessions.verify(never()).values
                 }
 
-        repository.findAll(Locale.JAPAN)
+        repository.findAll(Locale.JAPANESE)
                 .test()
                 .run {
                     assertNoErrors()
@@ -113,20 +113,20 @@ class SessionsRepositoryTest {
             this.cachedSessions = cachedSessions
         }
 
-        repository.findAll(Locale.JAPAN)
+        repository.findAll(Locale.JAPANESE)
                 .test()
                 .run {
                     assertNoErrors()
                     assertResult(sessions)
                     assertComplete()
 
-                    client.verify().getSessions(eq(Locale.JAPAN))
+                    client.verify().getSessions(eq(Locale.JAPANESE))
                     cachedSessions.verify(never()).values
                 }
 
         repository.setIdDirty(true)
 
-        repository.findAll(Locale.JAPAN)
+        repository.findAll(Locale.JAPANESE)
                 .test()
                 .run {
                     assertNoErrors()
@@ -196,7 +196,7 @@ class SessionsRepositoryTest {
                 SessionsRemoteDataSource(client)
         )
 
-        repository.find(3, Locale.JAPAN)
+        repository.find(3, Locale.JAPANESE)
                 .test()
                 .run {
                     assertNoErrors()
@@ -215,7 +215,7 @@ class SessionsRepositoryTest {
                 SessionsRemoteDataSource(client)
         )
 
-        repository.find(3, Locale.JAPAN)
+        repository.find(3, Locale.JAPANESE)
                 .test()
                 .run {
                     assertNoErrors()
@@ -236,7 +236,7 @@ class SessionsRepositoryTest {
         }
 
         repository.setIdDirty(false)
-        repository.find(1, Locale.JAPAN)
+        repository.find(1, Locale.JAPANESE)
                 .test()
                 .run {
                     assertNoErrors()
@@ -270,7 +270,7 @@ class SessionsRepositoryTest {
 
         repository.cachedSessions = cachedSessions
         repository.setIdDirty(false)
-        repository.find(12, Locale.JAPAN)
+        repository.find(12, Locale.JAPANESE)
                 .test()
                 .run {
                     assertNoErrors()

@@ -97,7 +97,7 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
     }
 
     private int decideLanguageResId(@NonNull Locale locale) {
-        if (locale == Locale.JAPAN) {
+        if (locale == Locale.JAPANESE) {
             return R.string.lang_ja;
         } else {
             return R.string.lang_en;

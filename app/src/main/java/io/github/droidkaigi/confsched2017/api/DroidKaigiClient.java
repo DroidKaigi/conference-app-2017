@@ -39,7 +39,7 @@ public class DroidKaigiClient {
     }
 
     public Single<List<Session>> getSessions(@NonNull Locale locale) {
-        if (locale == Locale.JAPAN) {
+        if (locale == Locale.JAPANESE) {
             return droidKaigiService.getSessionsJa();
         } else {
             return droidKaigiService.getSessionsEn();

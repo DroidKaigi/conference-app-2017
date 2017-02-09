@@ -32,13 +32,13 @@ class DroidKaigiClientTest {
         droidKaigiService.getSessionsJa().invoked.thenReturn(Single.just(expected))
         droidKaigiService.getSessionsEn().invoked.thenReturn(Single.just(expected))
 
-        client.getSessions(Locale.JAPAN).test().run {
+        client.getSessions(Locale.JAPANESE).test().run {
             assertNoErrors()
             assertResult(expected)
             assertComplete()
         }
 
-        client.getSessions(Locale.US).test().run {
+        client.getSessions(Locale.ENGLISH).test().run {
             assertNoErrors()
             assertResult(expected)
             assertComplete()
