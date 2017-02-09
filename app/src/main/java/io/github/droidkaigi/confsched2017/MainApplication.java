@@ -54,7 +54,7 @@ public class MainApplication extends Application {
 
         DebotStrategyBuilder builder = new DebotStrategyBuilder.Builder(this)
                 .registerMenu("Clear cache", clearCache)
-                .registerMenu("Test notification", notificationStrategy)
+                .registerMenu("Notification test ON/OFF", notificationStrategy)
                 .build();
         DebotConfigurator.configureWithCustomizedMenu(this, builder.getStrategyList());
     }
