@@ -132,12 +132,12 @@ public class ContributorsFragment extends BaseFragment implements ContributorsVi
 
                 @Override
                 public void onItemRangeChanged(ObservableList<ContributorViewModel> contributorViewModels, int i, int i1) {
-                    notifyDataSetChanged();
+                    notifyItemRangeChanged(i, i1);
                 }
 
                 @Override
                 public void onItemRangeInserted(ObservableList<ContributorViewModel> contributorViewModels, int i, int i1) {
-                    notifyDataSetChanged();
+                    notifyItemRangeInserted(i, i1);
                 }
 
                 @Override
@@ -148,7 +148,7 @@ public class ContributorsFragment extends BaseFragment implements ContributorsVi
 
                 @Override
                 public void onItemRangeRemoved(ObservableList<ContributorViewModel> contributorViewModels, int i, int i1) {
-                    notifyDataSetChanged();
+                    notifyItemRangeRemoved(i, i1);
                 }
             });
         }
