@@ -46,21 +46,27 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initView() {
+        binding.toolbar.setTitle(getString(R.string.sessions));
+
         BottomNavigationViewHelper.disableShiftingMode(binding.bottomNav);
         binding.bottomNav.setOnNavigationItemSelectedListener(item -> {
             item.setChecked(true);
             switch (item.getItemId()) {
                 case R.id.nav_sessions:
                     switchFragment(sessionsFragment, SessionsFragment.TAG);
+                    binding.toolbar.setTitle(getString(R.string.sessions));
                     break;
                 case R.id.nav_map:
                     switchFragment(mapFragment, MapFragment.TAG);
+                    binding.toolbar.setTitle(getString(R.string.map));
                     break;
                 case R.id.nav_information:
                     switchFragment(informationFragment, InformationFragment.TAG);
+                    binding.toolbar.setTitle(getString(R.string.information));
                     break;
                 case R.id.nav_settings:
                     switchFragment(settingsFragment, SettingsFragment.TAG);
+                    binding.toolbar.setTitle(getString(R.string.settings));
                     break;
             }
             return false;
@@ -123,6 +129,7 @@ public class MainActivity extends BaseActivity {
     public void onBackPressed() {
         if (switchFragment(sessionsFragment, SessionsFragment.TAG)) {
             binding.bottomNav.getMenu().findItem(R.id.nav_sessions).setChecked(true);
+            binding.toolbar.setTitle(getString(R.string.sessions));
             return;
         }
         super.onBackPressed();
