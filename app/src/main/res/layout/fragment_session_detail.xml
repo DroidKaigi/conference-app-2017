@@ -81,7 +81,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="?attr/actionBarSize"
                         android:background="?attr/selectableItemBackground"
-                        app:contentInsetStartWithNavigation="0dp"
+                        style="@style/BaseToolbar"
                         app:layout_collapseMode="pin"
                         />
 
