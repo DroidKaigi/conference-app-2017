@@ -65,7 +65,7 @@ public class SessionsViewModel extends BaseObservable implements ViewModel {
                     List<SessionViewModel> viewModels = Stream.of(sessions)
                             .map(session -> {
                                 boolean isMySession = mySessionMap.containsKey(session.id);
-                                return new SessionViewModel(session, context, rooms.size(), isMySession);
+                                return new SessionViewModel(session, context, rooms.size(), isMySession, mySessionsRepository);
                             })
                             .collect(Collectors.toList());
                     return adjustViewModels(viewModels, context);

@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.annotation.StyleRes;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 
 import java.util.Date;
@@ -23,6 +22,7 @@ import io.github.droidkaigi.confsched2017.util.AlarmUtil;
 import io.github.droidkaigi.confsched2017.util.DateUtil;
 import io.github.droidkaigi.confsched2017.util.LocaleUtil;
 import io.reactivex.Completable;
+import timber.log.Timber;
 
 public class SessionDetailViewModel extends BaseObservable implements ViewModel {
 
@@ -140,13 +140,13 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
     public void onClickFab(@SuppressWarnings("unused") View view) {
         if (mySessionsRepository.isExist(session.id)) {
             mySessionsRepository.delete(session)
-                    .subscribe((result) -> Log.d(TAG, "Deleted my session"),
-                            throwable -> Log.e(TAG, "Failed to delete my session", throwable));
+                    .subscribe((result) -> Timber.tag(TAG).d("Deleted my session"),
+                            throwable -> Timber.tag(TAG).e("Failed to delete my session", throwable));
             AlarmUtil.unregisterAlarm(context, session);
         } else {
             mySessionsRepository.save(session)
-                    .subscribe(() -> Log.d(TAG, "Saved my session"),
-                            throwable -> Log.e(TAG, "Failed to save my session", throwable));
+                    .subscribe(() -> Timber.tag(TAG).d("Saved my session"),
+                            throwable -> Timber.tag(TAG).e("Failed to save my session", throwable));
             AlarmUtil.registerAlarm(context, session);
         }
 
