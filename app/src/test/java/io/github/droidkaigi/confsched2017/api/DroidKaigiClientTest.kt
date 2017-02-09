@@ -13,6 +13,7 @@ import io.reactivex.Single
 import org.junit.Test
 import org.mockito.Mockito
 import retrofit2.Response
+import java.util.*
 
 class DroidKaigiClientTest {
 
@@ -31,13 +32,13 @@ class DroidKaigiClientTest {
         droidKaigiService.getSessionsJa().invoked.thenReturn(Single.just(expected))
         droidKaigiService.getSessionsEn().invoked.thenReturn(Single.just(expected))
 
-        client.getSessions(LocaleUtil.LANG_JA).test().run {
+        client.getSessions(Locale.JAPAN).test().run {
             assertNoErrors()
             assertResult(expected)
             assertComplete()
         }
 
-        client.getSessions(LocaleUtil.LANG_EN).test().run {
+        client.getSessions(Locale.US).test().run {
             assertNoErrors()
             assertResult(expected)
             assertComplete()

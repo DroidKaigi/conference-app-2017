@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -48,8 +49,8 @@ public class SessionsViewModel extends BaseObservable implements ViewModel {
         // Do nothing
     }
 
-    public Single<List<SessionViewModel>> getSessions(String languageId, Context context) {
-        return Single.zip(sessionsRepository.findAll(languageId),
+    public Single<List<SessionViewModel>> getSessions(Locale locale, Context context) {
+        return Single.zip(sessionsRepository.findAll(locale),
                 mySessionsRepository.findAll(),
                 (sessions, mySessions) -> {
                     final Map<Integer, MySession> mySessionMap = new LinkedHashMap<>();

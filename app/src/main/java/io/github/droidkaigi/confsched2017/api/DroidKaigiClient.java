@@ -38,12 +38,11 @@ public class DroidKaigiClient {
         this.googleFormService = googleFormService;
     }
 
-    public Single<List<Session>> getSessions(@NonNull String languageId) {
-        switch (languageId) {
-            case LocaleUtil.LANG_JA:
-                return droidKaigiService.getSessionsJa();
-            default:
-                return droidKaigiService.getSessionsEn();
+    public Single<List<Session>> getSessions(@NonNull Locale locale) {
+        if (locale == Locale.JAPAN) {
+            return droidKaigiService.getSessionsJa();
+        } else {
+            return droidKaigiService.getSessionsEn();
         }
     }
 
