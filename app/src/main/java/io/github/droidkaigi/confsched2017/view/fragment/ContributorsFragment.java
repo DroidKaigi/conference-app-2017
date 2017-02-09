@@ -143,7 +143,7 @@ public class ContributorsFragment extends BaseFragment implements ContributorsVi
                 @Override
                 public void onItemRangeMoved(ObservableList<ContributorViewModel> contributorViewModels, int i, int i1,
                         int i2) {
-                    notifyDataSetChanged();
+                    notifyItemMoved(i, i1);
                 }
 
                 @Override
