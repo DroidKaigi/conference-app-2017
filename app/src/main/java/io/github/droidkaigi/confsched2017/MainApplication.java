@@ -11,11 +11,13 @@ import android.support.annotation.NonNull;
 import javax.inject.Inject;
 
 import io.github.droidkaigi.confsched2017.debug.ClearCache;
+import io.github.droidkaigi.confsched2017.debug.NotificationStrategy;
 import io.github.droidkaigi.confsched2017.di.AndroidModule;
 import io.github.droidkaigi.confsched2017.di.AppComponent;
 import io.github.droidkaigi.confsched2017.di.AppModule;
 import io.github.droidkaigi.confsched2017.di.DaggerAppComponent;
 import io.github.droidkaigi.confsched2017.log.CrashLogTree;
+import io.github.droidkaigi.confsched2017.pref.DefaultPrefs;
 import timber.log.Timber;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
@@ -25,6 +27,9 @@ public class MainApplication extends Application {
 
     @Inject
     ClearCache clearCache;
+
+    @Inject
+    NotificationStrategy notificationStrategy;
 
     @NonNull
     public AppComponent getComponent() {
@@ -48,10 +53,7 @@ public class MainApplication extends Application {
         }
         Timber.plant(new CrashLogTree()); // TODO initialize Firebase before this line
 
-        DebotStrategyBuilder builder = new DebotStrategyBuilder.Builder(this)
-                .registerMenu("Clear cache", clearCache)
-                .build();
-        DebotConfigurator.configureWithCustomizedMenu(this, builder.getStrategyList());
+        initDebot();
     }
 
     private void initCalligraphy() {
@@ -67,5 +69,20 @@ public class MainApplication extends Application {
             return;
         }
         LeakCanary.install(this);
+    }
+
+    public void initDebot() {
+        DefaultPrefs prefs = DefaultPrefs.get(this);
+        String notificationTestTitle;
+        if (prefs.getNotificationTestFlag()) {
+            notificationTestTitle = "Notification test OFF";
+        } else {
+            notificationTestTitle = "Notification test ON";
+        }
+        DebotStrategyBuilder builder = new DebotStrategyBuilder.Builder(this)
+                .registerMenu("Clear cache", clearCache)
+                .registerMenu(notificationTestTitle, notificationStrategy)
+                .build();
+        DebotConfigurator.configureWithCustomizedMenu(this, builder.getStrategyList());
     }
 }
