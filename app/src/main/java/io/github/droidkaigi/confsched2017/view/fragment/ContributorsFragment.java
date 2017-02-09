@@ -4,6 +4,7 @@ import com.annimon.stream.Optional;
 
 import android.content.Context;
 import android.content.Intent;
+import android.databinding.ObservableList;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -83,16 +84,12 @@ public class ContributorsFragment extends BaseFragment implements ContributorsVi
     }
 
     private void initView() {
-        adapter = new Adapter(getContext());
+        adapter = new Adapter(getContext(), viewModel.getContributorViewModels());
         binding.recyclerView.setAdapter(adapter);
         binding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(), COLUMN_COUNT));
     }
 
     private void renderContributors(List<ContributorViewModel> contributors) {
-        adapter.clear();
-        adapter.addAll(contributors);
-        adapter.notifyDataSetChanged();
-
         Optional.ofNullable(getActivity())
                 .select(AppCompatActivity.class)
                 .map(AppCompatActivity::getSupportActionBar)
@@ -124,8 +121,36 @@ public class ContributorsFragment extends BaseFragment implements ContributorsVi
     private static class Adapter
             extends ArrayRecyclerAdapter<ContributorViewModel, BindingHolder<ViewContributorCellBinding>> {
 
-        public Adapter(@NonNull Context context) {
-            super(context);
+        public Adapter(@NonNull Context context, @NonNull ObservableList<ContributorViewModel> list) {
+            super(context, list);
+
+            list.addOnListChangedCallback(new ObservableList.OnListChangedCallback<ObservableList<ContributorViewModel>>() {
+                @Override
+                public void onChanged(ObservableList<ContributorViewModel> contributorViewModels) {
+                    notifyDataSetChanged();
+                }
+
+                @Override
+                public void onItemRangeChanged(ObservableList<ContributorViewModel> contributorViewModels, int i, int i1) {
+                    notifyDataSetChanged();
+                }
+
+                @Override
+                public void onItemRangeInserted(ObservableList<ContributorViewModel> contributorViewModels, int i, int i1) {
+                    notifyDataSetChanged();
+                }
+
+                @Override
+                public void onItemRangeMoved(ObservableList<ContributorViewModel> contributorViewModels, int i, int i1,
+                        int i2) {
+                    notifyDataSetChanged();
+                }
+
+                @Override
+                public void onItemRangeRemoved(ObservableList<ContributorViewModel> contributorViewModels, int i, int i1) {
+                    notifyDataSetChanged();
+                }
+            });
         }
 
         @Override
