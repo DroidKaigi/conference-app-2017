@@ -82,7 +82,6 @@
                         android:layout_height="?attr/actionBarSize"
                         android:background="?attr/selectableItemBackground"
                         style="@style/BaseToolbar"
-                        app:contentInsetStartWithNavigation="0dp"
                         app:layout_collapseMode="pin"
                         />
 
