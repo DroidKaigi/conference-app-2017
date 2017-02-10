@@ -13,7 +13,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +29,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 @FragmentCreator
 public class SessionDetailFragment extends BaseFragment implements SessionDetailViewModel.Callback {
@@ -101,7 +101,7 @@ public class SessionDetailFragment extends BaseFragment implements SessionDetail
                             initTheme();
                             binding.setViewModel(viewModel);
                         },
-                        throwable -> Log.e(TAG, "Failed to find session.", throwable)
+                        throwable -> Timber.tag(TAG).e(throwable, "Failed to find session.")
                 );
         compositeDisposable.add(disposable);
         initToolbar();

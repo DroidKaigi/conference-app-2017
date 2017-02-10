@@ -10,7 +10,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -39,6 +38,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 public class SearchFragment extends BaseFragment implements SearchViewModel.Callback, SearchResultViewModel.Callback {
 
@@ -161,7 +161,7 @@ public class SearchFragment extends BaseFragment implements SearchViewModel.Call
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         searchResultViewModels -> adapter.setAllList(searchResultViewModels),
-                        throwable -> Log.e(TAG, "Search result load failed.", throwable)
+                        throwable -> Timber.tag(TAG).e(throwable, "Search result load failed.")
                 );
         compositeDisposable.add(disposable);
     }

@@ -18,6 +18,7 @@
             android:clickable="@{viewModel.clickable}"
             android:clipToPadding="false"
             android:onClick="@{viewModel::showSessionDetail}"
+            android:onLongClick="@{viewModel::checkSession}"
             android:stateListAnimator="@animator/raise"
             app:sessionCellBackground="@{viewModel.backgroundResId}"
             app:twowayview_colSpan="@{viewModel.colSpan}"

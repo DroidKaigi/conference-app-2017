@@ -40,8 +40,7 @@ public final class SearchViewModel extends BaseObservable implements ViewModel {
 
     public Single<List<SearchResultViewModel>> getSearchResultViewModels(Context context,
             SearchResultViewModel.Callback callback) {
-        String languageId = Locale.getDefault().getLanguage().toLowerCase();
-        return sessionsRepository.findAll(languageId)
+        return sessionsRepository.findAll(Locale.getDefault())
                 .map(sessions -> {
                     List<Session> filteredSessions = Stream.of(sessions)
                             .filter(session -> session.isSession() && session.speaker != null)

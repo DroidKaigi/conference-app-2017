@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
-import android.util.Log;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -18,6 +17,7 @@ import java.util.TimeZone;
 import io.github.droidkaigi.confsched2017.BuildConfig;
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.pref.DefaultPrefs;
+import timber.log.Timber;
 
 public class LocaleUtil {
 
@@ -78,7 +78,7 @@ public class LocaleUtil {
         try {
             return formatLocal.parse(formatTokyo.format(date));
         } catch (ParseException e) {
-            Log.e(TAG, "date: " + date + "can not parse." + e);
+            Timber.tag(TAG).e(e, "date: " + date + "can not parse.");
             return date;
         }
     }

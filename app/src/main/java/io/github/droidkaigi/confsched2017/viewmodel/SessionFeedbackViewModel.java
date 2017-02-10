@@ -44,8 +44,7 @@ public final class SessionFeedbackViewModel extends BaseObservable implements Vi
     }
 
     public Maybe<Session> findSession(int sessionId) {
-        final String languageId = Locale.getDefault().getLanguage().toLowerCase();
-        return sessionsRepository.find(sessionId, languageId)
+        return sessionsRepository.find(sessionId, Locale.getDefault())
                 .map(session -> {
                     setSession(session);
                     return session;

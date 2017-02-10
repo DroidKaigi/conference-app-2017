@@ -51,6 +51,7 @@ public class MainActivity extends BaseActivity {
     private void initView() {
         BottomNavigationViewHelper.disableShiftingMode(binding.bottomNav);
         binding.bottomNav.setOnNavigationItemSelectedListener(item -> {
+            binding.title.setText(item.getTitle());
             item.setChecked(true);
             switch (item.getItemId()) {
                 case R.id.nav_sessions:
@@ -126,6 +127,7 @@ public class MainActivity extends BaseActivity {
     public void onBackPressed() {
         if (switchFragment(sessionsFragment, SessionsFragment.TAG)) {
             binding.bottomNav.getMenu().findItem(R.id.nav_sessions).setChecked(true);
+            binding.title.setText(getString(R.string.sessions));
             return;
         }
         super.onBackPressed();
