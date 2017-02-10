@@ -29,6 +29,8 @@
     <string name="slide_and_video">Slide＆Video</string>
     <string name="send_feedback">Send feedback</string>
 
+    <!-- Map -->
+    <string name="start_navigation">Start Navigation</string>
 
     <!-- Settings -->
     <string name="settings_language">Change language</string>

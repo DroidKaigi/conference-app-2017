@@ -14,6 +14,7 @@ import android.view.View;
 
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.model.Session;
+import io.github.droidkaigi.confsched2017.repository.sessions.MySessionsRepository;
 
 public class SearchResultViewModel extends BaseObservable implements ViewModel {
 
@@ -34,6 +35,8 @@ public class SearchResultViewModel extends BaseObservable implements ViewModel {
     @DrawableRes
     private int iconResId;
 
+    private boolean isMySession;
+
     private Session session;
 
     private Callback callback;
@@ -41,7 +44,7 @@ public class SearchResultViewModel extends BaseObservable implements ViewModel {
     private boolean shouldEllipsis;
 
     private SearchResultViewModel(String text, @DrawableRes int iconResId,
-            @StringRes int typeStringResId, Session session, Context context) {
+            @StringRes int typeStringResId, Session session, Context context, MySessionsRepository mySessionsRepository) {
         this.text = text;
         this.sessionTitle = session.title;
         if (session.speaker != null) {
@@ -52,6 +55,7 @@ public class SearchResultViewModel extends BaseObservable implements ViewModel {
         this.shouldEllipsis = typeStringResId == R.string.description;
         this.session = session;
         this.textAppearanceSpan = new TextAppearanceSpan(context, R.style.SearchResultAppearance);
+        this.isMySession = mySessionsRepository.isExist(session.id);
     }
 
     @Override
@@ -128,19 +132,26 @@ public class SearchResultViewModel extends BaseObservable implements ViewModel {
         }
     }
 
-    static SearchResultViewModel createTitleType(@NonNull Session session, Context context) {
+    public boolean getIsMySession() {
+        return isMySession;
+    }
+
+    static SearchResultViewModel createTitleType(@NonNull Session session, Context context,
+            MySessionsRepository mySessionsRepository) {
         return new SearchResultViewModel(session.title, R.drawable.ic_title_12_vector,
-                R.string.title, session, context);
+                R.string.title, session, context, mySessionsRepository);
     }
 
-    static SearchResultViewModel createDescriptionType(@NonNull Session session, Context context) {
+    static SearchResultViewModel createDescriptionType(@NonNull Session session, Context context,
+            MySessionsRepository mySessionsRepository) {
         return new SearchResultViewModel(session.desc, R.drawable.ic_description12_vector,
-                R.string.description, session, context);
+                R.string.description, session, context, mySessionsRepository);
     }
 
-    static SearchResultViewModel createSpeakerType(@NonNull Session session, Context context) {
+    static SearchResultViewModel createSpeakerType(@NonNull Session session, Context context,
+            MySessionsRepository mySessionsRepository) {
         return new SearchResultViewModel(session.speaker.name, R.drawable.ic_speaker_12_vector,
-                R.string.speaker, session, context);
+                R.string.speaker, session, context, mySessionsRepository);
     }
 
 
