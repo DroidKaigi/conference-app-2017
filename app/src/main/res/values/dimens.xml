@@ -22,7 +22,7 @@
     <dimen name="text_16sp">16sp</dimen>
     <dimen name="text_20sp">20sp</dimen>
     <dimen name="text_24sp">24sp</dimen>
-
+    <dimen name="text_drawable_12dp">12dp</dimen>
 
     <!-- Line -->
     <dimen name="line_1dp">1dp</dimen>
