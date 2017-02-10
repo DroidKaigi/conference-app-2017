@@ -10,7 +10,7 @@ import io.github.droidkaigi.confsched2017.view.activity.*;
 @Subcomponent(modules = ActivityModule.class)
 public interface ActivityComponent{
 
-    <T extends BaseActivity> void inject(T activity);
+    void inject(BaseActivity activity);
 
     FragmentComponent plus(FragmentModule module);
 }
