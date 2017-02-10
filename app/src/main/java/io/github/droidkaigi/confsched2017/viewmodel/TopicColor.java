@@ -3,6 +3,7 @@ package io.github.droidkaigi.confsched2017.viewmodel;
 import android.support.annotation.ColorRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
+import android.support.annotation.VisibleForTesting;
 
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.model.Topic;
@@ -33,7 +34,7 @@ enum TopicColor {
     NONE(0, R.color.purple_alpha_15, R.color.purple_alpha_50,
             R.color.purple, R.style.AppTheme_NoActionBar_Purple);
 
-    private int topicId;
+    @VisibleForTesting int topicId;
 
     @ColorRes
     public int paleColorResId;
