@@ -4,12 +4,12 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.List;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -19,6 +19,7 @@ import io.github.droidkaigi.confsched2017.util.LocaleUtil;
 import io.github.droidkaigi.confsched2017.view.activity.MainActivity;
 import io.github.droidkaigi.confsched2017.viewmodel.SettingsViewModel;
 import io.reactivex.Observable;
+import timber.log.Timber;
 
 public class SettingsFragment extends BaseFragment implements SettingsViewModel.Callback {
 
@@ -60,21 +61,31 @@ public class SettingsFragment extends BaseFragment implements SettingsViewModel.
 
     @Override
     public void showLanguagesDialog() {
-        List<String> languageIds = LocaleUtil.SUPPORT_LANG;
-        List<String> languages = Observable.fromIterable(languageIds)
-                .map(languageId -> getString(LocaleUtil.getLanguage(languageId)))
+        List<Locale> locales = LocaleUtil.SUPPORT_LANG;
+        List<String> languages = Observable.fromIterable(locales)
+                .map(locale -> getString(LocaleUtil.getLanguage(locale)))
+                .toList()
+                .blockingGet();
+
+        List<String> languageIds = Observable.fromIterable(locales)
+                .map(LocaleUtil::getLocaleLanguageId)
                 .toList()
                 .blockingGet();
 
         String currentLanguageId = LocaleUtil.getCurrentLanguageId(getActivity());
+        Timber.tag(TAG).d("current language_id: " + currentLanguageId);
+        Timber.tag(TAG).d("languageIds: " + languageIds.toString());
+
         int defaultItem = languageIds.indexOf(currentLanguageId);
+        Timber.tag(TAG).d("current language_id index: " + defaultItem);
+
         String[] items = languages.toArray(new String[languages.size()]);
         new AlertDialog.Builder(getActivity())
                 .setTitle(R.string.settings_language)
                 .setSingleChoiceItems(items, defaultItem, (dialog, which) -> {
                     String selectedLanguageId = languageIds.get(which);
                     if (!currentLanguageId.equals(selectedLanguageId)) {
-                        Log.d(TAG, "Selected language_id: " + selectedLanguageId);
+                        Timber.tag(TAG).d("Selected language_id: " + selectedLanguageId);
                         LocaleUtil.setLocale(getActivity(), selectedLanguageId);
                         dialog.dismiss();
                         restart();

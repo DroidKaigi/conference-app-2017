@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
+import android.text.TextUtils;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -21,11 +22,8 @@ import timber.log.Timber;
 
 public class LocaleUtil {
 
-    public static final String LANG_JA = "ja";
-
-    public static final String LANG_EN = "en";
-
-    public static final List<String> SUPPORT_LANG = Arrays.asList(LANG_JA, LANG_EN);
+    private static Locale DEFAULT_LANG = Locale.ENGLISH;
+    public static final List<Locale> SUPPORT_LANG = Arrays.asList(Locale.JAPANESE, Locale.ENGLISH);
 
     private static final String TAG = LocaleUtil.class.getSimpleName();
 
@@ -47,26 +45,38 @@ public class LocaleUtil {
     public static String getCurrentLanguageId(Context context) {
         // This value would be stored language id or empty.
         String languageId = DefaultPrefs.get(context).getLanguageId();
-        if (languageId.isEmpty()) {
-            languageId = Locale.getDefault().getLanguage().toLowerCase();
+        if (TextUtils.isEmpty(languageId)) {
+            languageId = LocaleUtil.getLocaleLanguageId(Locale.getDefault());
         }
 
-        // If retrieved language id is not supported, fallback to the default value (English).
-        return SUPPORT_LANG.contains(languageId) ? languageId : LANG_EN;
+        for (Locale locale : SUPPORT_LANG) {
+            if (TextUtils.equals(languageId, LocaleUtil.getLocaleLanguageId(locale))) {
+                return languageId;
+            }
+        }
+
+        return LocaleUtil.getLocaleLanguageId(DEFAULT_LANG);
+    }
+
+    public static String getLocaleLanguageId(@NonNull Locale locale) {
+        return locale.getLanguage().toLowerCase();
     }
 
     public static String getCurrentLanguage(Context context) {
         return context.getString(getLanguage(LocaleUtil.getCurrentLanguageId(context)));
     }
 
-    public static @StringRes int getLanguage(String languageId) {
-        switch (languageId) {
-            case LocaleUtil.LANG_EN:
-                return R.string.lang_en;
-            case LocaleUtil.LANG_JA:
-                return R.string.lang_ja;
-            default:
-                return R.string.lang_en;
+    public static @StringRes int getLanguage(@NonNull Locale locale) {
+        return getLanguage(getLocaleLanguageId(locale));
+    }
+
+    public static @StringRes int getLanguage(@NonNull String languageId) {
+        if (TextUtils.equals(languageId, getLocaleLanguageId(Locale.ENGLISH))) {
+            return R.string.lang_en;
+        } else if (TextUtils.equals(languageId, getLocaleLanguageId(Locale.JAPANESE))) {
+            return R.string.lang_ja;
+        } else {
+            return R.string.lang_en;
         }
     }
 
