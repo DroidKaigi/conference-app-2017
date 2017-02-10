@@ -8,8 +8,6 @@ import android.support.annotation.NonNull;
 import android.view.MenuItem;
 
 import io.github.droidkaigi.confsched2017.R;
-import io.github.droidkaigi.confsched2017.view.fragment.SessionDetailFragment;
-import io.github.droidkaigi.confsched2017.view.fragment.SessionDetailFragmentCreator;
 
 public class SessionDetailActivity extends BaseActivity {
 

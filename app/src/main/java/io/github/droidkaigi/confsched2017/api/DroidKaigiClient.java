@@ -14,7 +14,6 @@ import io.github.droidkaigi.confsched2017.api.service.GoogleFormService;
 import io.github.droidkaigi.confsched2017.model.Contributor;
 import io.github.droidkaigi.confsched2017.model.Session;
 import io.github.droidkaigi.confsched2017.model.SessionFeedback;
-import io.github.droidkaigi.confsched2017.util.LocaleUtil;
 import io.reactivex.Single;
 import retrofit2.Response;
 
