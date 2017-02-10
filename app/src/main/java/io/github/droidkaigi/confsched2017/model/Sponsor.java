@@ -13,6 +13,6 @@ public class Sponsor {
     public String imageUrl;
 
     @Column
-    @SerializedName("url")
+    @SerializedName("site_url")
     public String url;
 }

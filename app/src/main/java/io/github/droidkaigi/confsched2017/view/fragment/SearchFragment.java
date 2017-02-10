@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.SearchView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -39,6 +40,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
+
 
 public class SearchFragment extends BaseFragment implements SearchViewModel.Callback, SearchResultViewModel.Callback {
 
@@ -124,9 +126,14 @@ public class SearchFragment extends BaseFragment implements SearchViewModel.Call
         binding.setViewModel(viewModel);
 
         initRecyclerView();
-        loadData();
 
         return binding.getRoot();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadData();
     }
 
     @Override
@@ -160,7 +167,7 @@ public class SearchFragment extends BaseFragment implements SearchViewModel.Call
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        searchResultViewModels -> adapter.setAllList(searchResultViewModels),
+                        this::renderSearchResults,
                         throwable -> Timber.tag(TAG).e(throwable, "Search result load failed.")
                 );
         compositeDisposable.add(disposable);
@@ -174,6 +181,14 @@ public class SearchFragment extends BaseFragment implements SearchViewModel.Call
     @Override
     public void showSessionDetail(@NonNull Session session) {
         startActivity(SessionDetailActivity.createIntent(getContext(), session.id));
+    }
+
+    private void renderSearchResults(List<SearchResultViewModel> searchResultViewModels) {
+        adapter.setAllList(searchResultViewModels);
+        String searchText = adapter.getPreviousSearchText();
+        if (!TextUtils.isEmpty(searchText)) {
+            adapter.getFilter().filter(searchText);
+        }
     }
 
     private class SearchResultsAdapter
@@ -197,6 +212,10 @@ public class SearchFragment extends BaseFragment implements SearchViewModel.Call
 
         void setPreviousSearchText(String previousSearchText) {
             this.previousSearchText = previousSearchText;
+        }
+
+        String getPreviousSearchText() {
+            return previousSearchText;
         }
 
         @Override
