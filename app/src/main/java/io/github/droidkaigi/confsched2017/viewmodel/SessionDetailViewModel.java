@@ -137,12 +137,12 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
         if (mySessionsRepository.isExist(session.id)) {
             mySessionsRepository.delete(session)
                     .subscribe((result) -> Timber.tag(TAG).d("Deleted my session"),
-                            throwable -> Timber.tag(TAG).e("Failed to delete my session", throwable));
+                            throwable -> Timber.tag(TAG).e(throwable, "Failed to delete my session"));
             AlarmUtil.unregisterAlarm(context, session);
         } else {
             mySessionsRepository.save(session)
                     .subscribe(() -> Timber.tag(TAG).d("Saved my session"),
-                            throwable -> Timber.tag(TAG).e("Failed to save my session", throwable));
+                            throwable -> Timber.tag(TAG).e(throwable, "Failed to save my session"));
             AlarmUtil.registerAlarm(context, session);
         }
 
