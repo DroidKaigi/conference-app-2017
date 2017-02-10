@@ -9,6 +9,8 @@ import io.github.droidkaigi.confsched2017.model.Topic;
 
 /**
  * Topic ID corresponds to the order of enum.
+ * TODO There is not the specification document about topic id yet.
+ * But you can see raw json data https://droidkaigi.github.io/2017/sessions.json
  */
 enum TopicColor {
 
