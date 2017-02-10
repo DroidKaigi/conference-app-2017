@@ -5,6 +5,7 @@ import android.support.annotation.VisibleForTesting;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -34,7 +35,7 @@ public class SessionsRepository implements SessionsDataSource {
     }
 
     @Override
-    public Single<List<Session>> findAll(String languageId) {
+    public Single<List<Session>> findAll(Locale locale) {
         if (hasCacheSessions()) {
             return Single.create(emitter -> {
                 emitter.onSuccess(new ArrayList<>(cachedSessions.values()));
@@ -42,14 +43,14 @@ public class SessionsRepository implements SessionsDataSource {
         }
 
         if (isDirty) {
-            return findAllFromRemote(languageId);
+            return findAllFromRemote(locale);
         } else {
-            return findAllFromLocal(languageId);
+            return findAllFromLocal(locale);
         }
     }
 
     @Override
-    public Maybe<Session> find(int sessionId, String languageId) {
+    public Maybe<Session> find(int sessionId, Locale locale) {
         if (hasCacheSession(sessionId)) {
             return Maybe.create(emitter -> {
                 emitter.onSuccess(cachedSessions.get(sessionId));
@@ -57,9 +58,9 @@ public class SessionsRepository implements SessionsDataSource {
         }
 
         if (isDirty) {
-            return remoteDataSource.find(sessionId, languageId);
+            return remoteDataSource.find(sessionId, locale);
         } else {
-            return localDataSource.find(sessionId, languageId);
+            return localDataSource.find(sessionId, locale);
         }
     }
 
@@ -78,11 +79,11 @@ public class SessionsRepository implements SessionsDataSource {
         isDirty = true;
     }
 
-    private Single<List<Session>> findAllFromLocal(String languageId) {
-        return localDataSource.findAll(languageId)
+    private Single<List<Session>> findAllFromLocal(Locale locale) {
+        return localDataSource.findAll(locale)
                 .flatMap(sessions -> {
                     if (sessions.isEmpty()) {
-                        return findAllFromRemote(languageId);
+                        return findAllFromRemote(locale);
                     } else {
                         refreshCache(sessions);
                         return Single.create(emitter -> emitter.onSuccess(sessions));
@@ -90,8 +91,8 @@ public class SessionsRepository implements SessionsDataSource {
                 });
     }
 
-    private Single<List<Session>> findAllFromRemote(String languageId) {
-        return remoteDataSource.findAll(languageId)
+    private Single<List<Session>> findAllFromRemote(Locale locale) {
+        return remoteDataSource.findAll(locale)
                 .map(sessions -> {
                     refreshCache(sessions);
                     updateAllAsync(sessions);

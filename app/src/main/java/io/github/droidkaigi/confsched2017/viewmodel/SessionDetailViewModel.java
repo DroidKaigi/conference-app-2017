@@ -85,26 +85,22 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
         this.dashVideoIconVisibility = session.movieUrl != null && session.movieDashUrl != null ? View.VISIBLE : View.GONE;
         this.roomVisibility = session.room != null ? View.VISIBLE : View.GONE;
         this.topicVisibility = session.topic != null ? View.VISIBLE : View.GONE;
-        this.languageResId = session.lang != null ? decideLanguageResId(session.lang.toLowerCase()) : R.string.lang_en;
+        this.languageResId = session.lang != null ? decideLanguageResId(new Locale(session.lang.toLowerCase())) : R.string.lang_en;
     }
 
     public Completable loadSession(int sessionId) {
-        final String languageId = Locale.getDefault().getLanguage().toLowerCase();
-        return  sessionsRepository.find(sessionId, languageId)
+        return  sessionsRepository.find(sessionId, Locale.getDefault())
                 .flatMapCompletable(session -> {
                     setSession(session);
                     return Completable.complete();
                 });
     }
 
-    private int decideLanguageResId(@NonNull String languageId) {
-        switch (languageId) {
-            case LocaleUtil.LANG_EN:
-                return R.string.lang_en;
-            case LocaleUtil.LANG_JA:
-                return R.string.lang_ja;
-            default:
-                return R.string.lang_en;
+    private int decideLanguageResId(@NonNull Locale locale) {
+        if (locale == Locale.JAPANESE) {
+            return R.string.lang_ja;
+        } else {
+            return R.string.lang_en;
         }
     }
 

@@ -16,10 +16,6 @@ import io.github.droidkaigi.confsched2017.pref.DefaultPrefs;
 
 public class LocaleUtil {
 
-    public static final String LANG_JA = "ja";
-
-    public static final String LANG_EN = "en";
-
     private static final String TAG = LocaleUtil.class.getSimpleName();
 
     private static final TimeZone CONFERENCE_TIMEZONE = TimeZone.getTimeZone(BuildConfig.CONFERENCE_TIMEZONE);

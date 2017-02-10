@@ -1,6 +1,7 @@
 package io.github.droidkaigi.confsched2017.repository.sessions;
 
 import java.util.List;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -43,12 +44,12 @@ public final class SessionsLocalDataSource implements SessionsDataSource {
     }
 
     @Override
-    public Single<List<Session>> findAll(String languageId) {
+    public Single<List<Session>> findAll(Locale locale) {
         return sessionRelation().selector().executeAsObservable().toList();
     }
 
     @Override
-    public Maybe<Session> find(int sessionId, String languageId) {
+    public Maybe<Session> find(int sessionId, Locale locale) {
         return sessionRelation().selector().idEq(sessionId).executeAsObservable().firstElement();
     }
 
