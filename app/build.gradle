@@ -40,7 +40,7 @@ android {
         applicationId packageName
         minSdkVersion min_sdk_version as int
         targetSdkVersion target_sdk_version as int
-        versionCode versionMajor * 100 + versionMinor * 10 + versionPatch
+        versionCode versionMajor * 10000 + versionMinor * 100 + versionPatch
         versionName "${versionMajor}.${versionMinor}.${versionPatch}"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
