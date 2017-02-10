@@ -67,6 +67,7 @@
                             android:id="@+id/img_twitter"
                             android:layout_width="@dimen/info_social_icon_size"
                             android:layout_height="@dimen/info_social_icon_size"
+                            android:background="?attr/selectableItemBackgroundBorderless"
                             android:onClick="@{viewModel::onClickTwitter}"
                             app:srcCompat="@drawable/ic_twitter_36_vector"
                             />
@@ -77,6 +78,7 @@
                             android:layout_height="@dimen/info_social_icon_size"
                             android:layout_marginLeft="@dimen/info_social_icon_margin"
                             android:layout_marginStart="@dimen/info_social_icon_margin"
+                            android:background="?attr/selectableItemBackgroundBorderless"
                             android:onClick="@{viewModel::onClickFacebook}"
                             app:srcCompat="@drawable/ic_facebook_36_vector"
                             />
@@ -87,6 +89,7 @@
                             android:layout_height="@dimen/info_social_icon_size"
                             android:layout_marginLeft="@dimen/info_social_icon_margin"
                             android:layout_marginStart="@dimen/info_social_icon_margin"
+                            android:background="?attr/selectableItemBackgroundBorderless"
                             android:onClick="@{viewModel::onClickGitHub}"
                             app:srcCompat="@drawable/ic_github_36_vector"
                             />
@@ -97,8 +100,9 @@
                             android:layout_height="@dimen/info_social_icon_size"
                             android:layout_marginLeft="@dimen/info_social_icon_margin"
                             android:layout_marginStart="@dimen/info_social_icon_margin"
+                            android:background="?attr/selectableItemBackgroundBorderless"
                             android:onClick="@{viewModel::onClickDroidKaigiWeb}"
-                            android:src="@drawable/ic_droidkaigi_36"
+                            android:src="@drawable/ic_droidkaigi"
                             />
 
                     <ImageView
@@ -107,8 +111,9 @@
                             android:layout_height="@dimen/info_social_icon_size"
                             android:layout_marginLeft="@dimen/info_social_icon_margin"
                             android:layout_marginStart="@dimen/info_social_icon_margin"
+                            android:background="?attr/selectableItemBackgroundBorderless"
                             android:onClick="@{viewModel::onClickYouTube}"
-                            android:src="@drawable/ic_youtube_36"
+                            app:srcCompat="@drawable/ic_youtube_36_vector"
                             />
 
                 </LinearLayout>

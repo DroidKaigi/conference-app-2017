@@ -6,6 +6,7 @@ import com.sys1yagi.kmockito.verify
 import io.github.droidkaigi.confsched2017.api.DroidKaigiClient
 import io.github.droidkaigi.confsched2017.model.OrmaDatabase
 import io.github.droidkaigi.confsched2017.model.Session
+import io.github.droidkaigi.confsched2017.util.LocaleUtil
 import io.reactivex.Completable
 import io.reactivex.Single
 import org.assertj.core.api.Assertions.assertThat
@@ -14,7 +15,7 @@ import org.junit.runner.RunWith
 import org.mockito.Mockito.*
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
-import java.util.Date
+import java.util.*
 
 @RunWith(RobolectricTestRunner::class)
 class SessionsRepositoryTest {
@@ -72,20 +73,19 @@ class SessionsRepositoryTest {
             this.cachedSessions = cachedSessions
         }
 
-        // TODO I want to use enum for language id.
-        repository.findAll(Session.LANG_JA_ID)
+        repository.findAll(Locale.JAPANESE)
                 .test()
                 .run {
                     assertNoErrors()
                     assertResult(sessions)
                     assertComplete()
 
-                    client.verify().getSessions(eq(Session.LANG_JA_ID))
+                    client.verify().getSessions(eq(Locale.JAPANESE))
                     ormaDatabase.verify().transactionAsCompletable(any())
                     cachedSessions.verify(never()).values
                 }
 
-        repository.findAll(Session.LANG_JA_ID)
+        repository.findAll(Locale.JAPANESE)
                 .test()
                 .run {
                     assertNoErrors()
@@ -113,20 +113,20 @@ class SessionsRepositoryTest {
             this.cachedSessions = cachedSessions
         }
 
-        repository.findAll(Session.LANG_JA_ID)
+        repository.findAll(Locale.JAPANESE)
                 .test()
                 .run {
                     assertNoErrors()
                     assertResult(sessions)
                     assertComplete()
 
-                    client.verify().getSessions(eq(Session.LANG_JA_ID))
+                    client.verify().getSessions(eq(Locale.JAPANESE))
                     cachedSessions.verify(never()).values
                 }
 
         repository.setIdDirty(true)
 
-        repository.findAll(Session.LANG_JA_ID)
+        repository.findAll(Locale.JAPANESE)
                 .test()
                 .run {
                     assertNoErrors()
@@ -196,7 +196,7 @@ class SessionsRepositoryTest {
                 SessionsRemoteDataSource(client)
         )
 
-        repository.find(3, Session.LANG_JA_ID)
+        repository.find(3, Locale.JAPANESE)
                 .test()
                 .run {
                     assertNoErrors()
@@ -215,7 +215,7 @@ class SessionsRepositoryTest {
                 SessionsRemoteDataSource(client)
         )
 
-        repository.find(3, Session.LANG_JA_ID)
+        repository.find(3, Locale.JAPANESE)
                 .test()
                 .run {
                     assertNoErrors()
@@ -236,7 +236,7 @@ class SessionsRepositoryTest {
         }
 
         repository.setIdDirty(false)
-        repository.find(1, Session.LANG_JA_ID)
+        repository.find(1, Locale.JAPANESE)
                 .test()
                 .run {
                     assertNoErrors()
@@ -270,21 +270,21 @@ class SessionsRepositoryTest {
 
         repository.cachedSessions = cachedSessions
         repository.setIdDirty(false)
-        repository.find(12, Session.LANG_JA_ID)
+        repository.find(12, Locale.JAPANESE)
                 .test()
                 .run {
                     assertNoErrors()
                     assertThat(values().first().id).isEqualTo(12)
                     assertComplete()
                     cachedSessions.verify(never()).get(eq(12))
-                    client.verify(never()).getSessions(anyString())
+                    client.verify(never()).getSessions(any<Locale>())
                 }
     }
 
     fun createSession(sessionId: Int) = Session().apply { id = sessionId }
 
     fun mockDroidKaigiClient(sessions: List<Session>) = mock<DroidKaigiClient>().apply {
-        getSessions(anyString()).invoked.thenReturn(
+        getSessions(any<Locale>()).invoked.thenReturn(
                 Single.just(sessions)
         )
     }

@@ -8,21 +8,21 @@ import android.content.Context;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.Display;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewConfiguration;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -42,6 +42,7 @@ import io.github.droidkaigi.confsched2017.view.activity.SearchActivity;
 import io.github.droidkaigi.confsched2017.view.activity.SessionDetailActivity;
 import io.github.droidkaigi.confsched2017.view.customview.ArrayRecyclerAdapter;
 import io.github.droidkaigi.confsched2017.view.customview.BindingHolder;
+import io.github.droidkaigi.confsched2017.view.customview.TouchlessTwoWayView;
 import io.github.droidkaigi.confsched2017.viewmodel.SessionViewModel;
 import io.github.droidkaigi.confsched2017.viewmodel.SessionsViewModel;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -131,8 +132,7 @@ public class SessionsFragment extends BaseFragment implements SessionViewModel.C
     }
 
     private void showSessions() {
-        String languageId = Locale.getDefault().getLanguage().toLowerCase();
-        Disposable disposable = viewModel.getSessions(languageId, getContext())
+        Disposable disposable = viewModel.getSessions(Locale.getDefault(), getContext())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -158,7 +158,11 @@ public class SessionsFragment extends BaseFragment implements SessionViewModel.C
         adapter = new SessionsAdapter(getContext());
         binding.recyclerView.setAdapter(adapter);
 
+        final ClickGestureCanceller clickCanceller = new ClickGestureCanceller(getContext(), binding.recyclerView);
+
         binding.root.setOnTouchListener((v, event) -> {
+            clickCanceller.sendCancelIfScrolling(event);
+
             MotionEvent e = MotionEvent.obtain(event);
             e.setLocation(e.getX() + binding.root.getScrollX(), e.getY() - binding.headerRow.getHeight());
             binding.recyclerView.forceToDispatchTouchEvent(e);
@@ -206,7 +210,10 @@ public class SessionsFragment extends BaseFragment implements SessionViewModel.C
 
         adapter.reset(adjustedSessionViewModels);
 
-        binding.txtDate.setText(adjustedSessionViewModels.get(0).getFormattedDate());
+        if (TextUtils.isEmpty(binding.txtDate.getText())) {
+            binding.txtDate.setText(adjustedSessionViewModels.get(0).getFormattedDate());
+            binding.txtDate.setVisibility(View.VISIBLE);
+        }
     }
 
     private void renderHeaderRow(List<Room> rooms) {
@@ -245,6 +252,65 @@ public class SessionsFragment extends BaseFragment implements SessionViewModel.C
             viewModel.setCallback(SessionsFragment.this);
             holder.binding.setViewModel(viewModel);
             holder.binding.executePendingBindings();
+        }
+    }
+
+    private static class ClickGestureCanceller
+    {
+        private GestureDetector gestureDetector;
+
+        ClickGestureCanceller(final Context context, final TouchlessTwoWayView targetView) {
+            gestureDetector = new GestureDetector(context, new GestureDetector.OnGestureListener() {
+                private boolean ignoreMotionEventOnScroll = false;
+
+                @Override
+                public boolean onDown(MotionEvent motionEvent) {
+                    ignoreMotionEventOnScroll = true;
+                    return false;
+                }
+
+                @Override
+                public boolean onScroll(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
+
+                    // Send cancel event for item clicked when horizontal scrolling.
+                    if (ignoreMotionEventOnScroll) {
+                        final long now = SystemClock.uptimeMillis();
+                        MotionEvent cancelEvent = MotionEvent.obtain(now, now,
+                                MotionEvent.ACTION_CANCEL, 0.0f, 0.0f, 0);
+                        targetView.forceToDispatchTouchEvent(cancelEvent);
+                        ignoreMotionEventOnScroll = false;
+                    }
+
+                    return false;
+                }
+
+                @Override
+                public void onShowPress(MotionEvent motionEvent) {
+                    // Do nothing
+                }
+
+                @Override
+                public boolean onSingleTapUp(MotionEvent motionEvent) {
+                    // Do nothing
+                    return false;
+                }
+
+
+                @Override
+                public void onLongPress(MotionEvent motionEvent) {
+                    // Do nothing
+                }
+
+                @Override
+                public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
+                    // Do nothing
+                    return false;
+                }
+            });
+        }
+
+        public void sendCancelIfScrolling(MotionEvent event) {
+            gestureDetector.onTouchEvent(event);
         }
     }
 

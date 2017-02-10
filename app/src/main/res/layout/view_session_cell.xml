@@ -11,19 +11,14 @@
                 />
     </data>
 
-    <RelativeLayout
+    <android.support.constraint.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/clickable_white"
             android:clickable="@{viewModel.clickable}"
             android:clipToPadding="false"
             android:onClick="@{viewModel::showSessionDetail}"
-            android:paddingBottom="@dimen/space_4dp"
-            android:paddingEnd="6dp"
-            android:paddingLeft="6dp"
-            android:paddingRight="6dp"
-            android:paddingStart="6dp"
-            android:paddingTop="@dimen/space_4dp"
+            android:onLongClick="@{viewModel::checkSession}"
             android:stateListAnimator="@animator/raise"
             app:sessionCellBackground="@{viewModel.backgroundResId}"
             app:twowayview_colSpan="@{viewModel.colSpan}"
@@ -32,14 +27,15 @@
 
         <View
                 android:id="@+id/categoryBorder"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="3dp"
-                android:layout_marginEnd="-6dp"
-                android:layout_marginLeft="-6dp"
-                android:layout_marginRight="-6dp"
-                android:layout_marginStart="-6dp"
-                android:layout_marginTop="@dimen/space_minus_4dp"
                 android:visibility="@{viewModel.normalSessionItemVisibility}"
+                app:layout_constraintBottom_toTopOf="@+id/txt_time"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                app:layout_constraintVertical_chainStyle="packed"
                 app:sessionTopicColor="@{viewModel.topicColorResId}"
                 />
 
@@ -47,7 +43,8 @@
                 android:id="@+id/txt_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/categoryBorder"
+                android:layout_marginLeft="6dp"
+                android:layout_marginStart="6dp"
                 android:layout_marginTop="@dimen/space_4dp"
                 android:lines="1"
                 android:text="@{viewModel.shortStime}"
@@ -56,16 +53,18 @@
                 android:textSize="@dimen/session_table_cell_title_text_size"
                 android:textStyle="bold"
                 app:fontPath="@string/font_noto_cjk_medium"
+                app:layout_constraintBottom_toTopOf="@+id/txt_title"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/txt_minutes"
+                app:layout_constraintTop_toBottomOf="@+id/categoryBorder"
                 />
 
         <TextView
                 android:id="@+id/txt_minutes"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/categoryBorder"
                 android:layout_marginLeft="@dimen/space_4dp"
                 android:layout_marginStart="@dimen/space_4dp"
-                android:layout_marginTop="@dimen/space_4dp"
                 android:layout_toEndOf="@id/txt_time"
                 android:layout_toRightOf="@id/txt_time"
                 android:lines="1"
@@ -74,27 +73,36 @@
                 android:textColor="@color/sessions_cell_time_text"
                 android:textSize="@dimen/session_table_cell_title_text_size"
                 app:fontPath="@string/font_noto_cjk_medium"
+                app:layout_constraintBaseline_toBaselineOf="@+id/txt_time"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintLeft_toRightOf="@+id/txt_time"
+                app:layout_constraintRight_toLeftOf="@+id/img_check"
                 />
 
         <ImageView
                 android:id="@+id/img_check"
                 android:layout_width="14dp"
                 android:layout_height="14dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_below="@id/categoryBorder"
-                android:layout_marginTop="@dimen/space_4dp"
+                android:layout_marginEnd="6dp"
+                android:layout_marginRight="6dp"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
                 android:visibility="@{viewModel.checkVisibility}"
+                app:layout_constraintBottom_toBottomOf="@+id/txt_minutes"
+                app:layout_constraintLeft_toRightOf="@+id/txt_minutes"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/txt_minutes"
                 app:srcCompat="@drawable/ic_check_circle_24_vector"
                 />
 
         <TextView
                 android:id="@+id/txt_title"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/txt_time"
+                android:layout_marginEnd="6dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp"
+                android:layout_marginStart="6dp"
                 android:layout_marginTop="@dimen/session_table_cell_text_margin"
                 android:ellipsize="end"
                 android:lineSpacingExtra="-2sp"
@@ -102,33 +110,47 @@
                 android:text="@{viewModel.title}"
                 android:textAppearance="@style/TextCaption"
                 android:textColor="@color/black"
+                app:layout_constraintBottom_toTopOf="@+id/txt_language"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_time"
                 />
 
         <TextView
                 android:id="@+id/txt_language"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/txt_title"
+                android:layout_marginEnd="6dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp"
+                android:layout_marginStart="6dp"
                 android:layout_marginTop="@dimen/session_table_cell_text_margin"
                 android:background="@drawable/tag_language"
                 android:ellipsize="end"
                 android:lines="1"
-                android:paddingEnd="@dimen/space_4dp"
                 android:paddingLeft="@dimen/space_4dp"
                 android:paddingRight="@dimen/space_4dp"
-                android:paddingStart="@dimen/space_4dp"
                 android:text="@{viewModel.languageId}"
                 android:textAppearance="@style/TextCaption"
                 android:textColor="@color/grey500"
                 android:textSize="@dimen/session_table_cell_title_text_size"
                 android:visibility="@{viewModel.languageVisibility}"
+                app:layout_constraintBottom_toTopOf="@+id/txt_speaker_name"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_title"
                 />
 
         <TextView
                 android:id="@+id/txt_speaker_name"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/txt_language"
+                android:layout_marginBottom="@dimen/space_4dp"
+                android:layout_marginEnd="6dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp"
+                android:layout_marginStart="6dp"
                 android:layout_marginTop="@dimen/session_table_cell_text_margin"
                 android:drawableLeft="@drawable/ic_person_10_selector"
                 android:drawablePadding="2dp"
@@ -140,8 +162,12 @@
                 android:textColor="@color/grey500"
                 android:textSize="@dimen/session_table_cell_title_text_size"
                 android:visibility="@{viewModel.normalSessionItemVisibility}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_language"
                 />
 
-    </RelativeLayout>
+    </android.support.constraint.ConstraintLayout>
 
 </layout>

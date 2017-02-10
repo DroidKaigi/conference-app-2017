@@ -1,6 +1,7 @@
 package io.github.droidkaigi.confsched2017.repository.sessions;
 
 import java.util.List;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -15,7 +16,6 @@ import io.github.droidkaigi.confsched2017.model.Topic;
 import io.github.droidkaigi.confsched2017.model.Topic_Relation;
 import io.reactivex.Maybe;
 import io.reactivex.Single;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public final class SessionsLocalDataSource implements SessionsDataSource {
@@ -44,20 +44,22 @@ public final class SessionsLocalDataSource implements SessionsDataSource {
     }
 
     @Override
-    public Single<List<Session>> findAll(String languageId) {
+    public Single<List<Session>> findAll(Locale locale) {
         return sessionRelation().selector().executeAsObservable().toList();
     }
 
     @Override
-    public Maybe<Session> find(int sessionId, String languageId) {
+    public Maybe<Session> find(int sessionId, Locale locale) {
         return sessionRelation().selector().idEq(sessionId).executeAsObservable().firstElement();
     }
 
-    void deleteAll() {
+    @Override
+    public void deleteAll() {
         sessionRelation().deleter().execute();
         speakerRelation().deleter().execute();
         topicRelation().deleter().execute();
         placeRelation().deleter().execute();
+
     }
 
     private void insertSpeaker(Speaker speaker) {

@@ -8,17 +8,22 @@ import android.support.v7.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 public abstract class ArrayRecyclerAdapter<T, VH extends RecyclerView.ViewHolder>
         extends RecyclerView.Adapter<VH> implements Iterable<T> {
 
-    protected final ArrayList<T> list;
+    protected final List<T> list;
 
     final Context context;
 
     public ArrayRecyclerAdapter(@NonNull Context context) {
+        this(context, new ArrayList<>());
+    }
+
+    public ArrayRecyclerAdapter(@NonNull Context context, @NonNull List<T> list) {
         this.context = context;
-        this.list = new ArrayList<>();
+        this.list = list;
     }
 
     @UiThread

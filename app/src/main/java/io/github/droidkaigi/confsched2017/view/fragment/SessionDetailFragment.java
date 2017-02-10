@@ -1,16 +1,20 @@
 package io.github.droidkaigi.confsched2017.view.fragment;
 
+import com.sys1yagi.fragmentcreator.annotation.Args;
+import com.sys1yagi.fragmentcreator.annotation.FragmentCreator;
+
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +30,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
+@FragmentCreator
 public class SessionDetailFragment extends BaseFragment implements SessionDetailViewModel.Callback {
 
     private static final String TAG = SessionDetailFragment.class.getSimpleName();
@@ -39,17 +45,10 @@ public class SessionDetailFragment extends BaseFragment implements SessionDetail
     @Inject
     CompositeDisposable compositeDisposable;
 
-    private int sessionId;
+    @Args
+    int sessionId;
 
     private FragmentSessionDetailBinding binding;
-
-    public static SessionDetailFragment newInstance(int sessionId) {
-        SessionDetailFragment fragment = new SessionDetailFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_SESSION_ID, sessionId);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     public SessionDetailFragment() {
     }
@@ -57,15 +56,7 @@ public class SessionDetailFragment extends BaseFragment implements SessionDetail
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        sessionId = getArguments().getInt(ARG_SESSION_ID);
-        Disposable disposable = viewModel.loadSession(sessionId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        () -> initTheme(),
-                        throwable -> Log.e(TAG, "Failed to find session.", throwable)
-                );
-        compositeDisposable.add(disposable);
+        SessionDetailFragmentCreator.read(this);
     }
 
     @Override
@@ -85,6 +76,14 @@ public class SessionDetailFragment extends BaseFragment implements SessionDetail
                     new ActivityManager.TaskDescription(viewModel.getSessionTitle(), null,
                             ContextCompat.getColor(activity, viewModel.getSessionVividColorResId()));
             activity.setTaskDescription(taskDescription);
+
+            // Change status bar scrim color
+            TypedValue typedValue = new TypedValue();
+            activity.getTheme().resolveAttribute(R.attr.colorPrimaryDark, typedValue, true);
+            int colorPrimaryDark = typedValue.data;
+            if (colorPrimaryDark != 0) {
+                binding.collapsingToolbar.setStatusBarScrimColor(colorPrimaryDark);
+            }
         }
     }
 
@@ -95,6 +94,17 @@ public class SessionDetailFragment extends BaseFragment implements SessionDetail
         viewModel.setCallback(this);
         binding.setViewModel(viewModel);
         setHasOptionsMenu(true);
+        Disposable disposable = viewModel.loadSession(sessionId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        () -> {
+                            initTheme();
+                            binding.setViewModel(viewModel);
+                        },
+                        throwable -> Timber.tag(TAG).e(throwable, "Failed to find session.")
+                );
+        compositeDisposable.add(disposable);
         initToolbar();
         initScroll();
         return binding.getRoot();
@@ -139,10 +149,26 @@ public class SessionDetailFragment extends BaseFragment implements SessionDetail
     }
 
     @Override
-    public void onClickFab() {
+    public void onClickFab(boolean selected) {
         AnimationHelper.startVDAnimation(binding.fab,
                 R.drawable.avd_add_to_check_24dp, R.drawable.avd_check_to_add_24dp,
                 getResources().getInteger(R.integer.fab_vector_animation_mills));
+        int textId;
+        int actionTextId;
+        if (selected) {
+            textId = R.string.session_checked;
+            actionTextId = R.string.session_uncheck;
+        } else {
+            textId = R.string.session_unchecked;
+            actionTextId = R.string.session_check;
+        }
+        TypedValue typedValue = new TypedValue();
+        getActivity().getTheme().resolveAttribute(R.attr.colorPrimary, typedValue, true);
+        int actionTextColor = typedValue.data;
+        Snackbar.make(binding.fab, textId, Snackbar.LENGTH_SHORT)
+                .setAction(actionTextId, v -> binding.fab.performClick())
+                .setActionTextColor(actionTextColor)
+                .show();
     }
 
     @Override

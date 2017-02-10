@@ -138,3 +138,18 @@
   licence: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: https://github.com/DeployGate/deploygate-android-sdk
+- artifact: com.android.support.constraint:+:+
+  name: constraint-layout
+  copyrightHolder: #COPYRIGHT_HOLDER#
+  license: #LICENSE#
+  skip: true
+- artifact: com.github.sys1yagi.fragment-creator:library:+
+  name: Fragment Creator
+  copyrightHolder: Toshihiro Yagi
+  license: MIT License
+  licenseUrl: https://api.github.com/licenses/mit
+  url: https://github.com/sys1yagi/fragment-creator
+- artifact: com.tomoima.debot:+:+
+  name: debot
+  copyrightHolder: Tomoaki Imai
+  license: The Apache License, Version 2.0

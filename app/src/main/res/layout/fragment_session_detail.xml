@@ -81,6 +81,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="?attr/actionBarSize"
                         android:background="?attr/selectableItemBackground"
+                        style="@style/BaseToolbar"
                         app:layout_collapseMode="pin"
                         />
 
@@ -291,10 +292,10 @@
 
         <android.support.design.widget.FloatingActionButton
                 android:id="@+id/fab"
-                style="@style/FabMargin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom|right|end"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="@dimen/space_16dp"
                 android:clickable="true"
                 android:onClick="@{viewModel::onClickFab}"
                 app:layout_anchorGravity="bottom|right|end"

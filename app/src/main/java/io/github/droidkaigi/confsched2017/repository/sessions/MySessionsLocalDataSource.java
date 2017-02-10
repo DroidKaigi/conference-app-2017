@@ -34,11 +34,7 @@ public class MySessionsLocalDataSource implements MySessionsDataSource {
         // TODO
         if (mySessionRelation().isEmpty()) {
             return Single.create(emitter -> {
-                try {
-                    emitter.onSuccess(new ArrayList<>());
-                } catch (Exception e) {
-                    emitter.onError(e);
-                }
+                emitter.onSuccess(new ArrayList<>());
             });
         } else {
             return mySessionRelation().selector().executeAsObservable().toList()

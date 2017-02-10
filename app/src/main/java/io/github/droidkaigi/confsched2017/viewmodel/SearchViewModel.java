@@ -13,6 +13,7 @@ import java.util.Locale;
 import javax.inject.Inject;
 
 import io.github.droidkaigi.confsched2017.model.Session;
+import io.github.droidkaigi.confsched2017.repository.sessions.MySessionsRepository;
 import io.github.droidkaigi.confsched2017.repository.sessions.SessionsRepository;
 import io.reactivex.Single;
 
@@ -20,11 +21,14 @@ public final class SearchViewModel extends BaseObservable implements ViewModel {
 
     private SessionsRepository sessionsRepository;
 
+    private MySessionsRepository mySessionsRepository;
+
     private Callback callback;
 
     @Inject
-    SearchViewModel(SessionsRepository sessionsRepository) {
+    SearchViewModel(SessionsRepository sessionsRepository, MySessionsRepository mySessionsRepository) {
         this.sessionsRepository = sessionsRepository;
+        this.mySessionsRepository = mySessionsRepository;
     }
 
     @Override
@@ -40,8 +44,7 @@ public final class SearchViewModel extends BaseObservable implements ViewModel {
 
     public Single<List<SearchResultViewModel>> getSearchResultViewModels(Context context,
             SearchResultViewModel.Callback callback) {
-        String languageId = Locale.getDefault().getLanguage().toLowerCase();
-        return sessionsRepository.findAll(languageId)
+        return sessionsRepository.findAll(Locale.getDefault())
                 .map(sessions -> {
                     List<Session> filteredSessions = Stream.of(sessions)
                             .filter(session -> session.isSession() && session.speaker != null)
@@ -49,7 +52,8 @@ public final class SearchViewModel extends BaseObservable implements ViewModel {
 
                     List<SearchResultViewModel> titleResults = Stream.of(filteredSessions)
                             .map(session -> {
-                                SearchResultViewModel viewModel = SearchResultViewModel.createTitleType(session, context);
+                                SearchResultViewModel viewModel = SearchResultViewModel
+                                        .createTitleType(session, context, mySessionsRepository);
                                 viewModel.setCallback(callback);
                                 return viewModel;
                             }).collect(Collectors.toList());
@@ -57,14 +61,16 @@ public final class SearchViewModel extends BaseObservable implements ViewModel {
                     List<SearchResultViewModel> descriptionResults = Stream.of(filteredSessions)
                             .map(session -> {
                                 SearchResultViewModel viewModel =
-                                        SearchResultViewModel.createDescriptionType(session, context);
+                                        SearchResultViewModel.createDescriptionType(session, context,
+                                                mySessionsRepository);
                                 viewModel.setCallback(callback);
                                 return viewModel;
                             }).collect(Collectors.toList());
 
                     List<SearchResultViewModel> speakerResults = Stream.of(filteredSessions)
                             .map(session -> {
-                                SearchResultViewModel viewModel = SearchResultViewModel.createSpeakerType(session, context);
+                                SearchResultViewModel viewModel = SearchResultViewModel
+                                        .createSpeakerType(session, context, mySessionsRepository);
                                 viewModel.setCallback(callback);
                                 return viewModel;
                             }).collect(Collectors.toList());

@@ -31,8 +31,8 @@ public class SearchActivity extends BaseActivity {
 
     @Override
     public void finish() {
-        overridePendingTransition(0, R.anim.activity_fade_exit);
         super.finish();
+        overridePendingTransition(0, R.anim.activity_fade_exit);
     }
 
     @Override
