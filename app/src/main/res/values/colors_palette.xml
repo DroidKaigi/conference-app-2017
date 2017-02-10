@@ -20,28 +20,6 @@
     <color name="dark_pink">#c67a7b</color>
 
 
-    <!-- Pale -->
-    <color name="purple_alpha_15">#2658037C</color>
-    <color name="ultra_light_blue_alpha_15">#2689ecef</color>
-    <color name="light_blue_alpha_15">#264DD0E1</color>
-    <color name="light_green_alpha_15">#26A3D68A</color>
-    <color name="blue_alpha_15">#264151DC</color>
-    <color name="pink_alpha_15">#26DD8889</color>
-    <color name="red_alpha_15">#26FF5252</color>
-    <color name="yellow_alpha_15">#26ffeb3b</color>
-
-    <color name="purple_alpha_30">#2658037C</color>
-
-    <color name="purple_alpha_50">#8058037C</color>
-    <color name="ultra_light_blue_alpha_50">#8089ecef</color>
-    <color name="light_blue_alpha_50">#804DD0E1</color>
-    <color name="light_green_alpha_50">#80A3D68A</color>
-    <color name="blue_alpha_50">#804151DC</color>
-    <color name="pink_alpha_50">#80DD8889</color>
-    <color name="red_alpha_50">#80FF5252</color>
-    <color name="yellow_alpha_50">#80ffeb3b</color>
-
-
     <!-- Material Colors -->
     <color name="material_light_green_a700">#64dd17</color>
     <color name="material_amber_a700">#ffab00</color>
