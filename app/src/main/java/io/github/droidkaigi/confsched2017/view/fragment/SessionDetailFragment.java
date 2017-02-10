@@ -162,8 +162,12 @@ public class SessionDetailFragment extends BaseFragment implements SessionDetail
             textId = R.string.session_unchecked;
             actionTextId = R.string.session_check;
         }
+        TypedValue typedValue = new TypedValue();
+        getActivity().getTheme().resolveAttribute(R.attr.colorPrimary, typedValue, true);
+        int actionTextColor = typedValue.data;
         Snackbar.make(binding.fab, textId, Snackbar.LENGTH_SHORT)
                 .setAction(actionTextId, v -> binding.fab.performClick())
+                .setActionTextColor(actionTextColor)
                 .show();
     }
 
