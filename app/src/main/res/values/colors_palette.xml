@@ -41,7 +41,17 @@
     <color name="red_alpha_50">#80FF5252</color>
     <color name="yellow_alpha_50">#80ffeb3b</color>
 
-    
+
+    <!-- Material Colors -->
+    <color name="material_light_green_a700">#64dd17</color>
+    <color name="material_amber_a700">#ffab00</color>
+    <color name="material_red_a700">#d50000</color>
+    <color name="material_blue_a700">#2962ff</color>
+    <color name="material_light_blue_a700">#0091ea</color>
+    <color name="material_pink_a700">#c51162</color>
+    <color name="material_purple_a700">#aa00ff</color>
+
+
     <!-- Greyscales -->
     <color name="grey50">#FAFAFA</color>
     <color name="grey200">#EEEEEE</color>

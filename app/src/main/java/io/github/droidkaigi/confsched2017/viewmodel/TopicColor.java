@@ -10,28 +10,28 @@ import io.github.droidkaigi.confsched2017.model.Topic;
 enum TopicColor {
 
     PRODUCTIVITY_AND_TOOLING(1, R.color.light_green_alpha_15, R.color.light_green_alpha_50,
-            R.color.light_green, R.style.AppTheme_NoActionBar_LightGreen),
+            R.color.material_light_green_a700, R.style.AppTheme_NoActionBar_LightGreen),
 
     ARCHITECTURE_AND_DEVELOPMENT_PROCESS_METHODOLOGY(2, R.color.yellow_alpha_15, R.color.yellow_alpha_50,
-            R.color.yellow, R.style.AppTheme_NoActionBar_Yellow),
+            R.color.material_amber_a700, R.style.AppTheme_NoActionBar_Yellow),
 
     HARDWARE(3, R.color.red_alpha_15, R.color.red_alpha_50,
-            R.color.red, R.style.AppTheme_NoActionBar_Red),
+            R.color.material_red_a700, R.style.AppTheme_NoActionBar_Red),
 
     UI_AND_DESIGN(4, R.color.blue_alpha_15, R.color.blue_alpha_50,
-            R.color.blue, R.style.AppTheme_NoActionBar_Blue),
+            R.color.material_blue_a700, R.style.AppTheme_NoActionBar_Blue),
 
     QUALITY_AND_SUSTAINABILITY(5, R.color.light_blue_alpha_15, R.color.light_blue_alpha_50,
-            R.color.light_blue, R.style.AppTheme_NoActionBar_LightBlue),
+            R.color.material_light_blue_a700, R.style.AppTheme_NoActionBar_LightBlue),
 
     PLATFORM(6, R.color.pink_alpha_15, R.color.pink_alpha_50,
-            R.color.pink, R.style.AppTheme_NoActionBar_Pink),
+            R.color.material_pink_a700, R.style.AppTheme_NoActionBar_Pink),
 
     OTHER(7, R.color.purple_alpha_15, R.color.purple_alpha_50,
-            R.color.purple, R.style.AppTheme_NoActionBar_Purple),
+            R.color.material_purple_a700, R.style.AppTheme_NoActionBar_Purple),
 
     NONE(0, R.color.purple_alpha_15, R.color.purple_alpha_50,
-            R.color.purple, R.style.AppTheme_NoActionBar_Purple);
+            R.color.material_purple_a700, R.style.AppTheme_NoActionBar_Purple);
 
     private int topicId;
 
