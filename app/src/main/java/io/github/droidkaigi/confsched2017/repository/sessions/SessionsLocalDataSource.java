@@ -1,5 +1,9 @@
 package io.github.droidkaigi.confsched2017.repository.sessions;
 
+import com.github.gfx.android.orma.annotation.OnConflict;
+
+import android.database.sqlite.SQLiteConstraintException;
+
 import java.util.List;
 import java.util.Locale;
 
@@ -10,6 +14,7 @@ import io.github.droidkaigi.confsched2017.model.Room;
 import io.github.droidkaigi.confsched2017.model.Room_Relation;
 import io.github.droidkaigi.confsched2017.model.Session;
 import io.github.droidkaigi.confsched2017.model.Session_Relation;
+import io.github.droidkaigi.confsched2017.model.Session_Updater;
 import io.github.droidkaigi.confsched2017.model.Speaker;
 import io.github.droidkaigi.confsched2017.model.Speaker_Relation;
 import io.github.droidkaigi.confsched2017.model.Topic;
@@ -62,35 +67,59 @@ public final class SessionsLocalDataSource implements SessionsDataSource {
 
     }
 
-    private void insertSpeaker(Speaker speaker) {
-        if (speaker != null && speakerRelation().selector().idEq(speaker.id).isEmpty()) {
-            speakerRelation().inserter().execute(speaker);
+    private void upsertSpeaker(Speaker speaker) {
+        if (speaker != null) {
+            speakerRelation().upsert(speaker);
         }
     }
 
-    private void insertRoom(Room room) {
-        if (room != null && placeRelation().selector().idEq(room.id).isEmpty()) {
-            placeRelation().inserter().execute(room);
+    private void upsertRoom(Room room) {
+        if (room != null) {
+            placeRelation().upsert(room);
         }
     }
 
-    private void insertCategory(Topic topic) {
-        if (topic != null && topicRelation().selector().idEq(topic.id).isEmpty()) {
-            topicRelation().inserter().execute(topic);
+    private void upsertCategory(Topic topic) {
+        if (topic != null) {
+            topicRelation().upsert(topic);
         }
     }
 
     private void updateAllSync(List<Session> sessions) {
-        speakerRelation().deleter().execute();
-        topicRelation().deleter().execute();
-        placeRelation().deleter().execute();
-        sessionRelation().deleter().execute();
-
         for (Session session : sessions) {
-            insertSpeaker(session.speaker);
-            insertCategory(session.topic);
-            insertRoom(session.room);
-            sessionRelation().inserter().execute(session);
+            upsertSpeaker(session.speaker);
+            upsertCategory(session.topic);
+            upsertRoom(session.room);
+
+            try {
+                sessionRelation().inserter(OnConflict.FAIL).execute(session);
+            } catch (SQLiteConstraintException e) {
+                // failed by conflict, so try update one.
+                Session_Updater sessionUpdater = sessionRelation().updater()
+                        .id(session.id)
+                        .title(session.title)
+                        .desc(session.desc)
+                        .stime(session.stime)
+                        .etime(session.etime)
+                        .durationMin(session.durationMin)
+                        .type(session.type)
+                        .lang(session.lang)
+                        .slideUrl(session.slideUrl)
+                        .movieUrl(session.movieUrl)
+                        .movieDashUrl(session.movieDashUrl)
+                        .shareUrl(session.shareUrl);
+                // nullable association fields
+                if (session.speaker != null) {
+                    sessionUpdater.speaker(session.speaker);
+                }
+                if (session.topic != null) {
+                    sessionUpdater.topic(session.topic);
+                }
+                if (session.room != null) {
+                    sessionUpdater.room(session.room);
+                }
+                sessionUpdater.idEq(session.id).execute();
+            }
         }
     }
 
