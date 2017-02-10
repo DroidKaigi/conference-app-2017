@@ -38,7 +38,7 @@ public final class SearchViewModel extends BaseObservable implements ViewModel {
 
     public void onClickCover(@SuppressWarnings("unused") View view) {
         if (callback != null) {
-            callback.close();
+            callback.closeSearchResultList();
         }
     }
 
@@ -88,7 +88,7 @@ public final class SearchViewModel extends BaseObservable implements ViewModel {
 
     public interface Callback {
 
-        void close();
+        void closeSearchResultList();
     }
 
 }
