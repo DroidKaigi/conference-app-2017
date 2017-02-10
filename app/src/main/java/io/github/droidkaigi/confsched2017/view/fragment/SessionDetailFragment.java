@@ -159,7 +159,7 @@ public class SessionDetailFragment extends BaseFragment implements SessionDetail
             textId = R.string.session_checked;
             actionTextId = R.string.session_uncheck;
         } else {
-            textId = R.string.session_uncheck;
+            textId = R.string.session_unchecked;
             actionTextId = R.string.session_check;
         }
         Snackbar.make(binding.fab, textId, Snackbar.LENGTH_SHORT)
