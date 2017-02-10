@@ -51,6 +51,22 @@
     <color name="material_pink_a700">#c51162</color>
     <color name="material_purple_a700">#aa00ff</color>
 
+    <color name="material_light_green_a700_alpha_50">#8064dd17</color>
+    <color name="material_amber_a700_alpha_50">#80ffab00</color>
+    <color name="material_red_a700_alpha_50">#80d50000</color>
+    <color name="material_blue_a700_alpha_50">#802962ff</color>
+    <color name="material_light_blue_a700_alpha_50">#800091ea</color>
+    <color name="material_pink_a700_alpha_50">#80c51162</color>
+    <color name="material_purple_a700_alpha_50">#80aa00ff</color>
+
+    <color name="material_light_green_a700_alpha_15">#2664dd17</color>
+    <color name="material_amber_a700_alpha_15">#26ffab00</color>
+    <color name="material_red_a700_alpha_15">#26d50000</color>
+    <color name="material_blue_a700_alpha_15">#262962ff</color>
+    <color name="material_light_blue_a700_alpha_15">#260091ea</color>
+    <color name="material_pink_a700_alpha_15">#26c51162</color>
+    <color name="material_purple_a700_alpha_15">#26aa00ff</color>
+
 
     <!-- Greyscales -->
     <color name="grey50">#FAFAFA</color>
