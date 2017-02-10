@@ -36,6 +36,7 @@
     <string name="info_dev_info_title">開発情報</string>
     <!-- Sponsors -->
     <string name="sponsors">スポンサー</string>
+    <string name="sponsors_file">sponsors.json</string>
     <!-- Contributors -->
     <string name="contributors">コントリビュータ</string>
     <string name="contributors_people">(%1$d人)</string>

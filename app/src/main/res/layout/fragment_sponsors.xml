@@ -5,7 +5,7 @@
 
         <variable
                 name="viewModel"
-                type="io.github.droidkaigi.confsched2017.viewmodel.SponsorsViewModel"
+                type="io.github.droidkaigi.confsched2017.viewmodel.SponsorshipsViewModel"
                 />
     </data>
 
@@ -14,12 +14,11 @@
             android:layout_height="match_parent"
             >
 
-        <TextView
-                style="@style/TextTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="@string/sponsors"
+        <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                style="@style/BaseRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 />
 
     </RelativeLayout>
