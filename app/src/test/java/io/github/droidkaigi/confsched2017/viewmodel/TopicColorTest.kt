@@ -24,19 +24,19 @@ class TopicColorTest {
 
         // valid topic id
         run {
-            assertThat(TopicColor.from(Topic().apply { id = TopicColor.PRODUCTIVITY_AND_TOOLING.topicId }))
+            assertThat(TopicColor.from(Topic().apply { id = TopicColor.PRODUCTIVITY_AND_TOOLING.ordinal }))
                     .isEqualTo(TopicColor.PRODUCTIVITY_AND_TOOLING)
-            assertThat(TopicColor.from(Topic().apply { id = TopicColor.ARCHITECTURE_AND_DEVELOPMENT_PROCESS_METHODOLOGY.topicId }))
+            assertThat(TopicColor.from(Topic().apply { id = TopicColor.ARCHITECTURE_AND_DEVELOPMENT_PROCESS_METHODOLOGY.ordinal }))
                     .isEqualTo(TopicColor.ARCHITECTURE_AND_DEVELOPMENT_PROCESS_METHODOLOGY)
-            assertThat(TopicColor.from(Topic().apply { id = TopicColor.HARDWARE.topicId }))
+            assertThat(TopicColor.from(Topic().apply { id = TopicColor.HARDWARE.ordinal }))
                     .isEqualTo(TopicColor.HARDWARE)
-            assertThat(TopicColor.from(Topic().apply { id = TopicColor.UI_AND_DESIGN.topicId }))
+            assertThat(TopicColor.from(Topic().apply { id = TopicColor.UI_AND_DESIGN.ordinal }))
                     .isEqualTo(TopicColor.UI_AND_DESIGN)
-            assertThat(TopicColor.from(Topic().apply { id = TopicColor.QUALITY_AND_SUSTAINABILITY.topicId }))
+            assertThat(TopicColor.from(Topic().apply { id = TopicColor.QUALITY_AND_SUSTAINABILITY.ordinal }))
                     .isEqualTo(TopicColor.QUALITY_AND_SUSTAINABILITY)
-            assertThat(TopicColor.from(Topic().apply { id = TopicColor.PLATFORM.topicId }))
+            assertThat(TopicColor.from(Topic().apply { id = TopicColor.PLATFORM.ordinal }))
                     .isEqualTo(TopicColor.PLATFORM)
-            assertThat(TopicColor.from(Topic().apply { id = TopicColor.OTHER.topicId }))
+            assertThat(TopicColor.from(Topic().apply { id = TopicColor.OTHER.ordinal }))
                     .isEqualTo(TopicColor.OTHER)
         }
 
