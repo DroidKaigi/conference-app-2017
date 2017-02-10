@@ -158,11 +158,11 @@ public class SessionViewModel extends BaseObservable implements ViewModel {
         if (mySessionsRepository.isExist(session.id)) {
             mySessionsRepository.delete(session)
                     .subscribe((result) -> setCheckVisibility(View.GONE),
-                            throwable -> Timber.tag(TAG).e("Failed to delete my session", throwable));
+                            throwable -> Timber.tag(TAG).e(throwable, "Failed to delete my session"));
         } else {
             mySessionsRepository.save(session)
                     .subscribe(() -> setCheckVisibility(View.VISIBLE),
-                            throwable -> Timber.tag(TAG).e("Failed to save my session", throwable));
+                            throwable -> Timber.tag(TAG).e(throwable, "Failed to save my session"));
         }
         return true;
     }
