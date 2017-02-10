@@ -9,6 +9,7 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBar;
@@ -148,10 +149,26 @@ public class SessionDetailFragment extends BaseFragment implements SessionDetail
     }
 
     @Override
-    public void onClickFab() {
+    public void onClickFab(boolean selected) {
         AnimationHelper.startVDAnimation(binding.fab,
                 R.drawable.avd_add_to_check_24dp, R.drawable.avd_check_to_add_24dp,
                 getResources().getInteger(R.integer.fab_vector_animation_mills));
+        int textId;
+        int actionTextId;
+        if (selected) {
+            textId = R.string.session_checked;
+            actionTextId = R.string.session_uncheck;
+        } else {
+            textId = R.string.session_unchecked;
+            actionTextId = R.string.session_check;
+        }
+        TypedValue typedValue = new TypedValue();
+        getActivity().getTheme().resolveAttribute(R.attr.colorPrimary, typedValue, true);
+        int actionTextColor = typedValue.data;
+        Snackbar.make(binding.fab, textId, Snackbar.LENGTH_SHORT)
+                .setAction(actionTextId, v -> binding.fab.performClick())
+                .setActionTextColor(actionTextColor)
+                .show();
     }
 
     @Override
