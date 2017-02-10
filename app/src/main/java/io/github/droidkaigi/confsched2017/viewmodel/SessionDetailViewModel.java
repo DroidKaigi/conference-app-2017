@@ -134,12 +134,15 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
     }
 
     public void onClickFab(@SuppressWarnings("unused") View view) {
+        boolean selected = true;
         if (mySessionsRepository.isExist(session.id)) {
+            selected = false;
             mySessionsRepository.delete(session)
                     .subscribe((result) -> Timber.tag(TAG).d("Deleted my session"),
                             throwable -> Timber.tag(TAG).e(throwable, "Failed to delete my session"));
             AlarmUtil.unregisterAlarm(context, session);
         } else {
+            selected = true;
             mySessionsRepository.save(session)
                     .subscribe(() -> Timber.tag(TAG).d("Saved my session"),
                             throwable -> Timber.tag(TAG).e(throwable, "Failed to save my session"));
@@ -147,7 +150,7 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
         }
 
         if (callback != null) {
-            callback.onClickFab();
+            callback.onClickFab(selected);
         }
     }
 
@@ -211,7 +214,7 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
 
     public interface Callback {
 
-        void onClickFab();
+        void onClickFab(boolean selected);
 
         void onClickFeedback();
     }
