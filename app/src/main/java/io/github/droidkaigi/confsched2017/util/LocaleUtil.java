@@ -66,9 +66,25 @@ public class LocaleUtil {
         return context.getString(getLanguage(LocaleUtil.getCurrentLanguageId(context)));
     }
 
-    @StringRes
-    public static int getLanguage(@NonNull Locale locale) {
-        return getLanguage(getLocaleLanguageId(locale));
+    public static String getDisplayLanguage(Context context, @NonNull Locale locale) {
+        String languageId = getLocaleLanguageId(locale);
+        return getDisplayLanguage(context, "lang_" + languageId + "_in_" + languageId);
+    }
+
+    private static String getDisplayLanguage(@NonNull Context context, @NonNull String resName) {
+        try {
+            int resourceId = context.getResources().getIdentifier(
+                    resName, "string", context.getPackageName());
+            if (resourceId > 0) {
+                return context.getString(resourceId);
+            } else {
+                Timber.tag(TAG).d("String resource id: " + resName + " is not found.");
+                return "";
+            }
+        } catch (Exception e) {
+            Timber.tag(TAG).e("String resource id: " + resName + " is not found.", e);
+            return "";
+        }
     }
 
     @StringRes

@@ -1,7 +1,8 @@
 <?xml version="1.0"?>
 <resources>
-    <string name="lang_en">英語</string>
-    <string name="lang_ja">日本語</string>
+    <string name="lang_en">@string/lang_en_in_ja</string>
+    <string name="lang_ja">@string/lang_ja_in_ja</string>
+
     <string name="sessions">セッション</string>
     <string name="map">地図</string>
     <string name="information">情報</string>

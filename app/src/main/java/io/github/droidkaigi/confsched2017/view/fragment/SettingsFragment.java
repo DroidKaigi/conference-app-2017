@@ -65,7 +65,7 @@ public class SettingsFragment extends BaseFragment implements SettingsViewModel.
     public void showLanguagesDialog() {
         List<Locale> locales = LocaleUtil.SUPPORT_LANG;
         List<String> languages = Stream.of(locales)
-                .map(locale -> getString(LocaleUtil.getLanguage(locale)))
+                .map(locale -> LocaleUtil.getDisplayLanguage(getContext(), locale))
                 .collect(Collectors.toList());
 
         List<String> languageIds = Stream.of(locales)
