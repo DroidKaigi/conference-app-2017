@@ -31,11 +31,10 @@ class LocaleUtilTest {
         // return local timezone.
         run {
             pref.putShowLocalTimeFlag(true)
-            val expectedTimeZone = testTimeZone
-            TimeZone.setDefault(expectedTimeZone)
+            TimeZone.setDefault(testTimeZone)
 
             val timeZone = LocaleUtil.getDisplayTimeZone(RuntimeEnvironment.application)
-            assertThat(timeZone).isEqualTo(expectedTimeZone)
+            assertThat(timeZone).isEqualTo(testTimeZone)
         }
     }
 
