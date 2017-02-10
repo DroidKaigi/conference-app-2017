@@ -2,6 +2,7 @@ package io.github.droidkaigi.confsched2017.util;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.text.TextUtils;
@@ -33,12 +34,18 @@ public class LocaleUtil {
         setLocale(context, getCurrentLanguageId(context));
     }
 
+    @SuppressWarnings("deprecation")
     public static void setLocale(Context context, String languageId) {
         Configuration config = new Configuration();
         DefaultPrefs.get(context).putLanguageId(languageId);
         Locale locale = new Locale(languageId);
         Locale.setDefault(locale);
-        config.locale = locale;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            config.setLocale(locale);
+        } else {
+            config.locale = locale;
+        }
+        // updateConfiguration, deprecated in API 25.
         context.getResources().updateConfiguration(config, context.getResources().getDisplayMetrics());
     }
 
