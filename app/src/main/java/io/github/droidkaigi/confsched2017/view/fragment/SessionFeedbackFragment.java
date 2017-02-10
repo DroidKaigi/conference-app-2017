@@ -100,11 +100,15 @@ public class SessionFeedbackFragment extends BaseFragment implements SessionFeed
 
     public void onSubmitSuccess() {
         // TODO: show success action
+        if (isDetached())
+            return;
         Toast.makeText(getContext(), "submit success", Toast.LENGTH_SHORT).show();
     }
 
     public void onSubmitFailure() {
         // TODO: show failure action
+        if (isDetached())
+            return;
         Toast.makeText(getContext(), "submit failure", Toast.LENGTH_SHORT).show();
     }
 }
