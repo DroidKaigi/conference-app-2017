@@ -22,7 +22,7 @@ import timber.log.Timber;
 
 public class LocaleUtil {
 
-    private static Locale DEFAULT_LANG = Locale.ENGLISH;
+    private static final Locale DEFAULT_LANG = Locale.ENGLISH;
     public static final List<Locale> SUPPORT_LANG = Arrays.asList(Locale.JAPANESE, Locale.ENGLISH);
 
     private static final String TAG = LocaleUtil.class.getSimpleName();
@@ -66,11 +66,13 @@ public class LocaleUtil {
         return context.getString(getLanguage(LocaleUtil.getCurrentLanguageId(context)));
     }
 
-    public static @StringRes int getLanguage(@NonNull Locale locale) {
+    @StringRes
+    public static int getLanguage(@NonNull Locale locale) {
         return getLanguage(getLocaleLanguageId(locale));
     }
 
-    public static @StringRes int getLanguage(@NonNull String languageId) {
+    @StringRes
+    public static int getLanguage(@NonNull String languageId) {
         if (TextUtils.equals(languageId, getLocaleLanguageId(Locale.ENGLISH))) {
             return R.string.lang_en;
         } else if (TextUtils.equals(languageId, getLocaleLanguageId(Locale.JAPANESE))) {

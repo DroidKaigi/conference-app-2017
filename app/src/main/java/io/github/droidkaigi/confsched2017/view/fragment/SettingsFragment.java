@@ -1,5 +1,8 @@
 package io.github.droidkaigi.confsched2017.view.fragment;
 
+import com.annimon.stream.Collectors;
+import com.annimon.stream.Stream;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -18,7 +21,6 @@ import io.github.droidkaigi.confsched2017.databinding.FragmentSettingsBinding;
 import io.github.droidkaigi.confsched2017.util.LocaleUtil;
 import io.github.droidkaigi.confsched2017.view.activity.MainActivity;
 import io.github.droidkaigi.confsched2017.viewmodel.SettingsViewModel;
-import io.reactivex.Observable;
 import timber.log.Timber;
 
 public class SettingsFragment extends BaseFragment implements SettingsViewModel.Callback {
@@ -62,15 +64,13 @@ public class SettingsFragment extends BaseFragment implements SettingsViewModel.
     @Override
     public void showLanguagesDialog() {
         List<Locale> locales = LocaleUtil.SUPPORT_LANG;
-        List<String> languages = Observable.fromIterable(locales)
+        List<String> languages = Stream.of(locales)
                 .map(locale -> getString(LocaleUtil.getLanguage(locale)))
-                .toList()
-                .blockingGet();
+                .collect(Collectors.toList());
 
-        List<String> languageIds = Observable.fromIterable(locales)
+        List<String> languageIds = Stream.of(locales)
                 .map(LocaleUtil::getLocaleLanguageId)
-                .toList()
-                .blockingGet();
+                .collect(Collectors.toList());
 
         String currentLanguageId = LocaleUtil.getCurrentLanguageId(getActivity());
         Timber.tag(TAG).d("current language_id: " + currentLanguageId);
