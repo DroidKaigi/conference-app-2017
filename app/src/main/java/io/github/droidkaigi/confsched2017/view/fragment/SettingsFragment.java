@@ -1,5 +1,9 @@
 package io.github.droidkaigi.confsched2017.view.fragment;
 
+import com.annimon.stream.Collectors;
+import com.annimon.stream.Stream;
+
+import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,10 +11,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+import java.util.Locale;
+
 import javax.inject.Inject;
 
+import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.databinding.FragmentSettingsBinding;
+import io.github.droidkaigi.confsched2017.util.LocaleUtil;
+import io.github.droidkaigi.confsched2017.view.activity.MainActivity;
 import io.github.droidkaigi.confsched2017.viewmodel.SettingsViewModel;
+import timber.log.Timber;
 
 public class SettingsFragment extends BaseFragment implements SettingsViewModel.Callback {
 
@@ -49,4 +60,45 @@ public class SettingsFragment extends BaseFragment implements SettingsViewModel.
     public void changeHeadsUpEnabled(boolean enabled) {
         binding.headsUpSwitchRow.setEnabled(enabled);
     }
+
+    @Override
+    public void showLanguagesDialog() {
+        List<Locale> locales = LocaleUtil.SUPPORT_LANG;
+        List<String> languages = Stream.of(locales)
+                .map(locale -> LocaleUtil.getDisplayLanguage(getContext(), locale))
+                .collect(Collectors.toList());
+
+        List<String> languageIds = Stream.of(locales)
+                .map(LocaleUtil::getLocaleLanguageId)
+                .collect(Collectors.toList());
+
+        String currentLanguageId = LocaleUtil.getCurrentLanguageId(getActivity());
+        Timber.tag(TAG).d("current language_id: " + currentLanguageId);
+        Timber.tag(TAG).d("languageIds: " + languageIds.toString());
+
+        int defaultItem = languageIds.indexOf(currentLanguageId);
+        Timber.tag(TAG).d("current language_id index: " + defaultItem);
+
+        String[] items = languages.toArray(new String[languages.size()]);
+        new AlertDialog.Builder(getActivity())
+                .setTitle(R.string.settings_language)
+                .setSingleChoiceItems(items, defaultItem, (dialog, which) -> {
+                    String selectedLanguageId = languageIds.get(which);
+                    if (!currentLanguageId.equals(selectedLanguageId)) {
+                        Timber.tag(TAG).d("Selected language_id: " + selectedLanguageId);
+                        LocaleUtil.setLocale(getActivity(), selectedLanguageId);
+                        dialog.dismiss();
+                        restart();
+                    }
+                })
+                .setNegativeButton(android.R.string.cancel, null)
+                .show();
+    }
+
+    private void restart() {
+        getActivity().finish();
+        MainActivity.start(getActivity());
+        getActivity().overridePendingTransition(0, 0);
+    }
+
 }

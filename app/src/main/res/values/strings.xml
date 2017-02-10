@@ -10,8 +10,14 @@
 
     <string name="close">Close</string>
 
-    <string name="lang_en">English</string>
-    <string name="lang_ja">Japanese</string>
+    <string name="lang_en_in_en" translatable="false">English</string>
+    <string name="lang_ja_in_en" translatable="false">Japanese</string>
+
+    <string name="lang_en_in_ja" translatable="false">英語</string>
+    <string name="lang_ja_in_ja" translatable="false">日本語</string>
+
+    <string name="lang_en">@string/lang_en_in_en</string>
+    <string name="lang_ja">@string/lang_ja_in_en</string>
 
     <string name="sessions">Sessions</string>
     <string name="map">Map</string>
@@ -37,6 +43,8 @@
     <string name="start_navigation">Start Navigation</string>
 
     <!-- Settings -->
+    <string name="settings_language">Change language</string>
+    <string name="settings_language_description">Choose language in this app. After changed, app will restart.</string>
     <string name="settings_notification_group">Notification</string>
     <string name="settings_notification">Notification</string>
     <string name="settings_notification_description">Choose whether to receive notification in this app.</string>
