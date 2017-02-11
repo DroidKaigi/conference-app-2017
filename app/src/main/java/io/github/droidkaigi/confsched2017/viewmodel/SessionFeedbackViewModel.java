@@ -21,7 +21,6 @@ import io.reactivex.Single;
 import retrofit2.Response;
 
 
-
 public final class SessionFeedbackViewModel extends BaseObservable implements ViewModel {
 
     private final Context context;
@@ -36,8 +35,11 @@ public final class SessionFeedbackViewModel extends BaseObservable implements Vi
 
     private Callback callback;
 
+    private int ranking1;
+
     @Inject
-    SessionFeedbackViewModel(Context context, SessionsRepository sessionsRepository, SessionFeedbackRepository sessionFeedbackRepository) {
+    SessionFeedbackViewModel(Context context, SessionsRepository sessionsRepository,
+            SessionFeedbackRepository sessionFeedbackRepository) {
         this.context = context;
         this.sessionsRepository = sessionsRepository;
         this.sessionFeedbackRepository = sessionFeedbackRepository;
@@ -80,6 +82,15 @@ public final class SessionFeedbackViewModel extends BaseObservable implements Vi
 
     public Single<Response<Void>> submitSessionFeedback(SessionFeedback sessionFeedback) {
         return sessionFeedbackRepository.submit(sessionFeedback);
+    }
+
+    @Bindable
+    public int getRanking1() {
+        return ranking1;
+    }
+
+    public void setRanking1(int ranking1) {
+        this.ranking1 = ranking1;
     }
 
     public void setCallback(@NonNull Callback callback) {

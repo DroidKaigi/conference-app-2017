@@ -181,6 +181,7 @@ dependencies {
     compile "com.android.support:support-annotations:${support_lib_version}"
     compile "com.android.support:design:${support_lib_version}"
     compile "com.android.support:recyclerview-v7:${support_lib_version}"
+    compile "com.android.support:cardview-v7:${support_lib_version}"
     compile "com.android.support:customtabs:${support_lib_version}"
     compile "com.android.support:support-vector-drawable:${support_lib_version}"
     compile "com.android.support:animated-vector-drawable:${support_lib_version}"
@@ -219,7 +220,6 @@ dependencies {
     annotationProcessor 'com.rejasupotaro:kvs-schema-compiler:5.0.1'
     compile 'com.github.sys1yagi.fragment-creator:library:0.8.2'
     annotationProcessor 'com.github.sys1yagi.fragment-creator:processor:0.8.2'
-
 
     // UI
     compile 'org.lucasr.twowayview:core:1.0.0-SNAPSHOT@aar'

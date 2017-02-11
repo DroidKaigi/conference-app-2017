@@ -11,4 +11,10 @@
         <attr name="infoDescription" format="string" />
     </declare-styleable>
 
+    <declare-styleable name="FeedbackRankingView">
+        <attr name="rankingMaxSize" format="integer" />
+        <attr name="rankingLabelStart" format="string" />
+        <attr name="rankingLabelEnd" format="string" />
+    </declare-styleable>
+
 </resources>

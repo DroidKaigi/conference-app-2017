@@ -29,10 +29,18 @@
     <dimen name="line_2dp">2dp</dimen>
 
 
+    <!-- Border -->
+    <dimen name="border_1dp">1dp</dimen>
+
+
     <!-- Elevation -->
     <dimen name="elevation_2dp">2dp</dimen>
     <dimen name="elevation_4dp">4dp</dimen>
     <dimen name="elevation_6dp">6dp</dimen>
+
+
+    <!-- Radius -->
+    <dimen name="radius_4dp">4dp</dimen>
 
 
     <!-- Component -->
@@ -55,6 +63,10 @@
     <dimen name="user_image_border">1dp</dimen>
 
     <dimen name="detail_header_height">200dp</dimen>
+
+
+    <!-- Feedback -->
+    <dimen name="feedback_ranking_size">48dp</dimen>
 
 
     <!-- Information -->
