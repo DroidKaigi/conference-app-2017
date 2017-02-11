@@ -19,7 +19,7 @@ class TopicColorTest {
         // invalid topic id
         run {
             assertThat(TopicColor.from(Topic().apply { id = -1 })).isEqualTo(TopicColor.NONE)
-            assertThat(TopicColor.from(Topic().apply { id = 10 })).isEqualTo(TopicColor.NONE)
+            assertThat(TopicColor.from(Topic().apply { id = TopicColor.values().size })).isEqualTo(TopicColor.NONE)
         }
 
         // valid topic id
