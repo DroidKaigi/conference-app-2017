@@ -6,21 +6,15 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
-import javax.inject.Inject;
-
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.databinding.ActivitySessionFeedbackBinding;
 import io.github.droidkaigi.confsched2017.view.fragment.SessionFeedbackFragmentCreator;
-import io.github.droidkaigi.confsched2017.viewmodel.SessionFeedbackViewModel;
 
 public class SessionFeedbackActivity extends BaseActivity {
 
     private static final String TAG = SessionFeedbackActivity.class.getSimpleName();
 
     private static final String EXTRA_SESSION_ID = "session_id";
-
-    @Inject
-    SessionFeedbackViewModel viewModel;
 
     private ActivitySessionFeedbackBinding binding;
 
