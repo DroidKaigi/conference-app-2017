@@ -3,7 +3,6 @@ package io.github.droidkaigi.confsched2017.viewmodel;
 import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 
-import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.databinding.ObservableArrayList;
@@ -20,6 +19,7 @@ import io.github.droidkaigi.confsched2017.BR;
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.di.scope.FragmentScope;
 import io.github.droidkaigi.confsched2017.repository.contributors.ContributorsRepository;
+import io.github.droidkaigi.confsched2017.view.helper.ResourceResolver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -31,7 +31,7 @@ public final class ContributorsViewModel extends BaseObservable implements ViewM
 
     public static final String TAG = ContributorsViewModel.class.getSimpleName();
 
-    private final Context context;
+    private final ResourceResolver resourceResolver;
 
     private final ToolbarViewModel toolbarViewModel;
 
@@ -49,9 +49,9 @@ public final class ContributorsViewModel extends BaseObservable implements ViewM
     private Callback callback;
 
     @Inject
-    ContributorsViewModel(Context context, ToolbarViewModel toolbarViewModel, ContributorsRepository contributorsRepository,
-            CompositeDisposable compositeDisposable) {
-        this.context = context;
+    ContributorsViewModel(ResourceResolver resourceResolver, ToolbarViewModel toolbarViewModel,
+            ContributorsRepository contributorsRepository, CompositeDisposable compositeDisposable) {
+        this.resourceResolver = resourceResolver;
         this.toolbarViewModel = toolbarViewModel;
         this.contributorsRepository = contributorsRepository;
         this.compositeDisposable = compositeDisposable;
@@ -130,8 +130,8 @@ public final class ContributorsViewModel extends BaseObservable implements ViewM
         viewModels.clear();
         viewModels.addAll(contributorViewModels);
 
-        String title = context.getString(R.string.contributors) + " "
-                + context.getString(R.string.contributors_people, contributorViewModels.size());
+        String title = resourceResolver.getString(R.string.contributors) + " "
+                + resourceResolver.getString(R.string.contributors_people, contributorViewModels.size());
         toolbarViewModel.setToolbarTitle(title);
 
         setLoadingVisibility(View.GONE);
