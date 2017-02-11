@@ -23,17 +23,19 @@ public class AppShortcutsUtil {
     public static void addShortcuts(@NonNull Context context) {
         ShortcutManager shortcutManager = (ShortcutManager) context.getSystemService(Context.SHORTCUT_SERVICE);
 
-        Intent[] intents = {
-                new Intent(context.getApplicationContext(), MainActivity.class).setAction(Intent.ACTION_DEFAULT),
-                new Intent(context.getApplicationContext(), SearchActivity.class).setAction(Intent.ACTION_DEFAULT)
-        };
+        if (shortcutManager != null) {
+            Intent[] intents = {
+                    new Intent(context.getApplicationContext(), MainActivity.class).setAction(Intent.ACTION_DEFAULT),
+                    new Intent(context.getApplicationContext(), SearchActivity.class).setAction(Intent.ACTION_DEFAULT)
+            };
 
-        ShortcutInfo shortcutInfo = new ShortcutInfo.Builder(context, APP_SHORTCUTS_SEARCH_ID)
-                .setShortLabel(context.getString(R.string.shortcut_search_title))
-                .setIcon(Icon.createWithResource(context, R.drawable.ic_shortcut_search_24_vector))
-                .setIntents(intents)
-                .build();
+            ShortcutInfo shortcutInfo = new ShortcutInfo.Builder(context, APP_SHORTCUTS_SEARCH_ID)
+                    .setShortLabel(context.getString(R.string.shortcut_search_title))
+                    .setIcon(Icon.createWithResource(context, R.drawable.ic_shortcut_search_24_vector))
+                    .setIntents(intents)
+                    .build();
 
-        shortcutManager.addDynamicShortcuts(Collections.singletonList(shortcutInfo));
+            shortcutManager.addDynamicShortcuts(Collections.singletonList(shortcutInfo));
+        }
     }
 }
