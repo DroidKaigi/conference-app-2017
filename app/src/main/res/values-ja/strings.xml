@@ -49,4 +49,6 @@
     <!-- Notification -->
     <string name="notitication_title">%1$s がもうすぐ始まります。</string>
     <string name="notification_message">%1$s ~ %2$s @ %3$s</string>
+    <!-- App Shortcuts -->
+    <string name="shortcut_search_title">検索</string>
 </resources>
