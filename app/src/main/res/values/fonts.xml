@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="font_noto_cjk_light">fonts/GenShinGothic-P-Light.ttf</string>
-    <string name="font_noto_cjk_medium">fonts/GenShinGothic-P-Medium.ttf</string>
-    <string name="font_noto_cjk_regular">fonts/GenShinGothic-P-Regular.ttf</string>
+    <string name="font_noto_cjk_light" translatable="false">fonts/GenShinGothic-P-Light.ttf</string>
+    <string name="font_noto_cjk_medium" translatable="false">fonts/GenShinGothic-P-Medium.ttf</string>
+    <string name="font_noto_cjk_regular" translatable="false">fonts/GenShinGothic-P-Regular.ttf</string>
 
 </resources>
