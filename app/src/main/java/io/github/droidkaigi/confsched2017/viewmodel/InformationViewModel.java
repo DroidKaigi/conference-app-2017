@@ -34,7 +34,7 @@ public final class InformationViewModel implements ViewModel {
 
     public void onClickQuestionnaire(@SuppressWarnings("unused") View view) {
         if (callback != null) {
-            callback.showQuesionnairePage();
+            callback.showQuestionnairePage();
         }
     }
 
@@ -101,7 +101,7 @@ public final class InformationViewModel implements ViewModel {
 
         void showSponsorsPage();
 
-        void showQuesionnairePage();
+        void showQuestionnairePage();
 
         void showContributorsPage();
 
