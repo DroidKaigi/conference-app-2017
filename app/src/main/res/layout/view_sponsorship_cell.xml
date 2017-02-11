@@ -24,13 +24,12 @@
 
         <TextView
                 android:id="@+id/txt_sponsor_category"
-                style="@style/TextBody2"
+                style="@style/TextSubheading"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/session_table_header_row_height"
                 android:gravity="center"
                 android:text="@{viewModel.category}"
                 android:textColor="@color/black"
-                android:textStyle="bold"
                 />
 
         <android.support.v7.widget.RecyclerView
