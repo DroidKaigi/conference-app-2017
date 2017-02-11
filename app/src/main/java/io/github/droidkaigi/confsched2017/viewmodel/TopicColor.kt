@@ -1,18 +1,21 @@
-package io.github.droidkaigi.confsched2017.viewmodel;
+package io.github.droidkaigi.confsched2017.viewmodel
 
-import android.support.annotation.ColorRes;
-import android.support.annotation.Nullable;
-import android.support.annotation.StyleRes;
+import android.support.annotation.ColorRes
+import android.support.annotation.StyleRes
 
-import io.github.droidkaigi.confsched2017.R;
-import io.github.droidkaigi.confsched2017.model.Topic;
+import io.github.droidkaigi.confsched2017.R
+import io.github.droidkaigi.confsched2017.model.Topic
 
 /**
  * Topic ID corresponds to the order of enum.
  * TODO There is not the specification document about topic id yet.
  * But you can see raw json data https://droidkaigi.github.io/2017/sessions.json
  */
-enum TopicColor {
+enum class TopicColor(
+        @JvmField @ColorRes val paleColorResId: Int,
+        @JvmField @ColorRes val middleColorResId: Int,
+        @JvmField @ColorRes val vividColorResId: Int,
+        @JvmField @StyleRes val themeId: Int) {
 
     NONE(R.color.purple_alpha_15, R.color.purple_alpha_50,
             R.color.purple, R.style.AppTheme_NoActionBar_Purple),
@@ -38,36 +41,16 @@ enum TopicColor {
     OTHER(R.color.purple_alpha_15, R.color.purple_alpha_50,
             R.color.purple, R.style.AppTheme_NoActionBar_Purple);
 
-    @ColorRes
-    public int paleColorResId;
-
-    @ColorRes
-    public int middleColorResId;
-
-    @ColorRes
-    public int vividColorResId;
-
-    @StyleRes
-    public int themeId;
-
-    TopicColor(@ColorRes int paleColorResId, @ColorRes int middleColorResId,
-            @ColorRes int vividColorResId, @StyleRes int themeId) {
-        this.paleColorResId = paleColorResId;
-        this.middleColorResId = middleColorResId;
-        this.vividColorResId = vividColorResId;
-        this.themeId = themeId;
-    }
-
-    public static TopicColor from(@Nullable Topic topic) {
-        if (topic == null) {
-            return NONE;
-        }
-        if (topic.id < 0) {
-            return NONE;
-        }
-        if (topic.id >= TopicColor.values().length) {
-            return NONE;
-        }
-        return TopicColor.values()[topic.id];
+    companion object {
+        @JvmStatic
+        fun from(topic: Topic?) =
+                topic?.let {
+                    when {
+                        it.id < 0 || it.id >= TopicColor.values().size ->
+                            NONE
+                        else ->
+                            TopicColor.values()[it.id]
+                    }
+                } ?: NONE
     }
 }

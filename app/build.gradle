@@ -220,6 +220,8 @@ dependencies {
     compile 'com.github.sys1yagi.fragment-creator:library:0.8.2'
     annotationProcessor 'com.github.sys1yagi.fragment-creator:processor:0.8.2'
 
+    // Kotlin
+    compile "org.jetbrains.kotlin:kotlin-stdlib:1.0.6"
 
     // UI
     compile 'org.lucasr.twowayview:core:1.0.0-SNAPSHOT@aar'
@@ -246,7 +248,6 @@ dependencies {
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
     androidTestCompile 'com.android.support.test.espresso:espresso-intents:2.2.2'
     testCompile 'junit:junit:4.12'
-    testCompile "org.jetbrains.kotlin:kotlin-stdlib:1.0.6"
     testCompile "org.jetbrains.kotlin:kotlin-test-junit:1.0.6"
     testCompile 'com.taroid.knit:knit:0.1.2'
     testCompile 'com.github.sys1yagi:kmockito:0.1.2'
@@ -320,6 +321,12 @@ dependencyUpdates.resolutionStrategy = {
                 selection.reject('Release candidate')
             }
         }
+    }
+}
+
+configurations.all {
+    resolutionStrategy {
+        force "org.jetbrains.kotlin:kotlin-stdlib:1.0.6"
     }
 }
 

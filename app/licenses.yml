@@ -153,3 +153,11 @@
   name: debot
   copyrightHolder: Tomoaki Imai
   license: The Apache License, Version 2.0
+- artifact: org.jetbrains.kotlin:kotlin-runtime:+
+  name: kotlin-runtime
+  copyrightHolder: JetBrains s.r.o.
+  license: The Apache Software License, Version 2.0
+- artifact: org.jetbrains.kotlin:kotlin-stdlib:+
+  name: kotlin-stdlib
+  copyrightHolder: JetBrains s.r.o.
+  license: The Apache Software License, Version 2.0
