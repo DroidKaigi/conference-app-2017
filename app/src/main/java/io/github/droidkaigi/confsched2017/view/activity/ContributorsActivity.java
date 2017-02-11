@@ -10,13 +10,19 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import javax.inject.Inject;
+
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.databinding.ActivityContributorsBinding;
 import io.github.droidkaigi.confsched2017.view.fragment.ContributorsFragment;
+import io.github.droidkaigi.confsched2017.viewmodel.ToolbarViewModel;
 
 public class ContributorsActivity extends BaseActivity {
 
     private ActivityContributorsBinding binding;
+
+    @Inject
+    ToolbarViewModel viewModel;
 
     public static void start(@NonNull Activity activity) {
         Intent intent = new Intent(activity, ContributorsActivity.class);
@@ -26,10 +32,13 @@ public class ContributorsActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_contributors);
         getComponent().inject(this);
 
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_contributors);
+        binding.setViewModel(viewModel);
+
         initBackToolbar(binding.toolbar);
+        viewModel.setToolbarTitle(getString(R.string.contributors));
         replaceFragment(ContributorsFragment.newInstance(), R.id.content_view);
     }
 
