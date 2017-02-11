@@ -174,8 +174,8 @@ public class SearchFragment extends BaseFragment implements SearchViewModel.Call
     }
 
     @Override
-    public void close() {
-        getActivity().finish();
+    public void closeSearchResultList() {
+        adapter.clearAllResults();
     }
 
     @Override
@@ -216,6 +216,11 @@ public class SearchFragment extends BaseFragment implements SearchViewModel.Call
 
         String getPreviousSearchText() {
             return previousSearchText;
+        }
+
+        void clearAllResults() {
+            clear();
+            notifyDataSetChanged();
         }
 
         @Override
