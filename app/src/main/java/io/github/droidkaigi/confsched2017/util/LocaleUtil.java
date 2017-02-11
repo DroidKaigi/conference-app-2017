@@ -85,11 +85,11 @@ public class LocaleUtil {
             if (resourceId > 0) {
                 return context.getString(resourceId);
             } else {
-                Timber.tag(TAG).d("String resource id: " + resName + " is not found.");
+                Timber.tag(TAG).d("String resource id: %s is not found.", resName);
                 return "";
             }
         } catch (Exception e) {
-            Timber.tag(TAG).e("String resource id: " + resName + " is not found.", e);
+            Timber.tag(TAG).e(e, "String resource id: %s is not found.", resName);
             return "";
         }
     }
@@ -113,7 +113,7 @@ public class LocaleUtil {
         try {
             return formatLocal.parse(formatTokyo.format(date));
         } catch (ParseException e) {
-            Timber.tag(TAG).e(e, "date: " + date + "can not parse.");
+            Timber.tag(TAG).e(e, "date: %s can not parse.", date.toString());
             return date;
         }
     }
