@@ -30,7 +30,6 @@
     <string name="session_detail">Session Detail</string>
     <string name="speaker">Speaker</string>
     <string name="session_time_range">%1$s - %2$s (%3$d min)</string>
-    <string name="title">Title</string>
     <string name="description">Description</string>
     <string name="slide_and_video">Slide＆Video</string>
     <string name="send_feedback">Send feedback</string>
