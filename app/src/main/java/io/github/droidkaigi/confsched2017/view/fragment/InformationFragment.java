@@ -60,17 +60,17 @@ public class InformationFragment extends BaseFragment implements InformationView
 
     @Override
     public void showSponsorsPage() {
-        SponsorsActivity.start(getActivity());
+        startActivity(SponsorsActivity.createIntent(getActivity()));
     }
 
     @Override
-    public void showQuesionnairePage() {
+    public void showQuestionnairePage() {
         // TODO
     }
 
     @Override
     public void showContributorsPage() {
-        ContributorsActivity.start(getActivity());
+        startActivity(ContributorsActivity.createIntent(getActivity()));
     }
 
     @Override
@@ -80,7 +80,7 @@ public class InformationFragment extends BaseFragment implements InformationView
 
     @Override
     public void showLicensePage() {
-        LicensesActivity.start(getActivity());
+        startActivity(LicensesActivity.createIntent(getActivity()));
     }
 
     @Override

@@ -3,6 +3,14 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         >
 
+    <data>
+
+        <variable
+                name="viewModel"
+                type="io.github.droidkaigi.confsched2017.viewmodel.ToolbarViewModel"
+                />
+    </data>
+
     <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -13,7 +21,7 @@
                 style="@style/BaseToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:title="@string/contributors"
+                app:title="@{viewModel.toolbarTitle}"
                 />
 
         <FrameLayout

@@ -73,11 +73,11 @@ public class SettingsFragment extends BaseFragment implements SettingsViewModel.
                 .collect(Collectors.toList());
 
         String currentLanguageId = LocaleUtil.getCurrentLanguageId(getActivity());
-        Timber.tag(TAG).d("current language_id: " + currentLanguageId);
-        Timber.tag(TAG).d("languageIds: " + languageIds.toString());
+        Timber.tag(TAG).d("current language_id: %s", currentLanguageId);
+        Timber.tag(TAG).d("languageIds: %s", languageIds.toString());
 
         int defaultItem = languageIds.indexOf(currentLanguageId);
-        Timber.tag(TAG).d("current language_id index: " + defaultItem);
+        Timber.tag(TAG).d("current language_id index: %s", defaultItem);
 
         String[] items = languages.toArray(new String[languages.size()]);
         new AlertDialog.Builder(getActivity())
@@ -85,7 +85,7 @@ public class SettingsFragment extends BaseFragment implements SettingsViewModel.
                 .setSingleChoiceItems(items, defaultItem, (dialog, which) -> {
                     String selectedLanguageId = languageIds.get(which);
                     if (!currentLanguageId.equals(selectedLanguageId)) {
-                        Timber.tag(TAG).d("Selected language_id: " + selectedLanguageId);
+                        Timber.tag(TAG).d("Selected language_id: %s", selectedLanguageId);
                         LocaleUtil.setLocale(getActivity(), selectedLanguageId);
                         dialog.dismiss();
                         restart();
@@ -97,7 +97,7 @@ public class SettingsFragment extends BaseFragment implements SettingsViewModel.
 
     private void restart() {
         getActivity().finish();
-        MainActivity.start(getActivity());
+        startActivity(MainActivity.createIntent(getActivity()));
         getActivity().overridePendingTransition(0, 0);
     }
 

@@ -33,6 +33,8 @@
     <string name="info_questionnaire_description">DroidKaigiをより良くするためにアンケートにご協力ください。</string>
     <string name="info_license_title">ライセンス</string>
     <string name="info_license_description">このアプリは多くの素晴らしいライブラリを利用してます。作者のみなさま、ありがとうございます！</string>
+    <string name="info_contributors_description">このアプリの素晴らしいコントリビュータの方達です。</string>
+    <string name="info_help_translate">翻訳を手伝っていただけるとありがたいです!</string>
     <string name="info_dev_info_title">開発情報</string>
     <!-- Sponsors -->
     <string name="sponsors">スポンサー</string>
@@ -40,12 +42,12 @@
     <!-- Contributors -->
     <string name="contributors">コントリビュータ</string>
     <string name="contributors_people">(%1$d人)</string>
+    <!-- Help Translate -->
+    <string name="help_translate">翻訳のお手伝い</string>
     <!-- Licenses -->
     <string name="licenses">オープンソースライセンス</string>
     <!-- Session feedback -->
     <string name="session_feedback">セッションフィードバック</string>
-    <string name="info_sponsors_title">スポンサー</string>
-    <string name="info_contributors_title">コントリビュータ</string>
     <!-- Notification -->
     <string name="notitication_title">%1$s がもうすぐ始まります。</string>
     <string name="notification_message">%1$s ~ %2$s @ %3$s</string>

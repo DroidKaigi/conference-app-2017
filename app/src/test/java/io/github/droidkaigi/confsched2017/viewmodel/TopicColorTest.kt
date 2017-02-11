@@ -19,13 +19,16 @@ class TopicColorTest {
         // invalid topic id
         run {
             assertThat(TopicColor.from(Topic().apply { id = -1 })).isEqualTo(TopicColor.NONE)
-            assertThat(TopicColor.from(Topic().apply { id = 10 })).isEqualTo(TopicColor.NONE)
+            assertThat(TopicColor.from(Topic().apply { id = TopicColor.values().size })).isEqualTo(TopicColor.NONE)
         }
 
         // valid topic id
         // TODO There is not the specification document about topic id yet.
         // So, now just see raw json data. https://droidkaigi.github.io/2017/sessions.json
         run {
+            assertThat(TopicColor.from(Topic().apply { id = 0 }))
+                    .isEqualTo(TopicColor.NONE)
+
             assertThat(TopicColor.from(Topic().apply { id = 1 }))
                     .isEqualTo(TopicColor.PRODUCTIVITY_AND_TOOLING)
 

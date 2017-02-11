@@ -1,0 +1,28 @@
+<resources>
+
+    <style name="FeedbackRanking">
+        <item name="android:layout_width">@dimen/feedback_ranking_size</item>
+        <item name="android:layout_height">@dimen/feedback_ranking_size</item>
+        <item name="android:background">@drawable/bg_feedback_circle</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:lines">1</item>
+        <item name="android:textColor">@color/feedback_circle_text</item>
+        <item name="android:textAppearance">@style/TextSubheading</item>
+    </style>
+
+    <style name="FeedbackTitle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAppearance">@style/TextBody2</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="FeedbackRankingLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAppearance">@style/TextCaption</item>
+        <item name="android:textColor">@color/grey500</item>
+    </style>
+
+</resources>

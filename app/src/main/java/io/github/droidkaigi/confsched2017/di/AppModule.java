@@ -8,6 +8,7 @@ import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.support.annotation.StringRes;
 
 import javax.inject.Singleton;
 
@@ -19,6 +20,7 @@ import io.github.droidkaigi.confsched2017.api.service.GithubService;
 import io.github.droidkaigi.confsched2017.api.service.GoogleFormService;
 import io.github.droidkaigi.confsched2017.model.OrmaDatabase;
 import io.github.droidkaigi.confsched2017.pref.DefaultPrefs;
+import io.github.droidkaigi.confsched2017.view.helper.ResourceResolver;
 import io.reactivex.disposables.CompositeDisposable;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -102,6 +104,21 @@ public class AppModule {
                 .addConverterFactory(GsonConverterFactory.create(createGson()))
                 .build()
                 .create(GoogleFormService.class);
+    }
+
+    @Provides
+    public ResourceResolver provideResourceResolver(final Context context) {
+        return new ResourceResolver() {
+            @Override
+            public String getString(@StringRes int resId) {
+                return context.getString(resId);
+            }
+
+            @Override
+            public String getString(@StringRes int resId, Object... formatArgs) {
+                return context.getString(resId, formatArgs);
+            }
+        };
     }
 
     private static Gson createGson() {
