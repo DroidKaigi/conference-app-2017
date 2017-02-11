@@ -72,5 +72,5 @@
     <!-- Sponsor -->
     <dimen name="sponsor_image_height">80dp</dimen>
     <dimen name="sponsor_image_margin">@dimen/space_8dp</dimen>
-    <dimen name="sponsor_image_border">4dp</dimen>
+    <dimen name="sponsor_image_border">2dp</dimen>
 </resources>

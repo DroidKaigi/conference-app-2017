@@ -24,11 +24,10 @@
 
         <ImageView
                 android:id="@+id/sponsor_logo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/sponsor_image_height"
                 android:layout_centerInParent="true"
                 android:background="@drawable/rectangle_border_grey200"
-                android:maxHeight="@dimen/sponsor_image_height"
                 android:padding="@dimen/sponsor_image_margin"
                 android:scaleType="centerInside"
                 app:photoImageUrl="@{viewModel.sponsor.imageUrl}"
