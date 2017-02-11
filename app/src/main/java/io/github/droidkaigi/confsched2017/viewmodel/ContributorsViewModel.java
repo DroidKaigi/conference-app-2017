@@ -3,6 +3,7 @@ package io.github.droidkaigi.confsched2017.viewmodel;
 import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 
+import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.databinding.ObservableArrayList;
@@ -16,15 +17,27 @@ import java.util.List;
 import javax.inject.Inject;
 
 import io.github.droidkaigi.confsched2017.BR;
+import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.di.scope.FragmentScope;
 import io.github.droidkaigi.confsched2017.repository.contributors.ContributorsRepository;
-import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 @FragmentScope
 public final class ContributorsViewModel extends BaseObservable implements ViewModel, ContributorViewModel.Callback {
 
+    public static final String TAG = ContributorsViewModel.class.getSimpleName();
+
+    private final Context context;
+
+    private final ToolbarViewModel toolbarViewModel;
+
     private final ContributorsRepository contributorsRepository;
+
+    private final CompositeDisposable compositeDisposable;
 
     private ObservableList<ContributorViewModel> viewModels;
 
@@ -36,8 +49,12 @@ public final class ContributorsViewModel extends BaseObservable implements ViewM
     private Callback callback;
 
     @Inject
-    ContributorsViewModel(ContributorsRepository contributorsRepository) {
+    ContributorsViewModel(Context context, ToolbarViewModel toolbarViewModel, ContributorsRepository contributorsRepository,
+            CompositeDisposable compositeDisposable) {
+        this.context = context;
+        this.toolbarViewModel = toolbarViewModel;
         this.contributorsRepository = contributorsRepository;
+        this.compositeDisposable = compositeDisposable;
         this.viewModels = new ObservableArrayList<>();
     }
 
@@ -45,28 +62,13 @@ public final class ContributorsViewModel extends BaseObservable implements ViewM
         this.callback = callback;
     }
 
-    @Override
-    public void destroy() {
+    public void start() {
+        loadContributors(false);
     }
 
-    public Single<List<ContributorViewModel>> getContributors(boolean refresh) {
-        if (refresh) {
-            contributorsRepository.setDirty(true);
-        }
-        return contributorsRepository.findAll()
-                .map(contributors -> Stream.of(contributors).map(contributor -> {
-                    ContributorViewModel viewModel = new ContributorViewModel(contributor);
-                    viewModel.setCallback(this);
-                    return viewModel;
-                }).collect(Collectors.toList()))
-                .observeOn(AndroidSchedulers.mainThread())
-                .map(contributorViewModels -> {
-                    this.viewModels.clear();
-                    this.viewModels.addAll(contributorViewModels);
-                    setLoadingVisibility(View.GONE);
-                    setRefreshing(false);
-                    return this.viewModels;
-                });
+    @Override
+    public void destroy() {
+        compositeDisposable.clear();
     }
 
     @Override
@@ -97,19 +99,47 @@ public final class ContributorsViewModel extends BaseObservable implements ViewM
     }
 
     public void onSwipeRefresh() {
-        if (callback != null) {
-            callback.onSwipeRefresh();
-        }
+        loadContributors(true);
     }
 
     public ObservableList<ContributorViewModel> getContributorViewModels() {
         return this.viewModels;
     }
 
+    private void loadContributors(boolean refresh) {
+        if (refresh) {
+            contributorsRepository.setDirty(true);
+        }
+
+        Disposable disposable = contributorsRepository.findAll()
+                .map(contributors -> Stream.of(contributors).map(contributor -> {
+                    ContributorViewModel viewModel = new ContributorViewModel(contributor);
+                    viewModel.setCallback(this);
+                    return viewModel;
+                }).collect(Collectors.toList()))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        this::renderContributors,
+                        throwable -> Timber.tag(TAG).e(throwable, "Failed to show contributors.")
+                );
+        compositeDisposable.add(disposable);
+    }
+
+    private void renderContributors(List<ContributorViewModel> contributorViewModels) {
+        viewModels.clear();
+        viewModels.addAll(contributorViewModels);
+
+        String title = context.getString(R.string.contributors) + " "
+                + context.getString(R.string.contributors_people, contributorViewModels.size());
+        toolbarViewModel.setToolbarTitle(title);
+
+        setLoadingVisibility(View.GONE);
+        setRefreshing(false);
+    }
+
     public interface Callback {
 
         void onClickContributor(String htmlUrl);
-
-        void onSwipeRefresh();
     }
 }
