@@ -1,6 +1,6 @@
 [
   {
-    "category": "Platinum Sponsors",
+    "category": "プラチナスポンサー",
     "sponsors": [
       {
         "site_url": "https://www.cyberagent.co.jp/",
@@ -17,7 +17,7 @@
     ]
   },
   {
-    "category": "Video Sponsor",
+    "category": "動画スポンサー",
     "sponsors": [
       {
         "site_url": "https://realm.io/",
@@ -27,7 +27,7 @@
   },
 
   {
-    "category": "Power Supply Sponsors",
+    "category": "電源スポンサー",
     "sponsors": [
       {
         "site_url": "https://info.cookpad.com/",
@@ -41,7 +41,7 @@
   },
 
   {
-    "category": "Network Sponsors",
+    "category": "ネットワークスポンサー",
     "sponsors": [
       {
         "site_url": "http://jp.corp-sansan.com/",
@@ -55,7 +55,7 @@
   },
 
   {
-    "category": "Lunch Sponsor",
+    "category": "ランチスポンサー",
     "sponsors": [
       {
         "site_url": "https://www.wantedly.com/projects/9983",
@@ -65,7 +65,7 @@
   },
 
   {
-    "category": "Snack Sponsors",
+    "category": "おやつスポンサー",
     "sponsors": [
       {
         "site_url": "https://www.mercari.com/jp/",
@@ -83,7 +83,7 @@
   },
 
   {
-    "category": "Lunch & Snack Sponsors",
+    "category": "ランチ & おやつスポンサー",
     "sponsors": [
       {
         "site_url": "https://hunza.jp/",
@@ -101,7 +101,7 @@
   },
 
   {
-    "category": "Drink Sponsors",
+    "category": "ドリンクスポンサー",
     "sponsors": [
       {
         "site_url": "https://pepabo.com/",
@@ -115,7 +115,7 @@
   },
 
   {
-    "category": ":sushi: Sponsor",
+    "category": "🍣スポンサー",
     "sponsors": [
       {
         "site_url": "https://www.wantedly.com/companies/wantedly/projects?occupation_type=engineer",
@@ -125,7 +125,7 @@
   },
 
   {
-    "category": "Supporters",
+    "category": "サポーター",
     "sponsors": [
       {
         "site_url": "http://speee.jp/",
@@ -170,7 +170,7 @@
     ]
   },
   {
-    "category": "Technical Support for Network",
+    "category": "ネットワーク技術協力",
     "sponsors": [
       {
         "site_url": "https://conbu.net/",
