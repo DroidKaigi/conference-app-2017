@@ -12,5 +12,7 @@ public interface ActivityComponent{
 
     void inject(BaseActivity activity);
 
+    void inject(ContributorsActivity activity);
+
     FragmentComponent plus(FragmentModule module);
 }

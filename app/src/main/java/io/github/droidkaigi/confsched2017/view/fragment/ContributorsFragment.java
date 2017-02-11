@@ -8,13 +8,10 @@ import android.databinding.ObservableList;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -26,10 +23,7 @@ import io.github.droidkaigi.confsched2017.view.customview.BindingHolder;
 import io.github.droidkaigi.confsched2017.view.helper.IntentHelper;
 import io.github.droidkaigi.confsched2017.viewmodel.ContributorViewModel;
 import io.github.droidkaigi.confsched2017.viewmodel.ContributorsViewModel;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
-import timber.log.Timber;
 
 public class ContributorsFragment extends BaseFragment implements ContributorsViewModel.Callback {
 
@@ -39,9 +33,6 @@ public class ContributorsFragment extends BaseFragment implements ContributorsVi
 
     @Inject
     ContributorsViewModel viewModel;
-
-    @Inject
-    CompositeDisposable compositeDisposable;
 
     private FragmentContributorsBinding binding;
 
@@ -64,7 +55,7 @@ public class ContributorsFragment extends BaseFragment implements ContributorsVi
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel.setCallback(this);
-        loadContributors(false);
+        viewModel.start();
     }
 
     @Nullable
@@ -80,7 +71,7 @@ public class ContributorsFragment extends BaseFragment implements ContributorsVi
     @Override
     public void onStop() {
         super.onStop();
-        compositeDisposable.dispose();
+        viewModel.destroy();
     }
 
     private void initView() {
@@ -89,33 +80,10 @@ public class ContributorsFragment extends BaseFragment implements ContributorsVi
         binding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(), COLUMN_COUNT));
     }
 
-    private void renderContributors(List<ContributorViewModel> contributors) {
-        Optional.ofNullable(getActivity())
-                .select(AppCompatActivity.class)
-                .map(AppCompatActivity::getSupportActionBar)
-                .ifPresent(actionBar -> actionBar.setTitle(
-                        getString(R.string.contributors) + " " + getString(R.string.contributors_people, contributors.size())));
-    }
-
     @Override
     public void onClickContributor(String htmlUrl) {
         Optional<Intent> intentOptional = IntentHelper.buildActionViewIntent(getContext(), htmlUrl);
         intentOptional.ifPresent(this::startActivity);
-    }
-
-    @Override
-    public void onSwipeRefresh() {
-        loadContributors(true);
-    }
-
-    private void loadContributors(boolean refresh) {
-        Disposable disposable = viewModel.getContributors(refresh)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        this::renderContributors,
-                        throwable -> Timber.tag(TAG).e(throwable, "Failed to show contributors.")
-                );
-        compositeDisposable.add(disposable);
     }
 
     private static class Adapter
