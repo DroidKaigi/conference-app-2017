@@ -143,4 +143,14 @@
         <item name="fontPath">@string/font_noto_cjk_medium</item>
     </style>
 
+
+    <!--==================== Card ====================-->
+    <style name="BaseCardView">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="cardBackgroundColor">@color/white</item>
+        <item name="cardUseCompatPadding">true</item>
+        <item name="cardCornerRadius">@dimen/radius_4dp</item>
+    </style>
+
 </resources>
