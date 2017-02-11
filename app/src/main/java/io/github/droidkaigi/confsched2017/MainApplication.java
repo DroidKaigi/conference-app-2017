@@ -6,6 +6,7 @@ import com.tomoima.debot.DebotConfigurator;
 import com.tomoima.debot.DebotStrategyBuilder;
 
 import android.app.Application;
+import android.os.Build;
 import android.support.annotation.NonNull;
 
 import javax.inject.Inject;
@@ -18,6 +19,8 @@ import io.github.droidkaigi.confsched2017.di.AppModule;
 import io.github.droidkaigi.confsched2017.di.DaggerAppComponent;
 import io.github.droidkaigi.confsched2017.log.CrashLogTree;
 import io.github.droidkaigi.confsched2017.pref.DefaultPrefs;
+import io.github.droidkaigi.confsched2017.util.AppShortcutsUtil;
+import io.github.droidkaigi.confsched2017.util.LocaleUtil;
 import timber.log.Timber;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
@@ -47,11 +50,13 @@ public class MainApplication extends Application {
         appComponent.inject(this);
         initCalligraphy();
         initLeakCanary();
+        initAppShortcuts();
 
         if (!DeployGate.isInitialized()) {
             DeployGate.install(this, null, true);
         }
         Timber.plant(new CrashLogTree()); // TODO initialize Firebase before this line
+        LocaleUtil.initLocale(this);
 
         initDebot();
     }
@@ -84,5 +89,11 @@ public class MainApplication extends Application {
                 .registerMenu(notificationTestTitle, notificationStrategy)
                 .build();
         DebotConfigurator.configureWithCustomizedMenu(this, builder.getStrategyList());
+    }
+
+    private void initAppShortcuts() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+            AppShortcutsUtil.addShortcuts(this);
+        }
     }
 }

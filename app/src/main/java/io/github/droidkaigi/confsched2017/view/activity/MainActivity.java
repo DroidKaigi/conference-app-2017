@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentTransaction;
 
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.databinding.ActivityMainBinding;
+import io.github.droidkaigi.confsched2017.util.LocaleUtil;
 import io.github.droidkaigi.confsched2017.view.fragment.InformationFragment;
 import io.github.droidkaigi.confsched2017.view.fragment.MapFragment;
 import io.github.droidkaigi.confsched2017.view.fragment.SessionsFragment;
@@ -37,6 +38,8 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        LocaleUtil.initLocale(this);
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         setSupportActionBar(binding.toolbar);
         getComponent().inject(this);
@@ -48,6 +51,7 @@ public class MainActivity extends BaseActivity {
     private void initView() {
         BottomNavigationViewHelper.disableShiftingMode(binding.bottomNav);
         binding.bottomNav.setOnNavigationItemSelectedListener(item -> {
+            binding.title.setText(item.getTitle());
             item.setChecked(true);
             switch (item.getItemId()) {
                 case R.id.nav_sessions:
@@ -123,6 +127,7 @@ public class MainActivity extends BaseActivity {
     public void onBackPressed() {
         if (switchFragment(sessionsFragment, SessionsFragment.TAG)) {
             binding.bottomNav.getMenu().findItem(R.id.nav_sessions).setChecked(true);
+            binding.title.setText(getString(R.string.sessions));
             return;
         }
         super.onBackPressed();

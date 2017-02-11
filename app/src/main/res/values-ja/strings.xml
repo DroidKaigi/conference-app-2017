@@ -1,7 +1,8 @@
 <?xml version="1.0"?>
 <resources>
-    <string name="lang_en">英語</string>
-    <string name="lang_ja">日本語</string>
+    <string name="lang_en">@string/lang_en_in_ja</string>
+    <string name="lang_ja">@string/lang_ja_in_ja</string>
+
     <string name="sessions">セッション</string>
     <string name="map">地図</string>
     <string name="information">情報</string>
@@ -16,6 +17,8 @@
     <string name="slide_and_video">資料＆動画</string>
     <string name="send_feedback">フィードバックを送る</string>
     <!-- Settings -->
+    <string name="settings_language">言語を設定</string>
+    <string name="settings_language_description">表示言語を変更できます。変更後はアプリが再起動されます。</string>
     <string name="settings_notification_group">通知</string>
     <string name="settings_notification">通知</string>
     <string name="settings_notification_description">このアプリで通知を受け取るかどうかを選択できます。</string>
@@ -33,6 +36,7 @@
     <string name="info_dev_info_title">開発情報</string>
     <!-- Sponsors -->
     <string name="sponsors">スポンサー</string>
+    <string name="sponsors_file">sponsors.json</string>
     <!-- Contributors -->
     <string name="contributors">コントリビュータ</string>
     <string name="contributors_people">(%1$d人)</string>
@@ -45,4 +49,6 @@
     <!-- Notification -->
     <string name="notitication_title">%1$s がもうすぐ始まります。</string>
     <string name="notification_message">%1$s ~ %2$s @ %3$s</string>
+    <!-- App Shortcuts -->
+    <string name="shortcut_search_title">検索</string>
 </resources>

@@ -22,7 +22,7 @@
     <dimen name="text_16sp">16sp</dimen>
     <dimen name="text_20sp">20sp</dimen>
     <dimen name="text_24sp">24sp</dimen>
-
+    <dimen name="text_drawable_12dp">12dp</dimen>
 
     <!-- Line -->
     <dimen name="line_1dp">1dp</dimen>
@@ -69,4 +69,8 @@
     <dimen name="contributor_image_margin_bottom">@dimen/space_8dp</dimen>
     <dimen name="contributor_cell_margin_bottom">@dimen/space_16dp</dimen>
 
+    <!-- Sponsor -->
+    <dimen name="sponsor_image_height">80dp</dimen>
+    <dimen name="sponsor_image_margin">@dimen/space_8dp</dimen>
+    <dimen name="sponsor_image_border">2dp</dimen>
 </resources>

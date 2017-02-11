@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.annotation.StyleRes;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 
 import java.util.Date;
@@ -23,6 +22,7 @@ import io.github.droidkaigi.confsched2017.util.AlarmUtil;
 import io.github.droidkaigi.confsched2017.util.DateUtil;
 import io.github.droidkaigi.confsched2017.util.LocaleUtil;
 import io.reactivex.Completable;
+import timber.log.Timber;
 
 public class SessionDetailViewModel extends BaseObservable implements ViewModel {
 
@@ -85,26 +85,22 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
         this.dashVideoIconVisibility = session.movieUrl != null && session.movieDashUrl != null ? View.VISIBLE : View.GONE;
         this.roomVisibility = session.room != null ? View.VISIBLE : View.GONE;
         this.topicVisibility = session.topic != null ? View.VISIBLE : View.GONE;
-        this.languageResId = session.lang != null ? decideLanguageResId(session.lang.toLowerCase()) : R.string.lang_en;
+        this.languageResId = session.lang != null ? decideLanguageResId(new Locale(session.lang.toLowerCase())) : R.string.lang_en;
     }
 
     public Completable loadSession(int sessionId) {
-        final String languageId = Locale.getDefault().getLanguage().toLowerCase();
-        return  sessionsRepository.find(sessionId, languageId)
+        return  sessionsRepository.find(sessionId, Locale.getDefault())
                 .flatMapCompletable(session -> {
                     setSession(session);
                     return Completable.complete();
                 });
     }
 
-    private int decideLanguageResId(@NonNull String languageId) {
-        switch (languageId) {
-            case LocaleUtil.LANG_EN:
-                return R.string.lang_en;
-            case LocaleUtil.LANG_JA:
-                return R.string.lang_ja;
-            default:
-                return R.string.lang_en;
+    private int decideLanguageResId(@NonNull Locale locale) {
+        if (locale.equals(Locale.JAPANESE)) {
+            return R.string.lang_ja;
+        } else {
+            return R.string.lang_en;
         }
     }
 
@@ -138,20 +134,23 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
     }
 
     public void onClickFab(@SuppressWarnings("unused") View view) {
+        boolean selected = true;
         if (mySessionsRepository.isExist(session.id)) {
+            selected = false;
             mySessionsRepository.delete(session)
-                    .subscribe((result) -> Log.d(TAG, "Deleted my session"),
-                            throwable -> Log.e(TAG, "Failed to delete my session", throwable));
+                    .subscribe((result) -> Timber.tag(TAG).d("Deleted my session"),
+                            throwable -> Timber.tag(TAG).e(throwable, "Failed to delete my session"));
             AlarmUtil.unregisterAlarm(context, session);
         } else {
+            selected = true;
             mySessionsRepository.save(session)
-                    .subscribe(() -> Log.d(TAG, "Saved my session"),
-                            throwable -> Log.e(TAG, "Failed to save my session", throwable));
+                    .subscribe(() -> Timber.tag(TAG).d("Saved my session"),
+                            throwable -> Timber.tag(TAG).e(throwable, "Failed to save my session"));
             AlarmUtil.registerAlarm(context, session);
         }
 
         if (callback != null) {
-            callback.onClickFab();
+            callback.onClickFab(selected);
         }
     }
 
@@ -215,7 +214,7 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
 
     public interface Callback {
 
-        void onClickFab();
+        void onClickFab(boolean selected);
 
         void onClickFeedback();
     }

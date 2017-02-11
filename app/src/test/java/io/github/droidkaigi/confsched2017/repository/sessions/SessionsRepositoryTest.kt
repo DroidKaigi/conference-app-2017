@@ -15,7 +15,7 @@ import org.junit.runner.RunWith
 import org.mockito.Mockito.*
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
-import java.util.Date
+import java.util.*
 
 @RunWith(RobolectricTestRunner::class)
 class SessionsRepositoryTest {
@@ -73,20 +73,19 @@ class SessionsRepositoryTest {
             this.cachedSessions = cachedSessions
         }
 
-        // TODO I want to use enum for language id.
-        repository.findAll(LocaleUtil.LANG_JA)
+        repository.findAll(Locale.JAPANESE)
                 .test()
                 .run {
                     assertNoErrors()
                     assertResult(sessions)
                     assertComplete()
 
-                    client.verify().getSessions(eq(LocaleUtil.LANG_JA))
+                    client.verify().getSessions(eq(Locale.JAPANESE))
                     ormaDatabase.verify().transactionAsCompletable(any())
                     cachedSessions.verify(never()).values
                 }
 
-        repository.findAll(LocaleUtil.LANG_JA)
+        repository.findAll(Locale.JAPANESE)
                 .test()
                 .run {
                     assertNoErrors()
@@ -114,20 +113,20 @@ class SessionsRepositoryTest {
             this.cachedSessions = cachedSessions
         }
 
-        repository.findAll(LocaleUtil.LANG_JA)
+        repository.findAll(Locale.JAPANESE)
                 .test()
                 .run {
                     assertNoErrors()
                     assertResult(sessions)
                     assertComplete()
 
-                    client.verify().getSessions(eq(LocaleUtil.LANG_JA))
+                    client.verify().getSessions(eq(Locale.JAPANESE))
                     cachedSessions.verify(never()).values
                 }
 
         repository.setIdDirty(true)
 
-        repository.findAll(LocaleUtil.LANG_JA)
+        repository.findAll(Locale.JAPANESE)
                 .test()
                 .run {
                     assertNoErrors()
@@ -197,7 +196,7 @@ class SessionsRepositoryTest {
                 SessionsRemoteDataSource(client)
         )
 
-        repository.find(3, LocaleUtil.LANG_JA)
+        repository.find(3, Locale.JAPANESE)
                 .test()
                 .run {
                     assertNoErrors()
@@ -216,7 +215,7 @@ class SessionsRepositoryTest {
                 SessionsRemoteDataSource(client)
         )
 
-        repository.find(3, LocaleUtil.LANG_JA)
+        repository.find(3, Locale.JAPANESE)
                 .test()
                 .run {
                     assertNoErrors()
@@ -237,7 +236,7 @@ class SessionsRepositoryTest {
         }
 
         repository.setIdDirty(false)
-        repository.find(1, LocaleUtil.LANG_JA)
+        repository.find(1, Locale.JAPANESE)
                 .test()
                 .run {
                     assertNoErrors()
@@ -271,21 +270,21 @@ class SessionsRepositoryTest {
 
         repository.cachedSessions = cachedSessions
         repository.setIdDirty(false)
-        repository.find(12, LocaleUtil.LANG_JA)
+        repository.find(12, Locale.JAPANESE)
                 .test()
                 .run {
                     assertNoErrors()
                     assertThat(values().first().id).isEqualTo(12)
                     assertComplete()
                     cachedSessions.verify(never()).get(eq(12))
-                    client.verify(never()).getSessions(anyString())
+                    client.verify(never()).getSessions(any<Locale>())
                 }
     }
 
     fun createSession(sessionId: Int) = Session().apply { id = sessionId }
 
     fun mockDroidKaigiClient(sessions: List<Session>) = mock<DroidKaigiClient>().apply {
-        getSessions(anyString()).invoked.thenReturn(
+        getSessions(any<Locale>()).invoked.thenReturn(
                 Single.just(sessions)
         )
     }
