@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2017.util;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ShortcutInfo;
@@ -21,6 +22,8 @@ public class AppShortcutsUtil {
 
     @RequiresApi(api = Build.VERSION_CODES.N_MR1)
     public static void addShortcuts(@NonNull Context context) {
+
+        @SuppressLint({"WrongConstant"})
         ShortcutManager shortcutManager = (ShortcutManager) context.getSystemService(Context.SHORTCUT_SERVICE);
 
         if (shortcutManager != null) {
