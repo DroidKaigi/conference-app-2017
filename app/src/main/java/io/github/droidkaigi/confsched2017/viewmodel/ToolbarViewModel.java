@@ -7,6 +7,9 @@ import android.databinding.Bindable;
 
 import javax.inject.Inject;
 
+import io.github.droidkaigi.confsched2017.di.scope.ActivityScope;
+
+@ActivityScope
 public final class ToolbarViewModel extends BaseObservable implements ViewModel {
 
     private String toolbarTitle;

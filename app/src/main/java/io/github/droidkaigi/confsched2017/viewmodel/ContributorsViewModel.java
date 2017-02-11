@@ -16,10 +16,12 @@ import java.util.List;
 import javax.inject.Inject;
 
 import io.github.droidkaigi.confsched2017.BR;
+import io.github.droidkaigi.confsched2017.di.scope.FragmentScope;
 import io.github.droidkaigi.confsched2017.repository.contributors.ContributorsRepository;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
+@FragmentScope
 public final class ContributorsViewModel extends BaseObservable implements ViewModel, ContributorViewModel.Callback {
 
     private final ContributorsRepository contributorsRepository;
