@@ -99,7 +99,7 @@ public class SessionsFragment extends BaseFragment implements SessionViewModel.C
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.item_search:
-                SearchActivity.start(getActivity());
+                startActivity(SearchActivity.createIntent(getActivity()));
                 break;
         }
         return super.onOptionsItemSelected(item);

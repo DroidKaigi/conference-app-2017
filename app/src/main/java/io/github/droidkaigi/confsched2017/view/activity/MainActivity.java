@@ -1,6 +1,6 @@
 package io.github.droidkaigi.confsched2017.view.activity;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -30,9 +30,8 @@ public class MainActivity extends BaseActivity {
 
     private Fragment settingsFragment;
 
-    public static void start(@NonNull Activity activity) {
-        Intent intent = new Intent(activity, MainActivity.class);
-        activity.startActivity(intent);
+    public static Intent createIntent(Context context) {
+        return new Intent(context, MainActivity.class);
     }
 
     @Override

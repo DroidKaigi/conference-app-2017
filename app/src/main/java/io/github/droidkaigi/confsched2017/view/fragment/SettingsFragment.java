@@ -97,7 +97,7 @@ public class SettingsFragment extends BaseFragment implements SettingsViewModel.
 
     private void restart() {
         getActivity().finish();
-        MainActivity.start(getActivity());
+        startActivity(MainActivity.createIntent(getActivity()));
         getActivity().overridePendingTransition(0, 0);
     }
 

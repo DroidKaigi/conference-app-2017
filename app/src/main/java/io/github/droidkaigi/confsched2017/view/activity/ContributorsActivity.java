@@ -1,11 +1,10 @@
 package io.github.droidkaigi.confsched2017.view.activity;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,9 +17,8 @@ public class ContributorsActivity extends BaseActivity {
 
     private ActivityContributorsBinding binding;
 
-    public static void start(@NonNull Activity activity) {
-        Intent intent = new Intent(activity, ContributorsActivity.class);
-        activity.startActivity(intent);
+    public static Intent createIntent(Context context) {
+        return new Intent(context, ContributorsActivity.class);
     }
 
     @Override
