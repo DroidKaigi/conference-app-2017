@@ -64,7 +64,7 @@ public class InformationFragment extends BaseFragment implements InformationView
     }
 
     @Override
-    public void showQuesionnairePage() {
+    public void showQuestionnairePage() {
         // TODO
     }
 
