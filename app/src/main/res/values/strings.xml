@@ -59,7 +59,7 @@
     <string name="info_sponsors_description">DroidKaigi is supported by many sponsors. Thank you so much!</string>
     <string name="info_questionnaire_title">Questionnaire</string>
     <string name="info_questionnaire_description">Please cooperate with the questionnaire to improve DroidKaigi.</string>
-    <string name="info_contributors_description">Awesome contributors for this app. you can contribute from https://github.com/DroidKaigi/conference-app-2017</string>
+    <string name="info_contributors_description">Awesome contributors for this app.</string>
     <string name="info_help_translate">Your contribution is much appreciated! Tap here to contribute.</string>
     <string name="info_license_title">Licenses</string>
     <string name="info_license_description">This app uses many awesome libraries. Thank you so much!</string>
@@ -73,6 +73,7 @@
     <!-- Contributors -->
     <string name="contributors">Contributors</string>
     <string name="contributors_people">(%1$d people)</string>
+    <string name="contributors_open_repository">Repository</string>
 
     <string name="help_translate">Help Translate</string>
 
