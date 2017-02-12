@@ -16,8 +16,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import io.github.droidkaigi.confsched2017.R;
@@ -31,10 +29,6 @@ import io.github.droidkaigi.confsched2017.view.helper.IntentHelper;
 import io.github.droidkaigi.confsched2017.viewmodel.SponsorViewModel;
 import io.github.droidkaigi.confsched2017.viewmodel.SponsorshipViewModel;
 import io.github.droidkaigi.confsched2017.viewmodel.SponsorshipsViewModel;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
-import timber.log.Timber;
 
 public class SponsorsFragment extends BaseFragment {
 
@@ -42,9 +36,6 @@ public class SponsorsFragment extends BaseFragment {
 
     @Inject
     SponsorshipsViewModel viewModel;
-
-    @Inject
-    CompositeDisposable compositeDisposable;
 
     private FragmentSponsorsBinding binding;
 
@@ -64,13 +55,7 @@ public class SponsorsFragment extends BaseFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Disposable disposable = viewModel.convertSponsorShip()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        this::renderSponsorships,
-                        throwable -> Timber.tag(TAG).e(throwable, "Failed to show sponsors.")
-                );
-        compositeDisposable.add(disposable);
+        viewModel.start();
     }
 
     @Nullable
@@ -86,7 +71,7 @@ public class SponsorsFragment extends BaseFragment {
     @Override
     public void onStop() {
         super.onStop();
-        compositeDisposable.dispose();
+        viewModel.destroy();
     }
 
     private void initView() {
@@ -94,11 +79,6 @@ public class SponsorsFragment extends BaseFragment {
         binding.recyclerView.setAdapter(adapter);
         binding.recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-    }
-
-    private void renderSponsorships(List<SponsorshipViewModel> sponsorships) {
-        viewModel.getSponsorShipViewModels().clear();
-        viewModel.getSponsorShipViewModels().addAll(sponsorships);
     }
 
     private static class SponsorAdapter
