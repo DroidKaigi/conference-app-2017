@@ -36,9 +36,7 @@
     </style>
 
     <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
-        <!-- Avoid duplicate background beneath the dialog -->
         <item name="colorAccent">@color/theme</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
     <style name="AppTheme.ColoredStatusBar">
