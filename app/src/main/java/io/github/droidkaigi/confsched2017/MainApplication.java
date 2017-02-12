@@ -6,6 +6,7 @@ import com.tomoima.debot.DebotConfigurator;
 import com.tomoima.debot.DebotStrategyBuilder;
 
 import android.app.Application;
+import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.NonNull;
 
@@ -19,6 +20,7 @@ import io.github.droidkaigi.confsched2017.di.AppModule;
 import io.github.droidkaigi.confsched2017.di.DaggerAppComponent;
 import io.github.droidkaigi.confsched2017.log.CrashLogTree;
 import io.github.droidkaigi.confsched2017.pref.DefaultPrefs;
+import io.github.droidkaigi.confsched2017.service.DebugOverlayService;
 import io.github.droidkaigi.confsched2017.util.AppShortcutsUtil;
 import io.github.droidkaigi.confsched2017.util.LocaleUtil;
 import timber.log.Timber;
@@ -33,6 +35,9 @@ public class MainApplication extends Application {
 
     @Inject
     NotificationStrategy notificationStrategy;
+
+    @Inject
+    DefaultPrefs defaultPrefs;
 
     @NonNull
     public AppComponent getComponent() {
@@ -58,6 +63,9 @@ public class MainApplication extends Application {
         Timber.plant(new CrashLogTree()); // TODO initialize Firebase before this line
         LocaleUtil.initLocale(this);
 
+        if (defaultPrefs.getShowDebugOverlayView()) {
+            startService(new Intent(this, DebugOverlayService.class));
+        }
         initDebot();
     }
 

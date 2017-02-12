@@ -52,7 +52,8 @@
     <string name="settings_heads_up_notification_description">Choose whether to use Heads-up Notification.</string>
     <string name="settings_local_time">Show local time</string>
     <string name="settings_local_time_description">Use your local time instead of the conference\’s local time.</string>
-
+    <string name="settings_debug_overlay_view">Debug Overlay View</string>
+    <string name="settings_debug_overlay_view_description">Choose whether to show Debug Overlay View.</string>
 
     <!-- Information -->
     <string name="info_about_droidkaigi">DroidKaigi is an Android conference for Engineers to share and communicate Android technical information.</string>

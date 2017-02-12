@@ -5,6 +5,7 @@ import com.annimon.stream.Stream;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import javax.inject.Inject;
 
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.databinding.FragmentSettingsBinding;
+import io.github.droidkaigi.confsched2017.service.DebugOverlayService;
 import io.github.droidkaigi.confsched2017.util.LocaleUtil;
 import io.github.droidkaigi.confsched2017.view.activity.MainActivity;
 import io.github.droidkaigi.confsched2017.viewmodel.SettingsViewModel;
@@ -93,6 +95,17 @@ public class SettingsFragment extends BaseFragment implements SettingsViewModel.
                 })
                 .setNegativeButton(android.R.string.cancel, null)
                 .show();
+    }
+
+    @Override
+    public void debugOverlayViewEnabled(boolean enabled) {
+        if (isDetached())
+            return;
+        if (enabled) {
+            getContext().startService(new Intent(getContext(), DebugOverlayService.class));
+        } else {
+            getContext().stopService(new Intent(getContext(), DebugOverlayService.class));
+        }
     }
 
     private void restart() {

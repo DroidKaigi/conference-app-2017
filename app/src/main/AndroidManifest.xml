@@ -79,6 +79,10 @@
                   android:theme="@style/AppTheme.ColoredStatusBar"
                   />
 
+        <service
+                android:name=".service.DebugOverlayService"
+                android:exported="false"
+                />
         <receiver
                 android:name=".receiver.NotificationReceiver"
                 android:exported="false"
