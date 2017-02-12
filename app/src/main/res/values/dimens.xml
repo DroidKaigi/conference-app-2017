@@ -7,6 +7,7 @@
     <dimen name="space_12dp">12dp</dimen>
     <dimen name="space_16dp">16dp</dimen>
     <dimen name="space_24dp">24dp</dimen>
+    <dimen name="space_32dp">32dp</dimen>
     <dimen name="space_minus_4dp">-4dp</dimen>
 
     <dimen name="icon_space_4dp">4dp</dimen>
