@@ -45,9 +45,7 @@ public final class SponsorshipViewModel extends BaseObservable implements ViewMo
 
     private List<SponsorViewModel> setSponsorship(Sponsorship sponsorship) {
         return Stream.of(sponsorship.sponsors)
-                .map(sponsor -> {
-                    return new SponsorViewModel(sponsor);
-                })
+                .map(SponsorViewModel::new)
                 .collect(Collectors.toList());
     }
 }
