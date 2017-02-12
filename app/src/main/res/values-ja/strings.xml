@@ -12,7 +12,6 @@
     <string name="session_detail">セッション詳細</string>
     <string name="speaker">スピーカー</string>
     <string name="session_time_range">%1$s〜%2$s (%3$d分)</string>
-    <string name="title">タイトル</string>
     <string name="description">内容</string>
     <string name="slide_and_video">資料＆動画</string>
     <string name="send_feedback">フィードバックを送る</string>
