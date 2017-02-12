@@ -6,11 +6,14 @@ import com.annimon.stream.Stream;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.List;
 import java.util.Locale;
@@ -105,6 +108,9 @@ public class SettingsFragment extends BaseFragment implements SettingsViewModel.
         if (enabled && !SettingsUtil.canDrawOverlays(getContext())) {
             Timber.tag(TAG).d("not allowed to draw views on overlay");
             binding.debugOverlayViewSwitchRow.setChecked(false);
+            Toast.makeText(getContext(), R.string.settings_debug_overlay_view_toast, Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getContext().getPackageName()));
+            startActivity(intent);
             return;
         }
         if (enabled) {
