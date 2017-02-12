@@ -4,6 +4,8 @@ import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 
 import android.databinding.BaseObservable;
+import android.databinding.ObservableArrayList;
+import android.databinding.ObservableList;
 
 import java.util.List;
 
@@ -17,13 +19,14 @@ public final class SponsorshipViewModel extends BaseObservable implements ViewMo
 
     private String category;
 
-    private List<SponsorViewModel> sponsors;
+    private ObservableList<SponsorViewModel> sponsorViewModels;
 
     @Inject
     SponsorshipViewModel(Sponsorship sponsorship) {
         this.sponsorship = sponsorship;
         this.category = sponsorship.category;
-        this.sponsors = setSponsorship(sponsorship);
+        this.sponsorViewModels = new ObservableArrayList<>();
+        this.sponsorViewModels.addAll(convertSponsor(sponsorship));
     }
 
     @Override
@@ -39,11 +42,11 @@ public final class SponsorshipViewModel extends BaseObservable implements ViewMo
         return category;
     }
 
-    public List<SponsorViewModel> getSponsors() {
-        return sponsors;
+    public ObservableList<SponsorViewModel> getSponsorViewModels() {
+        return sponsorViewModels;
     }
 
-    private List<SponsorViewModel> setSponsorship(Sponsorship sponsorship) {
+    private List<SponsorViewModel> convertSponsor(Sponsorship sponsorship) {
         return Stream.of(sponsorship.sponsors)
                 .map(SponsorViewModel::new)
                 .collect(Collectors.toList());
