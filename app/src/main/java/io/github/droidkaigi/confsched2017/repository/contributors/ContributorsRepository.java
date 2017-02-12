@@ -50,11 +50,10 @@ public class ContributorsRepository {
 
 
     private Single<List<Contributor>> findAllFromRemote() {
-        return remoteDataSource.findAll().map(
-                contributors -> {
+        return remoteDataSource.findAll()
+                .doOnSuccess(contributors -> {
                     refreshCache(contributors);
                     localDataSource.updateAllAsync(contributors);
-                    return contributors;
                 });
     }
 

@@ -93,10 +93,9 @@ public class SessionsRepository implements SessionsDataSource {
 
     private Single<List<Session>> findAllFromRemote(Locale locale) {
         return remoteDataSource.findAll(locale)
-                .map(sessions -> {
+                .doOnSuccess(sessions -> {
                     refreshCache(sessions);
                     updateAllAsync(sessions);
-                    return sessions;
                 });
     }
 
