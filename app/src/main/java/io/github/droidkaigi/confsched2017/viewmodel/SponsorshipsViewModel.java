@@ -7,6 +7,8 @@ import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 
 import android.databinding.BaseObservable;
+import android.databinding.ObservableArrayList;
+import android.databinding.ObservableList;
 import android.support.annotation.Nullable;
 
 import java.lang.reflect.Type;
@@ -23,9 +25,12 @@ public final class SponsorshipsViewModel extends BaseObservable implements ViewM
 
     private ResourceResolver resourceResolver;
 
+    private final ObservableList<SponsorshipViewModel> sponsorshipViewModels;
+
     @Inject
     SponsorshipsViewModel(ResourceResolver resourceResolver) {
         this.resourceResolver = resourceResolver;
+        this.sponsorshipViewModels = new ObservableArrayList<>();
     }
 
     @Override
@@ -33,11 +38,14 @@ public final class SponsorshipsViewModel extends BaseObservable implements ViewM
         // No-op
     }
 
+    public ObservableList<SponsorshipViewModel> getSponsorShipViewModels() {
+        return sponsorshipViewModels;
+    }
+
     public Single<List<SponsorshipViewModel>> convertSponsorShip() {
         return loadSponsors().map(sponsorships ->
                 Stream.of(sponsorships).map(SponsorshipViewModel::new).collect(Collectors.toList()));
     }
-
 
     private Single<List<Sponsorship>> loadSponsors() {
         return Single.create(emitter -> {

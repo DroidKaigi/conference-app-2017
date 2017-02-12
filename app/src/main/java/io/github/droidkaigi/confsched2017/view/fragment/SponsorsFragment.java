@@ -4,6 +4,7 @@ import com.annimon.stream.Optional;
 
 import android.content.Context;
 import android.content.Intent;
+import android.databinding.ObservableList;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -24,8 +25,8 @@ import io.github.droidkaigi.confsched2017.databinding.FragmentSponsorsBinding;
 import io.github.droidkaigi.confsched2017.databinding.ViewSponsorCellBinding;
 import io.github.droidkaigi.confsched2017.databinding.ViewSponsorshipCellBinding;
 import io.github.droidkaigi.confsched2017.view.activity.SponsorsActivity;
-import io.github.droidkaigi.confsched2017.view.customview.ArrayRecyclerAdapter;
 import io.github.droidkaigi.confsched2017.view.customview.BindingHolder;
+import io.github.droidkaigi.confsched2017.view.customview.ObservableListRecyclerAdapter;
 import io.github.droidkaigi.confsched2017.view.helper.IntentHelper;
 import io.github.droidkaigi.confsched2017.viewmodel.SponsorViewModel;
 import io.github.droidkaigi.confsched2017.viewmodel.SponsorshipViewModel;
@@ -46,8 +47,6 @@ public class SponsorsFragment extends BaseFragment {
     CompositeDisposable compositeDisposable;
 
     private FragmentSponsorsBinding binding;
-
-    private SponsorshipsAdapter adapter;
 
     public static SponsorsFragment newInstance() {
         return new SponsorsFragment();
@@ -74,7 +73,6 @@ public class SponsorsFragment extends BaseFragment {
         compositeDisposable.add(disposable);
     }
 
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -92,21 +90,23 @@ public class SponsorsFragment extends BaseFragment {
     }
 
     private void initView() {
-        adapter = new SponsorshipsAdapter(getContext());
+        SponsorshipsAdapter adapter = new SponsorshipsAdapter(getContext(), viewModel.getSponsorShipViewModels());
         binding.recyclerView.setAdapter(adapter);
         binding.recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
     private void renderSponsorships(List<SponsorshipViewModel> sponsorships) {
-        adapter.addAllWithNotify(sponsorships);
+        viewModel.getSponsorShipViewModels().clear();
+        viewModel.getSponsorShipViewModels().addAll(sponsorships);
     }
 
-    private static class SponsorAdapter extends ArrayRecyclerAdapter<SponsorViewModel, BindingHolder<ViewSponsorCellBinding>>
+    private static class SponsorAdapter
+            extends ObservableListRecyclerAdapter<SponsorViewModel, BindingHolder<ViewSponsorCellBinding>>
             implements SponsorViewModel.Callback {
 
-        public SponsorAdapter(@NonNull Context context) {
-            super(context);
+        public SponsorAdapter(@NonNull Context context, @NonNull ObservableList<SponsorViewModel> list) {
+            super(context, list);
         }
 
         @Override
@@ -138,16 +138,15 @@ public class SponsorsFragment extends BaseFragment {
         }
     }
 
-    private static class SponsorshipsAdapter extends
-            ArrayRecyclerAdapter<SponsorshipViewModel, BindingHolder<ViewSponsorshipCellBinding>> {
+    private static class SponsorshipsAdapter
+            extends ObservableListRecyclerAdapter<SponsorshipViewModel, BindingHolder<ViewSponsorshipCellBinding>> {
 
-        public SponsorshipsAdapter(@NonNull Context context) {
-            super(context);
+        public SponsorshipsAdapter(@NonNull Context context, @NonNull ObservableList<SponsorshipViewModel> list) {
+            super(context, list);
         }
 
         @Override
-        public BindingHolder<ViewSponsorshipCellBinding> onCreateViewHolder(ViewGroup parent,
-                int viewType) {
+        public BindingHolder<ViewSponsorshipCellBinding> onCreateViewHolder(ViewGroup parent, int viewType) {
             return new BindingHolder<>(getContext(), parent, R.layout.view_sponsorship_cell);
         }
 
@@ -155,8 +154,7 @@ public class SponsorsFragment extends BaseFragment {
         public void onBindViewHolder(BindingHolder<ViewSponsorshipCellBinding> holder, int position) {
             SponsorshipViewModel viewModel = getItem(position);
             ViewSponsorshipCellBinding itemBinding = holder.binding;
-            SponsorAdapter adapter = new SponsorAdapter(holder.itemView.getContext());
-            adapter.addAllWithNotify(viewModel.getSponsors());
+            SponsorAdapter adapter = new SponsorAdapter(holder.itemView.getContext(), viewModel.getSponsorViewModels());
             itemBinding.sponsorshipRecyclerView.setAdapter(adapter);
             itemBinding.setViewModel(viewModel);
             itemBinding.executePendingBindings();
