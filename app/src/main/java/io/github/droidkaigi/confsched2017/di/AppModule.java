@@ -18,6 +18,7 @@ import io.github.droidkaigi.confsched2017.api.RequestInterceptor;
 import io.github.droidkaigi.confsched2017.api.service.DroidKaigiService;
 import io.github.droidkaigi.confsched2017.api.service.GithubService;
 import io.github.droidkaigi.confsched2017.api.service.GoogleFormService;
+import io.github.droidkaigi.confsched2017.log.LogEmitter;
 import io.github.droidkaigi.confsched2017.model.OrmaDatabase;
 import io.github.droidkaigi.confsched2017.pref.DefaultPrefs;
 import io.github.droidkaigi.confsched2017.view.helper.ResourceResolver;
@@ -49,6 +50,12 @@ public class AppModule {
     @Provides
     public SharedPreferences provideSharedPreferences(Context context) {
         return context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+    }
+
+    @Provides
+    @Singleton
+    public LogEmitter provideLogEmitter() {
+        return new LogEmitter();
     }
 
     @Provides

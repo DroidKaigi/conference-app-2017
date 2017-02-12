@@ -10,5 +10,8 @@ import io.github.droidkaigi.confsched2017.service.DebugOverlayService;
 @ServiceScope
 @Subcomponent(modules = ServiceModule.class)
 public interface ServiceComponent {
+
     void inject(DebugOverlayService service);
+
+    OverlayViewComponent plus(OverlayViewModule module);
 }

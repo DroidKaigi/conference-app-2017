@@ -47,8 +47,9 @@ public class OverlayViewManager {
     }
 
     public void changeConfiguration() {
-        destroy();
-        create();
+        if (root == null)
+            return;
+        windowManager.updateViewLayout(root, params);
     }
 
     public void destroy() {

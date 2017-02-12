@@ -18,8 +18,7 @@ public final class SettingsViewModel extends BaseObservable implements ViewModel
     private final DefaultPrefs defaultPrefs;
 
     @Inject
-    SettingsViewModel(Context context, DefaultPrefs defaultPrefs) {
-
+    SettingsViewModel(DefaultPrefs defaultPrefs) {
         this.defaultPrefs = defaultPrefs;
     }
 
@@ -40,7 +39,7 @@ public final class SettingsViewModel extends BaseObservable implements ViewModel
     }
 
     public boolean useDebugOverlayView() {
-        return false;
+        return defaultPrefs.getShowDebugOverlayView();
     }
 
     public void onClickLanguage(@SuppressWarnings("UnusedParameters") View view) {
