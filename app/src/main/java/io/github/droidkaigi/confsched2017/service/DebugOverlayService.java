@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 
 import javax.inject.Inject;
 
+import io.github.droidkaigi.confsched2017.service.helper.OverlayViewManager;
 import io.github.droidkaigi.confsched2017.util.SettingsUtil;
 import io.github.droidkaigi.confsched2017.view.activity.MainActivity;
 import timber.log.Timber;
@@ -23,13 +24,16 @@ public class DebugOverlayService extends BaseService {
     private final BroadcastReceiver configurationChangeReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            handler.postDelayed(() -> {
-
-            }, 1000L); // TODO handle configuration change and set delay correctly
+            handler.post(() -> {
+                Timber.d("onConfigurationChange");
+                manager.changeConfiguration();
+            });
         }
     };
     @Inject
     Handler handler;
+    @Inject
+    OverlayViewManager manager;
 
     @Override
     public void onCreate() {
@@ -39,6 +43,7 @@ public class DebugOverlayService extends BaseService {
 
         IntentFilter filter = new IntentFilter(Intent.ACTION_CONFIGURATION_CHANGED);
         registerReceiver(configurationChangeReceiver, filter);
+        manager.create();
     }
 
     @Nullable
@@ -72,6 +77,7 @@ public class DebugOverlayService extends BaseService {
     @Override
     public void onDestroy() {
         Timber.d("onDestroy");
+        manager.destroy();
         unregisterReceiver(configurationChangeReceiver);
         super.onDestroy();
     }
