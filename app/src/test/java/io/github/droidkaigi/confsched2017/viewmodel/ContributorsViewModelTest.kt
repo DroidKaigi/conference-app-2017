@@ -71,7 +71,7 @@ class ContributorsViewModelTest {
         assertEq(viewModel.contributorViewModels, EXPECTED_CONTRIBUTORS)
         viewModel.loadingVisibility.should be 8 // GONE
         viewModel.refreshing.should be false
-        toolbarViewModel.verify().setToolbarTitle("Contributors (3 people)")
+        toolbarViewModel.verify().toolbarTitle = "Contributors (3 people)"
     }
 
     @Test
@@ -83,7 +83,7 @@ class ContributorsViewModelTest {
         assertEq(viewModel.contributorViewModels, EXPECTED_CONTRIBUTORS)
         viewModel.loadingVisibility.should be 8 // GONE
         viewModel.refreshing.should be false
-        toolbarViewModel.verify().setToolbarTitle("Contributors (3 people)")
+        toolbarViewModel.verify().toolbarTitle = "Contributors (3 people)"
     }
 
     @Test
