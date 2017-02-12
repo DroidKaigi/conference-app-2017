@@ -38,7 +38,7 @@ class ContributorsViewModelTest {
         )
     }
 
-    private val resourceResolver = object : ResourceResolver {
+    private val resourceResolver = object : ResourceResolver(null) {
         override fun getString(resId: Int): String = "Contributors"
 
         override fun getString(resId: Int, vararg formatArgs: Any?): String = "(${formatArgs[0]} people)"

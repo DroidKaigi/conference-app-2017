@@ -6,7 +6,6 @@ import com.google.gson.reflect.TypeToken;
 import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 
-import android.content.Context;
 import android.databinding.BaseObservable;
 import android.support.annotation.Nullable;
 
@@ -17,16 +16,16 @@ import javax.inject.Inject;
 
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.model.Sponsorship;
-import io.github.droidkaigi.confsched2017.util.AssetsUtil;
+import io.github.droidkaigi.confsched2017.view.helper.ResourceResolver;
 import io.reactivex.Single;
 
 public final class SponsorshipsViewModel extends BaseObservable implements ViewModel {
 
-    private Context context;
+    private ResourceResolver resourceResolver;
 
     @Inject
-    SponsorshipsViewModel(Context context) {
-        this.context = context;
+    SponsorshipsViewModel(ResourceResolver resourceResolver) {
+        this.resourceResolver = resourceResolver;
     }
 
     @Override
@@ -42,7 +41,7 @@ public final class SponsorshipsViewModel extends BaseObservable implements ViewM
 
     private Single<List<Sponsorship>> loadSponsors() {
         return Single.create(emitter -> {
-            final String json = AssetsUtil.loadJSONFromAsset(context, context.getString(R.string.sponsors_file));
+            final String json = resourceResolver.loadJSONFromAsset(resourceResolver.getString(R.string.sponsors_file));
             emitter.onSuccess(transformSponsorships(json));
         });
     }
