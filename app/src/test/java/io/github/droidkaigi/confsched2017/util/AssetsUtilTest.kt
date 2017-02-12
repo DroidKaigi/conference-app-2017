@@ -13,19 +13,6 @@ import java.lang.reflect.InvocationTargetException
 class AssetsUtilTest {
     @Test
     @Throws(Exception::class)
-    fun ctor() {
-        try {
-            val ctor = AssetsUtil::class.java.getDeclaredConstructor()
-            ctor.isAccessible = true
-            ctor.newInstance()
-        } catch (e: InvocationTargetException) {
-            if (e.cause !is AssertionError)
-                fail()
-        }
-    }
-
-    @Test
-    @Throws(Exception::class)
     fun loadJSONFromAsset_succseedsWhenFileExists() {
         val context = RuntimeEnvironment.application
         context.assets.list("json").forEach {
