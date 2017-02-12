@@ -32,13 +32,13 @@ public final class AssetsUtil {
             json = new String(buffer, "UTF-8");
         } catch (IOException e) {
             Timber.e(AssetsUtil.class.getSimpleName(), e.getMessage(), e);
-
+        } finally {
             try {
                 if (is != null) {
                     is.close();
                 }
-            } catch (IOException exp) {
-                Timber.e(AssetsUtil.class.getSimpleName(), e.getMessage(), exp);
+            } catch (IOException e) {
+                Timber.e(AssetsUtil.class.getSimpleName(), e.getMessage(), e);
             }
         }
         return json;
