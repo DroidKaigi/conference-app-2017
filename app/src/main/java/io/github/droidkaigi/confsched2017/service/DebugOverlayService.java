@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 
 import javax.inject.Inject;
 
+import io.github.droidkaigi.confsched2017.util.SettingsUtil;
 import io.github.droidkaigi.confsched2017.view.activity.MainActivity;
 import timber.log.Timber;
 
@@ -49,6 +50,10 @@ public class DebugOverlayService extends BaseService {
     @Override
     public int onStartCommand(Intent intent, @ServiceFlags int flags, int startId) {
         Timber.d("onStartCommand");
+        if (!SettingsUtil.canDrawOverlays(this)) {
+            stopSelf();
+            return START_NOT_STICKY;
+        }
         return super.onStartCommand(intent, flags, startId);
     }
 

@@ -18,7 +18,8 @@ public final class SettingsViewModel extends BaseObservable implements ViewModel
     private final DefaultPrefs defaultPrefs;
 
     @Inject
-    SettingsViewModel(DefaultPrefs defaultPrefs) {
+    SettingsViewModel(Context context, DefaultPrefs defaultPrefs) {
+
         this.defaultPrefs = defaultPrefs;
     }
 

@@ -21,6 +21,7 @@ import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.databinding.FragmentSettingsBinding;
 import io.github.droidkaigi.confsched2017.service.DebugOverlayService;
 import io.github.droidkaigi.confsched2017.util.LocaleUtil;
+import io.github.droidkaigi.confsched2017.util.SettingsUtil;
 import io.github.droidkaigi.confsched2017.view.activity.MainActivity;
 import io.github.droidkaigi.confsched2017.viewmodel.SettingsViewModel;
 import timber.log.Timber;
@@ -101,6 +102,11 @@ public class SettingsFragment extends BaseFragment implements SettingsViewModel.
     public void debugOverlayViewEnabled(boolean enabled) {
         if (isDetached())
             return;
+        if (enabled && !SettingsUtil.canDrawOverlays(getContext())) {
+            Timber.tag(TAG).d("not allowed to draw views on overlay");
+            binding.debugOverlayViewSwitchRow.setChecked(false);
+            return;
+        }
         if (enabled) {
             getContext().startService(new Intent(getContext(), DebugOverlayService.class));
         } else {

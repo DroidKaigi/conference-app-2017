@@ -59,6 +59,10 @@ public class SettingSwitchRowView extends RelativeLayout {
         binding.settingSwitch.setChecked(!isChecked);
     }
 
+    public void setChecked(boolean checked) {
+        binding.settingSwitch.setChecked(checked);
+    }
+
     public void init(boolean defaultValue, CompoundButton.OnCheckedChangeListener listener) {
         setDefault(defaultValue);
         setOnCheckedChangeListener(listener);
