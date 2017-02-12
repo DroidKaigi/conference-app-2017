@@ -18,8 +18,9 @@
             android:networkSecurityConfig="@xml/network_security_config"
             >
         <activity
-                android:name=".view.activity.MainActivity"
-                android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+                android:name=".view.activity.SplashActivity"
+                android:theme="@style/AppTheme.NoActionBar.Splash"
+                android:noHistory="true"
                 android:launchMode="singleTask"
                 >
             <intent-filter>
@@ -30,6 +31,11 @@
                 <category android:name="android.intent.category.NOTIFICATION_PREFERENCES" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".view.activity.MainActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            />
 
         <activity
                 android:name=".view.activity.SessionDetailActivity"
