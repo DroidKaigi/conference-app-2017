@@ -90,6 +90,12 @@ public class SessionFeedbackFragment extends BaseFragment implements SessionFeed
     }
 
     @Override
+    public void onDetach() {
+        super.onDetach();
+        compositeDisposable.clear();
+    }
+
+    @Override
     public void onClickSubmitFeedback() {
         SessionFeedback sessionFeedback = new SessionFeedback(sessionId);
         viewModel.submitSessionFeedback(sessionFeedback)
