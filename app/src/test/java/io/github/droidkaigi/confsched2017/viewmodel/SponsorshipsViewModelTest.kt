@@ -21,7 +21,7 @@ class SponsorshipsViewModelTest {
     companion object {
         @ClassRule
         @JvmField
-        val schedulerRule = RxTestSchedulerRule()
+        val schedulerRule = RxTestSchedulerRule
 
         private val EXPECTED_SPONSORSHIPS = listOf(
                 Sponsorship().apply {

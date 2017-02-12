@@ -22,7 +22,7 @@ class ContributorsViewModelTest {
     companion object {
         @ClassRule
         @JvmField
-        val schedulerRule = RxTestSchedulerRule()
+        val schedulerRule = RxTestSchedulerRule
 
         private val EXPECTED_CONTRIBUTORS = listOf(
                 Contributor().apply {
