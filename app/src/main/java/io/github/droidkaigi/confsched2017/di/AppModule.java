@@ -53,12 +53,6 @@ public class AppModule {
     }
 
     @Provides
-    @Singleton
-    public LogEmitter provideLogEmitter() {
-        return new LogEmitter();
-    }
-
-    @Provides
     public CompositeDisposable provideCompositeDisposable() {
         return new CompositeDisposable();
     }

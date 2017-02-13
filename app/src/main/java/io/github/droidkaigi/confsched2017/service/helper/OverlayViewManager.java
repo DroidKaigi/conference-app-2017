@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.WindowManager;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import io.github.droidkaigi.confsched2017.R;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -19,7 +18,6 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 /**
  * @author KeithYokoma
  */
-@Singleton
 public class OverlayViewManager {
     private final Context context;
     private final WindowManager windowManager;
