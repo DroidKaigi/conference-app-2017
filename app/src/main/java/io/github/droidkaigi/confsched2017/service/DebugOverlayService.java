@@ -38,6 +38,9 @@ public class DebugOverlayService extends BaseService {
     @Override
     public void onCreate() {
         super.onCreate();
+        if (!SettingsUtil.canDrawOverlays(this)) {
+            return;
+        }
         getComponent().inject(this);
         Timber.d("onCreate");
 
@@ -76,6 +79,10 @@ public class DebugOverlayService extends BaseService {
 
     @Override
     public void onDestroy() {
+        if (!SettingsUtil.canDrawOverlays(this)) {
+            super.onDestroy();
+            return;
+        }
         Timber.d("onDestroy");
         manager.destroy();
         unregisterReceiver(configurationChangeReceiver);
