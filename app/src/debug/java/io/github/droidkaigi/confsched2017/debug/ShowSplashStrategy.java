@@ -8,7 +8,7 @@ import android.support.annotation.NonNull;
 
 import javax.inject.Inject;
 
-import io.github.droidkaigi.confsched2017.view.activity.SplashViewActivity;
+import io.github.droidkaigi.confsched2017.view.activity.SplashActivity;
 
 public class ShowSplashStrategy extends DebotStrategy {
 
@@ -18,6 +18,6 @@ public class ShowSplashStrategy extends DebotStrategy {
 
     @Override
     public void startAction(@NonNull Activity activity) {
-        activity.startActivity(new Intent(activity, SplashViewActivity.class));
+        activity.startActivity(new Intent(activity, SplashActivity.class));
     }
 }

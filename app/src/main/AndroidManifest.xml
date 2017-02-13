@@ -86,11 +86,6 @@
                   android:theme="@style/AppTheme.ColoredStatusBar"
                   />
 
-        <activity
-                android:name=".view.activity.SplashViewActivity"
-                android:theme="@style/AppTheme.NoActionBar.Splash"
-                />
-
         <service
                 android:name=".service.DebugOverlayService"
                 android:exported="false"
