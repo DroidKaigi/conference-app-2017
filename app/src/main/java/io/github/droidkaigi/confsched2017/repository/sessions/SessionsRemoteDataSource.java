@@ -25,14 +25,13 @@ public final class SessionsRemoteDataSource implements SessionsDataSource {
     @Override
     public Single<List<Session>> findAll(Locale locale) {
         return client.getSessions(locale)
-                .map(sessions -> {
+                .doOnSuccess(sessions -> {
                     // API returns some sessions which have empty room info.
                     for (Session session : sessions) {
                         if (session.room != null && TextUtils.isEmpty(session.room.name)) {
                             session.room = null;
                         }
                     }
-                    return sessions;
                 });
     }
 

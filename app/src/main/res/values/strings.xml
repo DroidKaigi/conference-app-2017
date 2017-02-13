@@ -24,13 +24,14 @@
     <string name="information">Information</string>
     <string name="settings">Settings</string>
 
+    <!-- Splash -->
+    <string name="splash_title">DroidKaigi 2017</string>
 
     <!-- Sessions -->
     <string name="session_minutes">(%1$d min)</string>
     <string name="session_detail">Session Detail</string>
     <string name="speaker">Speaker</string>
     <string name="session_time_range">%1$s - %2$s (%3$d min)</string>
-    <string name="title">Title</string>
     <string name="description">Description</string>
     <string name="slide_and_video">Slide＆Video</string>
     <string name="send_feedback">Send feedback</string>
@@ -52,7 +53,10 @@
     <string name="settings_heads_up_notification_description">Choose whether to use Heads-up Notification.</string>
     <string name="settings_local_time">Show local time</string>
     <string name="settings_local_time_description">Use your local time instead of the conference\’s local time.</string>
-
+    <string name="settings_developer_group">Developer menu</string>
+    <string name="settings_debug_overlay_view">Debug Overlay View</string>
+    <string name="settings_debug_overlay_view_description">Choose whether to show Debug Overlay View.</string>
+    <string name="settings_debug_overlay_view_toast">Before enabling this setting, grant draw over other apps permission.</string>
 
     <!-- Information -->
     <string name="info_about_droidkaigi">DroidKaigi is an Android conference for Engineers to share and communicate Android technical information.</string>

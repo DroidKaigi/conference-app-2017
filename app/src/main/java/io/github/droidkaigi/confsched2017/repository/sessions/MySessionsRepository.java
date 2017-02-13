@@ -36,11 +36,7 @@ public class MySessionsRepository implements MySessionsDataSource {
             });
         }
 
-        return localDataSource.findAll()
-                .map(mySessions -> {
-                    refreshCache(mySessions);
-                    return mySessions;
-                });
+        return localDataSource.findAll().doOnSuccess(this::refreshCache);
     }
 
     @Override

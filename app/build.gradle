@@ -124,10 +124,6 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    packagingOptions {
-        exclude 'LICENSE.txt'
-    }
-
     jacoco {
         version "0.7.7.201606060606"
     }
@@ -214,8 +210,8 @@ dependencies {
     debugCompile 'com.facebook.stetho:stetho-okhttp3:1.4.2'
     debugCompile 'com.facebook.stetho:stetho-timber:1.4.2@aar'
     compile 'com.squareup.picasso:picasso:2.5.2'
-    annotationProcessor 'com.github.gfx.android.orma:orma-processor:4.1.0'
-    compile 'com.github.gfx.android.orma:orma:4.1.0'
+    annotationProcessor 'com.github.gfx.android.orma:orma-processor:4.2.0'
+    compile 'com.github.gfx.android.orma:orma:4.2.0'
     compile 'com.rejasupotaro:kvs-schema:5.0.1'
     annotationProcessor 'com.rejasupotaro:kvs-schema-compiler:5.0.1'
     compile 'com.github.sys1yagi.fragment-creator:library:0.8.2'
