@@ -4,6 +4,7 @@ import com.annimon.stream.Optional;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.databinding.ObservableList;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -23,13 +24,10 @@ import io.github.droidkaigi.confsched2017.view.customview.BindingHolder;
 import io.github.droidkaigi.confsched2017.view.helper.IntentHelper;
 import io.github.droidkaigi.confsched2017.viewmodel.ContributorViewModel;
 import io.github.droidkaigi.confsched2017.viewmodel.ContributorsViewModel;
-import io.reactivex.disposables.CompositeDisposable;
 
 public class ContributorsFragment extends BaseFragment implements ContributorsViewModel.Callback {
 
     public static final String TAG = ContributorsFragment.class.getSimpleName();
-
-    private static final int COLUMN_COUNT = 3;
 
     @Inject
     ContributorsViewModel viewModel;
@@ -77,13 +75,23 @@ public class ContributorsFragment extends BaseFragment implements ContributorsVi
     private void initView() {
         adapter = new Adapter(getContext(), viewModel.getContributorViewModels());
         binding.recyclerView.setAdapter(adapter);
-        binding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(), COLUMN_COUNT));
+        binding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(), getColumnCount()));
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        ((GridLayoutManager) binding.recyclerView.getLayoutManager()).setSpanCount(getColumnCount());
     }
 
     @Override
     public void onClickContributor(String htmlUrl) {
         Optional<Intent> intentOptional = IntentHelper.buildActionViewIntent(getContext(), htmlUrl);
         intentOptional.ifPresent(this::startActivity);
+    }
+
+    private int getColumnCount() {
+        return getResources().getInteger(R.integer.contributors_columns);
     }
 
     private static class Adapter
