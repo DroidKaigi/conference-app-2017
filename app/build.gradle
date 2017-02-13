@@ -124,10 +124,6 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    packagingOptions {
-        exclude 'LICENSE.txt'
-    }
-
     jacoco {
         version "0.7.7.201606060606"
     }
