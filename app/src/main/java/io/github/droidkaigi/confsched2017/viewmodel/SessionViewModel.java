@@ -14,6 +14,7 @@ import io.github.droidkaigi.confsched2017.BR;
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.model.Session;
 import io.github.droidkaigi.confsched2017.repository.sessions.MySessionsRepository;
+import io.github.droidkaigi.confsched2017.util.AlarmUtil;
 import io.github.droidkaigi.confsched2017.util.DateUtil;
 import timber.log.Timber;
 
@@ -95,7 +96,7 @@ public class SessionViewModel extends BaseObservable implements ViewModel {
             this.normalSessionItemVisibility = View.GONE;
         } else {
             this.isClickable = true;
-            this.backgroundResId = session.isLiveAt(new Date())? R.drawable.clickable_purple : R.drawable.clickable_white;
+            this.backgroundResId = session.isLiveAt(new Date()) ? R.drawable.clickable_purple : R.drawable.clickable_white;
             this.topicColorResId = TopicColor.from(session.topic).middleColorResId;
             this.normalSessionItemVisibility = View.VISIBLE;
         }
@@ -157,11 +158,17 @@ public class SessionViewModel extends BaseObservable implements ViewModel {
 
         if (mySessionsRepository.isExist(session.id)) {
             mySessionsRepository.delete(session)
-                    .subscribe((result) -> setCheckVisibility(View.GONE),
+                    .subscribe((result) -> {
+                                setCheckVisibility(View.GONE);
+                                AlarmUtil.unregisterAlarm(view.getContext(), session);
+                            },
                             throwable -> Timber.tag(TAG).e(throwable, "Failed to delete my session"));
         } else {
             mySessionsRepository.save(session)
-                    .subscribe(() -> setCheckVisibility(View.VISIBLE),
+                    .subscribe(() -> {
+                                setCheckVisibility(View.VISIBLE);
+                                AlarmUtil.registerAlarm(view.getContext(), session);
+                            },
                             throwable -> Timber.tag(TAG).e(throwable, "Failed to save my session"));
         }
         return true;
