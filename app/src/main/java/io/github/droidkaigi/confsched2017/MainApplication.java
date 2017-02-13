@@ -14,6 +14,7 @@ import javax.inject.Inject;
 
 import io.github.droidkaigi.confsched2017.debug.ClearCache;
 import io.github.droidkaigi.confsched2017.debug.NotificationStrategy;
+import io.github.droidkaigi.confsched2017.debug.ShowSplashStrategy;
 import io.github.droidkaigi.confsched2017.di.AndroidModule;
 import io.github.droidkaigi.confsched2017.di.AppComponent;
 import io.github.droidkaigi.confsched2017.di.AppModule;
@@ -37,6 +38,9 @@ public class MainApplication extends Application {
 
     @Inject
     NotificationStrategy notificationStrategy;
+
+    @Inject
+    ShowSplashStrategy showSplashStrategy;
 
     @Inject
     DefaultPrefs defaultPrefs;
@@ -101,6 +105,7 @@ public class MainApplication extends Application {
         DebotStrategyBuilder builder = new DebotStrategyBuilder.Builder(this)
                 .registerMenu("Clear cache", clearCache)
                 .registerMenu(notificationTestTitle, notificationStrategy)
+                .registerMenu("Show splash view", showSplashStrategy)
                 .build();
         DebotConfigurator.configureWithCustomizedMenu(this, builder.getStrategyList());
     }
