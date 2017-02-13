@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <io.github.droidkaigi.confsched2017.view.customview.ParticlesAnimationView
+            android:id="@+id/particle_animation_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true" />
+
+        <TextView
+            android:id="@+id/title_logo"
+            fontPath="@string/font_noto_cjk_medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_margin="@dimen/space_32dp"
+            android:background="@drawable/bg_splash_title"
+            android:gravity="center"
+            android:padding="@dimen/space_16dp"
+            android:text="@string/splash_title"
+            android:textColor="@color/white"
+            android:textScaleX="1.15"
+            android:textSize="32sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+</layout>

@@ -1,12 +1,12 @@
 package io.github.droidkaigi.confsched2017.viewmodel;
 
-import com.android.databinding.library.baseAdapters.BR;
-
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.support.annotation.NonNull;
 import android.view.View;
+
+import com.android.databinding.library.baseAdapters.BR;
 
 import java.util.Locale;
 
@@ -47,10 +47,7 @@ public final class SessionFeedbackViewModel extends BaseObservable implements Vi
 
     public Maybe<Session> findSession(int sessionId) {
         return sessionsRepository.find(sessionId, Locale.getDefault())
-                .map(session -> {
-                    setSession(session);
-                    return session;
-                });
+                .doOnSuccess(this::setSession);
     }
 
     private void setSession(@NonNull Session session) {

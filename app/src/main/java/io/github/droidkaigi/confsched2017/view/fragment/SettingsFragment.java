@@ -3,10 +3,10 @@ package io.github.droidkaigi.confsched2017.view.fragment;
 import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,7 +80,7 @@ public class SettingsFragment extends BaseFragment implements SettingsViewModel.
         Timber.tag(TAG).d("current language_id index: %s", defaultItem);
 
         String[] items = languages.toArray(new String[languages.size()]);
-        new AlertDialog.Builder(getActivity())
+        new AlertDialog.Builder(getActivity(), R.style.DialogTheme)
                 .setTitle(R.string.settings_language)
                 .setSingleChoiceItems(items, defaultItem, (dialog, which) -> {
                     String selectedLanguageId = languageIds.get(which);

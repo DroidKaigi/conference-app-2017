@@ -90,12 +90,18 @@ public class SessionFeedbackFragment extends BaseFragment implements SessionFeed
     }
 
     @Override
+    public void onDetach() {
+        super.onDetach();
+        compositeDisposable.clear();
+    }
+
+    @Override
     public void onClickSubmitFeedback() {
         SessionFeedback sessionFeedback = new SessionFeedback(sessionId);
-        viewModel.submitSessionFeedback(sessionFeedback)
+        compositeDisposable.add(viewModel.submitSessionFeedback(sessionFeedback)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(success -> onSubmitSuccess(), failure -> onSubmitFailure());
+                .subscribe(success -> onSubmitSuccess(), failure -> onSubmitFailure()));
     }
 
     public void onSubmitSuccess() {

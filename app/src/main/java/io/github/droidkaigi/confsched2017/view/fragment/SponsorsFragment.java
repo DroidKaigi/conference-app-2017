@@ -4,6 +4,7 @@ import com.annimon.stream.Optional;
 
 import android.content.Context;
 import android.content.Intent;
+import android.databinding.ObservableList;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,8 +16,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import io.github.droidkaigi.confsched2017.R;
@@ -24,16 +23,12 @@ import io.github.droidkaigi.confsched2017.databinding.FragmentSponsorsBinding;
 import io.github.droidkaigi.confsched2017.databinding.ViewSponsorCellBinding;
 import io.github.droidkaigi.confsched2017.databinding.ViewSponsorshipCellBinding;
 import io.github.droidkaigi.confsched2017.view.activity.SponsorsActivity;
-import io.github.droidkaigi.confsched2017.view.customview.ArrayRecyclerAdapter;
 import io.github.droidkaigi.confsched2017.view.customview.BindingHolder;
+import io.github.droidkaigi.confsched2017.view.customview.ObservableListRecyclerAdapter;
 import io.github.droidkaigi.confsched2017.view.helper.IntentHelper;
 import io.github.droidkaigi.confsched2017.viewmodel.SponsorViewModel;
 import io.github.droidkaigi.confsched2017.viewmodel.SponsorshipViewModel;
 import io.github.droidkaigi.confsched2017.viewmodel.SponsorshipsViewModel;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
-import timber.log.Timber;
 
 public class SponsorsFragment extends BaseFragment {
 
@@ -42,12 +37,7 @@ public class SponsorsFragment extends BaseFragment {
     @Inject
     SponsorshipsViewModel viewModel;
 
-    @Inject
-    CompositeDisposable compositeDisposable;
-
     private FragmentSponsorsBinding binding;
-
-    private SponsorshipsAdapter adapter;
 
     public static SponsorsFragment newInstance() {
         return new SponsorsFragment();
@@ -65,15 +55,8 @@ public class SponsorsFragment extends BaseFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Disposable disposable = viewModel.convertSponsorShip()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        this::renderSponsorships,
-                        throwable -> Timber.tag(TAG).e(throwable, "Failed to show sponsors.")
-                );
-        compositeDisposable.add(disposable);
+        viewModel.start();
     }
-
 
     @Nullable
     @Override
@@ -88,25 +71,22 @@ public class SponsorsFragment extends BaseFragment {
     @Override
     public void onStop() {
         super.onStop();
-        compositeDisposable.dispose();
+        viewModel.destroy();
     }
 
     private void initView() {
-        adapter = new SponsorshipsAdapter(getContext());
+        SponsorshipsAdapter adapter = new SponsorshipsAdapter(getContext(), viewModel.getSponsorShipViewModels());
         binding.recyclerView.setAdapter(adapter);
         binding.recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
-    private void renderSponsorships(List<SponsorshipViewModel> sponsorships) {
-        adapter.addAllWithNotify(sponsorships);
-    }
-
-    private static class SponsorAdapter extends ArrayRecyclerAdapter<SponsorViewModel, BindingHolder<ViewSponsorCellBinding>>
+    private static class SponsorAdapter
+            extends ObservableListRecyclerAdapter<SponsorViewModel, BindingHolder<ViewSponsorCellBinding>>
             implements SponsorViewModel.Callback {
 
-        public SponsorAdapter(@NonNull Context context) {
-            super(context);
+        public SponsorAdapter(@NonNull Context context, @NonNull ObservableList<SponsorViewModel> list) {
+            super(context, list);
         }
 
         @Override
@@ -138,16 +118,15 @@ public class SponsorsFragment extends BaseFragment {
         }
     }
 
-    private static class SponsorshipsAdapter extends
-            ArrayRecyclerAdapter<SponsorshipViewModel, BindingHolder<ViewSponsorshipCellBinding>> {
+    private static class SponsorshipsAdapter
+            extends ObservableListRecyclerAdapter<SponsorshipViewModel, BindingHolder<ViewSponsorshipCellBinding>> {
 
-        public SponsorshipsAdapter(@NonNull Context context) {
-            super(context);
+        public SponsorshipsAdapter(@NonNull Context context, @NonNull ObservableList<SponsorshipViewModel> list) {
+            super(context, list);
         }
 
         @Override
-        public BindingHolder<ViewSponsorshipCellBinding> onCreateViewHolder(ViewGroup parent,
-                int viewType) {
+        public BindingHolder<ViewSponsorshipCellBinding> onCreateViewHolder(ViewGroup parent, int viewType) {
             return new BindingHolder<>(getContext(), parent, R.layout.view_sponsorship_cell);
         }
 
@@ -155,8 +134,7 @@ public class SponsorsFragment extends BaseFragment {
         public void onBindViewHolder(BindingHolder<ViewSponsorshipCellBinding> holder, int position) {
             SponsorshipViewModel viewModel = getItem(position);
             ViewSponsorshipCellBinding itemBinding = holder.binding;
-            SponsorAdapter adapter = new SponsorAdapter(holder.itemView.getContext());
-            adapter.addAllWithNotify(viewModel.getSponsors());
+            SponsorAdapter adapter = new SponsorAdapter(holder.itemView.getContext(), viewModel.getSponsorViewModels());
             itemBinding.sponsorshipRecyclerView.setAdapter(adapter);
             itemBinding.setViewModel(viewModel);
             itemBinding.executePendingBindings();

@@ -204,6 +204,7 @@ public class SearchFragment extends BaseFragment implements SearchViewModel.Call
         SearchResultsAdapter(@NonNull Context context) {
             super(context);
             this.filteredList = new ArrayList<>();
+            setHasStableIds(true);
         }
 
         void setAllList(List<SearchResultViewModel> viewModels) {
@@ -266,6 +267,12 @@ public class SearchFragment extends BaseFragment implements SearchViewModel.Call
                     notifyDataSetChanged();
                 }
             };
+        }
+
+        @Override
+        public long getItemId(int position) {
+            SearchResultViewModel viewModel = getItem(position);
+            return viewModel.getSearchResultId();
         }
     }
 }
