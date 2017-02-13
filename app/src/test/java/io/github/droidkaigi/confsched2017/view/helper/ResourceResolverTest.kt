@@ -1,16 +1,14 @@
-package io.github.droidkaigi.confsched2017.util
+package io.github.droidkaigi.confsched2017.view.helper
 
 import com.google.firebase.FirebaseApp
 import com.taroid.knit.should
-import org.junit.Assert.fail
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
-import java.lang.reflect.InvocationTargetException
 
 @RunWith(RobolectricTestRunner::class)
-class AssetsUtilTest {
+class ResourceResolverTest {
     @Test
     @Throws(Exception::class)
     fun loadJSONFromAsset_succseedsWhenFileExists() {
@@ -19,7 +17,8 @@ class AssetsUtilTest {
             val expect = context.assets.open("json/" + it)
                                        .reader(charset = Charsets.UTF_8)
                                        .use { it.readText() }
-            val actual = AssetsUtil.loadJSONFromAsset(context, it)
+            val resolver = ResourceResolver(context)
+            val actual = resolver.loadJSONFromAsset(it)
 
             actual.should be expect
         }
@@ -28,7 +27,8 @@ class AssetsUtilTest {
     @Test
     @Throws(Exception::class)
     fun loadJSONFromAsset_failsWhenFileNotExists() {
-        FirebaseApp.initializeApp(RuntimeEnvironment.application)
-        AssetsUtil.loadJSONFromAsset(RuntimeEnvironment.application, "NonExistsFile.json").should be null
+        val context = RuntimeEnvironment.application
+        FirebaseApp.initializeApp(context)
+        ResourceResolver(context).loadJSONFromAsset("NonExistsFile.json").should be null
     }
 }
