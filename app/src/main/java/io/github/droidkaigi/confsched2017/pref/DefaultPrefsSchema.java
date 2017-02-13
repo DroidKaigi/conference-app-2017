@@ -20,4 +20,7 @@ public interface DefaultPrefsSchema {
 
     @Key(name = "notification_test_setting")
     boolean notificationTestFlag = false;
+
+    @Key(name = "show_debug_overlay_view")
+    boolean showDebugOverlayView = false;
 }

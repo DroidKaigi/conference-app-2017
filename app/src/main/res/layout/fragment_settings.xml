@@ -139,6 +139,34 @@
                     android:visibility="@{viewModel.getShowHeadsUpSettingVisibility}"
                     />
 
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/space_16dp"
+                    >
+
+                <TextView
+                        style="@style/TextSubheading"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings_developer_group"
+                        android:textColor="?attr/colorPrimary"
+                        />
+
+            </RelativeLayout>
+
+            <io.github.droidkaigi.confsched2017.view.customview.SettingSwitchRowView
+                    android:id="@+id/debug_overlay_view_switch_row"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:settingDefaultValue="@{viewModel.useDebugOverlayView}"
+                    app:settingDescription="@string/settings_debug_overlay_view_description"
+                    app:settingOnCheckedChanged="@{(v, checked) -> viewModel.onCheckedDebugOverlayView(checked)}"
+                    app:settingTitle="@string/settings_debug_overlay_view"
+                    />
+
+            <View style="@style/Border"/>
+
         </LinearLayout>
 
     </ScrollView>
