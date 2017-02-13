@@ -1,19 +1,17 @@
 package io.github.droidkaigi.confsched2017.view.customview;
 
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.RelativeLayout;
 
 import javax.inject.Inject;
 
-import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.databinding.ViewOverlayDebugBinding;
 import io.github.droidkaigi.confsched2017.di.OverlayViewModule;
 import io.github.droidkaigi.confsched2017.log.LogEmitter;
 import io.github.droidkaigi.confsched2017.service.DebugOverlayService;
-import io.github.droidkaigi.confsched2017.util.ContextUtil;
 import io.reactivex.disposables.CompositeDisposable;
 
 /**
@@ -40,9 +38,7 @@ public class DebugOverlayView extends RelativeLayout {
         super(context, attrs, defStyleAttr);
         binding = ViewOverlayDebugBinding.inflate(
                 (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE), this, true);
-        // XXX
-        ((DebugOverlayService) ContextUtil.getBaseContext(ContextUtil.getBaseContext(context)))
-                .getComponent().plus(new OverlayViewModule()).inject(this);
+        unwrapContext(context).getComponent().plus(new OverlayViewModule()).inject(this);
     }
 
     @Override
@@ -58,5 +54,11 @@ public class DebugOverlayView extends RelativeLayout {
     protected void onDetachedFromWindow() {
         disposables.clear();
         super.onDetachedFromWindow();
+    }
+
+    // Context in the ctor is ContextThemeWrapper and it wraps OverlayViewContext, which wraps DebugOverlayService
+    private DebugOverlayService unwrapContext(Context context) {
+        ContextWrapper wrapper = (ContextWrapper) context;
+        return (DebugOverlayService) ((ContextWrapper) wrapper.getBaseContext()).getBaseContext();
     }
 }
