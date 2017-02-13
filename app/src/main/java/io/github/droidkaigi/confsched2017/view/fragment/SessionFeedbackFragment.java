@@ -98,23 +98,19 @@ public class SessionFeedbackFragment extends BaseFragment implements SessionFeed
     @Override
     public void onClickSubmitFeedback() {
         SessionFeedback sessionFeedback = new SessionFeedback(sessionId);
-        viewModel.submitSessionFeedback(sessionFeedback)
+        compositeDisposable.add(viewModel.submitSessionFeedback(sessionFeedback)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(success -> onSubmitSuccess(), failure -> onSubmitFailure());
+                .subscribe(success -> onSubmitSuccess(), failure -> onSubmitFailure()));
     }
 
     public void onSubmitSuccess() {
         // TODO: show success action
-        if (isDetached())
-            return;
         Toast.makeText(getContext(), "submit success", Toast.LENGTH_SHORT).show();
     }
 
     public void onSubmitFailure() {
         // TODO: show failure action
-        if (isDetached())
-            return;
         Toast.makeText(getContext(), "submit failure", Toast.LENGTH_SHORT).show();
     }
 }
