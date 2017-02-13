@@ -12,4 +12,5 @@ public interface AppComponent {
 
     void inject(MainApplication application);
     ActivityComponent plus(ActivityModule module);
+    ServiceComponent plus(ServiceModule module);
 }

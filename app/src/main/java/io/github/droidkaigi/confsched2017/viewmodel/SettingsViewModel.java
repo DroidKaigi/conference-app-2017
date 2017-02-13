@@ -38,6 +38,10 @@ public final class SettingsViewModel extends BaseObservable implements ViewModel
         return defaultPrefs.getShowLocalTimeFlag();
     }
 
+    public boolean useDebugOverlayView() {
+        return defaultPrefs.getShowDebugOverlayView();
+    }
+
     public void onClickLanguage(@SuppressWarnings("UnusedParameters") View view) {
         if (callback != null) {
             callback.showLanguagesDialog();
@@ -71,6 +75,13 @@ public final class SettingsViewModel extends BaseObservable implements ViewModel
         }
     }
 
+    public void onCheckedDebugOverlayView(boolean isChecked) {
+        defaultPrefs.putShowDebugOverlayView(isChecked);
+        if (callback == null)
+            return;
+        callback.debugOverlayViewEnabled(isChecked);
+    }
+
     @Override
     public void destroy() {
         this.callback = null;
@@ -82,5 +93,6 @@ public final class SettingsViewModel extends BaseObservable implements ViewModel
 
         void showLanguagesDialog();
 
+        void debugOverlayViewEnabled(boolean enabled);
     }
 }

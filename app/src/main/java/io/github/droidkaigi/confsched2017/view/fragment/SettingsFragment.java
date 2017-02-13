@@ -4,12 +4,16 @@ import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.List;
 import java.util.Locale;
@@ -18,7 +22,9 @@ import javax.inject.Inject;
 
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.databinding.FragmentSettingsBinding;
+import io.github.droidkaigi.confsched2017.service.DebugOverlayService;
 import io.github.droidkaigi.confsched2017.util.LocaleUtil;
+import io.github.droidkaigi.confsched2017.util.SettingsUtil;
 import io.github.droidkaigi.confsched2017.view.activity.MainActivity;
 import io.github.droidkaigi.confsched2017.viewmodel.SettingsViewModel;
 import timber.log.Timber;
@@ -93,6 +99,25 @@ public class SettingsFragment extends BaseFragment implements SettingsViewModel.
                 })
                 .setNegativeButton(android.R.string.cancel, null)
                 .show();
+    }
+
+    @Override
+    public void debugOverlayViewEnabled(boolean enabled) {
+        if (isDetached())
+            return;
+        if (enabled && !SettingsUtil.canDrawOverlays(getContext())) {
+            Timber.tag(TAG).d("not allowed to draw views on overlay");
+            binding.debugOverlayViewSwitchRow.setChecked(false);
+            Toast.makeText(getContext(), R.string.settings_debug_overlay_view_toast, Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getContext().getPackageName()));
+            startActivity(intent);
+            return;
+        }
+        if (enabled) {
+            getContext().startService(new Intent(getContext(), DebugOverlayService.class));
+        } else {
+            getContext().stopService(new Intent(getContext(), DebugOverlayService.class));
+        }
     }
 
     private void restart() {
