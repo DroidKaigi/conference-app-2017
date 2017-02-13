@@ -14,29 +14,29 @@ import io.github.droidkaigi.confsched2017.model.Topic;
  */
 enum TopicColor {
 
-    NONE(R.color.purple_alpha_15, R.color.purple_alpha_50,
-            R.color.purple, R.style.AppTheme_NoActionBar_Purple),
+    NONE(R.color.material_purple_a700_alpha_15, R.color.material_purple_a700_alpha_50,
+            R.color.material_purple_a700, R.style.AppTheme_NoActionBar_Purple),
 
-    PRODUCTIVITY_AND_TOOLING(R.color.light_green_alpha_15, R.color.light_green_alpha_50,
-            R.color.light_green, R.style.AppTheme_NoActionBar_LightGreen),
+    PRODUCTIVITY_AND_TOOLING(R.color.material_light_green_a700_alpha_15, R.color.material_light_green_a700_alpha_50,
+            R.color.material_light_green_a700, R.style.AppTheme_NoActionBar_LightGreen),
 
-    ARCHITECTURE_AND_DEVELOPMENT_PROCESS_METHODOLOGY(R.color.yellow_alpha_15, R.color.yellow_alpha_50,
-            R.color.yellow, R.style.AppTheme_NoActionBar_Yellow),
+    ARCHITECTURE_AND_DEVELOPMENT_PROCESS_METHODOLOGY(R.color.material_amber_a700_alpha_15, R.color.material_amber_a700_alpha_50,
+            R.color.material_amber_a700, R.style.AppTheme_NoActionBar_Yellow),
 
-    HARDWARE(R.color.red_alpha_15, R.color.red_alpha_50,
-            R.color.red, R.style.AppTheme_NoActionBar_Red),
+    HARDWARE(R.color.material_red_a700_alpha_15, R.color.material_red_a700_alpha_50,
+            R.color.material_red_a700, R.style.AppTheme_NoActionBar_Red),
 
-    UI_AND_DESIGN(R.color.blue_alpha_15, R.color.blue_alpha_50,
-            R.color.blue, R.style.AppTheme_NoActionBar_Blue),
+    UI_AND_DESIGN(R.color.material_blue_a700_alpha_15, R.color.material_blue_a700_alpha_50,
+            R.color.material_blue_a700, R.style.AppTheme_NoActionBar_Blue),
 
-    QUALITY_AND_SUSTAINABILITY(R.color.light_blue_alpha_15, R.color.light_blue_alpha_50,
-            R.color.light_blue, R.style.AppTheme_NoActionBar_LightBlue),
+    QUALITY_AND_SUSTAINABILITY(R.color.material_light_blue_a700_alpha_15, R.color.material_light_blue_a700_alpha_50,
+            R.color.material_light_blue_a700, R.style.AppTheme_NoActionBar_LightBlue),
 
-    PLATFORM(R.color.pink_alpha_15, R.color.pink_alpha_50,
-            R.color.pink, R.style.AppTheme_NoActionBar_Pink),
+    PLATFORM(R.color.material_pink_a700_alpha_15, R.color.material_pink_a700_alpha_50,
+            R.color.material_pink_a700, R.style.AppTheme_NoActionBar_Pink),
 
-    OTHER(R.color.purple_alpha_15, R.color.purple_alpha_50,
-            R.color.purple, R.style.AppTheme_NoActionBar_Purple);
+    OTHER(R.color.material_purple_a700_alpha_15, R.color.material_purple_a700_alpha_50,
+            R.color.material_purple_a700, R.style.AppTheme_NoActionBar_Purple);
 
     @ColorRes
     public int paleColorResId;
