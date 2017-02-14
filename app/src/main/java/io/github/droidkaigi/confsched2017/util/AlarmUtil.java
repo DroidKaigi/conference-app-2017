@@ -43,7 +43,7 @@ public class AlarmUtil {
     }
 
     private static PendingIntent createAlarmIntent(@NonNull Context context, @NonNull Session session) {
-        String title = context.getString(R.string.notitication_title, session.title);
+        String title = context.getString(R.string.notification_title, session.title);
         Date displaySTime = LocaleUtil.getDisplayDate(session.stime, context);
         Date displayETime = LocaleUtil.getDisplayDate(session.etime, context);
         String room = "";
