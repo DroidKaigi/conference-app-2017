@@ -25,7 +25,9 @@ public class MySessionViewModel extends BaseObservable implements ViewModel {
 
     private String sessionTimeRange;
 
-    private MySession mySession;
+    private int roomVisibility;
+
+    public MySession mySession;
 
     private Callback callback;
 
@@ -35,6 +37,7 @@ public class MySessionViewModel extends BaseObservable implements ViewModel {
             this.speakerImageUrl = mySession.session.speaker.imageUrl;
         }
         this.mySession = mySession;
+        this.roomVisibility = mySession.session.room != null ? View.VISIBLE : View.GONE;
 
         this.sessionTimeRange = decideSessionTimeRange(context, mySession.session);
     }
@@ -55,6 +58,10 @@ public class MySessionViewModel extends BaseObservable implements ViewModel {
 
     public String getSessionTimeRange() {
         return sessionTimeRange;
+    }
+
+    public int getRoomVisibility() {
+        return roomVisibility;
     }
 
     private String decideSessionTimeRange(Context context, Session session) {
