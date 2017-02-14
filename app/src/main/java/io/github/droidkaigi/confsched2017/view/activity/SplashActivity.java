@@ -1,30 +1,48 @@
 package io.github.droidkaigi.confsched2017.view.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import io.github.droidkaigi.confsched2017.R;
-import io.github.droidkaigi.confsched2017.databinding.ActivitySplashBinding;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
-public class SplashActivity extends AppCompatActivity {
+import javax.inject.Inject;
+
+import io.github.droidkaigi.confsched2017.R;
+import io.github.droidkaigi.confsched2017.repository.sessions.MySessionsRepository;
+import io.github.droidkaigi.confsched2017.repository.sessions.SessionsRepository;
+import io.reactivex.Observable;
+import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+
+public class SplashActivity extends BaseActivity {
 
     private static final String TAG = SplashActivity.class.getSimpleName();
 
-    private ActivitySplashBinding binding;
-    private final Handler handler = new Handler();
-    private final Runnable moveActivityRunnable = () -> {
-        startActivity(new Intent(SplashActivity.this, MainActivity.class));
-    };
+    private static final int MINIMUM_LOADING_TIME = 1500;
+
+    @Inject
+    CompositeDisposable compositeDisposable;
+
+    @Inject
+    SessionsRepository sessionsRepository;
+
+    @Inject
+    MySessionsRepository mySessionsRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_splash);
+        getComponent().inject(this);
+        DataBindingUtil.setContentView(this, R.layout.activity_splash);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             findViewById(android.R.id.content).setSystemUiVisibility(
@@ -35,13 +53,34 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        handler.postDelayed(moveActivityRunnable, 3000);
+        loadSessionsForCache();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        handler.removeCallbacks(moveActivityRunnable);
+        compositeDisposable.dispose();
+    }
+
+    private void loadSessionsForCache() {
+        Disposable disposable = Single.zip(sessionsRepository.findAll(Locale.getDefault()),
+                mySessionsRepository.findAll(),
+                delaySingleSource(),
+                (sessions, mySessions, obj) -> Observable.empty())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doFinally(() -> {
+                    if (isFinishing()) return;
+                    startActivity(MainActivity.createIntent(SplashActivity.this));
+                })
+                .subscribe();
+        compositeDisposable.add(disposable);
+    }
+
+    private Single<Object> delaySingleSource() {
+        return Single.create(e -> e.onSuccess(Observable.empty()))
+                .observeOn(AndroidSchedulers.mainThread())
+                .delay(MINIMUM_LOADING_TIME, TimeUnit.MILLISECONDS);
     }
 
 }
