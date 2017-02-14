@@ -87,6 +87,9 @@
     <!-- Session feedback -->
     <string name="session_feedback">Session feedback</string>
 
+    <!-- My Sessions -->
+    <string name="mysessions">My Session</string>
+
 
     <!-- Search -->
     <string name="search">Search</string>
