@@ -42,3 +42,4 @@ captures/
 *.jks
 
 .DS_Store
+/key.json

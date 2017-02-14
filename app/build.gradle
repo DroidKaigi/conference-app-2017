@@ -7,6 +7,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'com.google.firebase.firebase-crash'
 apply plugin: 'com.cookpad.android.licensetools'
 apply plugin: 'com.github.ben-manes.versions'
+apply from: '../gradle/task.gradle'
 
 // Manifest version
 def versionMajor = 0
