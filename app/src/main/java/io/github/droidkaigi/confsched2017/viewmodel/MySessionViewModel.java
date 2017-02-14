@@ -1,10 +1,17 @@
 package io.github.droidkaigi.confsched2017.viewmodel;
 
+import android.content.Context;
 import android.databinding.BaseObservable;
 import android.support.annotation.NonNull;
 import android.view.View;
 
+import java.util.Date;
+
+import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.model.MySession;
+import io.github.droidkaigi.confsched2017.model.Session;
+import io.github.droidkaigi.confsched2017.util.DateUtil;
+import io.github.droidkaigi.confsched2017.util.LocaleUtil;
 
 public class MySessionViewModel extends BaseObservable implements ViewModel {
 
@@ -16,22 +23,20 @@ public class MySessionViewModel extends BaseObservable implements ViewModel {
 
     private String speakerImageUrl;
 
-    private String text;
+    private String sessionTimeRange;
 
     private MySession mySession;
 
     private Callback callback;
 
-    private boolean shouldEllipsis;
-
-    public MySessionViewModel(MySession mySession) {
-        this.text = mySession.session.desc;
+    public MySessionViewModel(Context context, MySession mySession) {
         this.sessionTitle = mySession.session.title;
         if (mySession.session.speaker != null) {
             this.speakerImageUrl = mySession.session.speaker.imageUrl;
         }
-        this.shouldEllipsis = true; // TODO
         this.mySession = mySession;
+
+        this.sessionTimeRange = decideSessionTimeRange(context, mySession.session);
     }
 
     @Override
@@ -47,6 +52,26 @@ public class MySessionViewModel extends BaseObservable implements ViewModel {
     public String getSpeakerImageUrl() {
         return speakerImageUrl;
     }
+
+    public String getSessionTimeRange() {
+        return sessionTimeRange;
+    }
+
+    private String decideSessionTimeRange(Context context, Session session) {
+        Date displaySTime = LocaleUtil.getDisplayDate(session.stime, context);
+        Date displayETime = LocaleUtil.getDisplayDate(session.etime, context);
+
+        return context.getString(R.string.session_time_range,
+                DateUtil.getLongFormatDate(displaySTime),
+                DateUtil.getHourMinute(displayETime),
+                DateUtil.getMinutes(displaySTime, displayETime));
+    }
+
+
+
+
+
+
 
 
     public void setCallback(Callback callback) {

@@ -56,7 +56,7 @@ public class MySessionsFragment extends BaseFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        viewModel.start();
+        viewModel.start(getContext());
     }
 
 
@@ -74,7 +74,6 @@ public class MySessionsFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        loadData();
     }
 
     @Override

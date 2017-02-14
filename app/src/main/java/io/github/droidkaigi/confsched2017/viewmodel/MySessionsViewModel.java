@@ -3,6 +3,7 @@ package io.github.droidkaigi.confsched2017.viewmodel;
 import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 
+import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
@@ -50,9 +51,9 @@ public final class MySessionsViewModel extends BaseObservable implements ViewMod
         return mySessionsRepository.findAll();
     }
 
-    public void start() {
+    public void start(Context context) {
         Disposable disposable = loadMySessions()
-                .map(this::convertToViewModel)
+                .map(mySession -> convertToViewModel(context, mySession))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         this::renderSponsorships,
@@ -61,8 +62,8 @@ public final class MySessionsViewModel extends BaseObservable implements ViewMod
         compositeDisposable.add(disposable);
     }
 
-    private List<MySessionViewModel> convertToViewModel(List<MySession> mySessions) {
-        return Stream.of(mySessions).map(MySessionViewModel::new).collect(Collectors.toList());
+    private List<MySessionViewModel> convertToViewModel(Context context, List<MySession> mySessions) {
+        return Stream.of(mySessions).map(mySession -> new MySessionViewModel(context , mySession)).collect(Collectors.toList());
     }
 
     private void renderSponsorships(List<MySessionViewModel> mySessionViewModels) {
