@@ -2,13 +2,17 @@ package io.github.droidkaigi.confsched2017.viewmodel;
 
 import android.databinding.BaseObservable;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.View;
 
 import io.github.droidkaigi.confsched2017.model.Contributor;
+import io.reactivex.functions.Consumer;
+import timber.log.Timber;
 
 public class ContributorViewModel extends BaseObservable implements ViewModel {
 
-    private Callback callback;
+    @Nullable
+    private Consumer<String> contributorClicked;
 
     private Contributor contributor;
 
@@ -28,23 +32,18 @@ public class ContributorViewModel extends BaseObservable implements ViewModel {
         this.contributions = contributor.contributions;
     }
 
-    public void setCallback(Callback callback) {
-        this.callback = callback;
+    public void setCallback(@Nullable Consumer<String> contributorClicked) {
+        this.contributorClicked = contributorClicked;
     }
-
     @Override
     public void destroy() {
-        this.callback = null;
-    }
-
-    public interface Callback {
-
-        void onClickContributor(String htmlUrl);
     }
 
     public void onClickContributor(@SuppressWarnings("UnusedParameters") View view) {
-        if (callback != null) {
-            callback.onClickContributor(htmlUrl);
+        try {
+            contributorClicked.accept(contributor.htmlUrl);
+        } catch (Exception e) {
+            Timber.e(e.getMessage());
         }
     }
 
