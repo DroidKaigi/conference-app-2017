@@ -58,11 +58,7 @@ public class DebugOverlayService extends BaseService {
     @Override
     public int onStartCommand(Intent intent, @ServiceFlags int flags, int startId) {
         Timber.d("onStartCommand");
-        if (!SettingsUtil.canDrawOverlays(this)) {
-            stopSelf();
-            return START_NOT_STICKY;
-        }
-        return super.onStartCommand(intent, flags, startId);
+        return START_NOT_STICKY; // no need to restart a process
     }
 
     @Override
