@@ -48,7 +48,10 @@ public final class MySessionsViewModel extends BaseObservable implements ViewMod
 
 
     private Single<List<MySession>> loadMySessions() {
-        return mySessionsRepository.findAll();
+        return mySessionsRepository.findAll()
+                .map(mySessions -> Stream.of(mySessions)
+                        .sorted((lhs, rhs) -> lhs.session.stime.compareTo(rhs.session.stime))
+                        .collect(Collectors.toList()));
     }
 
     public void start(Context context) {
