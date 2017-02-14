@@ -15,10 +15,6 @@ import io.github.droidkaigi.confsched2017.util.LocaleUtil;
 
 public class MySessionViewModel extends BaseObservable implements ViewModel {
 
-    private static final String ELLIPSIZE_TEXT = "...";
-
-    private static final int ELLIPSIZE_LIMIT_COUNT = 30;
-
     private String sessionTitle;
 
     private String speakerImageUrl;
