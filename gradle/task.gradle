@@ -1,7 +1,5 @@
 task releaseApp(type: Exec) {
     workingDir '../'
     commandLine "./gradlew", "clean "
-    commandLine "chmod", "777", "deploy2store.sh"
     commandLine "./deploy2store.sh"
 }
-
