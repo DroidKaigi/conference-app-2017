@@ -11,7 +11,13 @@ If you have any question, feel free to ask to me (@wakwa3125).
 
 # Setup
 
-## 1. Create Service Account at GooglePlayConsole.
+## 1. Install supply(fastlane)
+
+```
+gem install fastlane
+```
+
+## 2. Create Service Account at GooglePlayConsole.
 
 1. Go to your Google Play Developer Console.
 2. Select Settings tab.
@@ -28,7 +34,7 @@ If you have any question, feel free to ask to me (@wakwa3125).
 13. Set Release Manager as role of new ServiceAccount.
 14. Click add user to close the dialog.
 
-## 2. Prepare for this project.
+## 3. Prepare for this project.
 
 1. First run `./gradlew setUpRelease`  
 This just create required files.

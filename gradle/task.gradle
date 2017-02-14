@@ -1,5 +1,28 @@
+/**
+ * Copy template shell
+ * */
+task setUpRelease(type: Exec) {
+    workingDir '../'
+    commandLine "./gradlew", "clean"
+    commandLine "./bootstrap.sh"
+}
+
+/**
+ *
+ * Init this project with supply
+ * */
+task downloadMetaData(type: Exec) {
+    workingDir '../'
+    commandLine "./gradlew", "clean"
+    commandLine "./initsupply.sh"
+}
+
+/**
+ *
+ * Release your AWESOME app to GooglePlay(alpha channel)
+ * */
 task releaseApp(type: Exec) {
     workingDir '../'
-    commandLine "./gradlew", "clean "
+    commandLine "./gradlew", "clean"
     commandLine "./deploy2store.sh"
 }
