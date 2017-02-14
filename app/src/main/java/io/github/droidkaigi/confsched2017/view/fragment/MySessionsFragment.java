@@ -115,7 +115,6 @@ public class MySessionsFragment extends BaseFragment {
 
         MySessionAdapter(@NonNull Context context, ObservableList<MySessionViewModel> list) {
             super(context, list);
-            setHasStableIds(true);
         }
 
         @Override
