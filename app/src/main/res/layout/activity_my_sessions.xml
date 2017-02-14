@@ -15,7 +15,7 @@
                 style="@style/BaseToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:title="@string/sponsors"
+                app:title="@string/my_session"
                 />
 
         <FrameLayout

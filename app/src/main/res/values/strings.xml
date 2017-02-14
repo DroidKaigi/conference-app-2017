@@ -39,7 +39,7 @@
     <string name="session_unchecked">Unchecked this session</string>
     <string name="session_check">Check</string>
     <string name="session_uncheck">Uncheck</string>
-
+    <string name="my_session">My Session</string>
     <!-- Map -->
     <string name="start_navigation">Start Navigation</string>
 
@@ -86,10 +86,6 @@
 
     <!-- Session feedback -->
     <string name="session_feedback">Session feedback</string>
-
-    <!-- My Sessions -->
-    <string name="mysessions">My Session</string>
-
 
     <!-- Search -->
     <string name="search">Search</string>
