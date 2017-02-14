@@ -33,15 +33,23 @@ public class ResourceResolver {
 
     public String loadJSONFromAsset(final String jsonFileName) {
         String json = null;
+        InputStream is = null;
         try {
-            InputStream is = context.getAssets().open("json/" + jsonFileName);
+            is = context.getAssets().open("json/" + jsonFileName);
             int size = is.available();
             byte[] buffer = new byte[size];
             is.read(buffer);
-            is.close();
             json = new String(buffer, "UTF-8");
         } catch (IOException e) {
             Timber.e(TAG, e.getMessage(), e);
+        } finally {
+            try {
+                if (is != null) {
+                    is.close();
+                }
+            } catch (IOException e) {
+                Timber.e(TAG, e.getMessage(), e);
+            }
         }
         return json;
     }
