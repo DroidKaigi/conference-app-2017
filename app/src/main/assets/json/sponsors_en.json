@@ -1,0 +1,197 @@
+[
+  {
+    "category": "Platinum Sponsors",
+    "sponsors": [
+      {
+        "site_url": "https://www.cyberagent.co.jp/",
+        "image_url": "https://droidkaigi.github.io/2017/images/sponsor/ca.png"
+      },
+      {
+        "site_url": "https://abema.tv/",
+        "image_url": "https://droidkaigi.github.io/2017/images/sponsor/abemaTV.png"
+      },
+      {
+        "site_url": "https://developers.google.com/",
+        "image_url": "https://droidkaigi.github.io/2017/images/sponsor/google.png"
+      }
+    ]
+  },
+  {
+    "category": "Video Sponsor",
+    "sponsors": [
+      {
+        "site_url": "https://realm.io/",
+        "image_url": "https://droidkaigi.github.io/2017/images/sponsor/realm.png"
+      }
+    ]
+  },
+
+  {
+    "category": "Power Supply Sponsors",
+    "sponsors": [
+      {
+        "site_url": "https://info.cookpad.com/",
+        "image_url": "https://droidkaigi.github.io/2017/images/sponsor/cookpad.png"
+      },
+      {
+        "site_url": "http://dwango.co.jp/",
+        "image_url": "https://droidkaigi.github.io/2017/images/sponsor/dwango.png"
+      }
+    ]
+  },
+
+  {
+    "category": "Network Sponsors",
+    "sponsors": [
+      {
+        "site_url": "http://jp.corp-sansan.com/",
+        "image_url": "https://droidkaigi.github.io/2017/images/sponsor/sansan.jpg"
+      },
+      {
+        "site_url": "http://www.recruit-lifestyle.co.jp/",
+        "image_url": "https://droidkaigi.github.io/2017/images/sponsor/recruitlifestyle.png"
+      }
+    ]
+  },
+
+  {
+    "category": "Lunch Sponsor",
+    "sponsors": [
+      {
+        "site_url": "https://www.wantedly.com/projects/9983",
+        "image_url": "https://droidkaigi.github.io/2017/images/sponsor/moneyforward.png"
+      }
+    ]
+  },
+
+  {
+    "category": "Snack Sponsors",
+    "sponsors": [
+      {
+        "site_url": "https://www.mercari.com/jp/",
+        "image_url": "https://droidkaigi.github.io/2017/images/sponsor/mercari.png"
+      },
+      {
+        "site_url": "http://www.recruit-mp.co.jp/",
+        "image_url": "https://droidkaigi.github.io/2017/images/sponsor/rmp.jpg"
+      },
+      {
+        "site_url": "https://www.justsystems.com/jp/employ/techcareer/?utm_source=droidkaigi2017&utm_medium=referral&utm_campaign=droidkaigi2017sponsored",
+        "image_url": "https://droidkaigi.github.io/2017/images/sponsor/justsystems.png"
+      }
+    ]
+  },
+
+  {
+    "category": "Lunch & Snack Sponsors",
+    "sponsors": [
+      {
+        "site_url": "https://hunza.jp/",
+        "image_url": "https://droidkaigi.github.io/2017/images/sponsor/hunza.png"
+      },
+      {
+        "site_url": "http://diverse-inc.co.jp/",
+        "image_url": "https://droidkaigi.github.io/2017/images/sponsor/diverse.png"
+      },
+      {
+        "site_url": "https://nohana.co.jp/",
+        "image_url": "https://droidkaigi.github.io/2017/images/sponsor/nohana.png"
+      }
+    ]
+  },
+
+  {
+    "category": "Drink Sponsors",
+    "sponsors": [
+      {
+        "site_url": "https://pepabo.com/",
+        "image_url": "https://droidkaigi.github.io/2017/images/sponsor/GMOpepabo.png"
+      },
+      {
+        "site_url": "http://www.yahoo.co.jp",
+        "image_url": "https://droidkaigi.github.io/2017/images/sponsor/yahoo.png"
+      }
+    ]
+  },
+
+  {
+    "category": "🍣 Sponsor",
+    "sponsors": [
+      {
+        "site_url": "https://www.wantedly.com/companies/wantedly/projects?occupation_type=engineer",
+        "image_url": "https://droidkaigi.github.io/2017/images/sponsor/wantedly.png"
+      }
+    ]
+  },
+
+  {
+    "category": "Supporters",
+    "sponsors": [
+      {
+        "site_url": "http://speee.jp/",
+        "image_url": "https://droidkaigi.github.io/2017/images/sponsor/speee.png"
+      },
+      {
+        "site_url": "https://bitjourney.com/",
+        "image_url": "https://droidkaigi.github.io/2017/images/sponsor/bit-journey.png"
+      },
+      {
+        "site_url": "https://www.topgate.co.jp/",
+        "image_url": "https://droidkaigi.github.io/2017/images/sponsor/topgate.png"
+      },
+      {
+        "site_url": "http://www.uphyca.com",
+        "image_url": "https://droidkaigi.github.io/2017/images/sponsor/uphyca.png"
+      },
+      {
+        "site_url": "https://s.nikkei.com/saiyo",
+        "image_url": "https://droidkaigi.github.io/2017/images/sponsor/nikkei.png"
+      },
+      {
+        "site_url": "https://pay.jp/",
+        "image_url": "https://droidkaigi.github.io/2017/images/sponsor/pay_jp.png"
+      },
+      {
+        "site_url": "http://caraquri.com/",
+        "image_url": "https://droidkaigi.github.io/2017/images/sponsor/caraquri.png"
+      },
+      {
+        "site_url": "http://www.saiyo.furyu.jp/",
+        "image_url": "https://droidkaigi.github.io/2017/images/sponsor/furyu.png"
+      },
+      {
+        "site_url": "https://www.balto.io/ja/",
+        "image_url": "https://droidkaigi.github.io/2017/images/sponsor/goodpatch.png"
+      },
+      {
+        "site_url": "https://deploygate.com",
+        "image_url": "https://droidkaigi.github.io/2017/images/sponsor/deploygate.png"
+      },
+      {
+        "site_url": "http://www.pixiv.co.jp/",
+        "image_url": "https://droidkaigi.github.io/2017/images/sponsor/pixiv.png"
+      }
+    ]
+  },
+  {
+    "category": "Technical Support for Network",
+    "sponsors": [
+      {
+        "site_url": "https://conbu.net/",
+        "image_url": "https://droidkaigi.github.io/2017/images/sponsor/conbu.png"
+      },
+      {
+        "site_url": "https://www.juniper.net/jp/jp/",
+        "image_url": "https://droidkaigi.github.io/2017/images/sponsor/juniper-networks.png"
+      },
+      {
+        "site_url": "http://labo.dmm.com/",
+        "image_url": "https://droidkaigi.github.io/2017/images/sponsor/DMMcom-labo.png"
+      },
+      {
+        "site_url": "http://www.bbtower.co.jp/",
+        "image_url": "https://droidkaigi.github.io/2017/images/sponsor/BBTower.png"
+      }
+    ]
+  }
+]

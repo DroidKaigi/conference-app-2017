@@ -1,12 +1,12 @@
 package io.github.droidkaigi.confsched2017.viewmodel;
 
-import com.android.databinding.library.baseAdapters.BR;
-
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.support.annotation.NonNull;
 import android.view.View;
+
+import com.android.databinding.library.baseAdapters.BR;
 
 import java.util.Locale;
 
@@ -19,7 +19,6 @@ import io.github.droidkaigi.confsched2017.repository.sessions.SessionsRepository
 import io.reactivex.Maybe;
 import io.reactivex.Single;
 import retrofit2.Response;
-
 
 
 public final class SessionFeedbackViewModel extends BaseObservable implements ViewModel {
@@ -36,20 +35,19 @@ public final class SessionFeedbackViewModel extends BaseObservable implements Vi
 
     private Callback callback;
 
+    private int ranking1;
+
     @Inject
-    SessionFeedbackViewModel(Context context, SessionsRepository sessionsRepository, SessionFeedbackRepository sessionFeedbackRepository) {
+    SessionFeedbackViewModel(Context context, SessionsRepository sessionsRepository,
+            SessionFeedbackRepository sessionFeedbackRepository) {
         this.context = context;
         this.sessionsRepository = sessionsRepository;
         this.sessionFeedbackRepository = sessionFeedbackRepository;
     }
 
     public Maybe<Session> findSession(int sessionId) {
-        final String languageId = Locale.getDefault().getLanguage().toLowerCase();
-        return sessionsRepository.find(sessionId, languageId)
-                .map(session -> {
-                    setSession(session);
-                    return session;
-                });
+        return sessionsRepository.find(sessionId, Locale.getDefault())
+                .doOnSuccess(this::setSession);
     }
 
     private void setSession(@NonNull Session session) {
@@ -81,6 +79,15 @@ public final class SessionFeedbackViewModel extends BaseObservable implements Vi
 
     public Single<Response<Void>> submitSessionFeedback(SessionFeedback sessionFeedback) {
         return sessionFeedbackRepository.submit(sessionFeedback);
+    }
+
+    @Bindable
+    public int getRanking1() {
+        return ranking1;
+    }
+
+    public void setRanking1(int ranking1) {
+        this.ranking1 = ranking1;
     }
 
     public void setCallback(@NonNull Callback callback) {

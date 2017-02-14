@@ -1,6 +1,9 @@
 package io.github.droidkaigi.confsched2017.view.activity;
 
+import com.tomoima.debot.Debot;
+
 import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
@@ -10,6 +13,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 
 import io.github.droidkaigi.confsched2017.MainApplication;
@@ -24,6 +28,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     private ActivityComponent activityComponent;
+    private Debot debot;
 
     @NonNull
     public ActivityComponent getComponent() {
@@ -40,6 +45,25 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        debot = Debot.getInstance();
+        debot.allowShake(getApplicationContext());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        debot.startSensor(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        debot.stopSensor();
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
@@ -47,6 +71,14 @@ public abstract class BaseActivity extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_MENU) {
+            debot.showDebugMenu(this);
+        }
+        return super.onKeyUp(keyCode, event);
     }
 
     final void replaceFragment(@NonNull Fragment fragment, @IdRes @LayoutRes int layoutResId) {

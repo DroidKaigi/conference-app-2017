@@ -10,11 +10,17 @@ import android.view.View;
 
 import java.util.Date;
 
+import io.github.droidkaigi.confsched2017.BR;
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.model.Session;
+import io.github.droidkaigi.confsched2017.repository.sessions.MySessionsRepository;
+import io.github.droidkaigi.confsched2017.util.AlarmUtil;
 import io.github.droidkaigi.confsched2017.util.DateUtil;
+import timber.log.Timber;
 
 public class SessionViewModel extends BaseObservable implements ViewModel {
+
+    private static final String TAG = SessionViewModel.class.getSimpleName();
 
     private Session session;
 
@@ -54,9 +60,12 @@ public class SessionViewModel extends BaseObservable implements ViewModel {
 
     private int languageVisibility;
 
+    private MySessionsRepository mySessionsRepository;
+
     private Callback callback;
 
-    SessionViewModel(@NonNull Session session, Context context, int roomCount, boolean isMySession) {
+    SessionViewModel(@NonNull Session session, Context context, int roomCount, boolean isMySession,
+            MySessionsRepository mySessionsRepository) {
         this.session = session;
         this.shortStime = DateUtil.getHourMinute(session.stime);
         this.formattedDate = DateUtil.getMonthDate(session.stime, context);
@@ -87,11 +96,12 @@ public class SessionViewModel extends BaseObservable implements ViewModel {
             this.normalSessionItemVisibility = View.GONE;
         } else {
             this.isClickable = true;
-            this.backgroundResId = R.drawable.clickable_white;
+            this.backgroundResId = session.isLiveAt(new Date()) ? R.drawable.clickable_purple : R.drawable.clickable_white;
             this.topicColorResId = TopicColor.from(session.topic).middleColorResId;
             this.normalSessionItemVisibility = View.VISIBLE;
         }
 
+        this.mySessionsRepository = mySessionsRepository;
     }
 
     private SessionViewModel(int rowSpan, int colSpan) {
@@ -115,7 +125,7 @@ public class SessionViewModel extends BaseObservable implements ViewModel {
     private int decideColSpan(@NonNull Session session, int roomCount) {
         if (session.isCeremony()) {
             return 3;
-        } else if (session.isBreak()) {
+        } else if (session.isBreak() || session.isDinner()) {
             return roomCount;
         } else {
             return 1;
@@ -139,6 +149,29 @@ public class SessionViewModel extends BaseObservable implements ViewModel {
         if (callback != null && session != null) {
             callback.showSessionDetail(session);
         }
+    }
+
+    public boolean checkSession(@SuppressWarnings("UnusedParameters") View view) {
+        if (mySessionsRepository == null) {
+            return false;
+        }
+
+        if (mySessionsRepository.isExist(session.id)) {
+            mySessionsRepository.delete(session)
+                    .subscribe((result) -> {
+                                setCheckVisibility(View.GONE);
+                                AlarmUtil.unregisterAlarm(view.getContext(), session);
+                            },
+                            throwable -> Timber.tag(TAG).e(throwable, "Failed to delete my session"));
+        } else {
+            mySessionsRepository.save(session)
+                    .subscribe(() -> {
+                                setCheckVisibility(View.VISIBLE);
+                                AlarmUtil.registerAlarm(view.getContext(), session);
+                            },
+                            throwable -> Timber.tag(TAG).e(throwable, "Failed to save my session"));
+        }
+        return true;
     }
 
     @Override
@@ -213,6 +246,11 @@ public class SessionViewModel extends BaseObservable implements ViewModel {
     @Bindable
     public int getCheckVisibility() {
         return checkVisibility;
+    }
+
+    private void setCheckVisibility(int visibility) {
+        checkVisibility = visibility;
+        notifyPropertyChanged(BR.checkVisibility);
     }
 
     public void setCallback(Callback callback) {

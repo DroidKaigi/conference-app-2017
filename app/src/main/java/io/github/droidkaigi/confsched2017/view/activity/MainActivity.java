@@ -1,6 +1,6 @@
 package io.github.droidkaigi.confsched2017.view.activity;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentTransaction;
 
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.databinding.ActivityMainBinding;
+import io.github.droidkaigi.confsched2017.util.LocaleUtil;
 import io.github.droidkaigi.confsched2017.view.fragment.InformationFragment;
 import io.github.droidkaigi.confsched2017.view.fragment.MapFragment;
 import io.github.droidkaigi.confsched2017.view.fragment.SessionsFragment;
@@ -29,14 +30,15 @@ public class MainActivity extends BaseActivity {
 
     private Fragment settingsFragment;
 
-    public static void start(@NonNull Activity activity) {
-        Intent intent = new Intent(activity, MainActivity.class);
-        activity.startActivity(intent);
+    public static Intent createIntent(Context context) {
+        return new Intent(context, MainActivity.class);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        LocaleUtil.initLocale(this);
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         setSupportActionBar(binding.toolbar);
         getComponent().inject(this);
@@ -48,6 +50,7 @@ public class MainActivity extends BaseActivity {
     private void initView() {
         BottomNavigationViewHelper.disableShiftingMode(binding.bottomNav);
         binding.bottomNav.setOnNavigationItemSelectedListener(item -> {
+            binding.title.setText(item.getTitle());
             item.setChecked(true);
             switch (item.getItemId()) {
                 case R.id.nav_sessions:
@@ -92,9 +95,9 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    private void switchFragment(@NonNull Fragment fragment, @NonNull String tag) {
+    private boolean switchFragment(@NonNull Fragment fragment, @NonNull String tag) {
         if (fragment.isAdded()) {
-            return;
+            return false;
         }
 
         final FragmentManager manager = getSupportFragmentManager();
@@ -109,6 +112,23 @@ public class MainActivity extends BaseActivity {
         } else {
             ft.add(R.id.content_view, fragment, tag);
         }
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit();
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .commit();
+
+        // NOTE: When this method is called by user's continuous hitting at the same time,
+        // transactions are queued, so necessary to reflect commit instantly before next transaction starts.
+        manager.executePendingTransactions();
+
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (switchFragment(sessionsFragment, SessionsFragment.TAG)) {
+            binding.bottomNav.getMenu().findItem(R.id.nav_sessions).setChecked(true);
+            binding.title.setText(getString(R.string.sessions));
+            return;
+        }
+        super.onBackPressed();
     }
 }

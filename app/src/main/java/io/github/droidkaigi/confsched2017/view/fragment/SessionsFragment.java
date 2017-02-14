@@ -99,7 +99,7 @@ public class SessionsFragment extends BaseFragment implements SessionViewModel.C
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.item_search:
-                SearchActivity.start(getActivity());
+                startActivity(SearchActivity.createIntent(getActivity()));
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -132,8 +132,7 @@ public class SessionsFragment extends BaseFragment implements SessionViewModel.C
     }
 
     private void showSessions() {
-        String languageId = Locale.getDefault().getLanguage().toLowerCase();
-        Disposable disposable = viewModel.getSessions(languageId, getContext())
+        Disposable disposable = viewModel.getSessions(Locale.getDefault(), getContext())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

@@ -10,7 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -36,7 +36,11 @@ import io.github.droidkaigi.confsched2017.view.customview.itemdecoration.Divider
 import io.github.droidkaigi.confsched2017.viewmodel.SearchResultViewModel;
 import io.github.droidkaigi.confsched2017.viewmodel.SearchViewModel;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
+
 
 public class SearchFragment extends BaseFragment implements SearchViewModel.Callback, SearchResultViewModel.Callback {
 
@@ -44,6 +48,9 @@ public class SearchFragment extends BaseFragment implements SearchViewModel.Call
 
     @Inject
     SearchViewModel viewModel;
+
+    @Inject
+    CompositeDisposable compositeDisposable;
 
     private SearchResultsAdapter adapter;
 
@@ -119,9 +126,32 @@ public class SearchFragment extends BaseFragment implements SearchViewModel.Call
         binding.setViewModel(viewModel);
 
         initRecyclerView();
-        loadData();
 
         return binding.getRoot();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadData();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        compositeDisposable.clear();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        viewModel.destroy();
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        compositeDisposable.dispose();
     }
 
     private void initRecyclerView() {
@@ -133,23 +163,32 @@ public class SearchFragment extends BaseFragment implements SearchViewModel.Call
     }
 
     private void loadData() {
-        viewModel.getSearchResultViewModels(getContext(), this)
+        Disposable disposable = viewModel.getSearchResultViewModels(getContext(), this)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        searchResultViewModels -> adapter.setAllList(searchResultViewModels),
-                        throwable -> Log.e(TAG, "Search result load failed.", throwable)
+                        this::renderSearchResults,
+                        throwable -> Timber.tag(TAG).e(throwable, "Search result load failed.")
                 );
+        compositeDisposable.add(disposable);
     }
 
     @Override
-    public void close() {
-        getActivity().finish();
+    public void closeSearchResultList() {
+        adapter.clearAllResults();
     }
 
     @Override
     public void showSessionDetail(@NonNull Session session) {
         startActivity(SessionDetailActivity.createIntent(getContext(), session.id));
+    }
+
+    private void renderSearchResults(List<SearchResultViewModel> searchResultViewModels) {
+        adapter.setAllList(searchResultViewModels);
+        String searchText = adapter.getPreviousSearchText();
+        if (!TextUtils.isEmpty(searchText)) {
+            adapter.getFilter().filter(searchText);
+        }
     }
 
     private class SearchResultsAdapter
@@ -165,6 +204,7 @@ public class SearchFragment extends BaseFragment implements SearchViewModel.Call
         SearchResultsAdapter(@NonNull Context context) {
             super(context);
             this.filteredList = new ArrayList<>();
+            setHasStableIds(true);
         }
 
         void setAllList(List<SearchResultViewModel> viewModels) {
@@ -173,6 +213,15 @@ public class SearchFragment extends BaseFragment implements SearchViewModel.Call
 
         void setPreviousSearchText(String previousSearchText) {
             this.previousSearchText = previousSearchText;
+        }
+
+        String getPreviousSearchText() {
+            return previousSearchText;
+        }
+
+        void clearAllResults() {
+            clear();
+            notifyDataSetChanged();
         }
 
         @Override
@@ -218,6 +267,12 @@ public class SearchFragment extends BaseFragment implements SearchViewModel.Call
                     notifyDataSetChanged();
                 }
             };
+        }
+
+        @Override
+        public long getItemId(int position) {
+            SearchResultViewModel viewModel = getItem(position);
+            return viewModel.getSearchResultId();
         }
     }
 }

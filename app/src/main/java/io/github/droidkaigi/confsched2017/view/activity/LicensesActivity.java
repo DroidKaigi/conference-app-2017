@@ -1,10 +1,9 @@
 package io.github.droidkaigi.confsched2017.view.activity;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.databinding.ActivityLicensesBinding;
@@ -14,9 +13,8 @@ public class LicensesActivity extends BaseActivity {
 
     private ActivityLicensesBinding binding;
 
-    public static void start(@NonNull Activity activity) {
-        Intent intent = new Intent(activity, LicensesActivity.class);
-        activity.startActivity(intent);
+    public static Intent createIntent(Context context) {
+        return new Intent(context, LicensesActivity.class);
     }
 
     @Override

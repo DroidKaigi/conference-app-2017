@@ -3,6 +3,7 @@ package io.github.droidkaigi.confsched2017.repository.sessions;
 import android.text.TextUtils;
 
 import java.util.List;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -22,22 +23,21 @@ public final class SessionsRemoteDataSource implements SessionsDataSource {
     }
 
     @Override
-    public Single<List<Session>> findAll(String languageId) {
-        return client.getSessions(languageId)
-                .map(sessions -> {
+    public Single<List<Session>> findAll(Locale locale) {
+        return client.getSessions(locale)
+                .doOnSuccess(sessions -> {
                     // API returns some sessions which have empty room info.
                     for (Session session : sessions) {
                         if (session.room != null && TextUtils.isEmpty(session.room.name)) {
                             session.room = null;
                         }
                     }
-                    return sessions;
                 });
     }
 
     @Override
-    public Maybe<Session> find(int sessionId, String languageId) {
-        return findAll(languageId)
+    public Maybe<Session> find(int sessionId, Locale locale) {
+        return findAll(locale)
                 .toObservable()
                 .flatMap(Observable::fromIterable)
                 .filter(session -> session.id == sessionId)
@@ -49,4 +49,8 @@ public final class SessionsRemoteDataSource implements SessionsDataSource {
         // Do nothing
     }
 
+    @Override
+    public void deleteAll() {
+        // Do nothing
+    }
 }

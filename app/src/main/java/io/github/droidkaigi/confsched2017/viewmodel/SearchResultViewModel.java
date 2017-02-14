@@ -5,7 +5,6 @@ import android.databinding.BaseObservable;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
@@ -14,6 +13,7 @@ import android.view.View;
 
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.model.Session;
+import io.github.droidkaigi.confsched2017.repository.sessions.MySessionsRepository;
 
 public class SearchResultViewModel extends BaseObservable implements ViewModel {
 
@@ -27,12 +27,13 @@ public class SearchResultViewModel extends BaseObservable implements ViewModel {
 
     private String text;
 
-    private String type;
+    private Type type;
+
+    private int searchResultId;
 
     private TextAppearanceSpan textAppearanceSpan;
 
-    @DrawableRes
-    private int iconResId;
+    private boolean isMySession;
 
     private Session session;
 
@@ -40,18 +41,19 @@ public class SearchResultViewModel extends BaseObservable implements ViewModel {
 
     private boolean shouldEllipsis;
 
-    private SearchResultViewModel(String text, @DrawableRes int iconResId,
-            @StringRes int typeStringResId, Session session, Context context) {
+    private SearchResultViewModel(String text, Type type, Session session, Context context,
+            MySessionsRepository mySessionsRepository) {
         this.text = text;
         this.sessionTitle = session.title;
         if (session.speaker != null) {
             this.speakerImageUrl = session.speaker.imageUrl;
         }
-        this.iconResId = iconResId;
-        this.type = context.getString(typeStringResId);
-        this.shouldEllipsis = typeStringResId == R.string.description;
+        this.type = type;
+        this.searchResultId = session.id * 10 + type.ordinal();
+        this.shouldEllipsis = type == Type.DESCRIPTION;
         this.session = session;
         this.textAppearanceSpan = new TextAppearanceSpan(context, R.style.SearchResultAppearance);
+        this.isMySession = mySessionsRepository.isExist(session.id);
     }
 
     @Override
@@ -86,11 +88,12 @@ public class SearchResultViewModel extends BaseObservable implements ViewModel {
         return speakerImageUrl;
     }
 
+    @DrawableRes
     public int getIconResId() {
-        return iconResId;
+        return type.getIconResId();
     }
 
-    public String getType() {
+    public Type getType() {
         return type;
     }
 
@@ -128,20 +131,45 @@ public class SearchResultViewModel extends BaseObservable implements ViewModel {
         }
     }
 
-    static SearchResultViewModel createTitleType(@NonNull Session session, Context context) {
-        return new SearchResultViewModel(session.title, R.drawable.ic_title_12_vector,
-                R.string.title, session, context);
+    public boolean getIsMySession() {
+        return isMySession;
     }
 
-    static SearchResultViewModel createDescriptionType(@NonNull Session session, Context context) {
-        return new SearchResultViewModel(session.desc, R.drawable.ic_description12_vector,
-                R.string.description, session, context);
-    }
-
-    static SearchResultViewModel createSpeakerType(@NonNull Session session, Context context) {
-        return new SearchResultViewModel(session.speaker.name, R.drawable.ic_speaker_12_vector,
-                R.string.speaker, session, context);
+    public int getSearchResultId() {
+        return searchResultId;
     }
 
 
+    static SearchResultViewModel createTitleType(@NonNull Session session, Context context,
+            MySessionsRepository mySessionsRepository) {
+        return new SearchResultViewModel(session.title, Type.TITLE, session, context, mySessionsRepository);
+    }
+
+    static SearchResultViewModel createDescriptionType(@NonNull Session session, Context context,
+            MySessionsRepository mySessionsRepository) {
+        return new SearchResultViewModel(session.desc, Type.DESCRIPTION, session, context, mySessionsRepository);
+    }
+
+    static SearchResultViewModel createSpeakerType(@NonNull Session session, Context context,
+            MySessionsRepository mySessionsRepository) {
+        return new SearchResultViewModel(session.speaker.name, Type.SPEAKER, session, context, mySessionsRepository);
+    }
+
+    public enum Type {
+        TITLE(R.drawable.ic_title_12_vector),
+        DESCRIPTION(R.drawable.ic_description12_vector),
+        SPEAKER(R.drawable.ic_speaker_12_vector),
+        ;
+
+        private final @DrawableRes int iconResId;
+
+        Type(@DrawableRes int iconResId) {
+            this.iconResId = iconResId;
+        }
+
+        @DrawableRes
+        public int getIconResId() {
+            return iconResId;
+        }
+    }
 }

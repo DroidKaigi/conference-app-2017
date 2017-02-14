@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         >
 
     <data>
@@ -11,7 +12,7 @@
                 />
     </data>
 
-    <RelativeLayout
+    <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/clickable_white"
@@ -21,47 +22,55 @@
 
         <TextView
                 android:id="@+id/txt_type"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_toLeftOf="@+id/img_speaker"
-                android:layout_toStartOf="@+id/img_speaker"
+                android:layout_marginEnd="@dimen/space_16dp"
+                android:layout_marginRight="@dimen/space_16dp"
                 android:drawablePadding="@dimen/icon_space_4dp"
                 android:ellipsize="end"
                 android:lines="1"
                 android:text="@{viewModel.sessionTitle}"
                 android:textAppearance="@style/TextCaption"
                 android:textColor="@color/grey500"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/img_speaker"
+                app:layout_constraintTop_toTopOf="parent"
+                app:mySession="@{viewModel.isMySession}"
                 app:searchResultIcon="@{viewModel.iconResId}"
-                />
-
-        <TextView
-                android:id="@+id/txt_search_result"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/txt_type"
-                android:layout_marginTop="@dimen/space_4dp"
-                android:layout_toLeftOf="@+id/img_speaker"
-                android:layout_toStartOf="@+id/img_speaker"
-                android:ellipsize="end"
-                android:maxLines="3"
-                android:textAppearance="@style/TextBody1"
-                android:textColor="@color/black"
+                tools:text="Hello, DroidKaigi 2017"
                 />
 
         <ImageView
                 android:id="@+id/img_speaker"
                 android:layout_width="@dimen/user_image"
                 android:layout_height="@dimen/user_image"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/space_16dp"
-                android:layout_marginStart="@dimen/space_16dp"
                 android:contentDescription="@string/speaker"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 app:speakerImageSize="@{@dimen/user_image}"
                 app:speakerImageUrl="@{viewModel.speakerImageUrl}"
+                tools:src="@drawable/ic_speaker_placeholder"
                 />
 
-    </RelativeLayout>
+        <TextView
+                android:id="@+id/txt_search_result"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txt_type"
+                android:layout_marginEnd="@dimen/space_16dp"
+                android:layout_marginRight="@dimen/space_16dp"
+                android:layout_marginTop="@dimen/space_4dp"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:textAppearance="@style/TextBody1"
+                android:textColor="@color/black"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/img_speaker"
+                app:layout_constraintTop_toBottomOf="@+id/txt_type"
+                tools:text="Hello, DroidKaigi 2017"
+                />
+
+    </android.support.constraint.ConstraintLayout>
 
 </layout>

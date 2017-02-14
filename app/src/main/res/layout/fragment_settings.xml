@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         >
 
     <data>
@@ -22,6 +23,60 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 >
+
+            <RelativeLayout
+                    android:id="@+id/language_settings_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/clickable"
+                    android:clickable="true"
+                    android:onClick="@{viewModel::onClickLanguage}"
+                    android:padding="@dimen/space_16dp"
+                    >
+
+                <TextView
+                        android:id="@+id/txt_title"
+                        style="@style/SettingTitleText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toLeftOf="@+id/txt_language"
+                        android:layout_toStartOf="@+id/txt_language"
+                        android:ellipsize="end"
+                        android:lines="1"
+                        android:text="@string/settings_language"
+                        />
+
+                <TextView
+                        android:id="@+id/setting_description"
+                        style="@style/SettingDescriptionText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/txt_title"
+                        android:layout_marginTop="@dimen/space_8dp"
+                        android:layout_toLeftOf="@+id/txt_language"
+                        android:layout_toStartOf="@+id/txt_language"
+                        android:text="@string/settings_language_description"
+                        />
+
+                <TextView
+                        android:id="@+id/txt_language"
+                        style="@style/SessionTag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/space_16dp"
+                        android:layout_marginStart="@dimen/space_16dp"
+                        android:background="@drawable/tag_language"
+                        android:padding="@dimen/space_8dp"
+                        android:text="@{viewModel.getCurrentLanguage(context)}"
+                        tools:text="@string/lang_en"
+                        />
+
+            </RelativeLayout>
+
+            <View style="@style/Border" />
 
             <io.github.droidkaigi.confsched2017.view.customview.SettingSwitchRowView
                     android:id="@+id/local_time_switch_row"
@@ -83,6 +138,34 @@
                     style="@style/Border"
                     android:visibility="@{viewModel.getShowHeadsUpSettingVisibility}"
                     />
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/space_16dp"
+                    >
+
+                <TextView
+                        style="@style/TextSubheading"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings_developer_group"
+                        android:textColor="?attr/colorPrimary"
+                        />
+
+            </RelativeLayout>
+
+            <io.github.droidkaigi.confsched2017.view.customview.SettingSwitchRowView
+                    android:id="@+id/debug_overlay_view_switch_row"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:settingDefaultValue="@{viewModel.useDebugOverlayView}"
+                    app:settingDescription="@string/settings_debug_overlay_view_description"
+                    app:settingOnCheckedChanged="@{(v, checked) -> viewModel.onCheckedDebugOverlayView(checked)}"
+                    app:settingTitle="@string/settings_debug_overlay_view"
+                    />
+
+            <View style="@style/Border"/>
 
         </LinearLayout>
 

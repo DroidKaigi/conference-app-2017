@@ -1,10 +1,9 @@
 package io.github.droidkaigi.confsched2017.view.activity;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.databinding.ActivitySearchBinding;
@@ -14,15 +13,14 @@ public class SearchActivity extends BaseActivity {
 
     private ActivitySearchBinding binding;
 
-    public static void start(@NonNull Activity activity) {
-        Intent intent = new Intent(activity, SearchActivity.class);
-        activity.startActivity(intent);
-        activity.overridePendingTransition(0, R.anim.activity_fade_exit);
+    public static Intent createIntent(Context context) {
+        return new Intent(context, SearchActivity.class);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(0, R.anim.activity_fade_exit);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_search);
 
         initBackToolbar(binding.toolbar);
@@ -31,8 +29,8 @@ public class SearchActivity extends BaseActivity {
 
     @Override
     public void finish() {
-        overridePendingTransition(0, R.anim.activity_fade_exit);
         super.finish();
+        overridePendingTransition(0, R.anim.activity_fade_exit);
     }
 
     @Override

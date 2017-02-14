@@ -7,6 +7,7 @@
     <dimen name="space_12dp">12dp</dimen>
     <dimen name="space_16dp">16dp</dimen>
     <dimen name="space_24dp">24dp</dimen>
+    <dimen name="space_32dp">32dp</dimen>
     <dimen name="space_minus_4dp">-4dp</dimen>
 
     <dimen name="icon_space_4dp">4dp</dimen>
@@ -22,17 +23,25 @@
     <dimen name="text_16sp">16sp</dimen>
     <dimen name="text_20sp">20sp</dimen>
     <dimen name="text_24sp">24sp</dimen>
-
+    <dimen name="text_drawable_12dp">12dp</dimen>
 
     <!-- Line -->
     <dimen name="line_1dp">1dp</dimen>
     <dimen name="line_2dp">2dp</dimen>
 
 
+    <!-- Border -->
+    <dimen name="border_1dp">1dp</dimen>
+
+
     <!-- Elevation -->
     <dimen name="elevation_2dp">2dp</dimen>
     <dimen name="elevation_4dp">4dp</dimen>
     <dimen name="elevation_6dp">6dp</dimen>
+
+
+    <!-- Radius -->
+    <dimen name="radius_4dp">4dp</dimen>
 
 
     <!-- Component -->
@@ -57,6 +66,10 @@
     <dimen name="detail_header_height">200dp</dimen>
 
 
+    <!-- Feedback -->
+    <dimen name="feedback_ranking_size">48dp</dimen>
+
+
     <!-- Information -->
     <dimen name="info_logo_width">240dp</dimen>
     <dimen name="info_social_icon_margin">@dimen/space_16dp</dimen>
@@ -69,4 +82,8 @@
     <dimen name="contributor_image_margin_bottom">@dimen/space_8dp</dimen>
     <dimen name="contributor_cell_margin_bottom">@dimen/space_16dp</dimen>
 
+    <!-- Sponsor -->
+    <dimen name="sponsor_image_height">80dp</dimen>
+    <dimen name="sponsor_image_margin">@dimen/space_8dp</dimen>
+    <dimen name="sponsor_image_border">2dp</dimen>
 </resources>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        >
+
+    <data>
+
+        <variable
+                name="viewModel"
+                type="io.github.droidkaigi.confsched2017.viewmodel.SponsorViewModel"
+                />
+    </data>
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/sponsor_image_margin"
+            android:layout_marginEnd="@dimen/sponsor_image_margin"
+            android:layout_marginStart="@dimen/sponsor_image_margin"
+            android:background="@drawable/rectangle_border_grey200"
+            android:clickable="true"
+            android:onClick="@{viewModel::onClickSponsor}"
+            >
+
+        <ImageView
+                android:id="@+id/sponsor_logo"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/sponsor_image_height"
+                android:layout_centerInParent="true"
+                android:background="?attr/selectableItemBackground"
+                android:padding="@dimen/sponsor_image_margin"
+                android:scaleType="centerInside"
+                app:photoImageUrl="@{viewModel.sponsor.imageUrl}"
+                />
+    </RelativeLayout>
+</layout>

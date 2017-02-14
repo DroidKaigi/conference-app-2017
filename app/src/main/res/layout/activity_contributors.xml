@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context=".view.activity.ContributorsActivity"
         >
+
+    <data>
+
+        <variable
+                name="viewModel"
+                type="io.github.droidkaigi.confsched2017.viewmodel.ToolbarViewModel"
+                />
+    </data>
 
     <RelativeLayout
             android:layout_width="match_parent"
@@ -13,7 +23,7 @@
                 style="@style/BaseToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:title="@string/contributors"
+                app:title="@{viewModel.toolbarTitle}"
                 />
 
         <FrameLayout

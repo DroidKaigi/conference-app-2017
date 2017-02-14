@@ -6,4 +6,6 @@
 
     <integer name="fab_vector_animation_mills">200</integer>
 
+    <integer name="contributors_columns">3</integer>
+
 </resources>

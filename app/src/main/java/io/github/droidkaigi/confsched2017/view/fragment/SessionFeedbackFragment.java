@@ -6,7 +6,6 @@ import com.sys1yagi.fragmentcreator.annotation.FragmentCreator;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +20,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 @FragmentCreator
 public class SessionFeedbackFragment extends BaseFragment implements SessionFeedbackViewModel.Callback {
@@ -72,7 +72,7 @@ public class SessionFeedbackFragment extends BaseFragment implements SessionFeed
                         session -> {
                             // TODO
                         },
-                        throwable -> Log.e(TAG, "Failed to find session.", throwable)
+                        throwable -> Timber.tag(TAG).e(throwable, "Failed to find session.")
                 );
         compositeDisposable.add(disposable);
     }
@@ -90,12 +90,18 @@ public class SessionFeedbackFragment extends BaseFragment implements SessionFeed
     }
 
     @Override
+    public void onDetach() {
+        super.onDetach();
+        compositeDisposable.clear();
+    }
+
+    @Override
     public void onClickSubmitFeedback() {
         SessionFeedback sessionFeedback = new SessionFeedback(sessionId);
-        viewModel.submitSessionFeedback(sessionFeedback)
+        compositeDisposable.add(viewModel.submitSessionFeedback(sessionFeedback)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(success -> onSubmitSuccess(), failure -> onSubmitFailure());
+                .subscribe(success -> onSubmitSuccess(), failure -> onSubmitFailure()));
     }
 
     public void onSubmitSuccess() {

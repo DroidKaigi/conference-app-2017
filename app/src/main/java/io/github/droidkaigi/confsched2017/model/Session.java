@@ -6,7 +6,6 @@ import com.github.gfx.android.orma.annotation.Column;
 import com.github.gfx.android.orma.annotation.PrimaryKey;
 import com.github.gfx.android.orma.annotation.Table;
 
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import java.util.Date;
@@ -85,28 +84,31 @@ public class Session {
     public String shareUrl;
 
     private enum Type {
-        CEREMONY, SESSION, BREAK;
+        CEREMONY, SESSION, BREAK, DINNER;
 
-        @Override
-        public String toString() {
-            return super.toString().toLowerCase();
+        boolean matches(String type) {
+            return name().equalsIgnoreCase(type);
         }
     }
 
     public boolean isSession() {
-        return isSameType(Type.SESSION);
+        return Type.SESSION.matches(type);
     }
 
     public boolean isCeremony() {
-        return isSameType(Type.CEREMONY);
+        return Type.CEREMONY.matches(type);
     }
 
     public boolean isBreak() {
-        return isSameType(Type.BREAK);
+        return Type.BREAK.matches(type);
     }
 
-    private boolean isSameType(@NonNull Type type) {
-        return type.toString().equals(this.type);
+    public boolean isDinner() {
+        return Type.DINNER.matches(type);
+    }
+
+    public boolean isLiveAt(Date when) {
+        return stime.before(when) && etime.after(when);
     }
 
     @Override
