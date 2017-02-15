@@ -1,6 +1,5 @@
 package io.github.droidkaigi.confsched2017.viewmodel;
 
-import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 
 import android.content.Context;
@@ -67,7 +66,7 @@ public final class MySessionsViewModel extends BaseObservable implements ViewMod
         return mySessionsRepository.findAll()
                 .map(mySessions -> Stream.of(mySessions)
                         .sorted((lhs, rhs) -> lhs.session.stime.compareTo(rhs.session.stime))
-                        .collect(Collectors.toList()));
+                        .toList());
     }
 
     public void start(Context context) {
@@ -82,7 +81,7 @@ public final class MySessionsViewModel extends BaseObservable implements ViewMod
     }
 
     private List<MySessionViewModel> convertToViewModel(Context context, List<MySession> mySessions) {
-        return Stream.of(mySessions).map(mySession -> new MySessionViewModel(context , mySession)).collect(Collectors.toList());
+        return Stream.of(mySessions).map(mySession -> new MySessionViewModel(context, mySession)).toList();
     }
 
     private void renderMySessions(List<MySessionViewModel> mySessionViewModels) {

@@ -1,6 +1,5 @@
 package io.github.droidkaigi.confsched2017.viewmodel;
 
-import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 
 import android.databinding.BaseObservable;
@@ -116,7 +115,7 @@ public final class ContributorsViewModel extends BaseObservable implements ViewM
                     ContributorViewModel viewModel = new ContributorViewModel(contributor);
                     viewModel.setCallback(this);
                     return viewModel;
-                }).collect(Collectors.toList()))
+                }).toList())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

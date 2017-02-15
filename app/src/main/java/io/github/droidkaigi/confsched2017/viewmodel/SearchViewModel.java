@@ -1,6 +1,5 @@
 package io.github.droidkaigi.confsched2017.viewmodel;
 
-import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 
 import android.content.Context;
@@ -48,7 +47,7 @@ public final class SearchViewModel extends BaseObservable implements ViewModel {
                 .map(sessions -> {
                     List<Session> filteredSessions = Stream.of(sessions)
                             .filter(session -> session.isSession() && session.speaker != null)
-                            .collect(Collectors.toList());
+                            .toList();
 
                     List<SearchResultViewModel> titleResults = Stream.of(filteredSessions)
                             .map(session -> {
@@ -56,7 +55,7 @@ public final class SearchViewModel extends BaseObservable implements ViewModel {
                                         .createTitleType(session, context, mySessionsRepository);
                                 viewModel.setCallback(callback);
                                 return viewModel;
-                            }).collect(Collectors.toList());
+                            }).toList();
 
                     List<SearchResultViewModel> descriptionResults = Stream.of(filteredSessions)
                             .map(session -> {
@@ -65,7 +64,7 @@ public final class SearchViewModel extends BaseObservable implements ViewModel {
                                                 mySessionsRepository);
                                 viewModel.setCallback(callback);
                                 return viewModel;
-                            }).collect(Collectors.toList());
+                            }).toList();
 
                     List<SearchResultViewModel> speakerResults = Stream.of(filteredSessions)
                             .map(session -> {
@@ -73,7 +72,7 @@ public final class SearchViewModel extends BaseObservable implements ViewModel {
                                         .createSpeakerType(session, context, mySessionsRepository);
                                 viewModel.setCallback(callback);
                                 return viewModel;
-                            }).collect(Collectors.toList());
+                            }).toList();
 
                     titleResults.addAll(descriptionResults);
                     titleResults.addAll(speakerResults);

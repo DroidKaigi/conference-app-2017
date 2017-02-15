@@ -1,6 +1,5 @@
 package io.github.droidkaigi.confsched2017.viewmodel;
 
-import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 
 import android.databinding.BaseObservable;
@@ -49,6 +48,6 @@ public final class SponsorshipViewModel extends BaseObservable implements ViewMo
     private List<SponsorViewModel> convertSponsor(Sponsorship sponsorship) {
         return Stream.of(sponsorship.sponsors)
                 .map(SponsorViewModel::new)
-                .collect(Collectors.toList());
+                .toList();
     }
 }

@@ -1,6 +1,5 @@
 package io.github.droidkaigi.confsched2017.viewmodel;
 
-import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 
 import android.content.Context;
@@ -68,7 +67,7 @@ public class SessionsViewModel extends BaseObservable implements ViewModel {
                                 boolean isMySession = mySessionMap.containsKey(session.id);
                                 return new SessionViewModel(session, context, rooms.size(), isMySession, mySessionsRepository);
                             })
-                            .collect(Collectors.toList());
+                            .toList();
                     return adjustViewModels(viewModels, context);
                 });
     }
@@ -146,7 +145,7 @@ public class SessionsViewModel extends BaseObservable implements ViewModel {
                 .map(session -> session.stime)
                 .sorted()
                 .distinct()
-                .collect(Collectors.toList());
+                .toList();
     }
 
     private List<Room> extractRooms(List<Session> sessions) {
@@ -155,7 +154,7 @@ public class SessionsViewModel extends BaseObservable implements ViewModel {
                 .filter(room -> room != null && room.id != 0)
                 .sorted((lhs, rhs) -> lhs.name.compareTo(rhs.name))
                 .distinct()
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public List<Room> getRooms() {
