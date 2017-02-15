@@ -43,8 +43,6 @@ public final class ContributorsViewModel extends BaseObservable implements ViewM
 
     private int loadingVisibility;
 
-    private int retryVisibility;
-
     private boolean refreshing;
 
     @Nullable
@@ -91,16 +89,6 @@ public final class ContributorsViewModel extends BaseObservable implements ViewM
     }
 
     @Bindable
-    public int getRetryVisibility() {
-        return retryVisibility;
-    }
-
-    private void setRetryVisibility(int visibility) {
-        this.retryVisibility = visibility;
-        notifyPropertyChanged(BR.retryVisibility);
-    }
-
-    @Bindable
     public boolean getRefreshing() {
         return refreshing;
     }
@@ -114,7 +102,7 @@ public final class ContributorsViewModel extends BaseObservable implements ViewM
         loadContributors(true);
     }
 
-    public void onClickRetry(@SuppressWarnings("unused") View view) {
+    public void retry() {
         loadContributors(false);
     }
 
@@ -128,7 +116,6 @@ public final class ContributorsViewModel extends BaseObservable implements ViewM
         } else {
             setLoadingVisibility(View.VISIBLE);
         }
-        setRetryVisibility(View.GONE);
 
         Disposable disposable = contributorsRepository.findAll()
                 .map(contributors -> Stream.of(contributors).map(contributor -> {
@@ -142,7 +129,9 @@ public final class ContributorsViewModel extends BaseObservable implements ViewM
                         this::renderContributors,
                         throwable -> {
                             setLoadingVisibility(View.GONE);
-                            setRetryVisibility(viewModels.isEmpty() ? View.VISIBLE : View.GONE);
+                            if (callback != null) {
+                                callback.showError("Failed to show contributors.");
+                            }
                             Timber.tag(TAG).e(throwable, "Failed to show contributors.");
                         });
         compositeDisposable.add(disposable);
@@ -163,5 +152,7 @@ public final class ContributorsViewModel extends BaseObservable implements ViewM
     public interface Callback {
 
         void onClickContributor(String htmlUrl);
+
+        void showError(String text);
     }
 }
