@@ -91,6 +91,14 @@
                 android:theme="@style/AppTheme.NoActionBar.Splash"
                 />
 
+        <activity
+                android:name=".view.activity.MySessionsActivity"
+                android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+                android:exported="false"
+                android:label="@string/my_session"
+                android:theme="@style/AppTheme.ColoredStatusBar"
+                />
+
         <service
                 android:name=".service.DebugOverlayService"
                 android:exported="false"

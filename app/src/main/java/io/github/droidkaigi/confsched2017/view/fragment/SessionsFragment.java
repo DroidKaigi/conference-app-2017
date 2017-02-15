@@ -38,6 +38,7 @@ import io.github.droidkaigi.confsched2017.databinding.ViewSessionCellBinding;
 import io.github.droidkaigi.confsched2017.model.Room;
 import io.github.droidkaigi.confsched2017.model.Session;
 import io.github.droidkaigi.confsched2017.util.ViewUtil;
+import io.github.droidkaigi.confsched2017.view.activity.MySessionsActivity;
 import io.github.droidkaigi.confsched2017.view.activity.SearchActivity;
 import io.github.droidkaigi.confsched2017.view.activity.SessionDetailActivity;
 import io.github.droidkaigi.confsched2017.view.customview.ArrayRecyclerAdapter;
@@ -100,6 +101,9 @@ public class SessionsFragment extends BaseFragment implements SessionViewModel.C
         switch (item.getItemId()) {
             case R.id.item_search:
                 startActivity(SearchActivity.createIntent(getActivity()));
+                break;
+            case R.id.item_my_sessions:
+                startActivity(MySessionsActivity.createIntent(getActivity()));
                 break;
         }
         return super.onOptionsItemSelected(item);

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+                name="viewModel"
+                type="io.github.droidkaigi.confsched2017.viewmodel.MySessionsViewModel"
+                />
+    </data>
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+        <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                style="@style/BaseRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:visibility="@{viewModel.recyclerViewVisibility}"
+                />
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:padding="@dimen/space_16dp"
+                android:text="@string/my_session_empty"
+                android:textAppearance="@style/TextSubheading"
+                android:textColor="@color/grey500"
+                android:visibility="@{viewModel.emptyViewVisibility}"
+                />
+    </RelativeLayout>
+</layout>

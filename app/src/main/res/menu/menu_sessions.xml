@@ -11,4 +11,8 @@
             app:showAsAction="always"
             />
 
+    <item
+            android:id="@+id/item_my_sessions"
+            android:title="@string/my_session"
+            app:showAsAction="never"/>
 </menu>

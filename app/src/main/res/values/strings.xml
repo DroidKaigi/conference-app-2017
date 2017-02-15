@@ -40,6 +40,10 @@
     <string name="session_check">Check</string>
     <string name="session_uncheck">Uncheck</string>
 
+    <!-- My Sessions -->
+    <string name="my_session">My Session</string>
+    <string name="my_session_empty">No items here. Let\'s check out all sessions and put your favourite!</string>
+
     <!-- Map -->
     <string name="start_navigation">Start Navigation</string>
 
@@ -86,7 +90,6 @@
 
     <!-- Session feedback -->
     <string name="session_feedback">Session feedback</string>
-
 
     <!-- Search -->
     <string name="search">Search</string>
