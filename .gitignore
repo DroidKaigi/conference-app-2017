@@ -44,3 +44,4 @@ captures/
 .DS_Store
 /key.json
 /deploy2store.sh
+/serviceaccount.json
