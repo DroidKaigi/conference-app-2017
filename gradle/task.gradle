@@ -25,5 +25,6 @@ task downloadMetaData(type: Exec) {
 task releaseApp(type: Exec) {
     workingDir '../'
     commandLine "./gradlew", "clean"
+    commandLine "./gradlew", "app:firebaseUploadProductionReleaseProguardMapping"
     commandLine "./script/deploy2store.sh"
 }
