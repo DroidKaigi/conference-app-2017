@@ -40,7 +40,7 @@
     <string name="session_check">Check</string>
     <string name="session_uncheck">Uncheck</string>
     <string name="my_session">My Session</string>
-    <string name="my_session_empty_description">You don\'t save a my session. To see this page, you save it in session detail page.</string>
+    <string name="my_session_empty_description">You don\'t save a my session. To see my session, please you save it in session detail page.</string>
 
     <!-- Map -->
     <string name="start_navigation">Start Navigation</string>
