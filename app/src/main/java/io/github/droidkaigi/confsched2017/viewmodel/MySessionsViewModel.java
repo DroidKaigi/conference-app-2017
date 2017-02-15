@@ -5,13 +5,16 @@ import com.annimon.stream.Stream;
 
 import android.content.Context;
 import android.databinding.BaseObservable;
+import android.databinding.Bindable;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
+import android.view.View;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
+import io.github.droidkaigi.confsched2017.BR;
 import io.github.droidkaigi.confsched2017.model.MySession;
 import io.github.droidkaigi.confsched2017.repository.sessions.MySessionsRepository;
 import io.reactivex.Single;
@@ -30,6 +33,10 @@ public final class MySessionsViewModel extends BaseObservable implements ViewMod
 
     private final CompositeDisposable compositeDisposable;
 
+    private int emptyViewVisibility;
+
+    private int recyclerViewVisibility;
+
     @Inject
     MySessionsViewModel(MySessionsRepository mySessionsRepository, CompositeDisposable compositeDisposable) {
         this.mySessionsRepository = mySessionsRepository;
@@ -46,6 +53,15 @@ public final class MySessionsViewModel extends BaseObservable implements ViewMod
         return mySessionViewModels;
     }
 
+    @Bindable
+    public int getEmptyViewVisibility() {
+        return emptyViewVisibility;
+    }
+
+    @Bindable
+    public int getRecyclerViewVisibility() {
+        return recyclerViewVisibility;
+    }
 
     private Single<List<MySession>> loadMySessions() {
         return mySessionsRepository.findAll()
@@ -73,5 +89,9 @@ public final class MySessionsViewModel extends BaseObservable implements ViewMod
         if(this.mySessionViewModels.size() == mySessionViewModels.size()) { return; }
         this.mySessionViewModels.clear();
         this.mySessionViewModels.addAll(mySessionViewModels);
+        this.emptyViewVisibility = this.mySessionViewModels.size() > 0 ? View.GONE : View.VISIBLE;
+        this.recyclerViewVisibility = this.mySessionViewModels.size() > 0 ? View.VISIBLE : View.GONE;
+        notifyPropertyChanged(BR.emptyViewVisibility);
+        notifyPropertyChanged(BR.recyclerViewVisibility);
     }
 }

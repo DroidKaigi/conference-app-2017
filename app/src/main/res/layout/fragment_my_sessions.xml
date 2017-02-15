@@ -9,13 +9,26 @@
                 />
     </data>
 
-
-    <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_view"
-            style="@style/BaseRecyclerView"
+    <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            />
+            android:layout_height="match_parent"
+            >
 
+        <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                style="@style/BaseRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:visibility="@{viewModel.recyclerViewVisibility}"
+                />
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/space_16dp"
+                android:text="@string/my_session_empty_description"
+                android:visibility="@{viewModel.emptyViewVisibility}"
+                />
+    </RelativeLayout>
 </layout>
