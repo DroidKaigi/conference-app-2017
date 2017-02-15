@@ -5,7 +5,7 @@ import io.reactivex.plugins.RxJavaPlugins
 import io.reactivex.schedulers.TestScheduler
 import org.junit.rules.ExternalResource
 
-class RxTestSchedulerRule : ExternalResource() {
+object RxTestSchedulerRule : ExternalResource() {
     val testScheduler: TestScheduler = TestScheduler()
 
     override fun before() {

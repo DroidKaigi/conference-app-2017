@@ -22,7 +22,7 @@ class ContributorsViewModelTest {
     companion object {
         @ClassRule
         @JvmField
-        val schedulerRule = RxTestSchedulerRule()
+        val schedulerRule = RxTestSchedulerRule
 
         private val EXPECTED_CONTRIBUTORS = listOf(
                 Contributor().apply {
@@ -38,7 +38,7 @@ class ContributorsViewModelTest {
         )
     }
 
-    private val resourceResolver = object : ResourceResolver {
+    private val resourceResolver = object : ResourceResolver(null) {
         override fun getString(resId: Int): String = "Contributors"
 
         override fun getString(resId: Int, vararg formatArgs: Any?): String = "(${formatArgs[0]} people)"
@@ -71,7 +71,7 @@ class ContributorsViewModelTest {
         assertEq(viewModel.contributorViewModels, EXPECTED_CONTRIBUTORS)
         viewModel.loadingVisibility.should be 8 // GONE
         viewModel.refreshing.should be false
-        toolbarViewModel.verify().setToolbarTitle("Contributors (3 people)")
+        toolbarViewModel.verify().toolbarTitle = "Contributors (3 people)"
     }
 
     @Test
@@ -83,7 +83,7 @@ class ContributorsViewModelTest {
         assertEq(viewModel.contributorViewModels, EXPECTED_CONTRIBUTORS)
         viewModel.loadingVisibility.should be 8 // GONE
         viewModel.refreshing.should be false
-        toolbarViewModel.verify().setToolbarTitle("Contributors (3 people)")
+        toolbarViewModel.verify().toolbarTitle = "Contributors (3 people)"
     }
 
     @Test

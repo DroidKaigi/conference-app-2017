@@ -8,13 +8,17 @@
         <item name="android:statusBarColor">@color/dark_theme</item>
     </style>
 
+    <style name="AppTheme.NoActionBar.Splash" parent="AppTheme.NoActionBar">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:background">@drawable/bg_splash</item>
+    </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
-
-    <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog" />
 
 </resources>

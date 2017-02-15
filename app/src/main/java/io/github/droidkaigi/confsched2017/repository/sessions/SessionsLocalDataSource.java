@@ -6,13 +6,10 @@ import java.util.Locale;
 import javax.inject.Inject;
 
 import io.github.droidkaigi.confsched2017.model.OrmaDatabase;
-import io.github.droidkaigi.confsched2017.model.Room;
 import io.github.droidkaigi.confsched2017.model.Room_Relation;
 import io.github.droidkaigi.confsched2017.model.Session;
 import io.github.droidkaigi.confsched2017.model.Session_Relation;
-import io.github.droidkaigi.confsched2017.model.Speaker;
 import io.github.droidkaigi.confsched2017.model.Speaker_Relation;
-import io.github.droidkaigi.confsched2017.model.Topic;
 import io.github.droidkaigi.confsched2017.model.Topic_Relation;
 import io.reactivex.Maybe;
 import io.reactivex.Single;
@@ -62,35 +59,11 @@ public final class SessionsLocalDataSource implements SessionsDataSource {
 
     }
 
-    private void insertSpeaker(Speaker speaker) {
-        if (speaker != null && speakerRelation().selector().idEq(speaker.id).isEmpty()) {
-            speakerRelation().inserter().execute(speaker);
-        }
-    }
-
-    private void insertRoom(Room room) {
-        if (room != null && placeRelation().selector().idEq(room.id).isEmpty()) {
-            placeRelation().inserter().execute(room);
-        }
-    }
-
-    private void insertCategory(Topic topic) {
-        if (topic != null && topicRelation().selector().idEq(topic.id).isEmpty()) {
-            topicRelation().inserter().execute(topic);
-        }
-    }
-
     private void updateAllSync(List<Session> sessions) {
-        speakerRelation().deleter().execute();
-        topicRelation().deleter().execute();
-        placeRelation().deleter().execute();
-        sessionRelation().deleter().execute();
+        Session_Relation relation = sessionRelation();
 
         for (Session session : sessions) {
-            insertSpeaker(session.speaker);
-            insertCategory(session.topic);
-            insertRoom(session.room);
-            sessionRelation().inserter().execute(session);
+            relation.upsert(session);
         }
     }
 

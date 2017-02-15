@@ -31,8 +31,8 @@
     <color name="yellow_alpha_15">#26ffeb3b</color>
 
     <color name="purple_alpha_30">#2658037C</color>
-
     <color name="purple_alpha_50">#8058037C</color>
+    <color name="dark_purple_alpha_0">#006c78b6</color>
     <color name="ultra_light_blue_alpha_50">#8089ecef</color>
     <color name="light_blue_alpha_50">#804DD0E1</color>
     <color name="light_green_alpha_50">#80A3D68A</color>

@@ -166,6 +166,10 @@
       {
         "site_url": "https://deploygate.com",
         "image_url": "https://droidkaigi.github.io/2017/images/sponsor/deploygate.png"
+      },
+      {
+        "site_url": "http://www.pixiv.co.jp/",
+        "image_url": "https://droidkaigi.github.io/2017/images/sponsor/pixiv.png"
       }
     ]
   },

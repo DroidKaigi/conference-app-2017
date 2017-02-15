@@ -6,7 +6,6 @@ import com.sys1yagi.kmockito.verify
 import io.github.droidkaigi.confsched2017.api.DroidKaigiClient
 import io.github.droidkaigi.confsched2017.model.OrmaDatabase
 import io.github.droidkaigi.confsched2017.model.Session
-import io.github.droidkaigi.confsched2017.util.LocaleUtil
 import io.reactivex.Completable
 import io.reactivex.Single
 import org.assertj.core.api.Assertions.assertThat
@@ -20,12 +19,18 @@ import java.util.*
 @RunWith(RobolectricTestRunner::class)
 class SessionsRepositoryTest {
 
+    fun createOrmaDatabase(): OrmaDatabase {
+        return OrmaDatabase.builder(RuntimeEnvironment.application)
+                .name(null)
+                .build()
+    }
+
     @Test
     fun hasCacheSessions() {
         // false. cache is null.
         run {
             val repository = SessionsRepository(
-                    SessionsLocalDataSource(mock()),
+                    SessionsLocalDataSource(createOrmaDatabase()),
                     SessionsRemoteDataSource(mock())
             )
 
@@ -35,7 +40,7 @@ class SessionsRepositoryTest {
         // false. repository has any cached session, but repository is dirty.
         run {
             val repository = SessionsRepository(
-                    SessionsLocalDataSource(mock()),
+                    SessionsLocalDataSource(createOrmaDatabase()),
                     SessionsRemoteDataSource(mock())
             )
             repository.cachedSessions = mapOf(0 to Session())
@@ -47,7 +52,7 @@ class SessionsRepositoryTest {
         // true.
         run {
             val repository = SessionsRepository(
-                    SessionsLocalDataSource(mock()),
+                    SessionsLocalDataSource(createOrmaDatabase()),
                     SessionsRemoteDataSource(mock())
             )
             repository.cachedSessions = mapOf(0 to Session())
@@ -100,14 +105,10 @@ class SessionsRepositoryTest {
     fun findAllLocalCache() {
         val sessions = listOf(Session())
         val client = mockDroidKaigiClient(sessions)
-        val ormaDatabase = OrmaDatabase
-                .builder(RuntimeEnvironment.application)
-                .name(null)
-                .build()
         val cachedSessions: Map<Int, Session> = mock()
 
         val repository = SessionsRepository(
-                SessionsLocalDataSource(ormaDatabase),
+                SessionsLocalDataSource(createOrmaDatabase()),
                 SessionsRemoteDataSource(client)
         ).apply {
             this.cachedSessions = cachedSessions
@@ -142,7 +143,7 @@ class SessionsRepositoryTest {
         // false cachedSessions is null
         run {
             val repository = SessionsRepository(
-                    SessionsLocalDataSource(mock()),
+                    SessionsLocalDataSource(createOrmaDatabase()),
                     SessionsRemoteDataSource(mock())
             )
 
@@ -152,7 +153,7 @@ class SessionsRepositoryTest {
         // false sessionId not found
         run {
             val repository = SessionsRepository(
-                    SessionsLocalDataSource(mock()),
+                    SessionsLocalDataSource(createOrmaDatabase()),
                     SessionsRemoteDataSource(mock())
             )
             repository.cachedSessions = mapOf(1 to Session())
@@ -164,7 +165,7 @@ class SessionsRepositoryTest {
         // false dirty
         run {
             val repository = SessionsRepository(
-                    SessionsLocalDataSource(mock()),
+                    SessionsLocalDataSource(createOrmaDatabase()),
                     SessionsRemoteDataSource(mock())
             )
             repository.cachedSessions = mapOf(1 to Session())
@@ -176,7 +177,7 @@ class SessionsRepositoryTest {
         // true
         run {
             val repository = SessionsRepository(
-                    SessionsLocalDataSource(mock()),
+                    SessionsLocalDataSource(createOrmaDatabase()),
                     SessionsRemoteDataSource(mock())
             )
             repository.cachedSessions = mapOf(1 to Session())
@@ -192,7 +193,7 @@ class SessionsRepositoryTest {
         val client = mockDroidKaigiClient(sessions)
 
         val repository = SessionsRepository(
-                SessionsLocalDataSource(mock()),
+                SessionsLocalDataSource(createOrmaDatabase()),
                 SessionsRemoteDataSource(client)
         )
 
@@ -211,7 +212,7 @@ class SessionsRepositoryTest {
         val client = mockDroidKaigiClient(sessions)
 
         val repository = SessionsRepository(
-                SessionsLocalDataSource(mock()),
+                SessionsLocalDataSource(createOrmaDatabase()),
                 SessionsRemoteDataSource(client)
         )
 
@@ -229,7 +230,7 @@ class SessionsRepositoryTest {
         val cachedSessions: Map<Int, Session> = spy(mutableMapOf(1 to createSession(1)))
 
         val repository = SessionsRepository(
-                SessionsLocalDataSource(mock()),
+                SessionsLocalDataSource(createOrmaDatabase()),
                 SessionsRemoteDataSource(mock())
         ).apply {
             this.cachedSessions = cachedSessions
@@ -248,10 +249,7 @@ class SessionsRepositoryTest {
 
     @Test
     fun findLocalStorage() {
-        val ormaDatabase = OrmaDatabase
-                .builder(RuntimeEnvironment.application)
-                .name(null)
-                .build()
+        val ormaDatabase = createOrmaDatabase()
         ormaDatabase
                 .insertIntoSession(createSession(12).apply {
                     title = "awesome session"
