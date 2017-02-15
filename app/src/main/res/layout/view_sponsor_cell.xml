@@ -17,7 +17,7 @@
             android:layout_marginBottom="@dimen/sponsor_image_margin"
             android:layout_marginEnd="@dimen/sponsor_image_margin"
             android:layout_marginStart="@dimen/sponsor_image_margin"
-            android:background="?attr/selectableItemBackground"
+            android:background="@drawable/rectangle_border_grey200"
             android:clickable="true"
             android:onClick="@{viewModel::onClickSponsor}"
             >
@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/sponsor_image_height"
                 android:layout_centerInParent="true"
-                android:background="@drawable/rectangle_border_grey200"
+                android:background="?attr/selectableItemBackground"
                 android:padding="@dimen/sponsor_image_margin"
                 android:scaleType="centerInside"
                 app:photoImageUrl="@{viewModel.sponsor.imageUrl}"
