@@ -3,7 +3,6 @@ package io.github.droidkaigi.confsched2017.viewmodel;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 
 import android.databinding.BaseObservable;
@@ -84,7 +83,7 @@ public final class SponsorshipsViewModel extends BaseObservable implements ViewM
     }
 
     private List<SponsorshipViewModel> convertToViewModel(List<Sponsorship> sponsorships) {
-        return Stream.of(sponsorships).map(SponsorshipViewModel::new).collect(Collectors.toList());
+        return Stream.of(sponsorships).map(SponsorshipViewModel::new).toList();
     }
 
     private void renderSponsorships(List<SponsorshipViewModel> sponsorships) {

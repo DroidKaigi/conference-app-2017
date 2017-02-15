@@ -1,6 +1,5 @@
 package io.github.droidkaigi.confsched2017.view.fragment;
 
-import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 
 import android.content.Context;
@@ -72,11 +71,11 @@ public class SettingsFragment extends BaseFragment implements SettingsViewModel.
         List<Locale> locales = LocaleUtil.SUPPORT_LANG;
         List<String> languages = Stream.of(locales)
                 .map(locale -> LocaleUtil.getDisplayLanguage(getContext(), locale))
-                .collect(Collectors.toList());
+                .toList();
 
         List<String> languageIds = Stream.of(locales)
                 .map(LocaleUtil::getLocaleLanguageId)
-                .collect(Collectors.toList());
+                .toList();
 
         String currentLanguageId = LocaleUtil.getCurrentLanguageId(getActivity());
         Timber.tag(TAG).d("current language_id: %s", currentLanguageId);
