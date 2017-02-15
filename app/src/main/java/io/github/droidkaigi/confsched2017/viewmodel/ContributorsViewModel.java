@@ -8,6 +8,7 @@ import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.view.View;
 
 import java.util.List;
@@ -101,6 +102,10 @@ public final class ContributorsViewModel extends BaseObservable implements ViewM
         loadContributors(true);
     }
 
+    public void retry() {
+        loadContributors(false);
+    }
+
     public ObservableList<ContributorViewModel> getContributorViewModels() {
         return this.viewModels;
     }
@@ -108,6 +113,8 @@ public final class ContributorsViewModel extends BaseObservable implements ViewM
     private void loadContributors(boolean refresh) {
         if (refresh) {
             contributorsRepository.setDirty(true);
+        } else {
+            setLoadingVisibility(View.VISIBLE);
         }
 
         Disposable disposable = contributorsRepository.findAll()
@@ -120,8 +127,13 @@ public final class ContributorsViewModel extends BaseObservable implements ViewM
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         this::renderContributors,
-                        throwable -> Timber.tag(TAG).e(throwable, "Failed to show contributors.")
-                );
+                        throwable -> {
+                            setLoadingVisibility(View.GONE);
+                            if (callback != null) {
+                                callback.showError(R.string.contributors_load_failed);
+                            }
+                            Timber.tag(TAG).e(throwable, "Failed to show contributors.");
+                        });
         compositeDisposable.add(disposable);
     }
 
@@ -140,5 +152,7 @@ public final class ContributorsViewModel extends BaseObservable implements ViewM
     public interface Callback {
 
         void onClickContributor(String htmlUrl);
+
+        void showError(@StringRes int textRes);
     }
 }

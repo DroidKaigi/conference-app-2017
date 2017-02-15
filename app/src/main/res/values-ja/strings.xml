@@ -7,6 +7,7 @@
     <string name="map">地図</string>
     <string name="information">情報</string>
     <string name="settings">設定</string>
+    <string name="retry">再読み込み</string>
     <!-- Sessions -->
     <string name="session_minutes">(%1$d分)</string>
     <string name="session_detail">セッション詳細</string>
@@ -41,6 +42,7 @@
     <!-- Contributors -->
     <string name="contributors">コントリビュータ</string>
     <string name="contributors_people">(%1$d人)</string>
+    <string name="contributors_load_failed">コントリビュータを表示できませんでした。</string>
     <!-- Help Translate -->
     <string name="help_translate">翻訳のお手伝い</string>
     <!-- Licenses -->
