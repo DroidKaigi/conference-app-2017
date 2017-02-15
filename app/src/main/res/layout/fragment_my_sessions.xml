@@ -26,8 +26,11 @@
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
                 android:padding="@dimen/space_16dp"
                 android:text="@string/my_session_empty_description"
+                android:textAppearance="@style/TextSubheading"
+                android:textColor="@color/grey500"
                 android:visibility="@{viewModel.emptyViewVisibility}"
                 />
     </RelativeLayout>
