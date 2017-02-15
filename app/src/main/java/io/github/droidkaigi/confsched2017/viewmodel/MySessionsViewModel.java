@@ -75,7 +75,7 @@ public final class MySessionsViewModel extends BaseObservable implements ViewMod
                 .map(mySession -> convertToViewModel(context, mySession))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        this::renderSponsorships,
+                        this::renderMySessions,
                         throwable -> Timber.tag(TAG).e(throwable, "Failed to show my sessions.")
                 );
         compositeDisposable.add(disposable);
@@ -85,7 +85,7 @@ public final class MySessionsViewModel extends BaseObservable implements ViewMod
         return Stream.of(mySessions).map(mySession -> new MySessionViewModel(context , mySession)).collect(Collectors.toList());
     }
 
-    private void renderSponsorships(List<MySessionViewModel> mySessionViewModels) {
+    private void renderMySessions(List<MySessionViewModel> mySessionViewModels) {
         if(this.mySessionViewModels.size() == mySessionViewModels.size()) { return; }
         this.mySessionViewModels.clear();
         this.mySessionViewModels.addAll(mySessionViewModels);
