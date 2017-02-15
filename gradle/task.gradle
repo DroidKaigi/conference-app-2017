@@ -4,7 +4,7 @@
 task setUpRelease(type: Exec) {
     workingDir '../'
     commandLine "./gradlew", "clean"
-    commandLine "./bootstrap.sh"
+    commandLine "./script/bootstrap.sh"
 }
 
 /**
@@ -14,15 +14,16 @@ task setUpRelease(type: Exec) {
 task downloadMetaData(type: Exec) {
     workingDir '../'
     commandLine "./gradlew", "clean"
-    commandLine "./initsupply.sh"
+    commandLine "./script/initsupply.sh"
 }
 
 /**
  *
  * Release your AWESOME app to GooglePlay(alpha channel)
  * */
+ // TODO: Build apk with FirebaseCrash plugin
 task releaseApp(type: Exec) {
     workingDir '../'
     commandLine "./gradlew", "clean"
-    commandLine "./deploy2store.sh"
+    commandLine "./script/deploy2store.sh"
 }
