@@ -65,7 +65,7 @@ public class SplashActivity extends BaseActivity {
     private void loadSessionsForCache() {
         Disposable disposable = Single.zip(sessionsRepository.findAll(Locale.getDefault()),
                 mySessionsRepository.findAll(),
-                delaySingleSource(),
+                Single.timer(MINIMUM_LOADING_TIME, TimeUnit.MILLISECONDS),
                 (sessions, mySessions, obj) -> Observable.empty())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -75,12 +75,6 @@ public class SplashActivity extends BaseActivity {
                 })
                 .subscribe();
         compositeDisposable.add(disposable);
-    }
-
-    private Single<Object> delaySingleSource() {
-        return Single.create(e -> e.onSuccess(Observable.empty()))
-                .observeOn(AndroidSchedulers.mainThread())
-                .delay(MINIMUM_LOADING_TIME, TimeUnit.MILLISECONDS);
     }
 
 }
