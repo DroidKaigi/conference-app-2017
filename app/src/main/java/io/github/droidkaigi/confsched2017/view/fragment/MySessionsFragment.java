@@ -35,8 +35,6 @@ public class MySessionsFragment extends BaseFragment {
     @Inject
     CompositeDisposable compositeDisposable;
 
-    private MySessionAdapter adapter;
-
     private FragmentMySessionsBinding binding;
 
     public static MySessionsFragment newInstance() {
@@ -89,7 +87,7 @@ public class MySessionsFragment extends BaseFragment {
     }
 
     private void initRecyclerView() {
-        adapter = new MySessionAdapter(getContext(), viewModel.getMySessionViewModels());
+        MySessionAdapter adapter = new MySessionAdapter(getContext(), viewModel.getMySessionViewModels());
         binding.recyclerView.setAdapter(adapter);
         binding.recyclerView.setHasFixedSize(true);
         binding.recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), R.drawable.divider));
