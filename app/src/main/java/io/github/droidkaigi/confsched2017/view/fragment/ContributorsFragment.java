@@ -22,7 +22,7 @@ import io.github.droidkaigi.confsched2017.view.customview.BindingHolder;
 import io.github.droidkaigi.confsched2017.viewmodel.ContributorViewModel;
 import io.github.droidkaigi.confsched2017.viewmodel.ContributorsViewModel;
 
-public class ContributorsFragment extends BaseFragment implements ContributorsViewModel.Callback {
+public class ContributorsFragment extends BaseFragment {
 
     public static final String TAG = ContributorsFragment.class.getSimpleName();
 
@@ -49,7 +49,7 @@ public class ContributorsFragment extends BaseFragment implements ContributorsVi
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        viewModel.setCallback(this);
+        viewModel.setCallback(this::onClickContributor);
         viewModel.start();
     }
 
@@ -81,7 +81,6 @@ public class ContributorsFragment extends BaseFragment implements ContributorsVi
         ((GridLayoutManager) binding.recyclerView.getLayoutManager()).setSpanCount(getColumnCount());
     }
 
-    @Override
     public void onClickContributor(String htmlUrl) {
         AppUtil.openCustomTab(getActivity(), htmlUrl);
     }

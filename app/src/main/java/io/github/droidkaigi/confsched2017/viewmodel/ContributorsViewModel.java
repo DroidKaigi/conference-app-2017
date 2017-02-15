@@ -22,11 +22,12 @@ import io.github.droidkaigi.confsched2017.view.helper.ResourceResolver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 @FragmentScope
-public final class ContributorsViewModel extends BaseObservable implements ViewModel, ContributorViewModel.Callback {
+public final class ContributorsViewModel extends BaseObservable implements ViewModel {
 
     public static final String TAG = ContributorsViewModel.class.getSimpleName();
 
@@ -45,7 +46,7 @@ public final class ContributorsViewModel extends BaseObservable implements ViewM
     private boolean refreshing;
 
     @Nullable
-    private Callback callback;
+    private Consumer<String> onClickContributor;
 
     @Inject
     ContributorsViewModel(ResourceResolver resourceResolver, ToolbarViewModel toolbarViewModel,
@@ -57,8 +58,8 @@ public final class ContributorsViewModel extends BaseObservable implements ViewM
         this.viewModels = new ObservableArrayList<>();
     }
 
-    public void setCallback(@NonNull Callback callback) {
-        this.callback = callback;
+    public void setCallback(@NonNull Consumer<String> onClickContributor) {
+        this.onClickContributor = onClickContributor;
     }
 
     public void start() {
@@ -70,10 +71,11 @@ public final class ContributorsViewModel extends BaseObservable implements ViewM
         compositeDisposable.clear();
     }
 
-    @Override
-    public void onClickContributor(String htmlUrl) {
-        if (callback != null) {
-            callback.onClickContributor(htmlUrl);
+    private void onClickContributor(String htmlUrl) {
+        try {
+            onClickContributor.accept(htmlUrl);
+        } catch (Exception e) {
+            Timber.e(e.getMessage());
         }
     }
 
@@ -113,7 +115,7 @@ public final class ContributorsViewModel extends BaseObservable implements ViewM
         Disposable disposable = contributorsRepository.findAll()
                 .map(contributors -> Stream.of(contributors).map(contributor -> {
                     ContributorViewModel viewModel = new ContributorViewModel(contributor);
-                    viewModel.setCallback(this);
+                    viewModel.setCallback(this::onClickContributor);
                     return viewModel;
                 }).toList())
                 .subscribeOn(Schedulers.io())
@@ -137,8 +139,4 @@ public final class ContributorsViewModel extends BaseObservable implements ViewM
         setRefreshing(false);
     }
 
-    public interface Callback {
-
-        void onClickContributor(String htmlUrl);
-    }
 }
