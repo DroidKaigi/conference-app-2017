@@ -3,6 +3,8 @@ package io.github.droidkaigi.confsched2017.view.activity;
 import com.tomoima.debot.Debot;
 
 import android.content.Context;
+import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
@@ -13,12 +15,16 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.MenuItem;
+
+import java.util.Locale;
 
 import io.github.droidkaigi.confsched2017.MainApplication;
 import io.github.droidkaigi.confsched2017.di.ActivityComponent;
 import io.github.droidkaigi.confsched2017.di.ActivityModule;
+import io.github.droidkaigi.confsched2017.util.LocaleUtil;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public abstract class BaseActivity extends AppCompatActivity {
@@ -28,6 +34,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     private ActivityComponent activityComponent;
+
     private Debot debot;
 
     @NonNull
@@ -41,7 +48,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+        String currentLanguageId = LocaleUtil.getCurrentLanguageId(this);
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(setUpLocale(newBase, currentLanguageId)));
     }
 
     @Override
@@ -97,6 +105,30 @@ public abstract class BaseActivity extends AppCompatActivity {
             bar.setDisplayShowHomeEnabled(true);
             bar.setDisplayShowTitleEnabled(true);
             bar.setHomeButtonEnabled(true);
+        }
+    }
+
+    @SuppressWarnings("deprecation")
+    private Context setUpLocale(Context context, String language) {
+
+        if (TextUtils.isEmpty(language)) {
+            return context;
+        }
+
+        Configuration config = context.getResources().getConfiguration();
+
+        Locale locale = new Locale(language);
+        Locale.setDefault(locale);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            config.setLocale(locale);
+        } else {
+            config.locale = locale;
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            return context.createConfigurationContext(config);
+        } else {
+            context.getResources().updateConfiguration(config, context.getResources().getDisplayMetrics());
+            return context;
         }
     }
 }
