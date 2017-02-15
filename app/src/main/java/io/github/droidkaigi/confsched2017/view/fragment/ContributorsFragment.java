@@ -9,7 +9,9 @@ import android.databinding.ObservableList;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -92,9 +94,10 @@ public class ContributorsFragment extends BaseFragment implements ContributorsVi
     }
 
     @Override
-    public void showError(String text) {
-        Snackbar.make(binding.getRoot(), text, Snackbar.LENGTH_INDEFINITE)
+    public void showError(@StringRes int resId) {
+        Snackbar.make(binding.getRoot(), resId, Snackbar.LENGTH_INDEFINITE)
                 .setAction(R.string.retry, v -> viewModel.retry())
+                .setActionTextColor(ContextCompat.getColor(getActivity(), R.color.white))
                 .show();
     }
 

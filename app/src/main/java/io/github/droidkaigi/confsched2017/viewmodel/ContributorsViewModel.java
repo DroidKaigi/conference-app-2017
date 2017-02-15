@@ -9,6 +9,7 @@ import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.view.View;
 
 import java.util.List;
@@ -130,7 +131,7 @@ public final class ContributorsViewModel extends BaseObservable implements ViewM
                         throwable -> {
                             setLoadingVisibility(View.GONE);
                             if (callback != null) {
-                                callback.showError("Failed to show contributors.");
+                                callback.showError(R.string.contributors_load_failed);
                             }
                             Timber.tag(TAG).e(throwable, "Failed to show contributors.");
                         });
@@ -153,6 +154,6 @@ public final class ContributorsViewModel extends BaseObservable implements ViewM
 
         void onClickContributor(String htmlUrl);
 
-        void showError(String text);
+        void showError(@StringRes int textRes);
     }
 }
