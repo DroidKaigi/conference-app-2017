@@ -52,13 +52,6 @@ public class MySessionsFragment extends BaseFragment {
         getComponent().inject(this);
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-        viewModel.start(getContext());
-    }
-
 
     @Nullable
     @Override
@@ -74,6 +67,7 @@ public class MySessionsFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
+        viewModel.start(getContext());
     }
 
     @Override
@@ -97,6 +91,7 @@ public class MySessionsFragment extends BaseFragment {
     private void initRecyclerView() {
         adapter = new MySessionAdapter(getContext(), viewModel.getMySessionViewModels());
         binding.recyclerView.setAdapter(adapter);
+        binding.recyclerView.setHasFixedSize(true);
         binding.recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), R.drawable.divider));
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }
@@ -114,6 +109,7 @@ public class MySessionsFragment extends BaseFragment {
 
         MySessionAdapter(@NonNull Context context, ObservableList<MySessionViewModel> list) {
             super(context, list);
+            setHasStableIds(true);
         }
 
         @Override
@@ -130,6 +126,13 @@ public class MySessionsFragment extends BaseFragment {
             itemBinding.executePendingBindings();
 
         }
+
+        @Override
+        public long getItemId(int position) {
+            MySessionViewModel viewModel = getItem(position);
+            return viewModel.mySession.id;
+        }
+
 
         @Override
         public void showSessionDetail(@NonNull MySession mySession) {

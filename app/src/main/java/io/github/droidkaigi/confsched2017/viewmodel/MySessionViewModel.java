@@ -71,12 +71,6 @@ public class MySessionViewModel extends BaseObservable implements ViewModel {
     }
 
 
-
-
-
-
-
-
     public void setCallback(Callback callback) {
         this.callback = callback;
     }
@@ -92,11 +86,6 @@ public class MySessionViewModel extends BaseObservable implements ViewModel {
 
         void showSessionDetail(@NonNull MySession mySession);
     }
-
-
-
-
-
 
 
 

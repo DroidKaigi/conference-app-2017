@@ -20,25 +20,42 @@
             android:padding="@dimen/space_16dp"
             >
 
+        <TextView
+                android:id="@+id/txt_session_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/space_16dp"
+                android:layout_marginRight="@dimen/space_16dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{viewModel.sessionTitle}"
+                android:textAppearance="@style/TextBody1"
+                android:textColor="@color/black"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/img_speaker"
+                app:layout_constraintTop_toTopOf="parent"
+                />
 
         <TextView
                 android:id="@+id/txt_room"
                 style="@style/SessionTag"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/space_8dp"
-                android:layout_marginRight="@dimen/space_8dp"
                 android:background="@drawable/tag_language"
+                android:layout_marginRight="@dimen/space_4dp"
+                android:layout_marginEnd="@dimen/space_4dp"
+                android:layout_marginTop="@dimen/space_4dp"
                 android:text="@{viewModel.mySession.session.room.name}"
                 android:visibility="@{viewModel.roomVisibility}"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txt_session_title"
                 />
 
         <TextView
                 android:id="@+id/txt_session_time_range"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/txt_session_title"
                 android:layout_marginTop="@dimen/space_8dp"
                 android:drawableLeft="@drawable/ic_time_18_state"
                 android:drawablePadding="@dimen/icon_space_4dp"
@@ -50,9 +67,9 @@
                 android:text="@{viewModel.sessionTimeRange}"
                 android:textAppearance="@style/TextCaption"
                 android:textColor="@color/grey500"
-                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/txt_room"
                 app:layout_constraintRight_toLeftOf="@+id/img_speaker"
-                app:layout_constraintTop_toBottomOf="@id/txt_room"
+                app:layout_constraintTop_toBottomOf="@id/txt_session_title"
                 />
 
 
@@ -67,23 +84,6 @@
                 app:speakerImageSize="@{@dimen/user_image}"
                 app:speakerImageUrl="@{viewModel.speakerImageUrl}"
                 tools:src="@drawable/ic_speaker_placeholder"
-                />
-
-        <TextView
-                android:id="@+id/txt_session_title"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/space_16dp"
-                android:layout_marginRight="@dimen/space_16dp"
-                android:layout_marginTop="@dimen/space_8dp"
-                android:ellipsize="end"
-                android:maxLines="3"
-                android:text="@{viewModel.sessionTitle}"
-                android:textAppearance="@style/TextBody1"
-                android:textColor="@color/black"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@+id/img_speaker"
-                app:layout_constraintTop_toBottomOf="@+id/txt_session_time_range"
                 />
 
     </android.support.constraint.ConstraintLayout>

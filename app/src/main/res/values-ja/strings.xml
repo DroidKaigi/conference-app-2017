@@ -15,7 +15,6 @@
     <string name="description">内容</string>
     <string name="slide_and_video">資料＆動画</string>
     <string name="send_feedback">フィードバックを送る</string>
-    <string name="my_session">マイセッション</string>
     <!-- Settings -->
     <string name="settings_language">言語を設定</string>
     <string name="settings_language_description">表示言語を変更できます。変更後はアプリが再起動されます。</string>
