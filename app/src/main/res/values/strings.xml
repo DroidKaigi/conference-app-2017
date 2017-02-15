@@ -39,6 +39,8 @@
     <string name="session_unchecked">Unchecked this session</string>
     <string name="session_check">Check</string>
     <string name="session_uncheck">Uncheck</string>
+
+    <!-- My Sessions -->
     <string name="my_session">My Session</string>
     <string name="my_session_empty">No items here. Let\'s check out all sessions and put your favourite!</string>
 
