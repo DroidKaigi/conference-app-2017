@@ -96,13 +96,6 @@ public class MySessionsFragment extends BaseFragment {
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
-
-    private void loadData() {
-        adapter.clear();
-        adapter.addAll(viewModel.getMySessionViewModels());
-    }
-
-
     private class MySessionAdapter
             extends ObservableListRecyclerAdapter<MySessionViewModel, BindingHolder<ViewMySessionBinding>>
             implements MySessionViewModel.Callback {
