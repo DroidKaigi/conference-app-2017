@@ -1,9 +1,6 @@
 package io.github.droidkaigi.confsched2017.view.fragment;
 
-import com.annimon.stream.Optional;
-
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -13,10 +10,10 @@ import android.view.ViewGroup;
 import javax.inject.Inject;
 
 import io.github.droidkaigi.confsched2017.databinding.FragmentInformationBinding;
+import io.github.droidkaigi.confsched2017.util.AppUtil;
 import io.github.droidkaigi.confsched2017.view.activity.ContributorsActivity;
 import io.github.droidkaigi.confsched2017.view.activity.LicensesActivity;
 import io.github.droidkaigi.confsched2017.view.activity.SponsorsActivity;
-import io.github.droidkaigi.confsched2017.view.helper.IntentHelper;
 import io.github.droidkaigi.confsched2017.viewmodel.InformationViewModel;
 
 public class InformationFragment extends BaseFragment implements InformationViewModel.Callback {
@@ -114,7 +111,6 @@ public class InformationFragment extends BaseFragment implements InformationView
     }
 
     public void showHtmlUrl(String htmlUrl) {
-        Optional<Intent> intentOptional = IntentHelper.buildActionViewIntent(getContext(), htmlUrl);
-        intentOptional.ifPresent(this::startActivity);
+        AppUtil.openCustomTab(getActivity(), htmlUrl);
     }
 }
