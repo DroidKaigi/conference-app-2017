@@ -23,6 +23,7 @@
     <string name="map">Map</string>
     <string name="information">Information</string>
     <string name="settings">Settings</string>
+    <string name="retry">retry</string>
 
     <!-- Splash -->
     <string name="splash_title">DroidKaigi 2017</string>
