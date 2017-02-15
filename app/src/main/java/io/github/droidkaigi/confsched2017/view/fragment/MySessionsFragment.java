@@ -22,7 +22,6 @@ import io.github.droidkaigi.confsched2017.view.customview.ObservableListRecycler
 import io.github.droidkaigi.confsched2017.view.customview.itemdecoration.DividerItemDecoration;
 import io.github.droidkaigi.confsched2017.viewmodel.MySessionViewModel;
 import io.github.droidkaigi.confsched2017.viewmodel.MySessionsViewModel;
-import io.reactivex.disposables.CompositeDisposable;
 
 
 public class MySessionsFragment extends BaseFragment {
@@ -31,9 +30,6 @@ public class MySessionsFragment extends BaseFragment {
 
     @Inject
     MySessionsViewModel viewModel;
-
-    @Inject
-    CompositeDisposable compositeDisposable;
 
     private FragmentMySessionsBinding binding;
 
@@ -69,21 +65,9 @@ public class MySessionsFragment extends BaseFragment {
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        compositeDisposable.clear();
-    }
-
-    @Override
     public void onDestroy() {
         super.onDestroy();
         viewModel.destroy();
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        compositeDisposable.dispose();
     }
 
     private void initRecyclerView() {
