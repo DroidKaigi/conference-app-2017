@@ -70,6 +70,7 @@ public final class MySessionsViewModel extends BaseObservable implements ViewMod
     }
 
     private void renderSponsorships(List<MySessionViewModel> mySessionViewModels) {
+        if(this.mySessionViewModels.size() == mySessionViewModels.size()) { return; }
         this.mySessionViewModels.clear();
         this.mySessionViewModels.addAll(mySessionViewModels);
     }
