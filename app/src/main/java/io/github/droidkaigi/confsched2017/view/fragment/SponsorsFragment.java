@@ -1,9 +1,6 @@
 package io.github.droidkaigi.confsched2017.view.fragment;
 
-import com.annimon.stream.Optional;
-
 import android.content.Context;
-import android.content.Intent;
 import android.databinding.ObservableList;
 import android.graphics.Point;
 import android.os.Bundle;
@@ -22,10 +19,10 @@ import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.databinding.FragmentSponsorsBinding;
 import io.github.droidkaigi.confsched2017.databinding.ViewSponsorCellBinding;
 import io.github.droidkaigi.confsched2017.databinding.ViewSponsorshipCellBinding;
+import io.github.droidkaigi.confsched2017.util.AppUtil;
 import io.github.droidkaigi.confsched2017.view.activity.SponsorsActivity;
 import io.github.droidkaigi.confsched2017.view.customview.BindingHolder;
 import io.github.droidkaigi.confsched2017.view.customview.ObservableListRecyclerAdapter;
-import io.github.droidkaigi.confsched2017.view.helper.IntentHelper;
 import io.github.droidkaigi.confsched2017.viewmodel.SponsorViewModel;
 import io.github.droidkaigi.confsched2017.viewmodel.SponsorshipViewModel;
 import io.github.droidkaigi.confsched2017.viewmodel.SponsorshipsViewModel;
@@ -81,7 +78,11 @@ public class SponsorsFragment extends BaseFragment {
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
-    private static class SponsorAdapter
+    public void openSponsorPage(String url) {
+        AppUtil.openCustomTab(getActivity(), url);
+    }
+
+    private class SponsorAdapter
             extends ObservableListRecyclerAdapter<SponsorViewModel, BindingHolder<ViewSponsorCellBinding>>
             implements SponsorViewModel.Callback {
 
@@ -106,8 +107,7 @@ public class SponsorsFragment extends BaseFragment {
 
         @Override
         public void onClickSponsor(String url) {
-            Optional<Intent> intentOptional = IntentHelper.buildActionViewIntent(getContext(), url);
-            intentOptional.ifPresent(intent -> getContext().startActivity(intent));
+            openSponsorPage(url);
         }
 
         private int getScreenWidth() {
@@ -118,7 +118,7 @@ public class SponsorsFragment extends BaseFragment {
         }
     }
 
-    private static class SponsorshipsAdapter
+    private class SponsorshipsAdapter
             extends ObservableListRecyclerAdapter<SponsorshipViewModel, BindingHolder<ViewSponsorshipCellBinding>> {
 
         public SponsorshipsAdapter(@NonNull Context context, @NonNull ObservableList<SponsorshipViewModel> list) {
