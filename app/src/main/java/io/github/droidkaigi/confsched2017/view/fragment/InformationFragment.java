@@ -10,12 +10,9 @@ import android.view.ViewGroup;
 import javax.inject.Inject;
 
 import io.github.droidkaigi.confsched2017.databinding.FragmentInformationBinding;
-import io.github.droidkaigi.confsched2017.view.activity.ContributorsActivity;
-import io.github.droidkaigi.confsched2017.view.activity.LicensesActivity;
-import io.github.droidkaigi.confsched2017.view.activity.SponsorsActivity;
 import io.github.droidkaigi.confsched2017.viewmodel.InformationViewModel;
 
-public class InformationFragment extends BaseFragment implements InformationViewModel.Callback {
+public class InformationFragment extends BaseFragment {
 
     public static final String TAG = InformationFragment.class.getSimpleName();
 
@@ -41,8 +38,6 @@ public class InformationFragment extends BaseFragment implements InformationView
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentInformationBinding.inflate(inflater, container, false);
-
-        viewModel.setCallback(this);
         binding.setViewModel(viewModel);
 
         return binding.getRoot();
@@ -52,30 +47,5 @@ public class InformationFragment extends BaseFragment implements InformationView
     public void onDestroy() {
         super.onDestroy();
         viewModel.destroy();
-    }
-
-    @Override
-    public void showSponsorsPage() {
-        startActivity(SponsorsActivity.createIntent(getActivity()));
-    }
-
-    @Override
-    public void showQuestionnairePage() {
-        // TODO
-    }
-
-    @Override
-    public void showContributorsPage() {
-        startActivity(ContributorsActivity.createIntent(getActivity()));
-    }
-
-    @Override
-    public void showLicensePage() {
-        startActivity(LicensesActivity.createIntent(getActivity()));
-    }
-
-    @Override
-    public void showDevInfoPage() {
-        // TODO
     }
 }

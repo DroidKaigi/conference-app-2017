@@ -4,9 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.databinding.ActivityMySessionsBinding;
+import io.github.droidkaigi.confsched2017.model.Session;
 import io.github.droidkaigi.confsched2017.view.fragment.MySessionsFragment;
 
 public class MySessionsActivity extends BaseActivity {
@@ -25,5 +27,10 @@ public class MySessionsActivity extends BaseActivity {
 
         initBackToolbar(binding.toolbar);
         replaceFragment(MySessionsFragment.newInstance(), R.id.content_view);
+    }
+
+    @Override
+    public void navigateToSessionDetail(@NonNull Session session) {
+        startActivity(SessionDetailActivity.createIntent(this, session.id));
     }
 }

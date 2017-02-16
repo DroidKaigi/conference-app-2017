@@ -4,9 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.databinding.ActivitySearchBinding;
+import io.github.droidkaigi.confsched2017.model.Session;
 import io.github.droidkaigi.confsched2017.view.fragment.SearchFragment;
 
 public class SearchActivity extends BaseActivity {
@@ -36,5 +38,10 @@ public class SearchActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         finish();
+    }
+
+    @Override
+    public void navigateToSessionDetail(@NonNull Session session) {
+        startActivity(SessionDetailActivity.createIntent(this, session.id));
     }
 }

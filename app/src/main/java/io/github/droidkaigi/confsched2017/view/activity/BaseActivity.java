@@ -25,6 +25,7 @@ import io.github.droidkaigi.confsched2017.MainApplication;
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.di.ActivityComponent;
 import io.github.droidkaigi.confsched2017.di.ActivityModule;
+import io.github.droidkaigi.confsched2017.model.Session;
 import io.github.droidkaigi.confsched2017.view.helper.Navigator;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -90,7 +91,32 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigato
     }
 
     @Override
-    public void navigateToWebPage(@NonNull String url) {
+    public void navigateToSessionDetail(@NonNull Session session) {
+        raiseNavigationError();
+    }
+
+    @Override
+    public void navigateToFeedbackPage(@NonNull Session session) {
+        raiseNavigationError();
+    }
+
+    @Override
+    public void navigateToSponsorsPage() {
+        raiseNavigationError();
+    }
+
+    @Override
+    public void navigateToContributorsPage() {
+        raiseNavigationError();
+    }
+
+    @Override
+    public void navigateToLicensePage() {
+        raiseNavigationError();
+    }
+
+    @Override
+    public final void navigateToWebPage(@NonNull String url) {
         if (TextUtils.isEmpty(url) || !URLUtil.isNetworkUrl(url)) {
             return;
         }
@@ -101,6 +127,10 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigato
                 .build();
 
         intent.launchUrl(this, Uri.parse(url));
+    }
+
+    private final void raiseNavigationError() {
+        throw new IllegalStateException("Couldn't navigate to the specified view.");
     }
 
     final void replaceFragment(@NonNull Fragment fragment, @IdRes @LayoutRes int layoutResId) {

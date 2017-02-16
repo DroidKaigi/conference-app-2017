@@ -1,6 +1,5 @@
 package io.github.droidkaigi.confsched2017.viewmodel;
 
-import android.support.annotation.NonNull;
 import android.view.View;
 
 import javax.inject.Inject;
@@ -12,8 +11,6 @@ public final class InformationViewModel implements ViewModel {
 
     private final Navigator navigator;
 
-    private Callback callback;
-
     private String versionName;
 
     @Inject
@@ -22,30 +19,20 @@ public final class InformationViewModel implements ViewModel {
         this.versionName = "V" + BuildConfig.VERSION_NAME;
     }
 
-    public void setCallback(@NonNull Callback callback) {
-        this.callback = callback;
-    }
-
     public String getVersionName() {
         return versionName + " " + BuildConfig.GIT_SHA;
     }
 
     public void onClickSponsors(@SuppressWarnings("unused") View view) {
-        if (callback != null) {
-            callback.showSponsorsPage();
-        }
+        navigator.navigateToSponsorsPage();
     }
 
     public void onClickQuestionnaire(@SuppressWarnings("unused") View view) {
-        if (callback != null) {
-            callback.showQuestionnairePage();
-        }
+        // TODO
     }
 
     public void onClickContributors(@SuppressWarnings("unused") View view) {
-        if (callback != null) {
-            callback.showContributorsPage();
-        }
+        navigator.navigateToContributorsPage();
     }
 
     public void onClickHelpTranslate(@SuppressWarnings("unused") View view) {
@@ -53,15 +40,11 @@ public final class InformationViewModel implements ViewModel {
     }
 
     public void onClickLicense(@SuppressWarnings("unused") View view) {
-        if (callback != null) {
-            callback.showLicensePage();
-        }
+        navigator.navigateToLicensePage();
     }
 
     public void onClickDevInfo(@SuppressWarnings("unused") View view) {
-        if (callback != null) {
-            callback.showDevInfoPage();
-        }
+        // TODO
     }
 
     public void onClickTwitter(@SuppressWarnings("unused") View view) {
@@ -86,19 +69,6 @@ public final class InformationViewModel implements ViewModel {
 
     @Override
     public void destroy() {
-        this.callback = null;
-    }
-
-    public interface Callback {
-
-        void showSponsorsPage();
-
-        void showQuestionnairePage();
-
-        void showContributorsPage();
-
-        void showLicensePage();
-
-        void showDevInfoPage();
+        // Nothing to do
     }
 }
