@@ -16,6 +16,7 @@ import javax.inject.Inject;
 import io.github.droidkaigi.confsched2017.BR;
 import io.github.droidkaigi.confsched2017.model.MySession;
 import io.github.droidkaigi.confsched2017.repository.sessions.MySessionsRepository;
+import io.github.droidkaigi.confsched2017.view.helper.Navigator;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -25,6 +26,8 @@ import timber.log.Timber;
 public final class MySessionsViewModel extends BaseObservable implements ViewModel {
 
     private static final String TAG = MySessionsViewModel.class.getSimpleName();
+
+    private final Navigator navigator;
 
     private MySessionsRepository mySessionsRepository;
 
@@ -37,7 +40,9 @@ public final class MySessionsViewModel extends BaseObservable implements ViewMod
     private int recyclerViewVisibility;
 
     @Inject
-    MySessionsViewModel(MySessionsRepository mySessionsRepository, CompositeDisposable compositeDisposable) {
+    MySessionsViewModel(Navigator navigator, MySessionsRepository mySessionsRepository,
+            CompositeDisposable compositeDisposable) {
+        this.navigator = navigator;
         this.mySessionsRepository = mySessionsRepository;
         this.mySessionViewModels = new ObservableArrayList<>();
         this.compositeDisposable = compositeDisposable;
@@ -81,11 +86,13 @@ public final class MySessionsViewModel extends BaseObservable implements ViewMod
     }
 
     private List<MySessionViewModel> convertToViewModel(Context context, List<MySession> mySessions) {
-        return Stream.of(mySessions).map(mySession -> new MySessionViewModel(context, mySession)).toList();
+        return Stream.of(mySessions).map(mySession -> new MySessionViewModel(context, navigator, mySession)).toList();
     }
 
     private void renderMySessions(List<MySessionViewModel> mySessionViewModels) {
-        if(this.mySessionViewModels.size() == mySessionViewModels.size()) { return; }
+        if (this.mySessionViewModels.size() == mySessionViewModels.size()) {
+            return;
+        }
         this.mySessionViewModels.clear();
         this.mySessionViewModels.addAll(mySessionViewModels);
         this.emptyViewVisibility = this.mySessionViewModels.size() > 0 ? View.GONE : View.VISIBLE;

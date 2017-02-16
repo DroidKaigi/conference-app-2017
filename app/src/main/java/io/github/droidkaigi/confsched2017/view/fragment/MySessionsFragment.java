@@ -15,8 +15,6 @@ import javax.inject.Inject;
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.databinding.FragmentMySessionsBinding;
 import io.github.droidkaigi.confsched2017.databinding.ViewMySessionBinding;
-import io.github.droidkaigi.confsched2017.model.MySession;
-import io.github.droidkaigi.confsched2017.view.activity.SessionDetailActivity;
 import io.github.droidkaigi.confsched2017.view.customview.BindingHolder;
 import io.github.droidkaigi.confsched2017.view.customview.ObservableListRecyclerAdapter;
 import io.github.droidkaigi.confsched2017.view.customview.itemdecoration.DividerItemDecoration;
@@ -79,8 +77,7 @@ public class MySessionsFragment extends BaseFragment {
     }
 
     private class MySessionAdapter
-            extends ObservableListRecyclerAdapter<MySessionViewModel, BindingHolder<ViewMySessionBinding>>
-            implements MySessionViewModel.Callback {
+            extends ObservableListRecyclerAdapter<MySessionViewModel, BindingHolder<ViewMySessionBinding>> {
 
         MySessionAdapter(@NonNull Context context, ObservableList<MySessionViewModel> list) {
             super(context, list);
@@ -95,7 +92,6 @@ public class MySessionsFragment extends BaseFragment {
         @Override
         public void onBindViewHolder(BindingHolder<ViewMySessionBinding> holder, int position) {
             MySessionViewModel viewModel = getItem(position);
-            viewModel.setCallback(this);
             ViewMySessionBinding itemBinding = holder.binding;
             itemBinding.setViewModel(viewModel);
             itemBinding.executePendingBindings();
@@ -106,12 +102,6 @@ public class MySessionsFragment extends BaseFragment {
         public long getItemId(int position) {
             MySessionViewModel viewModel = getItem(position);
             return viewModel.mySession.id;
-        }
-
-
-        @Override
-        public void showSessionDetail(@NonNull MySession mySession) {
-            startActivity(SessionDetailActivity.createIntent(getContext(), mySession.session.id));
         }
     }
 }

@@ -9,6 +9,7 @@ import io.github.droidkaigi.confsched2017.model.Sponsor
 import io.github.droidkaigi.confsched2017.model.Sponsorship
 import io.github.droidkaigi.confsched2017.util.RxTestSchedulerRule
 import io.github.droidkaigi.confsched2017.view.helper.ResourceResolver
+import io.github.droidkaigi.confsched2017.view.helper.Navigator
 import io.reactivex.disposables.CompositeDisposable
 import org.junit.After
 import org.junit.Before
@@ -51,11 +52,14 @@ class SponsorshipsViewModelTest {
         override fun loadJSONFromAsset(jsonFileName: String?): String = Gson().toJson(EXPECTED_SPONSORSHIPS)
     }
 
+    private lateinit var navigator: Navigator
+
     private lateinit var viewModel: SponsorshipsViewModel
 
     @Before
     fun setUp() {
-        viewModel = SponsorshipsViewModel(resourceResolver, CompositeDisposable())
+        navigator = mock<Navigator>()
+        viewModel = SponsorshipsViewModel(resourceResolver, navigator, CompositeDisposable())
     }
 
     @After
@@ -75,17 +79,14 @@ class SponsorshipsViewModelTest {
     @Test
     @Throws(Exception::class)
     fun onSponsorClick() {
-        val callback = mock<SponsorViewModel.Callback>()
-
         viewModel.start()
         schedulerRule.testScheduler.triggerActions()
 
         val targetSponsor = viewModel.sponsorShipViewModels[0].sponsorViewModels[0]
-        targetSponsor.setCallback(callback)
 
-        callback.verify(never()).onClickSponsor(any())
+        navigator.verify(never()).navigateToWebPage(any())
         targetSponsor.onClickSponsor(null)
-        callback.verify().onClickSponsor("url_a")
+        navigator.verify().navigateToWebPage("url_a")
     }
 
     private fun assertSponsorShipEq(actual: List<SponsorshipViewModel>, expected: List<Sponsorship>) {

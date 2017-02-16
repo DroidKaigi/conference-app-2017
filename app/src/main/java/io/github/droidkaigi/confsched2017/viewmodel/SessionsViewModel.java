@@ -25,9 +25,12 @@ import io.github.droidkaigi.confsched2017.model.Session;
 import io.github.droidkaigi.confsched2017.repository.sessions.MySessionsRepository;
 import io.github.droidkaigi.confsched2017.repository.sessions.SessionsRepository;
 import io.github.droidkaigi.confsched2017.util.DateUtil;
+import io.github.droidkaigi.confsched2017.view.helper.Navigator;
 import io.reactivex.Single;
 
 public class SessionsViewModel extends BaseObservable implements ViewModel {
+
+    private final Navigator navigator;
 
     private SessionsRepository sessionsRepository;
 
@@ -38,7 +41,8 @@ public class SessionsViewModel extends BaseObservable implements ViewModel {
     private List<Date> stimes;
 
     @Inject
-    SessionsViewModel(SessionsRepository sessionsRepository, MySessionsRepository mySessionsRepository) {
+    SessionsViewModel(Navigator navigator, SessionsRepository sessionsRepository, MySessionsRepository mySessionsRepository) {
+        this.navigator = navigator;
         this.sessionsRepository = sessionsRepository;
         this.mySessionsRepository = mySessionsRepository;
     }
@@ -65,7 +69,8 @@ public class SessionsViewModel extends BaseObservable implements ViewModel {
                     List<SessionViewModel> viewModels = Stream.of(sessions)
                             .map(session -> {
                                 boolean isMySession = mySessionMap.containsKey(session.id);
-                                return new SessionViewModel(session, context, rooms.size(), isMySession, mySessionsRepository);
+                                return new SessionViewModel(
+                                        session, context, navigator, rooms.size(), isMySession, mySessionsRepository);
                             })
                             .toList();
                     return adjustViewModels(viewModels, context);
