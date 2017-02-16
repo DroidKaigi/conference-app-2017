@@ -8,7 +8,6 @@ import android.support.annotation.NonNull;
 import android.view.MenuItem;
 
 import io.github.droidkaigi.confsched2017.R;
-import io.github.droidkaigi.confsched2017.model.Session;
 import io.github.droidkaigi.confsched2017.view.fragment.SessionDetailFragmentCreator;
 
 public class SessionDetailActivity extends BaseActivity {
@@ -39,11 +38,6 @@ public class SessionDetailActivity extends BaseActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void navigateToFeedbackPage(@NonNull Session session) {
-        startActivity(SessionFeedbackActivity.createIntent(this, session.id));
     }
 
     private void upToMainActivity() {

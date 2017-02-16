@@ -3,33 +3,25 @@ package io.github.droidkaigi.confsched2017.view.activity;
 import com.tomoima.debot.Debot;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
-import android.support.customtabs.CustomTabsIntent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.MenuItem;
-import android.webkit.URLUtil;
 
 import io.github.droidkaigi.confsched2017.MainApplication;
-import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.di.ActivityComponent;
 import io.github.droidkaigi.confsched2017.di.ActivityModule;
-import io.github.droidkaigi.confsched2017.model.Session;
-import io.github.droidkaigi.confsched2017.view.helper.Navigator;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public abstract class BaseActivity extends AppCompatActivity implements Navigator {
+public abstract class BaseActivity extends AppCompatActivity {
 
     static {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
@@ -88,49 +80,6 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigato
             debot.showDebugMenu(this);
         }
         return super.onKeyUp(keyCode, event);
-    }
-
-    @Override
-    public void navigateToSessionDetail(@NonNull Session session) {
-        raiseNavigationError();
-    }
-
-    @Override
-    public void navigateToFeedbackPage(@NonNull Session session) {
-        raiseNavigationError();
-    }
-
-    @Override
-    public void navigateToSponsorsPage() {
-        raiseNavigationError();
-    }
-
-    @Override
-    public void navigateToContributorsPage() {
-        raiseNavigationError();
-    }
-
-    @Override
-    public void navigateToLicensePage() {
-        raiseNavigationError();
-    }
-
-    @Override
-    public final void navigateToWebPage(@NonNull String url) {
-        if (TextUtils.isEmpty(url) || !URLUtil.isNetworkUrl(url)) {
-            return;
-        }
-
-        CustomTabsIntent intent = new CustomTabsIntent.Builder()
-                .setShowTitle(true)
-                .setToolbarColor(ContextCompat.getColor(this, R.color.theme))
-                .build();
-
-        intent.launchUrl(this, Uri.parse(url));
-    }
-
-    private final void raiseNavigationError() {
-        throw new IllegalStateException("Couldn't navigate to the specified view.");
     }
 
     final void replaceFragment(@NonNull Fragment fragment, @IdRes @LayoutRes int layoutResId) {

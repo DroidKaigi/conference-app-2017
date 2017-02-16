@@ -11,7 +11,6 @@ import android.support.v4.app.FragmentTransaction;
 
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.databinding.ActivityMainBinding;
-import io.github.droidkaigi.confsched2017.model.Session;
 import io.github.droidkaigi.confsched2017.util.LocaleUtil;
 import io.github.droidkaigi.confsched2017.view.fragment.InformationFragment;
 import io.github.droidkaigi.confsched2017.view.fragment.MapFragment;
@@ -131,25 +130,5 @@ public class MainActivity extends BaseActivity {
             return;
         }
         super.onBackPressed();
-    }
-
-    @Override
-    public void navigateToSessionDetail(@NonNull Session session) {
-        startActivity(SessionDetailActivity.createIntent(this, session.id));
-    }
-
-    @Override
-    public void navigateToSponsorsPage() {
-        startActivity(SponsorsActivity.createIntent(this));
-    }
-
-    @Override
-    public void navigateToContributorsPage() {
-        startActivity(ContributorsActivity.createIntent(this));
-    }
-
-    @Override
-    public void navigateToLicensePage() {
-        startActivity(LicensesActivity.createIntent(this));
     }
 }
