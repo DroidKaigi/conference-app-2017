@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import javax.inject.Inject;
 
 import io.github.droidkaigi.confsched2017.databinding.FragmentInformationBinding;
-import io.github.droidkaigi.confsched2017.util.AppUtil;
 import io.github.droidkaigi.confsched2017.view.activity.ContributorsActivity;
 import io.github.droidkaigi.confsched2017.view.activity.LicensesActivity;
 import io.github.droidkaigi.confsched2017.view.activity.SponsorsActivity;
@@ -71,11 +70,6 @@ public class InformationFragment extends BaseFragment implements InformationView
     }
 
     @Override
-    public void showTranslationsPage() {
-        showHtmlUrl("https://droidkaigi2017.oneskyapp.com/collaboration");
-    }
-
-    @Override
     public void showLicensePage() {
         startActivity(LicensesActivity.createIntent(getActivity()));
     }
@@ -83,34 +77,5 @@ public class InformationFragment extends BaseFragment implements InformationView
     @Override
     public void showDevInfoPage() {
         // TODO
-    }
-
-    @Override
-    public void showTwitter() {
-        showHtmlUrl("https://twitter.com/DroidKaigi");
-    }
-
-    @Override
-    public void showFacebook() {
-        showHtmlUrl("https://www.facebook.com/DroidKaigi/");
-    }
-
-    @Override
-    public void showGitHubRepository() {
-        showHtmlUrl("https://github.com/DroidKaigi/conference-app-2017/");
-    }
-
-    @Override
-    public void showDroidKaigiWeb() {
-        showHtmlUrl("https://droidkaigi.github.io/2017/");
-    }
-
-    @Override
-    public void showYouTube() {
-        showHtmlUrl("https://www.youtube.com/droidkaigi");
-    }
-
-    public void showHtmlUrl(String htmlUrl) {
-        AppUtil.openCustomTab(getActivity(), htmlUrl);
     }
 }

@@ -1,22 +1,34 @@
-package io.github.droidkaigi.confsched2017.util;
+package io.github.droidkaigi.confsched2017.view.helper;
 
 import android.app.Activity;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.customtabs.CustomTabsIntent;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.webkit.URLUtil;
 
+import javax.inject.Inject;
+
 import io.github.droidkaigi.confsched2017.R;
+import io.github.droidkaigi.confsched2017.di.scope.ActivityScope;
 
 /**
  * Created by shihochan on 2017/02/15.
  */
 
-public class AppUtil {
+@ActivityScope
+public class WebNavigator {
 
-    public static void openCustomTab(Activity activity, @NonNull String url) {
+    private final Activity activity;
+
+    @Inject
+    public WebNavigator(AppCompatActivity activity) {
+        this.activity = activity;
+    }
+
+    public void navigateTo(@NonNull String url) {
         if (TextUtils.isEmpty(url) || !URLUtil.isNetworkUrl(url)) {
             return;
         }

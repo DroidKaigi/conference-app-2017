@@ -9,6 +9,7 @@ import io.github.droidkaigi.confsched2017.model.Contributor
 import io.github.droidkaigi.confsched2017.repository.contributors.ContributorsRepository
 import io.github.droidkaigi.confsched2017.util.RxTestSchedulerRule
 import io.github.droidkaigi.confsched2017.view.helper.ResourceResolver
+import io.github.droidkaigi.confsched2017.view.helper.WebNavigator
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import org.junit.After
@@ -50,11 +51,15 @@ class ContributorsViewModelTest {
         findAll().invoked.thenReturn(Single.just(EXPECTED_CONTRIBUTORS))
     }
 
+    private lateinit var webNavigator: WebNavigator
+
     private lateinit var viewModel: ContributorsViewModel
 
     @Before
     fun setUp() {
-        viewModel = ContributorsViewModel(resourceResolver, toolbarViewModel, repository, CompositeDisposable())
+        webNavigator = mock<WebNavigator>()
+        viewModel = ContributorsViewModel(
+                resourceResolver, webNavigator, toolbarViewModel, repository, CompositeDisposable())
     }
 
     @After
@@ -89,15 +94,12 @@ class ContributorsViewModelTest {
     @Test
     @Throws(Exception::class)
     fun onContributorClick() {
-        val callback = mock<ContributorsViewModel.Callback>()
-        viewModel.setCallback(callback)
-
         viewModel.start()
         schedulerRule.testScheduler.triggerActions()
 
-        callback.verify(never()).onClickContributor(any())
+        webNavigator.verify(never()).navigateTo(any())
         viewModel.contributorViewModels[0].onClickContributor(null)
-        callback.verify().onClickContributor("AliceUrl")
+        webNavigator.verify().navigateTo("AliceUrl")
     }
 
     private fun assertEq(actual: List<ContributorViewModel>, expected: List<Contributor>) {

@@ -19,7 +19,6 @@ import javax.inject.Inject;
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.databinding.FragmentContributorsBinding;
 import io.github.droidkaigi.confsched2017.databinding.ViewContributorCellBinding;
-import io.github.droidkaigi.confsched2017.util.AppUtil;
 import io.github.droidkaigi.confsched2017.view.customview.ArrayRecyclerAdapter;
 import io.github.droidkaigi.confsched2017.view.customview.BindingHolder;
 import io.github.droidkaigi.confsched2017.viewmodel.ContributorViewModel;
@@ -82,11 +81,6 @@ public class ContributorsFragment extends BaseFragment implements ContributorsVi
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         ((GridLayoutManager) binding.recyclerView.getLayoutManager()).setSpanCount(getColumnCount());
-    }
-
-    @Override
-    public void onClickContributor(String htmlUrl) {
-        AppUtil.openCustomTab(getActivity(), htmlUrl);
     }
 
     @Override

@@ -6,15 +6,19 @@ import android.view.View;
 import javax.inject.Inject;
 
 import io.github.droidkaigi.confsched2017.BuildConfig;
+import io.github.droidkaigi.confsched2017.view.helper.WebNavigator;
 
 public final class InformationViewModel implements ViewModel {
+
+    private final WebNavigator webNavigator;
 
     private Callback callback;
 
     private String versionName;
 
     @Inject
-    public InformationViewModel() {
+    public InformationViewModel(WebNavigator webNavigator) {
+        this.webNavigator = webNavigator;
         this.versionName = "V" + BuildConfig.VERSION_NAME;
     }
 
@@ -45,9 +49,7 @@ public final class InformationViewModel implements ViewModel {
     }
 
     public void onClickHelpTranslate(@SuppressWarnings("unused") View view) {
-        if (callback != null) {
-            callback.showTranslationsPage();
-        }
+        webNavigator.navigateTo("https://droidkaigi2017.oneskyapp.com/collaboration");
     }
 
     public void onClickLicense(@SuppressWarnings("unused") View view) {
@@ -63,33 +65,23 @@ public final class InformationViewModel implements ViewModel {
     }
 
     public void onClickTwitter(@SuppressWarnings("unused") View view) {
-        if (callback != null) {
-            callback.showTwitter();
-        }
+        webNavigator.navigateTo("https://twitter.com/DroidKaigi");
     }
 
     public void onClickFacebook(@SuppressWarnings("unused") View view) {
-        if (callback != null) {
-            callback.showFacebook();
-        }
+        webNavigator.navigateTo("https://www.facebook.com/DroidKaigi/");
     }
 
     public void onClickGitHub(@SuppressWarnings("unused") View view) {
-        if (callback != null) {
-            callback.showGitHubRepository();
-        }
+        webNavigator.navigateTo("https://github.com/DroidKaigi/conference-app-2017/");
     }
 
     public void onClickDroidKaigiWeb(@SuppressWarnings("unused") View view) {
-        if (callback != null) {
-            callback.showDroidKaigiWeb();
-        }
+        webNavigator.navigateTo("https://droidkaigi.github.io/2017/");
     }
 
     public void onClickYouTube(@SuppressWarnings("unused") View view) {
-        if (callback != null) {
-            callback.showYouTube();
-        }
+        webNavigator.navigateTo("https://www.youtube.com/droidkaigi");
     }
 
     @Override
@@ -105,20 +97,8 @@ public final class InformationViewModel implements ViewModel {
 
         void showContributorsPage();
 
-        void showTranslationsPage();
-
         void showLicensePage();
 
         void showDevInfoPage();
-
-        void showTwitter();
-
-        void showFacebook();
-
-        void showGitHubRepository();
-
-        void showDroidKaigiWeb();
-
-        void showYouTube();
     }
 }

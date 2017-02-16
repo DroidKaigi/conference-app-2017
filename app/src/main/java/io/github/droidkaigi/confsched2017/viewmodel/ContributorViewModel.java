@@ -5,10 +5,11 @@ import android.support.annotation.NonNull;
 import android.view.View;
 
 import io.github.droidkaigi.confsched2017.model.Contributor;
+import io.github.droidkaigi.confsched2017.view.helper.WebNavigator;
 
 public class ContributorViewModel extends BaseObservable implements ViewModel {
 
-    private Callback callback;
+    private final WebNavigator webNavigator;
 
     private Contributor contributor;
 
@@ -20,7 +21,8 @@ public class ContributorViewModel extends BaseObservable implements ViewModel {
 
     private int contributions;
 
-    public ContributorViewModel(@NonNull Contributor contributor) {
+    public ContributorViewModel(WebNavigator webNavigator, @NonNull Contributor contributor) {
+        this.webNavigator = webNavigator;
         this.contributor = contributor;
         this.avatarUrl = contributor.avatarUrl;
         this.name = contributor.name;
@@ -28,24 +30,13 @@ public class ContributorViewModel extends BaseObservable implements ViewModel {
         this.contributions = contributor.contributions;
     }
 
-    public void setCallback(Callback callback) {
-        this.callback = callback;
-    }
-
     @Override
     public void destroy() {
-        this.callback = null;
-    }
-
-    public interface Callback {
-
-        void onClickContributor(String htmlUrl);
+        // Nothing to do
     }
 
     public void onClickContributor(@SuppressWarnings("UnusedParameters") View view) {
-        if (callback != null) {
-            callback.onClickContributor(htmlUrl);
-        }
+        webNavigator.navigateTo(htmlUrl);
     }
 
     public int getContributions() {
