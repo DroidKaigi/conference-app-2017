@@ -1,6 +1,5 @@
 package io.github.droidkaigi.confsched2017.viewmodel;
 
-import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 
 import android.content.Context;
@@ -15,9 +14,12 @@ import javax.inject.Inject;
 import io.github.droidkaigi.confsched2017.model.Session;
 import io.github.droidkaigi.confsched2017.repository.sessions.MySessionsRepository;
 import io.github.droidkaigi.confsched2017.repository.sessions.SessionsRepository;
+import io.github.droidkaigi.confsched2017.view.helper.Navigator;
 import io.reactivex.Single;
 
 public final class SearchViewModel extends BaseObservable implements ViewModel {
+
+    private final Navigator navigator;
 
     private SessionsRepository sessionsRepository;
 
@@ -26,7 +28,8 @@ public final class SearchViewModel extends BaseObservable implements ViewModel {
     private Callback callback;
 
     @Inject
-    SearchViewModel(SessionsRepository sessionsRepository, MySessionsRepository mySessionsRepository) {
+    SearchViewModel(Navigator navigator, SessionsRepository sessionsRepository, MySessionsRepository mySessionsRepository) {
+        this.navigator = navigator;
         this.sessionsRepository = sessionsRepository;
         this.mySessionsRepository = mySessionsRepository;
     }
@@ -42,38 +45,34 @@ public final class SearchViewModel extends BaseObservable implements ViewModel {
         }
     }
 
-    public Single<List<SearchResultViewModel>> getSearchResultViewModels(Context context,
-            SearchResultViewModel.Callback callback) {
+    public Single<List<SearchResultViewModel>> getSearchResultViewModels(Context context) {
         return sessionsRepository.findAll(Locale.getDefault())
                 .map(sessions -> {
                     List<Session> filteredSessions = Stream.of(sessions)
                             .filter(session -> session.isSession() && session.speaker != null)
-                            .collect(Collectors.toList());
+                            .toList();
 
                     List<SearchResultViewModel> titleResults = Stream.of(filteredSessions)
                             .map(session -> {
                                 SearchResultViewModel viewModel = SearchResultViewModel
-                                        .createTitleType(session, context, mySessionsRepository);
-                                viewModel.setCallback(callback);
+                                        .createTitleType(session, context, navigator, mySessionsRepository);
                                 return viewModel;
-                            }).collect(Collectors.toList());
+                            }).toList();
 
                     List<SearchResultViewModel> descriptionResults = Stream.of(filteredSessions)
                             .map(session -> {
                                 SearchResultViewModel viewModel =
-                                        SearchResultViewModel.createDescriptionType(session, context,
-                                                mySessionsRepository);
-                                viewModel.setCallback(callback);
+                                        SearchResultViewModel.createDescriptionType(
+                                                session, context, navigator, mySessionsRepository);
                                 return viewModel;
-                            }).collect(Collectors.toList());
+                            }).toList();
 
                     List<SearchResultViewModel> speakerResults = Stream.of(filteredSessions)
                             .map(session -> {
                                 SearchResultViewModel viewModel = SearchResultViewModel
-                                        .createSpeakerType(session, context, mySessionsRepository);
-                                viewModel.setCallback(callback);
+                                        .createSpeakerType(session, context, navigator, mySessionsRepository);
                                 return viewModel;
-                            }).collect(Collectors.toList());
+                            }).toList();
 
                     titleResults.addAll(descriptionResults);
                     titleResults.addAll(speakerResults);

@@ -23,6 +23,7 @@
     <string name="map">Map</string>
     <string name="information">Information</string>
     <string name="settings">Settings</string>
+    <string name="retry">Retry</string>
 
     <!-- Splash -->
     <string name="splash_title">DroidKaigi 2017</string>
@@ -39,6 +40,10 @@
     <string name="session_unchecked">Unchecked this session</string>
     <string name="session_check">Check</string>
     <string name="session_uncheck">Uncheck</string>
+
+    <!-- My Sessions -->
+    <string name="my_session">My Session</string>
+    <string name="my_session_empty">No items here. Let\'s check out all sessions and put your favourite!</string>
 
     <!-- Map -->
     <string name="start_navigation">Start Navigation</string>
@@ -78,6 +83,7 @@
     <string name="contributors">Contributors</string>
     <string name="contributors_people">(%1$d people)</string>
     <string name="contributors_open_repository">Repository</string>
+    <string name="contributors_load_failed">Failed to show contributors.</string>
 
     <string name="help_translate">Help Translate</string>
 
@@ -86,7 +92,6 @@
 
     <!-- Session feedback -->
     <string name="session_feedback">Session feedback</string>
-
 
     <!-- Search -->
     <string name="search">Search</string>

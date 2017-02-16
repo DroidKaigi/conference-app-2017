@@ -36,7 +36,7 @@ public class LocaleUtil {
 
     @SuppressWarnings("deprecation")
     public static void setLocale(Context context, String languageId) {
-        Configuration config = new Configuration();
+        Configuration config = context.getResources().getConfiguration();
         DefaultPrefs.get(context).putLanguageId(languageId);
         Locale locale = new Locale(languageId);
         Locale.setDefault(locale);

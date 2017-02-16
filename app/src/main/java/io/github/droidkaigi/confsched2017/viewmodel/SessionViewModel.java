@@ -16,6 +16,7 @@ import io.github.droidkaigi.confsched2017.model.Session;
 import io.github.droidkaigi.confsched2017.repository.sessions.MySessionsRepository;
 import io.github.droidkaigi.confsched2017.util.AlarmUtil;
 import io.github.droidkaigi.confsched2017.util.DateUtil;
+import io.github.droidkaigi.confsched2017.view.helper.Navigator;
 import timber.log.Timber;
 
 public class SessionViewModel extends BaseObservable implements ViewModel {
@@ -60,13 +61,14 @@ public class SessionViewModel extends BaseObservable implements ViewModel {
 
     private int languageVisibility;
 
+    private Navigator navigator;
+
     private MySessionsRepository mySessionsRepository;
 
-    private Callback callback;
-
-    SessionViewModel(@NonNull Session session, Context context, int roomCount, boolean isMySession,
+    SessionViewModel(@NonNull Session session, Context context, Navigator navigator, int roomCount, boolean isMySession,
             MySessionsRepository mySessionsRepository) {
         this.session = session;
+        this.navigator = navigator;
         this.shortStime = DateUtil.getHourMinute(session.stime);
         this.formattedDate = DateUtil.getMonthDate(session.stime, context);
         this.title = session.title;
@@ -146,8 +148,8 @@ public class SessionViewModel extends BaseObservable implements ViewModel {
     }
 
     public void showSessionDetail(@SuppressWarnings("unused") View view) {
-        if (callback != null && session != null) {
-            callback.showSessionDetail(session);
+        if (navigator != null && session != null) {
+            navigator.navigateToSessionDetail(session);
         }
     }
 
@@ -176,7 +178,7 @@ public class SessionViewModel extends BaseObservable implements ViewModel {
 
     @Override
     public void destroy() {
-        callback = null;
+        // Nothing to do
     }
 
     public String getShortStime() {
@@ -251,14 +253,5 @@ public class SessionViewModel extends BaseObservable implements ViewModel {
     private void setCheckVisibility(int visibility) {
         checkVisibility = visibility;
         notifyPropertyChanged(BR.checkVisibility);
-    }
-
-    public void setCallback(Callback callback) {
-        this.callback = callback;
-    }
-
-    public interface Callback {
-
-        void showSessionDetail(@NonNull Session session);
     }
 }

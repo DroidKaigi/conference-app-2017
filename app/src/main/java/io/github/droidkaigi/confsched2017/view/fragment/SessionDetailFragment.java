@@ -170,9 +170,4 @@ public class SessionDetailFragment extends BaseFragment implements SessionDetail
                 .setActionTextColor(actionTextColor)
                 .show();
     }
-
-    @Override
-    public void onClickFeedback() {
-        startActivity(SessionFeedbackActivity.createIntent(getContext(), sessionId));
-    }
 }

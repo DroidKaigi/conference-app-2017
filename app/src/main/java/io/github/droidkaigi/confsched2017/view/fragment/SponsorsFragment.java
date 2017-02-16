@@ -1,9 +1,6 @@
 package io.github.droidkaigi.confsched2017.view.fragment;
 
-import com.annimon.stream.Optional;
-
 import android.content.Context;
-import android.content.Intent;
 import android.databinding.ObservableList;
 import android.graphics.Point;
 import android.os.Bundle;
@@ -25,7 +22,6 @@ import io.github.droidkaigi.confsched2017.databinding.ViewSponsorshipCellBinding
 import io.github.droidkaigi.confsched2017.view.activity.SponsorsActivity;
 import io.github.droidkaigi.confsched2017.view.customview.BindingHolder;
 import io.github.droidkaigi.confsched2017.view.customview.ObservableListRecyclerAdapter;
-import io.github.droidkaigi.confsched2017.view.helper.IntentHelper;
 import io.github.droidkaigi.confsched2017.viewmodel.SponsorViewModel;
 import io.github.droidkaigi.confsched2017.viewmodel.SponsorshipViewModel;
 import io.github.droidkaigi.confsched2017.viewmodel.SponsorshipsViewModel;
@@ -60,8 +56,7 @@ public class SponsorsFragment extends BaseFragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentSponsorsBinding.inflate(inflater, container, false);
         binding.setViewModel(viewModel);
         initView();
@@ -81,9 +76,8 @@ public class SponsorsFragment extends BaseFragment {
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
-    private static class SponsorAdapter
-            extends ObservableListRecyclerAdapter<SponsorViewModel, BindingHolder<ViewSponsorCellBinding>>
-            implements SponsorViewModel.Callback {
+    private class SponsorAdapter
+            extends ObservableListRecyclerAdapter<SponsorViewModel, BindingHolder<ViewSponsorCellBinding>> {
 
         public SponsorAdapter(@NonNull Context context, @NonNull ObservableList<SponsorViewModel> list) {
             super(context, list);
@@ -97,17 +91,10 @@ public class SponsorsFragment extends BaseFragment {
         @Override
         public void onBindViewHolder(BindingHolder<ViewSponsorCellBinding> holder, int position) {
             SponsorViewModel viewModel = getItem(position);
-            viewModel.setCallback(this);
             ViewSponsorCellBinding itemBinding = holder.binding;
             itemBinding.sponsorLogo.setMinimumHeight(getScreenWidth() / 3);
             itemBinding.setViewModel(viewModel);
             itemBinding.executePendingBindings();
-        }
-
-        @Override
-        public void onClickSponsor(String url) {
-            Optional<Intent> intentOptional = IntentHelper.buildActionViewIntent(getContext(), url);
-            intentOptional.ifPresent(intent -> getContext().startActivity(intent));
         }
 
         private int getScreenWidth() {
@@ -118,7 +105,7 @@ public class SponsorsFragment extends BaseFragment {
         }
     }
 
-    private static class SponsorshipsAdapter
+    private class SponsorshipsAdapter
             extends ObservableListRecyclerAdapter<SponsorshipViewModel, BindingHolder<ViewSponsorshipCellBinding>> {
 
         public SponsorshipsAdapter(@NonNull Context context, @NonNull ObservableList<SponsorshipViewModel> list) {
