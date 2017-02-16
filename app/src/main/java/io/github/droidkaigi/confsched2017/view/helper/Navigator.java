@@ -19,16 +19,16 @@ import io.github.droidkaigi.confsched2017.di.scope.ActivityScope;
  */
 
 @ActivityScope
-public class WebNavigator {
+public class Navigator {
 
     private final Activity activity;
 
     @Inject
-    public WebNavigator(AppCompatActivity activity) {
+    public Navigator(AppCompatActivity activity) {
         this.activity = activity;
     }
 
-    public void navigateTo(@NonNull String url) {
+    public void navigateToWebPage(@NonNull String url) {
         if (TextUtils.isEmpty(url) || !URLUtil.isNetworkUrl(url)) {
             return;
         }

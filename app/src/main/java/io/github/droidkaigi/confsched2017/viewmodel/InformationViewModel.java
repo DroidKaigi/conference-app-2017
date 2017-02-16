@@ -6,19 +6,19 @@ import android.view.View;
 import javax.inject.Inject;
 
 import io.github.droidkaigi.confsched2017.BuildConfig;
-import io.github.droidkaigi.confsched2017.view.helper.WebNavigator;
+import io.github.droidkaigi.confsched2017.view.helper.Navigator;
 
 public final class InformationViewModel implements ViewModel {
 
-    private final WebNavigator webNavigator;
+    private final Navigator navigator;
 
     private Callback callback;
 
     private String versionName;
 
     @Inject
-    public InformationViewModel(WebNavigator webNavigator) {
-        this.webNavigator = webNavigator;
+    public InformationViewModel(Navigator navigator) {
+        this.navigator = navigator;
         this.versionName = "V" + BuildConfig.VERSION_NAME;
     }
 
@@ -49,7 +49,7 @@ public final class InformationViewModel implements ViewModel {
     }
 
     public void onClickHelpTranslate(@SuppressWarnings("unused") View view) {
-        webNavigator.navigateTo("https://droidkaigi2017.oneskyapp.com/collaboration");
+        navigator.navigateToWebPage("https://droidkaigi2017.oneskyapp.com/collaboration");
     }
 
     public void onClickLicense(@SuppressWarnings("unused") View view) {
@@ -65,23 +65,23 @@ public final class InformationViewModel implements ViewModel {
     }
 
     public void onClickTwitter(@SuppressWarnings("unused") View view) {
-        webNavigator.navigateTo("https://twitter.com/DroidKaigi");
+        navigator.navigateToWebPage("https://twitter.com/DroidKaigi");
     }
 
     public void onClickFacebook(@SuppressWarnings("unused") View view) {
-        webNavigator.navigateTo("https://www.facebook.com/DroidKaigi/");
+        navigator.navigateToWebPage("https://www.facebook.com/DroidKaigi/");
     }
 
     public void onClickGitHub(@SuppressWarnings("unused") View view) {
-        webNavigator.navigateTo("https://github.com/DroidKaigi/conference-app-2017/");
+        navigator.navigateToWebPage("https://github.com/DroidKaigi/conference-app-2017/");
     }
 
     public void onClickDroidKaigiWeb(@SuppressWarnings("unused") View view) {
-        webNavigator.navigateTo("https://droidkaigi.github.io/2017/");
+        navigator.navigateToWebPage("https://droidkaigi.github.io/2017/");
     }
 
     public void onClickYouTube(@SuppressWarnings("unused") View view) {
-        webNavigator.navigateTo("https://www.youtube.com/droidkaigi");
+        navigator.navigateToWebPage("https://www.youtube.com/droidkaigi");
     }
 
     @Override

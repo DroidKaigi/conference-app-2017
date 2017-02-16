@@ -4,16 +4,16 @@ import android.databinding.BaseObservable;
 import android.view.View;
 
 import io.github.droidkaigi.confsched2017.model.Sponsor;
-import io.github.droidkaigi.confsched2017.view.helper.WebNavigator;
+import io.github.droidkaigi.confsched2017.view.helper.Navigator;
 
 public final class SponsorViewModel extends BaseObservable implements ViewModel {
 
-    private final WebNavigator webNavigator;
+    private final Navigator navigator;
 
     private Sponsor sponsor;
 
-    SponsorViewModel(WebNavigator webNavigator, Sponsor sponsor) {
-        this.webNavigator = webNavigator;
+    SponsorViewModel(Navigator navigator, Sponsor sponsor) {
+        this.navigator = navigator;
         this.sponsor = sponsor;
     }
 
@@ -23,7 +23,7 @@ public final class SponsorViewModel extends BaseObservable implements ViewModel 
     }
 
     public void onClickSponsor(@SuppressWarnings("UnusedParameters") View view) {
-        webNavigator.navigateTo(sponsor.url);
+        navigator.navigateToWebPage(sponsor.url);
     }
 
     public Sponsor getSponsor() {

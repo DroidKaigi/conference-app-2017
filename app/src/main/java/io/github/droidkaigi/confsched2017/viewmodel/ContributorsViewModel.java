@@ -20,7 +20,7 @@ import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.di.scope.FragmentScope;
 import io.github.droidkaigi.confsched2017.repository.contributors.ContributorsRepository;
 import io.github.droidkaigi.confsched2017.view.helper.ResourceResolver;
-import io.github.droidkaigi.confsched2017.view.helper.WebNavigator;
+import io.github.droidkaigi.confsched2017.view.helper.Navigator;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -34,7 +34,7 @@ public final class ContributorsViewModel extends BaseObservable implements ViewM
 
     private final ResourceResolver resourceResolver;
 
-    private final WebNavigator webNavigator;
+    private final Navigator navigator;
 
     private final ToolbarViewModel toolbarViewModel;
 
@@ -54,12 +54,12 @@ public final class ContributorsViewModel extends BaseObservable implements ViewM
     @Inject
     ContributorsViewModel(
             ResourceResolver resourceResolver,
-            WebNavigator webNavigator,
+            Navigator navigator,
             ToolbarViewModel toolbarViewModel,
             ContributorsRepository contributorsRepository,
             CompositeDisposable compositeDisposable) {
         this.resourceResolver = resourceResolver;
-        this.webNavigator = webNavigator;
+        this.navigator = navigator;
         this.toolbarViewModel = toolbarViewModel;
         this.contributorsRepository = contributorsRepository;
         this.compositeDisposable = compositeDisposable;
@@ -120,7 +120,7 @@ public final class ContributorsViewModel extends BaseObservable implements ViewM
 
         Disposable disposable = contributorsRepository.findAll()
                 .map(contributors -> Stream.of(contributors)
-                        .map(contributor -> new ContributorViewModel(webNavigator, contributor))
+                        .map(contributor -> new ContributorViewModel(navigator, contributor))
                         .toList())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

@@ -17,7 +17,7 @@ import javax.inject.Inject;
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.model.Sponsorship;
 import io.github.droidkaigi.confsched2017.view.helper.ResourceResolver;
-import io.github.droidkaigi.confsched2017.view.helper.WebNavigator;
+import io.github.droidkaigi.confsched2017.view.helper.Navigator;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -30,17 +30,17 @@ public final class SponsorshipsViewModel extends BaseObservable implements ViewM
 
     private final ResourceResolver resourceResolver;
 
-    private final WebNavigator webNavigator;
+    private final Navigator navigator;
 
     private final ObservableList<SponsorshipViewModel> sponsorshipViewModels;
 
     private final CompositeDisposable compositeDisposable;
 
     @Inject
-    SponsorshipsViewModel(ResourceResolver resourceResolver, WebNavigator webNavigator,
+    SponsorshipsViewModel(ResourceResolver resourceResolver, Navigator navigator,
                           CompositeDisposable compositeDisposable) {
         this.resourceResolver = resourceResolver;
-        this.webNavigator = webNavigator;
+        this.navigator = navigator;
         this.compositeDisposable = compositeDisposable;
         this.sponsorshipViewModels = new ObservableArrayList<>();
     }
@@ -88,7 +88,7 @@ public final class SponsorshipsViewModel extends BaseObservable implements ViewM
 
     private List<SponsorshipViewModel> convertToViewModel(List<Sponsorship> sponsorships) {
         return Stream.of(sponsorships)
-                .map(sponsorship -> new SponsorshipViewModel(webNavigator, sponsorship))
+                .map(sponsorship -> new SponsorshipViewModel(navigator, sponsorship))
                 .toList();
     }
 

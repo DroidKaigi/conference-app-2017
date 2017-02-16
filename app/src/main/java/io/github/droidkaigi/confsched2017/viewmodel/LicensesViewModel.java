@@ -10,19 +10,19 @@ import android.webkit.WebViewClient;
 
 import javax.inject.Inject;
 
-import io.github.droidkaigi.confsched2017.view.helper.WebNavigator;
+import io.github.droidkaigi.confsched2017.view.helper.Navigator;
 
 public final class LicensesViewModel extends BaseObservable implements ViewModel {
 
-    private final WebNavigator webNavigator;
+    private final Navigator navigator;
 
     private final String licenseFilePath;
 
     private final WebViewClient webViewClient;
 
     @Inject
-    LicensesViewModel(WebNavigator webNavigator) {
-        this.webNavigator = webNavigator;
+    LicensesViewModel(Navigator navigator) {
+        this.navigator = navigator;
         licenseFilePath = "file:///android_asset/licenses.html";
         webViewClient = new LicensesWebViewClient();
     }
@@ -47,7 +47,7 @@ public final class LicensesViewModel extends BaseObservable implements ViewModel
         if (url.equals(licenseFilePath)) {
             return false;
         } else {
-            webNavigator.navigateTo(url);
+            navigator.navigateToWebPage(url);
             return true;
         }
     }

@@ -9,11 +9,11 @@ import com.annimon.stream.Stream;
 import java.util.List;
 
 import io.github.droidkaigi.confsched2017.model.Sponsorship;
-import io.github.droidkaigi.confsched2017.view.helper.WebNavigator;
+import io.github.droidkaigi.confsched2017.view.helper.Navigator;
 
 public final class SponsorshipViewModel extends BaseObservable implements ViewModel {
 
-    private final WebNavigator webNavigator;
+    private final Navigator navigator;
 
     private Sponsorship sponsorship;
 
@@ -21,8 +21,8 @@ public final class SponsorshipViewModel extends BaseObservable implements ViewMo
 
     private ObservableList<SponsorViewModel> sponsorViewModels;
 
-    SponsorshipViewModel(WebNavigator webNavigator, Sponsorship sponsorship) {
-        this.webNavigator = webNavigator;
+    SponsorshipViewModel(Navigator navigator, Sponsorship sponsorship) {
+        this.navigator = navigator;
         this.sponsorship = sponsorship;
         this.category = sponsorship.category;
         this.sponsorViewModels = new ObservableArrayList<>();
@@ -48,7 +48,7 @@ public final class SponsorshipViewModel extends BaseObservable implements ViewMo
 
     private List<SponsorViewModel> convertSponsor(Sponsorship sponsorship) {
         return Stream.of(sponsorship.sponsors)
-                .map(sponsor -> new SponsorViewModel(webNavigator, sponsor))
+                .map(sponsor -> new SponsorViewModel(navigator, sponsor))
                 .toList();
     }
 }
