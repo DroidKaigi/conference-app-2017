@@ -1,5 +1,8 @@
 package io.github.droidkaigi.confsched2017.util;
 
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.ZonedDateTime;
+
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Build;
@@ -7,11 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.text.TextUtils;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -105,17 +104,11 @@ public class LocaleUtil {
         }
     }
 
-    public static Date getDisplayDate(@NonNull Date date, Context context) {
-        DateFormat formatTokyo = SimpleDateFormat.getDateTimeInstance();
-        formatTokyo.setTimeZone(CONFERENCE_TIMEZONE);
-        DateFormat formatLocal = SimpleDateFormat.getDateTimeInstance();
-        formatLocal.setTimeZone(getDisplayTimeZone(context));
-        try {
-            return formatLocal.parse(formatTokyo.format(date));
-        } catch (ParseException e) {
-            Timber.tag(TAG).e(e, "date: %s can not parse.", date.toString());
-            return date;
+    public static ZonedDateTime getDisplayDate(@NonNull ZonedDateTime date, Context context) {
+        if (DefaultPrefs.get(context).getShowLocalTimeFlag()) {
+            return date.withZoneSameInstant(ZoneId.systemDefault());
         }
+        return date;
     }
 
     public static TimeZone getDisplayTimeZone(Context context) {
@@ -123,4 +116,6 @@ public class LocaleUtil {
         boolean shouldShowLocalTime = DefaultPrefs.get(context).getShowLocalTimeFlag();
         return (shouldShowLocalTime && defaultTimeZone != null) ? defaultTimeZone : CONFERENCE_TIMEZONE;
     }
+
+
 }

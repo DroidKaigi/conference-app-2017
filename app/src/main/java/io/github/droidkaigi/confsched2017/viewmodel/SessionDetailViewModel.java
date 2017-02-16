@@ -1,5 +1,7 @@
 package io.github.droidkaigi.confsched2017.viewmodel;
 
+import org.threeten.bp.ZonedDateTime;
+
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.support.annotation.ColorRes;
@@ -9,7 +11,6 @@ import android.support.annotation.StyleRes;
 import android.text.TextUtils;
 import android.view.View;
 
-import java.util.Date;
 import java.util.Locale;
 
 import javax.inject.Inject;
@@ -155,13 +156,13 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
     }
 
     private String decideSessionTimeRange(Context context, Session session) {
-        Date displaySTime = LocaleUtil.getDisplayDate(session.stime, context);
-        Date displayETime = LocaleUtil.getDisplayDate(session.etime, context);
+        ZonedDateTime displaySTime = LocaleUtil.getDisplayDate(session.stime, context);
+        ZonedDateTime displayETime = LocaleUtil.getDisplayDate(session.etime, context);
 
         return context.getString(R.string.session_time_range,
                 DateUtil.getLongFormatDate(displaySTime),
                 DateUtil.getHourMinute(displayETime),
-                DateUtil.getMinutes(displaySTime, displayETime));
+                session.durationMin);
     }
 
     public String getSessionTitle() {

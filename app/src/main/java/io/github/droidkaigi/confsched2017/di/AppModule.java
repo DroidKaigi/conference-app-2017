@@ -5,6 +5,8 @@ import com.google.gson.GsonBuilder;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
+import org.threeten.bp.ZonedDateTime;
+
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -19,6 +21,8 @@ import io.github.droidkaigi.confsched2017.api.service.GithubService;
 import io.github.droidkaigi.confsched2017.api.service.GoogleFormService;
 import io.github.droidkaigi.confsched2017.model.OrmaDatabase;
 import io.github.droidkaigi.confsched2017.pref.DefaultPrefs;
+import io.github.droidkaigi.confsched2017.util.ZonedDateTimeDeserializer;
+import io.github.droidkaigi.confsched2017.util.ZonedDateTimeSerializer;
 import io.reactivex.disposables.CompositeDisposable;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -105,6 +109,10 @@ public class AppModule {
     }
 
     private static Gson createGson() {
-        return new GsonBuilder().setDateFormat("yyyy/MM/dd HH:mm:ss").create();
+        return new GsonBuilder()
+                .setDateFormat("yyyy/MM/dd HH:mm:ss")
+                .registerTypeAdapter(ZonedDateTime.class, new ZonedDateTimeSerializer())
+                .registerTypeAdapter(ZonedDateTime.class, new ZonedDateTimeDeserializer())
+                .create();
     }
 }

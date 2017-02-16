@@ -1,5 +1,9 @@
 package io.github.droidkaigi.confsched2017.util;
 
+import org.threeten.bp.DateTimeUtils;
+import org.threeten.bp.ZonedDateTime;
+import org.threeten.bp.temporal.ChronoUnit;
+
 import android.content.Context;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -11,7 +15,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
-import java.util.concurrent.TimeUnit;
 
 public class DateUtil {
 
@@ -28,7 +31,13 @@ public class DateUtil {
     }
 
     @NonNull
-    public static String getMonthDate(Date date, Context context) {
+    private static Date convertZoneDateTime(ZonedDateTime date) {
+        return DateTimeUtils.toDate(date.toInstant());
+    }
+
+    @NonNull
+    public static String getMonthDate(ZonedDateTime zonedDateTime, Context context) {
+        Date date = convertZoneDateTime(zonedDateTime);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), FORMAT_MMDD);
             return new SimpleDateFormat(pattern, Locale.getDefault()).format(date);
@@ -39,7 +48,8 @@ public class DateUtil {
     }
 
     @NonNull
-    public static String getHourMinute(Date date) {
+    public static String getHourMinute(ZonedDateTime zonedDateTime) {
+        Date date = convertZoneDateTime(zonedDateTime);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), FORMAT_KKMM);
             return new SimpleDateFormat(pattern, Locale.getDefault()).format(date);
@@ -49,11 +59,11 @@ public class DateUtil {
     }
 
     @NonNull
-    public static String getLongFormatDate(@Nullable Date date) {
-        if (date == null) {
+    public static String getLongFormatDate(@Nullable ZonedDateTime zonedDateTime) {
+        if (zonedDateTime == null) {
             return "";
         }
-
+        Date date = convertZoneDateTime(zonedDateTime);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), FORMAT_YYYYMMDDKKMM);
             return new SimpleDateFormat(pattern, Locale.getDefault()).format(date);
@@ -68,13 +78,7 @@ public class DateUtil {
         }
     }
 
-    public static int getMinutes(Date stime, Date etime) {
-        long range = etime.getTime() - stime.getTime();
-
-        if (range > 0) {
-            return (int) (range / TimeUnit.MINUTES.toMillis(1L));
-        } else {
-            return 0;
-        }
+    public static int getMinutes(ZonedDateTime stime, ZonedDateTime etime) {
+        return (int) ChronoUnit.MINUTES.between(stime, etime);
     }
 }

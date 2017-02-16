@@ -3,6 +3,7 @@ package io.github.droidkaigi.confsched2017.view.fragment;
 import org.lucasr.twowayview.TwoWayLayoutManager;
 import org.lucasr.twowayview.widget.DividerItemDecoration;
 import org.lucasr.twowayview.widget.SpannableGridLayoutManager;
+import org.threeten.bp.ZonedDateTime;
 
 import android.content.Context;
 import android.graphics.Point;
@@ -26,7 +27,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -201,7 +201,7 @@ public class SessionsFragment extends BaseFragment implements SessionViewModel.C
     }
 
     private void renderSessions(List<SessionViewModel> adjustedSessionViewModels) {
-        List<Date> stimes = viewModel.getStimes();
+        List<ZonedDateTime> stimes = viewModel.getStimes();
         List<Room> rooms = viewModel.getRooms();
 
         if (binding.recyclerView.getLayoutManager() == null) {

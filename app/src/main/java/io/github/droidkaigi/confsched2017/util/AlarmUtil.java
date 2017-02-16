@@ -1,5 +1,7 @@
 package io.github.droidkaigi.confsched2017.util;
 
+import org.threeten.bp.ZonedDateTime;
+
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -7,7 +9,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.NonNull;
 
-import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import io.github.droidkaigi.confsched2017.R;
@@ -20,7 +21,7 @@ public class AlarmUtil {
     private static final long REMIND_DURATION_MINUTES_FOR_START = TimeUnit.MINUTES.toMillis(10);
 
     public static void registerAlarm(@NonNull Context context, @NonNull Session session) {
-        long time = session.stime.getTime() - REMIND_DURATION_MINUTES_FOR_START;
+        long time = session.stime.toInstant().toEpochMilli() - REMIND_DURATION_MINUTES_FOR_START;
 
         DefaultPrefs prefs = DefaultPrefs.get(context);
         if (prefs.getNotificationTestFlag()) {
@@ -44,8 +45,8 @@ public class AlarmUtil {
 
     private static PendingIntent createAlarmIntent(@NonNull Context context, @NonNull Session session) {
         String title = context.getString(R.string.notification_title, session.title);
-        Date displaySTime = LocaleUtil.getDisplayDate(session.stime, context);
-        Date displayETime = LocaleUtil.getDisplayDate(session.etime, context);
+        ZonedDateTime displaySTime = LocaleUtil.getDisplayDate(session.stime, context);
+        ZonedDateTime displayETime = LocaleUtil.getDisplayDate(session.etime, context);
         String room = "";
         if (session.room != null) {
             room = session.room.name;

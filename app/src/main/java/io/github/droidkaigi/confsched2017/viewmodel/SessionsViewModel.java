@@ -2,6 +2,8 @@ package io.github.droidkaigi.confsched2017.viewmodel;
 
 import com.annimon.stream.Stream;
 
+import org.threeten.bp.ZonedDateTime;
+
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
@@ -10,7 +12,6 @@ import android.text.TextUtils;
 import android.view.View;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -35,7 +36,7 @@ public class SessionsViewModel extends BaseObservable implements ViewModel {
 
     private List<Room> rooms;
 
-    private List<Date> stimes;
+    private List<ZonedDateTime> stimes;
 
     @Inject
     SessionsViewModel(SessionsRepository sessionsRepository, MySessionsRepository mySessionsRepository) {
@@ -88,7 +89,7 @@ public class SessionsViewModel extends BaseObservable implements ViewModel {
 
         // Format date that user can see. Ex) 9, March
         String lastFormattedDate = null;
-        for (Date stime : stimes) {
+        for (ZonedDateTime stime : stimes) {
             if (lastFormattedDate == null) {
                 lastFormattedDate = DateUtil.getMonthDate(stime, context);
             }
@@ -136,11 +137,11 @@ public class SessionsViewModel extends BaseObservable implements ViewModel {
         return adjustedViewModels;
     }
 
-    private String generateStimeRoomKey(@NonNull Date stime, @NonNull String roomName) {
+    private String generateStimeRoomKey(@NonNull ZonedDateTime stime, @NonNull String roomName) {
         return DateUtil.getLongFormatDate(stime) + "_" + roomName;
     }
 
-    private List<Date> extractStimes(List<Session> sessions) {
+    private List<ZonedDateTime> extractStimes(List<Session> sessions) {
         return Stream.of(sessions)
                 .map(session -> session.stime)
                 .sorted()
@@ -161,7 +162,7 @@ public class SessionsViewModel extends BaseObservable implements ViewModel {
         return rooms;
     }
 
-    public List<Date> getStimes() {
+    public List<ZonedDateTime> getStimes() {
         return stimes;
     }
 
