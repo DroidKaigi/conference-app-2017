@@ -157,6 +157,10 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
         }
     }
 
+    public void onOverScroll() {
+        callback.onOverScroll();
+    }
+
     private String decideSessionTimeRange(Context context, Session session) {
         Date displaySTime = LocaleUtil.getDisplayDate(session.stime, context);
         Date displayETime = LocaleUtil.getDisplayDate(session.etime, context);
@@ -218,5 +222,7 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
     public interface Callback {
 
         void onClickFab(boolean selected);
+
+        void onOverScroll();
     }
 }
