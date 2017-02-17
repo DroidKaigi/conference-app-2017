@@ -12,6 +12,7 @@ import android.text.TextUtils;
 import android.view.View;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -26,6 +27,7 @@ import io.github.droidkaigi.confsched2017.model.Session;
 import io.github.droidkaigi.confsched2017.repository.sessions.MySessionsRepository;
 import io.github.droidkaigi.confsched2017.repository.sessions.SessionsRepository;
 import io.github.droidkaigi.confsched2017.util.DateUtil;
+import io.github.droidkaigi.confsched2017.util.LocaleUtil;
 import io.reactivex.Single;
 
 public class SessionsViewModel extends BaseObservable implements ViewModel {
@@ -82,23 +84,25 @@ public class SessionsViewModel extends BaseObservable implements ViewModel {
                 // In the case of Welcome talk and lunch time, set dummy room
                 roomName = rooms.get(0).name;
             }
-            sessionMap.put(generateStimeRoomKey(viewModel.getStime(), roomName, context), viewModel);
+            sessionMap.put(generateStimeRoomKey(LocaleUtil.getDisplayDate(viewModel.getStime(), context), roomName, context), viewModel);
         }
 
         final List<SessionViewModel> adjustedViewModels = new ArrayList<>();
 
         // Format date that user can see. Ex) 9, March
         String lastFormattedDate = null;
+        Date displayDate;
         for (ZonedDateTime stime : stimes) {
+            displayDate = LocaleUtil.getDisplayDate(stime, context);
             if (lastFormattedDate == null) {
-                lastFormattedDate = DateUtil.getMonthDate(stime, context);
+                lastFormattedDate = DateUtil.getMonthDate(displayDate, context);
             }
 
             final List<SessionViewModel> sameTimeViewModels = new ArrayList<>();
             int maxRowSpan = 1;
             for (int i = 0, size = rooms.size(); i < size; i++) {
                 Room room = rooms.get(i);
-                SessionViewModel viewModel = sessionMap.get(generateStimeRoomKey(stime, room.name, context));
+                SessionViewModel viewModel = sessionMap.get(generateStimeRoomKey(displayDate, room.name, context));
                 if (viewModel != null) {
                     if (!lastFormattedDate.equals(viewModel.getFormattedDate())) {
                         // Change the date
@@ -137,7 +141,7 @@ public class SessionsViewModel extends BaseObservable implements ViewModel {
         return adjustedViewModels;
     }
 
-    private String generateStimeRoomKey(@NonNull ZonedDateTime stime, @NonNull String roomName, Context context) {
+    private String generateStimeRoomKey(@NonNull Date stime, @NonNull String roomName, Context context) {
         return DateUtil.getLongFormatDate(stime, context) + "_" + roomName;
     }
 

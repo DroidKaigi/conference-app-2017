@@ -10,6 +10,8 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.view.View;
 
+import java.util.Date;
+
 import io.github.droidkaigi.confsched2017.BR;
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.model.Session;
@@ -69,8 +71,7 @@ public class SessionViewModel extends BaseObservable implements ViewModel {
             MySessionsRepository mySessionsRepository) {
         this.session = session;
 
-        ZonedDateTime displayDate = LocaleUtil.getDisplayDate(session.stime, context);
-//        Timber.tag("TIME").d("Display Date: %s, %s ==> %s", session.title, session.stime, displayDate);
+        Date displayDate = LocaleUtil.getDisplayDate(session.stime, context);
         this.shortStime = DateUtil.getHourMinute(displayDate, context);
         this.formattedDate = DateUtil.getMonthDate(displayDate, context);
         this.title = session.title;

@@ -1,6 +1,10 @@
 package io.github.droidkaigi.confsched2017.util;
 
+import org.threeten.bp.DateTimeUtils;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.ZoneId;
+import org.threeten.bp.ZoneOffset;
 import org.threeten.bp.ZonedDateTime;
 
 import android.content.Context;
@@ -11,6 +15,7 @@ import android.support.annotation.StringRes;
 import android.text.TextUtils;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -28,6 +33,10 @@ public class LocaleUtil {
     private static final String TAG = LocaleUtil.class.getSimpleName();
 
     private static final TimeZone CONFERENCE_TIMEZONE = TimeZone.getTimeZone(BuildConfig.CONFERENCE_TIMEZONE);
+
+    private static final ZoneOffset CONFERENCE_ZONE_OFFSET = LocalDateTime.now()
+            .atZone(ZoneId.of(BuildConfig.CONFERENCE_TIMEZONE))
+            .getOffset();
 
     public static void initLocale(Context context) {
         setLocale(context, getCurrentLanguageId(context));
@@ -104,11 +113,16 @@ public class LocaleUtil {
         }
     }
 
-    public static ZonedDateTime getDisplayDate(@NonNull ZonedDateTime date, Context context) {
+    public static Date getDisplayDate(@NonNull ZonedDateTime date, Context context) {
+        Instant instant;
         if (DefaultPrefs.get(context).getShowLocalTimeFlag()) {
-            return date.withZoneSameInstant(ZoneId.systemDefault());
+            instant = date.toInstant();
+        } else {
+            instant = date.withZoneSameInstant(ZoneId.systemDefault())
+                    .minusSeconds(CONFERENCE_ZONE_OFFSET.compareTo(ZonedDateTime.now().getOffset()))
+                    .toInstant();
         }
-        return date;
+        return DateTimeUtils.toDate(instant);
     }
 
     public static TimeZone getDisplayTimeZone(Context context) {

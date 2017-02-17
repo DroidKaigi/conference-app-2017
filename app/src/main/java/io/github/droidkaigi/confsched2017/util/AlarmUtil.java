@@ -1,7 +1,5 @@
 package io.github.droidkaigi.confsched2017.util;
 
-import org.threeten.bp.ZonedDateTime;
-
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -9,6 +7,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.NonNull;
 
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import io.github.droidkaigi.confsched2017.R;
@@ -45,8 +44,8 @@ public class AlarmUtil {
 
     private static PendingIntent createAlarmIntent(@NonNull Context context, @NonNull Session session) {
         String title = context.getString(R.string.notification_title, session.title);
-        ZonedDateTime displaySTime = LocaleUtil.getDisplayDate(session.stime, context);
-        ZonedDateTime displayETime = LocaleUtil.getDisplayDate(session.etime, context);
+        Date displaySTime = LocaleUtil.getDisplayDate(session.stime, context);
+        Date displayETime = LocaleUtil.getDisplayDate(session.etime, context);
         String room = "";
         if (session.room != null) {
             room = session.room.name;
