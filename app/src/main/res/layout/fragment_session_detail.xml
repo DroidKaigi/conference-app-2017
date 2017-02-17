@@ -56,6 +56,7 @@
                             android:fitsSystemWindows="true"
                             android:scaleType="centerCrop"
                             android:src="@drawable/img_session_cover"
+                            android:tint="@color/black_alpha_12"
                             />
 
                     <View
