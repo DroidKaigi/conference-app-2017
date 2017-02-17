@@ -82,7 +82,7 @@ public class SessionsViewModel extends BaseObservable implements ViewModel {
                 // In the case of Welcome talk and lunch time, set dummy room
                 roomName = rooms.get(0).name;
             }
-            sessionMap.put(generateStimeRoomKey(viewModel.getStime(), roomName), viewModel);
+            sessionMap.put(generateStimeRoomKey(viewModel.getStime(), roomName, context), viewModel);
         }
 
         final List<SessionViewModel> adjustedViewModels = new ArrayList<>();
@@ -98,7 +98,7 @@ public class SessionsViewModel extends BaseObservable implements ViewModel {
             int maxRowSpan = 1;
             for (int i = 0, size = rooms.size(); i < size; i++) {
                 Room room = rooms.get(i);
-                SessionViewModel viewModel = sessionMap.get(generateStimeRoomKey(stime, room.name));
+                SessionViewModel viewModel = sessionMap.get(generateStimeRoomKey(stime, room.name, context));
                 if (viewModel != null) {
                     if (!lastFormattedDate.equals(viewModel.getFormattedDate())) {
                         // Change the date
@@ -137,8 +137,8 @@ public class SessionsViewModel extends BaseObservable implements ViewModel {
         return adjustedViewModels;
     }
 
-    private String generateStimeRoomKey(@NonNull ZonedDateTime stime, @NonNull String roomName) {
-        return DateUtil.getLongFormatDate(stime) + "_" + roomName;
+    private String generateStimeRoomKey(@NonNull ZonedDateTime stime, @NonNull String roomName, Context context) {
+        return DateUtil.getLongFormatDate(stime, context) + "_" + roomName;
     }
 
     private List<ZonedDateTime> extractStimes(List<Session> sessions) {

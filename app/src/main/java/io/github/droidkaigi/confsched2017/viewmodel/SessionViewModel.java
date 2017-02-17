@@ -70,7 +70,8 @@ public class SessionViewModel extends BaseObservable implements ViewModel {
         this.session = session;
 
         ZonedDateTime displayDate = LocaleUtil.getDisplayDate(session.stime, context);
-        this.shortStime = DateUtil.getHourMinute(displayDate);
+//        Timber.tag("TIME").d("Display Date: %s, %s ==> %s", session.title, session.stime, displayDate);
+        this.shortStime = DateUtil.getHourMinute(displayDate, context);
         this.formattedDate = DateUtil.getMonthDate(displayDate, context);
         this.title = session.title;
 

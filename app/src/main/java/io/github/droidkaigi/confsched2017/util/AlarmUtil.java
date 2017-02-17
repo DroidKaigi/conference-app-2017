@@ -52,8 +52,8 @@ public class AlarmUtil {
             room = session.room.name;
         }
         String text = context.getString(R.string.notification_message,
-                DateUtil.getHourMinute(displaySTime),
-                DateUtil.getHourMinute(displayETime),
+                DateUtil.getHourMinute(displaySTime, context),
+                DateUtil.getHourMinute(displayETime, context),
                 room);
         Intent intent = NotificationReceiver.createIntent(context, session.id, title, text);
         return PendingIntent.getBroadcast(context, session.id,
