@@ -59,6 +59,7 @@
     <string name="settings_local_time">Show local time</string>
     <string name="settings_local_time_description">Use your local time instead of the conference\’s local time.</string>
     <string name="settings_developer_group">Developer menu</string>
+    <string name="settings_developer_tips">Tips: To show Debug menu, press Command + M for emulators or shake your device.(Only works for Debug build)</string>
     <string name="settings_debug_overlay_view">Debug Overlay View</string>
     <string name="settings_debug_overlay_view_description">Choose whether to show Debug Overlay View.</string>
     <string name="settings_debug_overlay_view_toast">Before enabling this setting, grant draw over other apps permission.</string>

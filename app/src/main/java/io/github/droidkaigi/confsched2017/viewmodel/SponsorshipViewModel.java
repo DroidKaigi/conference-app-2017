@@ -1,18 +1,19 @@
 package io.github.droidkaigi.confsched2017.viewmodel;
 
-import com.annimon.stream.Stream;
-
 import android.databinding.BaseObservable;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
 
+import com.annimon.stream.Stream;
+
 import java.util.List;
 
-import javax.inject.Inject;
-
 import io.github.droidkaigi.confsched2017.model.Sponsorship;
+import io.github.droidkaigi.confsched2017.view.helper.Navigator;
 
 public final class SponsorshipViewModel extends BaseObservable implements ViewModel {
+
+    private final Navigator navigator;
 
     private Sponsorship sponsorship;
 
@@ -20,8 +21,8 @@ public final class SponsorshipViewModel extends BaseObservable implements ViewMo
 
     private ObservableList<SponsorViewModel> sponsorViewModels;
 
-    @Inject
-    SponsorshipViewModel(Sponsorship sponsorship) {
+    SponsorshipViewModel(Navigator navigator, Sponsorship sponsorship) {
+        this.navigator = navigator;
         this.sponsorship = sponsorship;
         this.category = sponsorship.category;
         this.sponsorViewModels = new ObservableArrayList<>();
@@ -47,7 +48,7 @@ public final class SponsorshipViewModel extends BaseObservable implements ViewMo
 
     private List<SponsorViewModel> convertSponsor(Sponsorship sponsorship) {
         return Stream.of(sponsorship.sponsors)
-                .map(SponsorViewModel::new)
+                .map(sponsor -> new SponsorViewModel(navigator, sponsor))
                 .toList();
     }
 }

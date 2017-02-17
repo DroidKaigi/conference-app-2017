@@ -21,6 +21,7 @@ import io.github.droidkaigi.confsched2017.repository.sessions.SessionsRepository
 import io.github.droidkaigi.confsched2017.util.AlarmUtil;
 import io.github.droidkaigi.confsched2017.util.DateUtil;
 import io.github.droidkaigi.confsched2017.util.LocaleUtil;
+import io.github.droidkaigi.confsched2017.view.helper.Navigator;
 import io.reactivex.Completable;
 import timber.log.Timber;
 
@@ -29,6 +30,8 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
     private static final String TAG = SessionDetailViewModel.class.getSimpleName();
 
     private final Context context;
+
+    private final Navigator navigator;
 
     private final SessionsRepository sessionsRepository;
 
@@ -65,9 +68,10 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
     private Callback callback;
 
     @Inject
-    public SessionDetailViewModel(Context context, SessionsRepository sessionsRepository,
+    public SessionDetailViewModel(Context context, Navigator navigator, SessionsRepository sessionsRepository,
             MySessionsRepository mySessionsRepository) {
         this.context = context;
+        this.navigator = navigator;
         this.sessionsRepository = sessionsRepository;
         this.mySessionsRepository = mySessionsRepository;
     }
@@ -85,11 +89,12 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
         this.dashVideoIconVisibility = session.movieUrl != null && session.movieDashUrl != null ? View.VISIBLE : View.GONE;
         this.roomVisibility = session.room != null ? View.VISIBLE : View.GONE;
         this.topicVisibility = session.topic != null ? View.VISIBLE : View.GONE;
-        this.languageResId = session.lang != null ? decideLanguageResId(new Locale(session.lang.toLowerCase())) : R.string.lang_en;
+        this.languageResId = session.lang != null ? decideLanguageResId(new Locale(session.lang.toLowerCase()))
+                : R.string.lang_en;
     }
 
     public Completable loadSession(int sessionId) {
-        return  sessionsRepository.find(sessionId, Locale.getDefault())
+        return sessionsRepository.find(sessionId, Locale.getDefault())
                 .flatMapCompletable(session -> {
                     setSession(session);
                     return Completable.complete();
@@ -118,9 +123,7 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
     }
 
     public void onClickFeedbackButton(@SuppressWarnings("unused") View view) {
-        if (callback != null) {
-            callback.onClickFeedback();
-        }
+        navigator.navigateToFeedbackPage(session);
     }
 
     public void onClickSlideIcon(@SuppressWarnings("unused") View view) {
@@ -215,7 +218,5 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
     public interface Callback {
 
         void onClickFab(boolean selected);
-
-        void onClickFeedback();
     }
 }

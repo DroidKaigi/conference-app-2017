@@ -2,7 +2,6 @@ package io.github.droidkaigi.confsched2017.viewmodel;
 
 import android.content.Context;
 import android.databinding.BaseObservable;
-import android.support.annotation.NonNull;
 import android.view.View;
 
 import java.util.Date;
@@ -12,8 +11,11 @@ import io.github.droidkaigi.confsched2017.model.MySession;
 import io.github.droidkaigi.confsched2017.model.Session;
 import io.github.droidkaigi.confsched2017.util.DateUtil;
 import io.github.droidkaigi.confsched2017.util.LocaleUtil;
+import io.github.droidkaigi.confsched2017.view.helper.Navigator;
 
 public class MySessionViewModel extends BaseObservable implements ViewModel {
+
+    private final Navigator navigator;
 
     private String sessionTitle;
 
@@ -25,9 +27,8 @@ public class MySessionViewModel extends BaseObservable implements ViewModel {
 
     public MySession mySession;
 
-    private Callback callback;
-
-    public MySessionViewModel(Context context, MySession mySession) {
+    public MySessionViewModel(Context context, Navigator navigator, MySession mySession) {
+        this.navigator = navigator;
         this.sessionTitle = mySession.session.title;
         if (mySession.session.speaker != null) {
             this.speakerImageUrl = mySession.session.speaker.imageUrl;
@@ -40,9 +41,8 @@ public class MySessionViewModel extends BaseObservable implements ViewModel {
 
     @Override
     public void destroy() {
-        callback = null;
+        // Nothing to do
     }
-
 
     public String getSessionTitle() {
         return sessionTitle;
@@ -70,23 +70,8 @@ public class MySessionViewModel extends BaseObservable implements ViewModel {
                 DateUtil.getMinutes(displaySTime, displayETime));
     }
 
-
-    public void setCallback(Callback callback) {
-        this.callback = callback;
-    }
-
     public void onItemClick(@SuppressWarnings("unused") View view) {
-        if (callback != null) {
-            callback.showSessionDetail(mySession);
-        }
+        navigator.navigateToSessionDetail(mySession.session);
     }
-
-
-    public interface Callback {
-
-        void showSessionDetail(@NonNull MySession mySession);
-    }
-
-
 
 }
