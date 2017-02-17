@@ -124,10 +124,6 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    jacoco {
-        version "0.7.7.201606060606"
-    }
-
     testOptions {
         unitTests.all {
             // configure the set of classes for JUnit tests
