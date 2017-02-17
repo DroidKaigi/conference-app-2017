@@ -61,6 +61,7 @@ public class ContributorsFragment extends BaseFragment implements ContributorsVi
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
         binding = FragmentContributorsBinding.inflate(inflater, container, false);
         binding.setViewModel(viewModel);
 
