@@ -111,6 +111,10 @@ public final class ContributorsViewModel extends BaseObservable implements ViewM
         return this.viewModels;
     }
 
+    public void onClickRepositoryMenu(){
+        navigator.navigateToWebPage("https://github.com/DroidKaigi/conference-app-2017");
+    }
+
     private void loadContributors(boolean refresh) {
         if (refresh) {
             contributorsRepository.setDirty(true);
