@@ -23,7 +23,6 @@ import javax.inject.Inject;
 
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.databinding.FragmentSessionDetailBinding;
-import io.github.droidkaigi.confsched2017.view.activity.SessionFeedbackActivity;
 import io.github.droidkaigi.confsched2017.view.helper.AnimationHelper;
 import io.github.droidkaigi.confsched2017.viewmodel.SessionDetailViewModel;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -169,5 +168,11 @@ public class SessionDetailFragment extends BaseFragment implements SessionDetail
                 .setAction(actionTextId, v -> binding.fab.performClick())
                 .setActionTextColor(actionTextColor)
                 .show();
+    }
+
+    @Override
+    public void onOverScroll() {
+        getActivity().finish();
+        getActivity().overridePendingTransition(0, 0);
     }
 }
