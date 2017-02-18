@@ -1,14 +1,14 @@
 package io.github.droidkaigi.confsched2017.view.fragment;
 
-import com.annimon.stream.Optional;
-
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.databinding.ObservableList;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
+import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +21,6 @@ import io.github.droidkaigi.confsched2017.databinding.FragmentContributorsBindin
 import io.github.droidkaigi.confsched2017.databinding.ViewContributorCellBinding;
 import io.github.droidkaigi.confsched2017.view.customview.ArrayRecyclerAdapter;
 import io.github.droidkaigi.confsched2017.view.customview.BindingHolder;
-import io.github.droidkaigi.confsched2017.view.helper.IntentHelper;
 import io.github.droidkaigi.confsched2017.viewmodel.ContributorViewModel;
 import io.github.droidkaigi.confsched2017.viewmodel.ContributorsViewModel;
 
@@ -85,9 +84,11 @@ public class ContributorsFragment extends BaseFragment implements ContributorsVi
     }
 
     @Override
-    public void onClickContributor(String htmlUrl) {
-        Optional<Intent> intentOptional = IntentHelper.buildActionViewIntent(getContext(), htmlUrl);
-        intentOptional.ifPresent(this::startActivity);
+    public void showError(@StringRes int resId) {
+        Snackbar.make(binding.getRoot(), resId, Snackbar.LENGTH_INDEFINITE)
+                .setAction(R.string.retry, v -> viewModel.retry())
+                .setActionTextColor(ContextCompat.getColor(getActivity(), R.color.white))
+                .show();
     }
 
     private int getColumnCount() {

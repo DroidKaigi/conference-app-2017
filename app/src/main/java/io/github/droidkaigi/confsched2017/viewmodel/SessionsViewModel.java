@@ -1,6 +1,5 @@
 package io.github.droidkaigi.confsched2017.viewmodel;
 
-import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 
 import android.content.Context;
@@ -26,9 +25,12 @@ import io.github.droidkaigi.confsched2017.model.Session;
 import io.github.droidkaigi.confsched2017.repository.sessions.MySessionsRepository;
 import io.github.droidkaigi.confsched2017.repository.sessions.SessionsRepository;
 import io.github.droidkaigi.confsched2017.util.DateUtil;
+import io.github.droidkaigi.confsched2017.view.helper.Navigator;
 import io.reactivex.Single;
 
 public class SessionsViewModel extends BaseObservable implements ViewModel {
+
+    private final Navigator navigator;
 
     private SessionsRepository sessionsRepository;
 
@@ -39,7 +41,8 @@ public class SessionsViewModel extends BaseObservable implements ViewModel {
     private List<Date> stimes;
 
     @Inject
-    SessionsViewModel(SessionsRepository sessionsRepository, MySessionsRepository mySessionsRepository) {
+    SessionsViewModel(Navigator navigator, SessionsRepository sessionsRepository, MySessionsRepository mySessionsRepository) {
+        this.navigator = navigator;
         this.sessionsRepository = sessionsRepository;
         this.mySessionsRepository = mySessionsRepository;
     }
@@ -66,9 +69,10 @@ public class SessionsViewModel extends BaseObservable implements ViewModel {
                     List<SessionViewModel> viewModels = Stream.of(sessions)
                             .map(session -> {
                                 boolean isMySession = mySessionMap.containsKey(session.id);
-                                return new SessionViewModel(session, context, rooms.size(), isMySession, mySessionsRepository);
+                                return new SessionViewModel(
+                                        session, context, navigator, rooms.size(), isMySession, mySessionsRepository);
                             })
-                            .collect(Collectors.toList());
+                            .toList();
                     return adjustViewModels(viewModels, context);
                 });
     }
@@ -146,7 +150,7 @@ public class SessionsViewModel extends BaseObservable implements ViewModel {
                 .map(session -> session.stime)
                 .sorted()
                 .distinct()
-                .collect(Collectors.toList());
+                .toList();
     }
 
     private List<Room> extractRooms(List<Session> sessions) {
@@ -155,7 +159,7 @@ public class SessionsViewModel extends BaseObservable implements ViewModel {
                 .filter(room -> room != null && room.id != 0)
                 .sorted((lhs, rhs) -> lhs.name.compareTo(rhs.name))
                 .distinct()
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public List<Room> getRooms() {

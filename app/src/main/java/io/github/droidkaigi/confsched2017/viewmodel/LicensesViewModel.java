@@ -3,7 +3,6 @@ package io.github.droidkaigi.confsched2017.viewmodel;
 import android.annotation.TargetApi;
 import android.databinding.BaseObservable;
 import android.os.Build;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
@@ -11,27 +10,26 @@ import android.webkit.WebViewClient;
 
 import javax.inject.Inject;
 
+import io.github.droidkaigi.confsched2017.view.helper.Navigator;
+
 public final class LicensesViewModel extends BaseObservable implements ViewModel {
+
+    private final Navigator navigator;
 
     private final String licenseFilePath;
 
     private final WebViewClient webViewClient;
 
-    private Callback callback;
-
     @Inject
-    LicensesViewModel() {
+    LicensesViewModel(Navigator navigator) {
+        this.navigator = navigator;
         licenseFilePath = "file:///android_asset/licenses.html";
         webViewClient = new LicensesWebViewClient();
     }
 
-    public void setCallback(@NonNull Callback callback) {
-        this.callback = callback;
-    }
-
     @Override
     public void destroy() {
-        this.callback = null;
+        // Nothing to do
     }
 
     public String getLicenseFilePath() {
@@ -49,14 +47,9 @@ public final class LicensesViewModel extends BaseObservable implements ViewModel
         if (url.equals(licenseFilePath)) {
             return false;
         } else {
-            callback.showExternalLink(url);
+            navigator.navigateToWebPage(url);
             return true;
         }
-    }
-
-    public interface Callback {
-
-        void showExternalLink(String url);
     }
 
     private class LicensesWebViewClient extends WebViewClient {

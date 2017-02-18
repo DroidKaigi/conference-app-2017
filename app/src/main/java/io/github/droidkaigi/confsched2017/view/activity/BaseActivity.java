@@ -28,6 +28,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     private ActivityComponent activityComponent;
+
     private Debot debot;
 
     @NonNull
