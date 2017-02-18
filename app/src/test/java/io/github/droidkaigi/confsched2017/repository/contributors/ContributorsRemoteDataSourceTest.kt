@@ -5,11 +5,18 @@ import com.sys1yagi.kmockito.mock
 import com.taroid.knit.should
 import io.github.droidkaigi.confsched2017.api.DroidKaigiClient
 import io.github.droidkaigi.confsched2017.model.Contributor
+import io.github.droidkaigi.confsched2017.util.RxTestSchedulerRule
 import io.reactivex.Single
+import org.junit.ClassRule
 import org.junit.Test
-import java.util.concurrent.TimeUnit
 
 class ContributorsRemoteDataSourceTest {
+
+    companion object {
+        @ClassRule
+        @JvmField
+        val schedulerRule = RxTestSchedulerRule
+    }
 
     private val client = mock<DroidKaigiClient>()
 
@@ -21,7 +28,7 @@ class ContributorsRemoteDataSourceTest {
                 })))
 
         ContributorsRemoteDataSource(client).findAll().test().run {
-            await(10, TimeUnit.SECONDS).should be true
+            schedulerRule.testScheduler.triggerActions()
             assertNoErrors()
             assertValueCount(1)
             values()[0].size.should be 1
