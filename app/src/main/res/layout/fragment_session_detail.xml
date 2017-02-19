@@ -13,10 +13,11 @@
                 />
     </data>
 
-    <android.support.design.widget.CoordinatorLayout
+    <io.github.droidkaigi.confsched2017.view.customview.OverScrollLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
+            app:onOverScroll="@{viewModel::onOverScroll}"
             >
 
         <android.support.design.widget.AppBarLayout
@@ -77,10 +78,10 @@
 
                 <android.support.v7.widget.Toolbar
                         android:id="@+id/toolbar"
+                        style="@style/BaseToolbar"
                         android:layout_width="match_parent"
                         android:layout_height="?attr/actionBarSize"
                         android:background="?attr/selectableItemBackground"
-                        style="@style/BaseToolbar"
                         app:layout_collapseMode="pin"
                         />
 
@@ -302,6 +303,6 @@
                 app:topicVividColor="@{viewModel.sessionVividColorResId}"
                 />
 
-    </android.support.design.widget.CoordinatorLayout>
+    </io.github.droidkaigi.confsched2017.view.customview.OverScrollLayout>
 
 </layout>

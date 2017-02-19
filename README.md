@@ -159,8 +159,8 @@ public class Speaker {
 ## ViewModel
 - In `viewmodel` package
 - "ViewModel" has all properties which is shown in "View".
-- They are bind by DataBinding. In this app, `setText()` or `setImageResource()`, `setVisibility()` are not used.
-- The events such as `OnClickListener()` are also bind by DataBinding.
+- They are bound by DataBinding. In this app, `setText()`, `setImageResource()` or `setVisibility()` are not used.
+- The events such as `OnClickListener()` are also bound by DataBinding.
 
 ```xml
 <RelativeLayout
