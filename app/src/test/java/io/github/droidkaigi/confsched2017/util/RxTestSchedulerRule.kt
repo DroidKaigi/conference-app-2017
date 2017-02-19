@@ -11,9 +11,11 @@ object RxTestSchedulerRule : ExternalResource() {
     override fun before() {
         RxJavaPlugins.reset()
         RxJavaPlugins.setInitIoSchedulerHandler { testScheduler }
+        RxJavaPlugins.setIoSchedulerHandler { testScheduler }
 
         RxAndroidPlugins.reset()
         RxAndroidPlugins.setInitMainThreadSchedulerHandler { testScheduler }
+        RxAndroidPlugins.setMainThreadSchedulerHandler { testScheduler }
     }
 
     override fun after() {
