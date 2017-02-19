@@ -1,5 +1,7 @@
 package io.github.droidkaigi.confsched2017.view.helper;
 
+import org.apache.commons.io.IOUtils;
+
 import android.content.Context;
 import android.support.annotation.StringRes;
 
@@ -36,20 +38,11 @@ public class ResourceResolver {
         InputStream is = null;
         try {
             is = context.getAssets().open("json/" + jsonFileName);
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            json = new String(buffer, "UTF-8");
+            json = IOUtils.toString(is, "UTF-8");
         } catch (IOException e) {
-            Timber.e(TAG, e.getMessage(), e);
+            Timber.tag(TAG).e(e, "assets/json/%s: read failed", jsonFileName);
         } finally {
-            try {
-                if (is != null) {
-                    is.close();
-                }
-            } catch (IOException e) {
-                Timber.e(TAG, e.getMessage(), e);
-            }
+            IOUtils.closeQuietly(is);
         }
         return json;
     }
