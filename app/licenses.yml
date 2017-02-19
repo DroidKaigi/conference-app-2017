@@ -153,3 +153,9 @@
   name: debot
   copyrightHolder: Tomoaki Imai
   license: The Apache License, Version 2.0
+- artifact: commons-io:commons-io:+
+  name: Apache Commons IO
+  copyrightHolder: The Apache Software Foundation
+  license: The Apache License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: http://commons.apache.org/proper/commons-io/
