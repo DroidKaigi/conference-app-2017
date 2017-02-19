@@ -71,7 +71,7 @@ public class SplashActivity extends BaseActivity {
                     if (isFinishing()) return;
                     startActivity(MainActivity.createIntent(SplashActivity.this));
                 })
-                .subscribe(objectObservable -> Timber.tag(TAG).d("Succeeded in loading sessions."),
+                .subscribe(observable -> Timber.tag(TAG).d("Succeeded in loading sessions."),
                         throwable -> Timber.tag(TAG).e(throwable, "Failed to load sessions."));
         compositeDisposable.add(disposable);
     }
