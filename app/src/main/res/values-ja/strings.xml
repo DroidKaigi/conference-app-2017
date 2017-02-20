@@ -16,6 +16,10 @@
     <string name="description">内容</string>
     <string name="slide_and_video">資料＆動画</string>
     <string name="send_feedback">フィードバックを送る</string>
+    <string name="session_checked">このセッションをチェックしました。</string>
+    <string name="session_unchecked">このセッションのチェックを外しました。</string>
+    <string name="session_check">チェックする</string>
+    <string name="session_uncheck">チェックを外す</string>
     <!-- My Sessions -->
     <string name="my_session_empty">まだセッションが登録されていません。セッションリストを確認し、気になるセッションをチェックアウトしましょう！</string>
     <!-- Settings -->
