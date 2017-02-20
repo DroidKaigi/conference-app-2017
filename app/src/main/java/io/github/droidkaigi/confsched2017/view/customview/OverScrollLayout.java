@@ -22,7 +22,7 @@ import io.github.droidkaigi.confsched2017.R;
 })
 public class OverScrollLayout extends CoordinatorLayout {
 
-    private static final float OVER_SCROLL_THRESHOLD = 0.20f;
+    private static final float OVER_SCROLL_THRESHOLD_RATIO = 0.20f;
 
     private static final int RESTORE_ANIM_DURATION = 100;
 
@@ -53,7 +53,7 @@ public class OverScrollLayout extends CoordinatorLayout {
         super.onLayout(changed, left, top, right, bottom);
         originalLocation.set(left, top);
         originalHeight = bottom - top;
-        overScrollThreshold = (int) (originalHeight * OVER_SCROLL_THRESHOLD);
+        overScrollThreshold = (int) (originalHeight * OVER_SCROLL_THRESHOLD_RATIO);
     }
 
     @Override
