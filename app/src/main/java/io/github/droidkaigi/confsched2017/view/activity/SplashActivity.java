@@ -1,11 +1,8 @@
 package io.github.droidkaigi.confsched2017.view.activity;
 
-import android.content.Context;
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 
 import java.util.Locale;
@@ -22,6 +19,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 public class SplashActivity extends BaseActivity {
 
@@ -73,7 +71,8 @@ public class SplashActivity extends BaseActivity {
                     if (isFinishing()) return;
                     startActivity(MainActivity.createIntent(SplashActivity.this));
                 })
-                .subscribe();
+                .subscribe(observable -> Timber.tag(TAG).d("Succeeded in loading sessions."),
+                        throwable -> Timber.tag(TAG).e(throwable, "Failed to load sessions."));
         compositeDisposable.add(disposable);
     }
 
