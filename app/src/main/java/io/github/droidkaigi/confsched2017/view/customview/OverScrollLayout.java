@@ -91,8 +91,9 @@ public class OverScrollLayout extends CoordinatorLayout {
 
         if (appBarLayout == null || scrollTop && dyUnconsumed < 0 && isAppBarExpanded(appBarLayout)) {
             translationY(-dyUnconsumed);
+            return;
         }
-        if (appBarLayout == null || scrollEnd && dyUnconsumed > 0 && isAppBarCollapsed(appBarLayout)) {
+        if (scrollEnd && dyUnconsumed > 0 && isAppBarCollapsed(appBarLayout)) {
             translationY(-dyUnconsumed);
         }
     }
@@ -125,7 +126,6 @@ public class OverScrollLayout extends CoordinatorLayout {
                         @Override
                         public void onAnimationEnd(Animator animation) {
                             overScrollListener.onOverScroll();
-
                         }
 
                         @Override
