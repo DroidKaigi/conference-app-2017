@@ -147,11 +147,11 @@ public class OverScrollLayout extends CoordinatorLayout {
     }
 
     private boolean isAppBarExpanded(@NonNull AppBarLayout appBarLayout) {
-        return appBarLayout.getHeight() == appBarLayout.getBottom();
+        return appBarLayout.getTop() == 0;
     }
 
     private boolean isAppBarCollapsed(@NonNull AppBarLayout appBarLayout) {
-        return Math.abs(appBarLayout.getY()) == appBarLayout.getTotalScrollRange();
+        return appBarLayout.getY() == -appBarLayout.getTotalScrollRange();
     }
 
     public void setOverScrollListener(@Nullable OnOverScrollListener listener) {
