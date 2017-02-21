@@ -101,7 +101,7 @@ public class OverScrollLayout extends CoordinatorLayout {
     @Override
     public void onStopNestedScroll(View target) {
         super.onStopNestedScroll(target);
-        if (overScrollListener != null && Math.abs(getY()) > overScrollThreshold) {
+        if (Math.abs(getY()) > overScrollThreshold) {
             float yTranslation;
             yTranslation = originalRect.top + getY() > 0 ? originalRect.height() : - originalRect.height();
             animate()
@@ -116,7 +116,9 @@ public class OverScrollLayout extends CoordinatorLayout {
 
                         @Override
                         public void onAnimationEnd(Animator animation) {
-                            overScrollListener.onOverScroll();
+                            if (overScrollListener != null) {
+                                overScrollListener.onOverScroll();
+                            }
                         }
 
                         @Override
