@@ -158,7 +158,9 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
     }
 
     public void onOverScroll() {
-        callback.onOverScroll();
+        if (callback != null) {
+            callback.onOverScroll();
+        }
     }
 
     private String decideSessionTimeRange(Context context, Session session) {

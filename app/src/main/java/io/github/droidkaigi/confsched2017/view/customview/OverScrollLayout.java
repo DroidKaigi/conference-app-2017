@@ -4,7 +4,7 @@ import android.animation.Animator;
 import android.content.Context;
 import android.databinding.BindingMethod;
 import android.databinding.BindingMethods;
-import android.graphics.PointF;
+import android.graphics.Rect;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -22,7 +22,7 @@ import io.github.droidkaigi.confsched2017.R;
 })
 public class OverScrollLayout extends CoordinatorLayout {
 
-    private static final float OVER_SCROLL_THRESHOLD = 0.20f;
+    private static final float OVER_SCROLL_THRESHOLD_RATIO = 0.20f;
 
     private static final int RESTORE_ANIM_DURATION = 100;
 
@@ -30,9 +30,7 @@ public class OverScrollLayout extends CoordinatorLayout {
 
     private int overScrollThreshold;
 
-    private PointF originalLocation = new PointF();
-
-    private int originalHeight;
+    private Rect originalRect = new Rect();
 
     private OnOverScrollListener overScrollListener;
 
@@ -51,14 +49,13 @@ public class OverScrollLayout extends CoordinatorLayout {
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
-        originalLocation.set(left, top);
-        originalHeight = bottom - top;
-        overScrollThreshold = (int) (originalHeight * OVER_SCROLL_THRESHOLD);
+        originalRect.set(left, top, right, bottom);
+        overScrollThreshold = (int) (originalRect.height() * OVER_SCROLL_THRESHOLD_RATIO);
     }
 
     @Override
     public void onNestedPreScroll(View target, int dx, int dy, int[] consumed) {
-        if (getY() != originalLocation.y) {
+        if (getY() != originalRect.top) {
             float scale =
                     Math.max(MINIMUM_OVER_SCROLL_SCALE,
                             1 - (Math.abs(getY()) / overScrollThreshold) * (1 - MINIMUM_OVER_SCROLL_SCALE));
@@ -89,29 +86,24 @@ public class OverScrollLayout extends CoordinatorLayout {
             }
         }
 
-        if (appBarLayout == null || scrollTop && dyUnconsumed < 0 && isAppBarExpanded(appBarLayout)) {
-            translationY(-dyUnconsumed);
-        }
-        if (appBarLayout == null || scrollEnd && dyUnconsumed > 0 && isAppBarCollapsed(appBarLayout)) {
+        if (appBarLayout == null
+                || (scrollTop && dyUnconsumed < 0 && isAppBarExpanded(appBarLayout))
+                || (scrollEnd && dyUnconsumed > 0 && isAppBarCollapsed(appBarLayout))) {
             translationY(-dyUnconsumed);
         }
     }
 
     @Override
     public boolean onNestedPreFling(View target, float velocityX, float velocityY) {
-        return getY() != originalLocation.y || super.onNestedPreFling(target, velocityX, velocityY);
+        return getY() != originalRect.top || super.onNestedPreFling(target, velocityX, velocityY);
     }
 
     @Override
     public void onStopNestedScroll(View target) {
         super.onStopNestedScroll(target);
-        if (Math.abs(getY()) > overScrollThreshold && overScrollListener != null) {
+        if (Math.abs(getY()) > overScrollThreshold) {
             float yTranslation;
-            if (getY() > 0) {
-                yTranslation = originalLocation.y + originalHeight;
-            } else {
-                yTranslation = originalLocation.y - originalHeight;
-            }
+            yTranslation = originalRect.top + getY() > 0 ? originalRect.height() : - originalRect.height();
             animate()
                     .setDuration(getContext().getResources().getInteger(R.integer.activity_transition_mills))
                     .setInterpolator(new AccelerateDecelerateInterpolator())
@@ -124,8 +116,9 @@ public class OverScrollLayout extends CoordinatorLayout {
 
                         @Override
                         public void onAnimationEnd(Animator animation) {
-                            overScrollListener.onOverScroll();
-
+                            if (overScrollListener != null) {
+                                overScrollListener.onOverScroll();
+                            }
                         }
 
                         @Override
@@ -138,11 +131,11 @@ public class OverScrollLayout extends CoordinatorLayout {
                     });
             return;
         }
-        if (getY() != originalLocation.y) {
+        if (getY() != originalRect.top) {
             animate()
                     .setDuration(RESTORE_ANIM_DURATION)
                     .setInterpolator(new AccelerateDecelerateInterpolator())
-                    .translationY(originalLocation.y)
+                    .translationY(originalRect.top)
                     .scaleX(1)
                     .scaleY(1);
         }
@@ -153,11 +146,11 @@ public class OverScrollLayout extends CoordinatorLayout {
     }
 
     private boolean isAppBarExpanded(@NonNull AppBarLayout appBarLayout) {
-        return appBarLayout.getHeight() == appBarLayout.getBottom();
+        return appBarLayout.getTop() == 0;
     }
 
     private boolean isAppBarCollapsed(@NonNull AppBarLayout appBarLayout) {
-        return Math.abs(appBarLayout.getY()) == appBarLayout.getTotalScrollRange();
+        return appBarLayout.getY() == -appBarLayout.getTotalScrollRange();
     }
 
     public void setOverScrollListener(@Nullable OnOverScrollListener listener) {
