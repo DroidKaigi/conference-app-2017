@@ -10,6 +10,7 @@ machine:
 
 dependencies:
   pre:
+    - git fetch origin # sometimes circleci fail to fetch branches correctly, so fetch them expressly
     - echo y | android -s update sdk -u -a -t "tools" # update Android SDK that includes sdkmanager(1)
     - mkdir -p $ANDROID_HOME/licenses
     - echo -e "8933bad161af4178b1185d1a37fbf41ea5269c55" > $ANDROID_HOME/licenses/android-sdk-license
