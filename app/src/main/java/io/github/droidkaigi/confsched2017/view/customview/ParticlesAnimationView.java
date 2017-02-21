@@ -60,8 +60,15 @@ public class ParticlesAnimationView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        for (Particle particle : particles) { particle.draw(canvas, paint); }
-        for (Line line : createLines(particles)) { line.draw(canvas, paint); }
+
+        for (int i = 0, size = particles.size(); i < size; i++) {
+            particles.get(i).draw(canvas, paint);
+        }
+
+        List<Line> lines = createLines(particles);
+        for (int i = 0, size = lines.size(); i < size; i++) {
+            lines.get(i).draw(canvas, paint);
+        }
     }
 
     private void setGradientBackground() {
