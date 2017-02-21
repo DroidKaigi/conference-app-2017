@@ -49,10 +49,7 @@ public class OverScrollLayout extends CoordinatorLayout {
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
-        originalRect.left = left;
-        originalRect.top = top;
-        originalRect.right = right;
-        originalRect.bottom = bottom;
+        originalRect.set(left, top, right, bottom);
         overScrollThreshold = (int) (originalRect.height() * OVER_SCROLL_THRESHOLD_RATIO);
     }
 
