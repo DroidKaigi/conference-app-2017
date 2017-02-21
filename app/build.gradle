@@ -226,6 +226,9 @@ dependencies {
     debugCompile 'com.tomoima.debot:debot:2.0.2'
     releaseCompile 'com.tomoima.debot:debot-no-op:2.0.2'
 
+    // fps
+    compile 'jp.wasabeef:takt:1.0.3'
+
     // Test
     testCompile 'junit:junit:4.12'
     testCompile "org.robolectric:robolectric:3.2.2"

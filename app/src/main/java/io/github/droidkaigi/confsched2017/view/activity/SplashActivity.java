@@ -3,6 +3,7 @@ package io.github.droidkaigi.confsched2017.view.activity;
 import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import java.util.Locale;
@@ -19,6 +20,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import jp.wasabeef.takt.Seat;
+import jp.wasabeef.takt.Takt;
 import timber.log.Timber;
 
 public class SplashActivity extends BaseActivity {
@@ -51,13 +54,19 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        loadSessionsForCache();
+        // loadSessionsForCache();
+        Takt.stock(getApplication())
+                .seat(Seat.BOTTOM_RIGHT)
+                .interval(250)
+                .listener(fps -> Log.w("DroidKaigi", "heartbeat() called with: fps = [" + fps + "]"))
+                .play();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        compositeDisposable.dispose();
+        // compositeDisposable.dispose();
+        Takt.finish();
     }
 
     private void loadSessionsForCache() {
