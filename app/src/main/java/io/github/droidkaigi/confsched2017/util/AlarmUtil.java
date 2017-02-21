@@ -20,7 +20,7 @@ public class AlarmUtil {
     private static final long REMIND_DURATION_MINUTES_FOR_START = TimeUnit.MINUTES.toMillis(10);
 
     public static void registerAlarm(@NonNull Context context, @NonNull Session session) {
-        long time = session.stime.getTime() - REMIND_DURATION_MINUTES_FOR_START;
+        long time = session.stime.toInstant().toEpochMilli() - REMIND_DURATION_MINUTES_FOR_START;
 
         DefaultPrefs prefs = DefaultPrefs.get(context);
         if (prefs.getNotificationTestFlag()) {
@@ -51,8 +51,8 @@ public class AlarmUtil {
             room = session.room.name;
         }
         String text = context.getString(R.string.notification_message,
-                DateUtil.getHourMinute(displaySTime),
-                DateUtil.getHourMinute(displayETime),
+                DateUtil.getHourMinute(displaySTime, context),
+                DateUtil.getHourMinute(displayETime, context),
                 room);
         Intent intent = NotificationReceiver.createIntent(context, session.id, title, text);
         return PendingIntent.getBroadcast(context, session.id,

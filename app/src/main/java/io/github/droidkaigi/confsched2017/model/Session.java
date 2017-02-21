@@ -6,9 +6,9 @@ import com.github.gfx.android.orma.annotation.Column;
 import com.github.gfx.android.orma.annotation.PrimaryKey;
 import com.github.gfx.android.orma.annotation.Table;
 
-import android.support.annotation.Nullable;
+import org.threeten.bp.ZonedDateTime;
 
-import java.util.Date;
+import android.support.annotation.Nullable;
 
 @Table
 public class Session {
@@ -34,11 +34,11 @@ public class Session {
 
     @Column
     @SerializedName("stime")
-    public Date stime;
+    public ZonedDateTime stime;
 
     @Column
     @SerializedName("etime")
-    public Date etime;
+    public ZonedDateTime etime;
 
     @Column
     @SerializedName("duration_min")
@@ -107,8 +107,8 @@ public class Session {
         return Type.DINNER.matches(type);
     }
 
-    public boolean isLiveAt(Date when) {
-        return stime.before(when) && etime.after(when);
+    public boolean isLiveAt(ZonedDateTime when) {
+        return stime.isBefore(when)&& etime.isAfter(when);
     }
 
     @Override

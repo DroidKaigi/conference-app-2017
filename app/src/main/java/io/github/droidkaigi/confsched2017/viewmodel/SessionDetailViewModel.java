@@ -168,9 +168,9 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
         Date displayETime = LocaleUtil.getDisplayDate(session.etime, context);
 
         return context.getString(R.string.session_time_range,
-                DateUtil.getLongFormatDate(displaySTime),
-                DateUtil.getHourMinute(displayETime),
-                DateUtil.getMinutes(displaySTime, displayETime));
+                DateUtil.getLongFormatDate(displaySTime, context),
+                DateUtil.getHourMinute(displayETime, context),
+                session.durationMin);
     }
 
     public String getSessionTitle() {

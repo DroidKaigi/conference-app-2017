@@ -2,6 +2,8 @@ package io.github.droidkaigi.confsched2017.viewmodel;
 
 import com.annimon.stream.Stream;
 
+import org.threeten.bp.ZonedDateTime;
+
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
@@ -26,6 +28,7 @@ import io.github.droidkaigi.confsched2017.repository.sessions.MySessionsReposito
 import io.github.droidkaigi.confsched2017.repository.sessions.SessionsRepository;
 import io.github.droidkaigi.confsched2017.util.DateUtil;
 import io.github.droidkaigi.confsched2017.view.helper.Navigator;
+import io.github.droidkaigi.confsched2017.util.LocaleUtil;
 import io.reactivex.Single;
 
 public class SessionsViewModel extends BaseObservable implements ViewModel {
@@ -38,7 +41,7 @@ public class SessionsViewModel extends BaseObservable implements ViewModel {
 
     private List<Room> rooms;
 
-    private List<Date> stimes;
+    private List<ZonedDateTime> stimes;
 
     @Inject
     SessionsViewModel(Navigator navigator, SessionsRepository sessionsRepository, MySessionsRepository mySessionsRepository) {
@@ -86,23 +89,25 @@ public class SessionsViewModel extends BaseObservable implements ViewModel {
                 // In the case of Welcome talk and lunch time, set dummy room
                 roomName = rooms.get(0).name;
             }
-            sessionMap.put(generateStimeRoomKey(viewModel.getStime(), roomName), viewModel);
+            sessionMap.put(generateStimeRoomKey(LocaleUtil.getDisplayDate(viewModel.getStime(), context), roomName, context), viewModel);
         }
 
         final List<SessionViewModel> adjustedViewModels = new ArrayList<>();
 
         // Format date that user can see. Ex) 9, March
         String lastFormattedDate = null;
-        for (Date stime : stimes) {
+        Date displayDate;
+        for (ZonedDateTime stime : stimes) {
+            displayDate = LocaleUtil.getDisplayDate(stime, context);
             if (lastFormattedDate == null) {
-                lastFormattedDate = DateUtil.getMonthDate(stime, context);
+                lastFormattedDate = DateUtil.getMonthDate(displayDate, context);
             }
 
             final List<SessionViewModel> sameTimeViewModels = new ArrayList<>();
             int maxRowSpan = 1;
             for (int i = 0, size = rooms.size(); i < size; i++) {
                 Room room = rooms.get(i);
-                SessionViewModel viewModel = sessionMap.get(generateStimeRoomKey(stime, room.name));
+                SessionViewModel viewModel = sessionMap.get(generateStimeRoomKey(displayDate, room.name, context));
                 if (viewModel != null) {
                     if (!lastFormattedDate.equals(viewModel.getFormattedDate())) {
                         // Change the date
@@ -141,11 +146,11 @@ public class SessionsViewModel extends BaseObservable implements ViewModel {
         return adjustedViewModels;
     }
 
-    private String generateStimeRoomKey(@NonNull Date stime, @NonNull String roomName) {
-        return DateUtil.getLongFormatDate(stime) + "_" + roomName;
+    private String generateStimeRoomKey(@NonNull Date stime, @NonNull String roomName, Context context) {
+        return DateUtil.getLongFormatDate(stime, context) + "_" + roomName;
     }
 
-    private List<Date> extractStimes(List<Session> sessions) {
+    private List<ZonedDateTime> extractStimes(List<Session> sessions) {
         return Stream.of(sessions)
                 .map(session -> session.stime)
                 .sorted()
@@ -166,7 +171,7 @@ public class SessionsViewModel extends BaseObservable implements ViewModel {
         return rooms;
     }
 
-    public List<Date> getStimes() {
+    public List<ZonedDateTime> getStimes() {
         return stimes;
     }
 

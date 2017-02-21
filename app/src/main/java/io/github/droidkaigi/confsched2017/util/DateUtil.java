@@ -39,7 +39,7 @@ public class DateUtil {
     }
 
     @NonNull
-    public static String getHourMinute(Date date) {
+    public static String getHourMinute(Date date, Context context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), FORMAT_KKMM);
             return new SimpleDateFormat(pattern, Locale.getDefault()).format(date);
@@ -49,11 +49,10 @@ public class DateUtil {
     }
 
     @NonNull
-    public static String getLongFormatDate(@Nullable Date date) {
+    public static String getLongFormatDate(@Nullable Date date, Context context) {
         if (date == null) {
             return "";
         }
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), FORMAT_YYYYMMDDKKMM);
             return new SimpleDateFormat(pattern, Locale.getDefault()).format(date);

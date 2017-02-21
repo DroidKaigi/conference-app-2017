@@ -1,5 +1,12 @@
 package io.github.droidkaigi.confsched2017.util;
 
+import org.threeten.bp.DateTimeUtils;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.ZoneOffset;
+import org.threeten.bp.ZonedDateTime;
+
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Build;
@@ -7,9 +14,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.text.TextUtils;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -29,6 +33,10 @@ public class LocaleUtil {
     private static final String TAG = LocaleUtil.class.getSimpleName();
 
     private static final TimeZone CONFERENCE_TIMEZONE = TimeZone.getTimeZone(BuildConfig.CONFERENCE_TIMEZONE);
+
+    private static final ZoneOffset CONFERENCE_ZONE_OFFSET = LocalDateTime.now()
+            .atZone(ZoneId.of(BuildConfig.CONFERENCE_TIMEZONE))
+            .getOffset();
 
     public static void initLocale(Context context) {
         setLocale(context, getCurrentLanguageId(context));
@@ -105,17 +113,16 @@ public class LocaleUtil {
         }
     }
 
-    public static Date getDisplayDate(@NonNull Date date, Context context) {
-        DateFormat formatTokyo = SimpleDateFormat.getDateTimeInstance();
-        formatTokyo.setTimeZone(CONFERENCE_TIMEZONE);
-        DateFormat formatLocal = SimpleDateFormat.getDateTimeInstance();
-        formatLocal.setTimeZone(getDisplayTimeZone(context));
-        try {
-            return formatLocal.parse(formatTokyo.format(date));
-        } catch (ParseException e) {
-            Timber.tag(TAG).e(e, "date: %s can not parse.", date.toString());
-            return date;
+    public static Date getDisplayDate(@NonNull ZonedDateTime date, Context context) {
+        Instant instant;
+        if (DefaultPrefs.get(context).getShowLocalTimeFlag()) {
+            instant = date.toInstant();
+        } else {
+            instant = date.withZoneSameInstant(ZoneId.systemDefault())
+                    .minusSeconds(CONFERENCE_ZONE_OFFSET.compareTo(ZonedDateTime.now().getOffset()))
+                    .toInstant();
         }
+        return DateTimeUtils.toDate(instant);
     }
 
     public static TimeZone getDisplayTimeZone(Context context) {
@@ -123,4 +130,6 @@ public class LocaleUtil {
         boolean shouldShowLocalTime = DefaultPrefs.get(context).getShowLocalTimeFlag();
         return (shouldShowLocalTime && defaultTimeZone != null) ? defaultTimeZone : CONFERENCE_TIMEZONE;
     }
+
+
 }

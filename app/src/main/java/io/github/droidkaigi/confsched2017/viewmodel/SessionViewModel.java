@@ -1,5 +1,7 @@
 package io.github.droidkaigi.confsched2017.viewmodel;
 
+import org.threeten.bp.ZonedDateTime;
+
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
@@ -17,6 +19,7 @@ import io.github.droidkaigi.confsched2017.repository.sessions.MySessionsReposito
 import io.github.droidkaigi.confsched2017.util.AlarmUtil;
 import io.github.droidkaigi.confsched2017.util.DateUtil;
 import io.github.droidkaigi.confsched2017.view.helper.Navigator;
+import io.github.droidkaigi.confsched2017.util.LocaleUtil;
 import timber.log.Timber;
 
 public class SessionViewModel extends BaseObservable implements ViewModel {
@@ -69,8 +72,10 @@ public class SessionViewModel extends BaseObservable implements ViewModel {
             MySessionsRepository mySessionsRepository) {
         this.session = session;
         this.navigator = navigator;
-        this.shortStime = DateUtil.getHourMinute(session.stime);
-        this.formattedDate = DateUtil.getMonthDate(session.stime, context);
+
+        Date displayDate = LocaleUtil.getDisplayDate(session.stime, context);
+        this.shortStime = DateUtil.getHourMinute(displayDate, context);
+        this.formattedDate = DateUtil.getMonthDate(displayDate, context);
         this.title = session.title;
 
         if (session.speaker != null) {
@@ -98,7 +103,7 @@ public class SessionViewModel extends BaseObservable implements ViewModel {
             this.normalSessionItemVisibility = View.GONE;
         } else {
             this.isClickable = true;
-            this.backgroundResId = session.isLiveAt(new Date()) ? R.drawable.clickable_purple : R.drawable.clickable_white;
+            this.backgroundResId = session.isLiveAt(ZonedDateTime.now()) ? R.drawable.clickable_purple : R.drawable.clickable_white;
             this.topicColorResId = TopicColor.from(session.topic).middleColorResId;
             this.normalSessionItemVisibility = View.VISIBLE;
         }
@@ -143,7 +148,7 @@ public class SessionViewModel extends BaseObservable implements ViewModel {
         }
     }
 
-    Date getStime() {
+    ZonedDateTime getStime() {
         return session.stime;
     }
 
