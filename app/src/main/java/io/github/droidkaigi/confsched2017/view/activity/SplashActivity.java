@@ -54,7 +54,10 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        // TODO !IMPORTANT Uncomment this line or you will never see the schedule ...
         // loadSessionsForCache();
+
+        // Starting new Activity normally will not destroy this Activity, so set this up in start/stop cycle
         Takt.stock(getApplication())
                 .seat(Seat.BOTTOM_RIGHT)
                 .interval(250)
@@ -65,7 +68,10 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void onStop() {
         super.onStop();
+        // TODO !IMPORTANT If you uncommented that line, also uncomment this line or else LeakCanary will spam you.
         // compositeDisposable.dispose();
+
+        // Stop tracking the frame rate.
         Takt.finish();
     }
 
