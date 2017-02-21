@@ -3,7 +3,6 @@ package io.github.droidkaigi.confsched2017.view.activity;
 import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import java.util.Locale;
@@ -54,24 +53,24 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        // TODO !IMPORTANT Uncomment this line or you will never see the schedule ...
-        // loadSessionsForCache();
+        loadSessionsForCache();
 
         // Starting new Activity normally will not destroy this Activity, so set this up in start/stop cycle
+        // TODO remove it if you hate it ...
         Takt.stock(getApplication())
                 .seat(Seat.BOTTOM_RIGHT)
                 .interval(250)
-                .listener(fps -> Log.w("DroidKaigi", "heartbeat() called with: fps = [" + fps + "]"))
+                .listener(fps -> Timber.i("heartbeat() called with: fps = [ %1$.3f ms ]", fps))
                 .play();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        // TODO !IMPORTANT If you uncommented that line, also uncomment this line or else LeakCanary will spam you.
-        // compositeDisposable.dispose();
+        compositeDisposable.dispose();
 
         // Stop tracking the frame rate.
+        // TODO remove it if you hate it ...
         Takt.finish();
     }
 

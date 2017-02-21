@@ -29,7 +29,7 @@ public class ParticlesAnimationView extends View {
     @SuppressWarnings("unused")
     private static final String TAG = ParticlesAnimationView.class.getSimpleName();
 
-    // Use a single static Random generator to ensure the randomness. also save some memory.
+    // Use a single static Random generator to ensure the randomness. Also save memory.
     private static final Random random = new Random();
 
     private static final int MAX_HEXAGONS = 40;
@@ -62,9 +62,11 @@ public class ParticlesAnimationView extends View {
         if (hasWindowFocus) {
             particles.clear();
             particles.addAll(createParticles(MAX_HEXAGONS));
+
+            lines.clear();
             for (int i = 0; i < particles.size() - 1; i++) {
                 Particle particle = particles.get(i);
-                // So there are exactly C(2, particles.size()) (Mathematical Combinator) number of lines, which makes more sense.
+                // So there are exactly C(particles.size(), 2) (Mathematical Combination) number of lines, which makes more sense.
                 for (int j = i + 1; j < particles.size(); j++) {
                     lines.add(new Line(particle, particles.get(j)));
                 }
@@ -126,7 +128,7 @@ public class ParticlesAnimationView extends View {
     }
 
     /**
-     * A Pair of "Particles" those can be "linked" to each other ... Called couple.
+     * A Pair of 'Particles' whose centers can be 'linked to each other ... Called 'Line'.
      */
     private static class Line extends Pair<Particle, Particle> {
 
