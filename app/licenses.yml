@@ -153,3 +153,7 @@
   name: debot
   copyrightHolder: Tomoaki Imai
   license: The Apache License, Version 2.0
+- artifact: jp.wasabeef:takt:+
+  name: takt
+  copyrightHolder: Daichi Furiya (Wasabeef)
+  license: The Apache License, Version 2.0
