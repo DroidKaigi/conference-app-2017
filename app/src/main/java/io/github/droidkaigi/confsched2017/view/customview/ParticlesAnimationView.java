@@ -84,11 +84,11 @@ public class ParticlesAnimationView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        for (int i = 0; i < particles.size(); i++) {
+        for (int i = 0, size = particles.size(); i < size; i++) {
             particles.get(i).draw(canvas, paint);
         }
 
-        for (int i = 0; i < lines.size(); i++) {
+        for (int i = 0, size = lines.size(); i < size; i++) {
             lines.get(i).draw(canvas, paint);
         }
     }
