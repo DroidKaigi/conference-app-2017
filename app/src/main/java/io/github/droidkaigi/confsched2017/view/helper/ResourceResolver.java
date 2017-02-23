@@ -9,6 +9,8 @@ import java.io.InputStream;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import okio.BufferedSource;
+import okio.Okio;
 import timber.log.Timber;
 
 @Singleton
@@ -33,22 +35,20 @@ public class ResourceResolver {
 
     public String loadJSONFromAsset(final String jsonFileName) {
         String json = null;
-        InputStream is = null;
+        BufferedSource bufferedSource = null;
         try {
-            is = context.getAssets().open("json/" + jsonFileName);
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            json = new String(buffer, "UTF-8");
+            InputStream is = context.getAssets().open("json/" + jsonFileName);
+            bufferedSource = Okio.buffer(Okio.source(is));
+            json = bufferedSource.readUtf8();
         } catch (IOException e) {
-            Timber.e(TAG, e.getMessage(), e);
+            Timber.tag(TAG).e(e, "assets/json/%s: read failed", jsonFileName);
         } finally {
             try {
-                if (is != null) {
-                    is.close();
+                if (bufferedSource != null) {
+                    bufferedSource.close();
                 }
             } catch (IOException e) {
-                Timber.e(TAG, e.getMessage(), e);
+                // ignore
             }
         }
         return json;
