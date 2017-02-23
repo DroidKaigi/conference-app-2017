@@ -56,7 +56,6 @@ public class SplashActivity extends BaseActivity {
         loadSessionsForCache();
 
         // Starting new Activity normally will not destroy this Activity, so set this up in start/stop cycle
-        // TODO remove it if you hate it ...
         Takt.stock(getApplication())
                 .seat(Seat.BOTTOM_RIGHT)
                 .interval(250)
@@ -70,7 +69,6 @@ public class SplashActivity extends BaseActivity {
         compositeDisposable.dispose();
 
         // Stop tracking the frame rate.
-        // TODO remove it if you hate it ...
         Takt.finish();
     }
 
