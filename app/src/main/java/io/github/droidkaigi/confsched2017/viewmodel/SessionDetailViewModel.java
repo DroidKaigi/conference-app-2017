@@ -4,6 +4,7 @@ import android.content.Context;
 import android.databinding.BaseObservable;
 import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.annotation.StyleRes;
 import android.text.TextUtils;
@@ -16,6 +17,7 @@ import javax.inject.Inject;
 
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.model.Session;
+import io.github.droidkaigi.confsched2017.model.Speaker;
 import io.github.droidkaigi.confsched2017.repository.sessions.MySessionsRepository;
 import io.github.droidkaigi.confsched2017.repository.sessions.SessionsRepository;
 import io.github.droidkaigi.confsched2017.util.AlarmUtil;
@@ -29,6 +31,8 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
 
     private static final String TAG = SessionDetailViewModel.class.getSimpleName();
 
+    private static final String SPEAKER_IMAGE_URL = "https://droidkaigi.github.io/2017";
+
     private final Context context;
 
     private final Navigator navigator;
@@ -38,6 +42,8 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
     private final MySessionsRepository mySessionsRepository;
 
     private String sessionTitle;
+
+    private String speakerImageUrl;
 
     @ColorRes
     private int sessionVividColorResId = R.color.white;
@@ -79,6 +85,7 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
     private void setSession(@NonNull Session session) {
         this.session = session;
         this.sessionTitle = session.title;
+        this.speakerImageUrl = createSpeakerImageUrl(session.speaker);
         TopicColor topicColor = TopicColor.from(session.topic);
         this.sessionVividColorResId = topicColor.vividColorResId;
         this.sessionPaleColorResId = topicColor.paleColorResId;
@@ -113,6 +120,21 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
     public void destroy() {
         // Do nothing
     }
+
+    @Nullable
+    private String createSpeakerImageUrl(@Nullable Speaker speaker) {
+        if (speaker == null) {
+            return null;
+        }
+
+        String imageUrl = speaker.imageUrl;
+
+        if (!TextUtils.isEmpty(imageUrl) && imageUrl.startsWith("/")) {
+            return SPEAKER_IMAGE_URL + imageUrl;
+        }
+        return imageUrl;
+    }
+
 
     public boolean shouldShowShareMenuItem() {
         return !TextUtils.isEmpty(session.shareUrl);
@@ -175,6 +197,10 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
 
     public String getSessionTitle() {
         return sessionTitle;
+    }
+
+    public String getSpeakerImageUrl() {
+        return speakerImageUrl;
     }
 
     public int getSessionVividColorResId() {
