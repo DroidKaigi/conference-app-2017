@@ -177,16 +177,16 @@ dependencies {
     compile "com.android.support:customtabs:${support_lib_version}"
     compile "com.android.support:support-vector-drawable:${support_lib_version}"
     compile "com.android.support:animated-vector-drawable:${support_lib_version}"
-    compile 'com.android.support.constraint:constraint-layout:1.0.0-beta5'
+    compile 'com.android.support.constraint:constraint-layout:1.0.0'
 
     // Firebase(analytics, crash report)
     compile 'com.google.firebase:firebase-core:10.0.1'
     compile 'com.google.firebase:firebase-crash:10.0.1'
 
     // Network
-    compile 'com.squareup.retrofit2:retrofit:2.1.0'
-    compile 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile 'com.squareup.retrofit2:retrofit:2.2.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.2.0'
     compile 'com.google.code.gson:gson:2.8.0'
     compile 'com.squareup.okhttp3:okhttp:3.4.1'
 
