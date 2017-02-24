@@ -70,6 +70,7 @@ public class SplashActivity extends BaseActivity {
                 .doFinally(() -> {
                     if (isFinishing()) return;
                     startActivity(MainActivity.createIntent(SplashActivity.this));
+                    SplashActivity.this.finish();
                 })
                 .subscribe(observable -> Timber.tag(TAG).d("Succeeded in loading sessions."),
                         throwable -> Timber.tag(TAG).e(throwable, "Failed to load sessions."));
