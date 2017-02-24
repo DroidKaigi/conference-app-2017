@@ -68,7 +68,7 @@ public class DataBindingHelper {
             final int size = Math.round(sizeInDimen);
             imageView.setBackground(ContextCompat.getDrawable(imageView.getContext(), R.drawable.circle_border_grey200));
             Picasso.with(imageView.getContext())
-                    .load(imageUrl)
+                    .load(convertToFullImageUrl(imageUrl))
                     .resize(size, size)
                     .centerInside()
                     .placeholder(placeholderResId)
@@ -76,6 +76,14 @@ public class DataBindingHelper {
                     .transform(new CropCircleTransformation())
                     .into(imageView);
         }
+    }
+
+    private static String convertToFullImageUrl(String imageUrl) {
+        if (imageUrl.startsWith("/")) {
+            return "https://droidkaigi.github.io/2017" + imageUrl;
+        }
+
+        return imageUrl;
     }
 
     @BindingAdapter("textLinkify")
