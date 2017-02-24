@@ -7,11 +7,10 @@ import android.support.v7.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 public abstract class ArrayRecyclerAdapter<T, VH extends RecyclerView.ViewHolder>
-        extends RecyclerView.Adapter<VH> implements Iterable<T> {
+        extends RecyclerView.Adapter<VH> {
 
     protected final List<T> list;
 
@@ -69,8 +68,4 @@ public abstract class ArrayRecyclerAdapter<T, VH extends RecyclerView.ViewHolder
         return context;
     }
 
-    @Override
-    public Iterator<T> iterator() {
-        return list.iterator();
-    }
 }
