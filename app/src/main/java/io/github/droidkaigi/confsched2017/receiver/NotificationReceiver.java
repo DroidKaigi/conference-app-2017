@@ -61,6 +61,7 @@ public class NotificationReceiver extends BroadcastReceiver {
                     .setSmallIcon(R.drawable.ic_notification)
                     .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher))
                     .setColor(ContextCompat.getColor(context, R.color.theme))
+                    .setAutoCancel(true)
                     .setGroup(GROUP_NAME)
                     .setGroupSummary(true)
                     .build();
