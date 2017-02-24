@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.text.TextUtils;
 import android.view.MenuItem;
 
 import io.github.droidkaigi.confsched2017.R;
@@ -14,14 +13,18 @@ import io.github.droidkaigi.confsched2017.view.fragment.SessionDetailFragmentCre
 public class SessionDetailActivity extends BaseActivity {
 
     private static final String EXTRA_SESSION_ID = "session_id";
-    private static final String EXTRA_PARENT_NAME = "parent_name";
+    private static final String EXTRA_PARENT = "parent";
 
-    private String parentName;
+    public static final int PARENT_MAIN = 0;
+    public static final int PARENT_MY_SESSIONS = 1;
+    public static final int PARENT_SEARCH = 2;
 
-    public static Intent createIntent(@NonNull Context context, int sessionId) {
+    private int parent;
+
+    public static Intent createIntent(@NonNull Context context, int sessionId, int parent) {
         Intent intent = new Intent(context, SessionDetailActivity.class);
         intent.putExtra(EXTRA_SESSION_ID, sessionId);
-        intent.putExtra(EXTRA_PARENT_NAME, context.getClass().getCanonicalName());
+        intent.putExtra(EXTRA_PARENT, parent);
         return intent;
     }
 
@@ -32,7 +35,7 @@ public class SessionDetailActivity extends BaseActivity {
         getComponent().inject(this);
 
         final int sessionId = getIntent().getIntExtra(EXTRA_SESSION_ID, 0);
-        parentName = getIntent().getStringExtra(EXTRA_PARENT_NAME);
+        parent = getIntent().getIntExtra(EXTRA_PARENT, PARENT_MAIN);
         replaceFragment(SessionDetailFragmentCreator.newBuilder(sessionId).build(), R.id.content_view);
     }
 
@@ -48,12 +51,16 @@ public class SessionDetailActivity extends BaseActivity {
 
     private void upToParentActivity() {
         Intent upIntent;
-        if (TextUtils.equals(this.parentName, MySessionsActivity.class.getCanonicalName())) {
-            upIntent = new Intent(getApplicationContext(), MySessionsActivity.class);
-        } else if (TextUtils.equals(this.parentName, SearchActivity.class.getCanonicalName())) {
-            upIntent = new Intent(getApplicationContext(), SearchActivity.class);
-        } else {
-            upIntent = new Intent(getApplicationContext(), MainActivity.class);
+        switch (parent) {
+            case PARENT_MY_SESSIONS:
+                upIntent = new Intent(getApplicationContext(), MySessionsActivity.class);
+                break;
+            case PARENT_SEARCH:
+                upIntent = new Intent(getApplicationContext(), SearchActivity.class);
+                break;
+            default:
+                upIntent = new Intent(getApplicationContext(), MainActivity.class);
+                break;
         }
         upIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(upIntent);

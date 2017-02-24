@@ -34,8 +34,8 @@ public class Navigator {
         this.activity = activity;
     }
 
-    public void navigateToSessionDetail(@NonNull Session session) {
-        activity.startActivity(SessionDetailActivity.createIntent(activity, session.id));
+    public void navigateToSessionDetail(@NonNull Session session, int parent) {
+        activity.startActivity(SessionDetailActivity.createIntent(activity, session.id, parent));
     }
 
     public void navigateToFeedbackPage(@NonNull Session session) {

@@ -78,7 +78,7 @@ public class NotificationReceiver extends BroadcastReceiver {
         String title = intent.getStringExtra(KEY_TITLE);
         String text = intent.getStringExtra(KEY_TEXT);
         int priority = headsUp ? NotificationCompat.PRIORITY_HIGH : NotificationCompat.PRIORITY_DEFAULT;
-        Intent openIntent = SessionDetailActivity.createIntent(context, sessionId);
+        Intent openIntent = SessionDetailActivity.createIntent(context, sessionId, SessionDetailActivity.PARENT_MAIN);
         openIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, openIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
