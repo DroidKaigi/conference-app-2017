@@ -13,10 +13,9 @@ import android.graphics.drawable.PaintDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RectShape;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.util.Pair;
 import android.util.AttributeSet;
 import android.view.View;
-
-import com.annimon.stream.Stream;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,12 +26,21 @@ import io.github.droidkaigi.confsched2017.R;
 
 public class ParticlesAnimationView extends View {
 
+    @SuppressWarnings("unused")
     private static final String TAG = ParticlesAnimationView.class.getSimpleName();
+
+    // Use a single static Random generator to ensure the randomness. Also save memory.
+    private static final Random random = new Random();
+
     private static final int MAX_HEXAGONS = 40;
+
     private static final int LINK_HEXAGON_DISTANCE = 600;
 
     private final Paint paint = new Paint();
+
     private final List<Particle> particles = new ArrayList<>();
+
+    private final List<Line> lines = new ArrayList<>();
 
     public ParticlesAnimationView(Context context) {
         this(context, null);
@@ -54,18 +62,32 @@ public class ParticlesAnimationView extends View {
         if (hasWindowFocus) {
             particles.clear();
             particles.addAll(createParticles(MAX_HEXAGONS));
+
+            lines.clear();
+            for (int i = 0; i < particles.size() - 1; i++) {
+                Particle particle = particles.get(i);
+                // So there are exactly C(particles.size(), 2) (Mathematical Combination) number of lines, which makes more sense.
+                for (int j = i + 1; j < particles.size(); j++) {
+                    lines.add(new Line(particle, particles.get(j)));
+                }
+            }
         }
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        lines.clear();
+        particles.clear();
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-
         for (int i = 0, size = particles.size(); i < size; i++) {
             particles.get(i).draw(canvas, paint);
         }
 
-        List<Line> lines = createLines(particles);
         for (int i = 0, size = lines.size(); i < size; i++) {
             lines.get(i).draw(canvas, paint);
         }
@@ -100,68 +122,43 @@ public class ParticlesAnimationView extends View {
     private List<Particle> createParticles(int count) {
         List<Particle> particles = new ArrayList<>();
         for (int i = 0; i < count; i++) {
-            particles.add(new Particle(getWidth(), getHeight()));
+            particles.add(new Particle(getWidth(), getHeight(), this));
         }
         return particles;
     }
 
-    private List<Line> createLines(List<Particle> particles) {
-        final List<Line> lines = new ArrayList<>();
-        Stream.of(particles)
-                .forEach(particle -> Stream.of(particles)
-                        .filter(targetParticle ->
-                                particle.isShouldLinked(LINK_HEXAGON_DISTANCE, targetParticle)
-                        )
-                        .map(linkParticle -> new Line(new float[]{
-                                particle.center.x,
-                                particle.center.y,
-                                linkParticle.center.x,
-                                linkParticle.center.y})
-                        )
-                        .forEach(line -> {
-                            if (!lines.contains(line)) lines.add(line);
-                        })
-                );
-        return lines;
-    }
-
-    private class Line {
+    /**
+     * A Pair of 'Particles' whose centers can be 'linked to each other ... Called 'Line'.
+     */
+    private static class Line extends Pair<Particle, Particle> {
 
         private static final int MAX_ALPHA = 172;
-        private float[] point;
 
-        public Line(float[] point) {
-            this.point = point;
+        /**
+         * Constructor for a Pair.
+         *
+         * @param first  the first object in the Pair
+         * @param second the second object in the pair
+         */
+        Line(Particle first, Particle second) {
+            super(first, second);
         }
 
-        public void draw(Canvas canvas, Paint paint) {
-            final double distance = Math.floor(Math.sqrt(
-                    (point[2] - point[0]) * (point[2] - point[0])
-                            + (point[3] - point[1]) * (point[3] - point[1])
-            ));
+        void draw(Canvas canvas, Paint paint) {
+            if (!first.shouldBeLinked(LINK_HEXAGON_DISTANCE, second)) {
+                return;
+            }
+
+            final double distance = Math.sqrt(
+                    Math.pow(second.center.x - first.center.x, 2) + Math.pow((second.center.y - first.center.y), 2)
+            );
             final int alpha = MAX_ALPHA - (int) Math.floor(distance * MAX_ALPHA / LINK_HEXAGON_DISTANCE);
             paint.setAlpha(alpha);
-            canvas.drawLines(point, paint);
+            canvas.drawLine(first.center.x, first.center.y, second.center.x, second.center.y, paint);
         }
-
-        @Override
-        public boolean equals(Object obj) {
-            final float[] targetPoint = ((Line) obj).point;
-            // return true if same point or reverse point
-            if (point[0] == targetPoint[0] && point[1] == targetPoint[1]
-                    && point[2] == targetPoint[2] && point[3] == targetPoint[3]) {
-                return true;
-            } else if (point[0] == targetPoint[2] && point[1] == targetPoint[3]
-                    && point[2] == targetPoint[0] && point[3] == targetPoint[1]) {
-                return true;
-            } else {
-                return super.equals(obj);
-            }
-        }
-
     }
 
-    private class Particle {
+    private static class Particle {
 
         private static final int MAX_ALPHA = 128;
         private static final float BASE_RADIUS = 100f;
@@ -173,27 +170,37 @@ public class ParticlesAnimationView extends View {
         private Point center;
         private Point vector;
 
-        public Particle(int maxWidth, int maxHeight) {
+        final Path path = new Path();
+
+        Particle(int maxWidth, int maxHeight, View view) {
+            this(maxWidth, maxHeight, view.getWidth(), view.getHeight());
+        }
+
+        Particle(int maxWidth, int maxHeight, int hostWidth, int hostHeight) {
             center = new Point();
             vector = new Point();
             reset(maxWidth, maxHeight);
-            Random random = new Random();
-            center.x = (int) (getWidth() - getWidth() * random.nextFloat());
-            center.y = (int) (getHeight() - getHeight() * random.nextFloat());
+            center.x = (int) (hostWidth - hostWidth * random.nextFloat());
+            center.y = (int) (hostHeight - hostHeight * random.nextFloat());
         }
 
-        public boolean isShouldLinked(int linkedDistance, Particle particle) {
-            if (this.equals(particle)) return false;
+        boolean shouldBeLinked(int linkedDistance, Particle particle) {
+            if (this.equals(particle)) {
+                return false;
+            }
+            // Math.pow(x, 2) and x * x stuff, for your information and my curiosity.
+            // ref: http://hg.openjdk.java.net/jdk8u/jdk8u/hotspot/file/5755b2aee8e8/src/share/vm/opto/library_call.cpp#l1799
             final double distance = Math.sqrt(
                     Math.pow(particle.center.x - this.center.x, 2) + Math.pow(particle.center.y - this.center.y, 2)
             );
             return distance < linkedDistance;
         }
 
-        public void draw(Canvas canvas, Paint paint) {
+        void draw(Canvas canvas, Paint paint) {
             move(canvas.getWidth(), canvas.getHeight());
             paint.setAlpha(alpha);
-            canvas.drawPath(getHexagonPath(center.x, center.y, scale), paint);
+            createHexagonPathOrUpdate(center.x, center.y, scale);
+            canvas.drawPath(this.path, paint);
         }
 
         private void move(int maxWidth, int maxHeight) {
@@ -216,7 +223,6 @@ public class ParticlesAnimationView extends View {
         }
 
         private void reset(int maxWidth, int maxHeight) {
-            Random random = new Random();
             scale = random.nextFloat() + random.nextFloat();
             alpha = random.nextInt(MAX_ALPHA + 1);
             moveSpeed = random.nextFloat() + random.nextFloat() + 0.5f;
@@ -247,8 +253,8 @@ public class ParticlesAnimationView extends View {
             }
         }
 
-        private Path getHexagonPath(float centerX, float centerY, float scale) {
-            final Path path = new Path();
+        private void createHexagonPathOrUpdate(float centerX, float centerY, float scale) {
+            path.reset();
             final int radius = (int) (BASE_RADIUS * scale);
             for (int i = 0; i < 6; i++) {
                 float x = (float) (centerX + radius * (Math.cos(2.0 * i * Math.PI / 6.0 + Math.PI)));
@@ -260,7 +266,6 @@ public class ParticlesAnimationView extends View {
                 }
             }
             path.close();
-            return path;
         }
 
     }
