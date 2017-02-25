@@ -189,7 +189,7 @@
                             android:layout_marginTop="@dimen/space_16dp"
                             android:contentDescription="@string/speaker"
                             app:speakerImageSize="@{@dimen/user_image_large}"
-                            app:speakerImageUrl="@{viewModel.session.speaker.imageUrl}"
+                            app:speakerImageUrl="@{viewModel.speakerImageUrl}"
                             />
 
                     <TextView
