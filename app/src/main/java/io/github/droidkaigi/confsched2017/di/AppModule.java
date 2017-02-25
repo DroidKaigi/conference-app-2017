@@ -11,6 +11,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import io.github.droidkaigi.confsched2017.BuildConfig;
 import io.github.droidkaigi.confsched2017.api.RequestInterceptor;
 import io.github.droidkaigi.confsched2017.api.service.DroidKaigiService;
 import io.github.droidkaigi.confsched2017.api.service.GithubService;
@@ -74,7 +75,7 @@ public class AppModule {
     public DroidKaigiService provideDroidKaigiService(OkHttpClient client) {
         return new Retrofit.Builder()
                 .client(client)
-                .baseUrl("https://droidkaigi.github.io")
+                .baseUrl(BuildConfig.API_ROOT)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(createGson()))
                 .build()

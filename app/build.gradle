@@ -45,6 +45,8 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         buildConfigField "String", "CONFERENCE_TIMEZONE", "\"Asia/Tokyo\""
+        buildConfigField "String", "API_ROOT", "\"https://droidkaigi.github.io/2017/\""
+        buildConfigField "String", "STATIC_ROOT", "\"https://droidkaigi.github.io/2017\""
         buildConfigField "String", "GIT_SHA", "\"${gitSha}\""
         buildConfigField "String", "GIT_BRANCH", "\"${gitBranch}\""
         buildConfigField "String", "BUILD_TIME", "\"${buildTime}\""
