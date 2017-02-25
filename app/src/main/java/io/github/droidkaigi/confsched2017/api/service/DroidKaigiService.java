@@ -8,10 +8,10 @@ import retrofit2.http.GET;
 
 public interface DroidKaigiService {
 
-    @GET("/sessions.json")
+    @GET("sessions.json")
     Single<List<Session>> getSessionsJa();
 
-    @GET("/en/sessions.json")
+    @GET("en/sessions.json")
     Single<List<Session>> getSessionsEn();
 
 }
