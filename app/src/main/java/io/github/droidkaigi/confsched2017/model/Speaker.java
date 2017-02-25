@@ -51,7 +51,7 @@ public class Speaker {
         } else if (imageUrl.startsWith("/")) {
             return BuildConfig.STATIC_ROOT + imageUrl;
         } else {
-            Timber.tag(TAG).e("Invalid image url: ", imageUrl);
+            Timber.tag(TAG).e("Invalid image url: %s", imageUrl);
             return null;
         }
     }
