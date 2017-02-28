@@ -28,7 +28,7 @@ public final class InformationViewModel implements ViewModel {
     }
 
     public void onClickQuestionnaire(@SuppressWarnings("unused") View view) {
-        navigator.navigateToWebPage("https://docs.google.com/forms/d/1SNBvJernnyBwglNentXxpdSUkWI9U6umWdDs4Na8OIU/viewform?edit_requested=true");
+        navigator.navigateToQuestionnairePage();
     }
 
     public void onClickContributors(@SuppressWarnings("unused") View view) {

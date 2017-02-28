@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+                name="viewModel"
+                type="io.github.droidkaigi.confsched2017.viewmodel.QuestionnaireViewModel"
+                />
+    </data>
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/grey50"
+            >
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/space_8dp"
+                >
+
+            <android.support.v7.widget.CardView style="@style/BaseCardView">
+
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="@dimen/space_16dp"
+                        >
+
+                    <TextView
+                            android:id="@+id/questionnaire_how_old"
+                            style="@style/FeedbackTitle"
+                            android:text="@string/questionnaire_how_old"
+                            />
+
+                    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/questionnaire_how_old"
+                            android:orientation="vertical"
+                            >
+
+                        <RadioButton
+                                android:id="@+id/age_10_19"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/questionnaire_age_range_10"
+                                />
+
+                        <RadioButton
+                                android:id="@+id/age_20_29"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/questionnaire_age_range_20"
+                                />
+
+                        <RadioButton
+                                android:id="@+id/age_30_39"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/questionnaire_age_range_30"
+                                />
+
+                        <RadioButton
+                                android:id="@+id/age_40_49"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/questionnaire_age_range_40"
+                                />
+
+                        <RadioButton
+                                android:id="@+id/age_50_59"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/questionnaire_age_range_50"
+                                />
+
+                    </RadioGroup>
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <Button
+                    android:id="@+id/submit_questionnaire"
+                    style="@style/Button.Grey"
+                    android:layout_marginTop="@dimen/space_8dp"
+                    android:onClick="@{viewModel::onClickSubmitQuestionnaireButton}"
+                    android:text="@string/send_questionnaire"
+                    />
+        </LinearLayout>
+
+    </ScrollView>
+
+</layout>

@@ -100,6 +100,16 @@
     <string name="notification_title">%1$s will start soon</string>
     <string name="notification_message">%1$s ~ %2$s @ %3$s</string>
 
+    <!-- questionnaire -->
+    <string name="questionnaire">Questionnaire</string>
+    <string name="send_questionnaire">Send Questionnaire</string>
+    <string name="questionnaire_how_old">How old are you?</string>
+    <string name="questionnaire_age_range_10">10~19</string>
+    <string name="questionnaire_age_range_20">20~29</string>
+    <string name="questionnaire_age_range_30">30~39</string>
+    <string name="questionnaire_age_range_40">40~49</string>
+    <string name="questionnaire_age_range_50">50~</string>
+
     <!-- App Shortcuts -->
     <string name="shortcut_search_title">Search</string>
 </resources>

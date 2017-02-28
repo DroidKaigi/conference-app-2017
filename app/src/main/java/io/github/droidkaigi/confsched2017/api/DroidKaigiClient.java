@@ -12,6 +12,7 @@ import io.github.droidkaigi.confsched2017.api.service.DroidKaigiService;
 import io.github.droidkaigi.confsched2017.api.service.GithubService;
 import io.github.droidkaigi.confsched2017.api.service.GoogleFormService;
 import io.github.droidkaigi.confsched2017.model.Contributor;
+import io.github.droidkaigi.confsched2017.model.Questionnaire;
 import io.github.droidkaigi.confsched2017.model.Session;
 import io.github.droidkaigi.confsched2017.model.SessionFeedback;
 import io.reactivex.Single;
@@ -31,7 +32,8 @@ public class DroidKaigiClient {
     private static final int MAX_PER_PAGE = 100;
 
     @Inject
-    public DroidKaigiClient(DroidKaigiService droidKaigiService, GithubService githubService, GoogleFormService googleFormService) {
+    public DroidKaigiClient(DroidKaigiService droidKaigiService, GithubService githubService,
+            GoogleFormService googleFormService) {
         this.droidKaigiService = droidKaigiService;
         this.githubService = githubService;
         this.googleFormService = googleFormService;
@@ -49,7 +51,13 @@ public class DroidKaigiClient {
         return githubService.getContributors("DroidKaigi", "conference-app-2017", INCLUDE_ANONYMOUS, MAX_PER_PAGE);
     }
 
-    public Single<Response<Void>>submitSessionFeedback(SessionFeedback sessionFeedback){
+    public Single<Response<Void>> submitSessionFeedback(SessionFeedback sessionFeedback) {
         return googleFormService.submitSessionFeedback(sessionFeedback.sessionId);
+    }
+
+    public Single<Response<Void>> submitQuestionnaire(Questionnaire Questionnaire) {
+        // TODO: API
+//        return googleFormService.submitQuestionnaire();
+        throw new UnsupportedOperationException("TODO: Questionnaireを送る");
     }
 }

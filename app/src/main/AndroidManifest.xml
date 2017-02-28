@@ -99,6 +99,14 @@
                 android:theme="@style/AppTheme.ColoredStatusBar"
                 />
 
+        <activity
+                android:name=".view.activity.QuestionnaireActivity"
+                android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+                android:exported="false"
+                android:label="@string/questionnaire"
+                android:theme="@style/AppTheme.ColoredStatusBar"
+                />
+
         <service
                 android:name=".service.DebugOverlayService"
                 android:exported="false"
