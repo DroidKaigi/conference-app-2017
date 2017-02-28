@@ -19,6 +19,7 @@ public class BottomNavigationViewHelper {
      * We can't access the flag and can't override the class. Then I hacked like this :(
      * http://stackoverflow.com/questions/40176244/how-to-disable-bottomnavigationview-shift-mode
      */
+    @SuppressWarnings("RestrictedApi")
     public static void disableShiftingMode(@NonNull BottomNavigationView view) {
         BottomNavigationMenuView menuView = (BottomNavigationMenuView) view.getChildAt(0);
         try {
