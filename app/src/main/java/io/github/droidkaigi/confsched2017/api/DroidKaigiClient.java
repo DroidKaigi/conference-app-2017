@@ -55,9 +55,8 @@ public class DroidKaigiClient {
         return googleFormService.submitSessionFeedback(sessionFeedback.sessionId);
     }
 
-    public Single<Response<Void>> submitQuestionnaire(Questionnaire Questionnaire) {
+    public Single<Response<Void>> submitQuestionnaire(Questionnaire questionnaire) {
         // TODO: API
-//        return googleFormService.submitQuestionnaire();
-        throw new UnsupportedOperationException("TODO: Questionnaireを送る");
+        return googleFormService.submitQuestionnaire(questionnaire);
     }
 }
