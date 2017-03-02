@@ -16,6 +16,7 @@ import io.github.droidkaigi.confsched2017.di.scope.ActivityScope;
 import io.github.droidkaigi.confsched2017.model.Session;
 import io.github.droidkaigi.confsched2017.view.activity.ContributorsActivity;
 import io.github.droidkaigi.confsched2017.view.activity.LicensesActivity;
+import io.github.droidkaigi.confsched2017.view.activity.QuestionnaireActivity;
 import io.github.droidkaigi.confsched2017.view.activity.SessionDetailActivity;
 import io.github.droidkaigi.confsched2017.view.activity.SessionFeedbackActivity;
 import io.github.droidkaigi.confsched2017.view.activity.SponsorsActivity;
@@ -52,6 +53,10 @@ public class Navigator {
 
     public void navigateToLicensePage() {
         activity.startActivity(LicensesActivity.createIntent(activity));
+    }
+
+    public void navigateToQuestionnairePage() {
+        activity.startActivity(QuestionnaireActivity.createIntent(activity));
     }
 
     public void navigateToWebPage(@NonNull String url) {

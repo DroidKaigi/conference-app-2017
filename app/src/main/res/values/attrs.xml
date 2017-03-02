@@ -17,4 +17,14 @@
         <attr name="rankingLabelEnd" format="string" />
     </declare-styleable>
 
+    <declare-styleable name="QuestionnaireView">
+        <attr name="questionnaireTitle" format="string" />
+        <attr name="questionnaireDescription" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="QuestionnaireRadioView">
+        <attr name="radioItemsKey" format="reference" />
+        <attr name="radioItemsValue" format="reference" />
+    </declare-styleable>
+
 </resources>
