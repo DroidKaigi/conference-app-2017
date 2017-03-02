@@ -1,30 +1,32 @@
 package io.github.droidkaigi.confsched2017.view.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.MenuItem;
 
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.view.fragment.SessionDetailFragmentCreator;
+import timber.log.Timber;
 
 public class SessionDetailActivity extends BaseActivity {
 
     private static final String EXTRA_SESSION_ID = "session_id";
     private static final String EXTRA_PARENT = "parent";
 
-    public static final int PARENT_MAIN = 0;
-    public static final int PARENT_MY_SESSIONS = 1;
-    public static final int PARENT_SEARCH = 2;
+    private Class parentClass;
 
-    private int parent;
-
-    public static Intent createIntent(@NonNull Context context, int sessionId, int parent) {
+    public static Intent createIntent(@NonNull Context context, int sessionId, @Nullable Class<? extends Activity> parentClass) {
         Intent intent = new Intent(context, SessionDetailActivity.class);
         intent.putExtra(EXTRA_SESSION_ID, sessionId);
-        intent.putExtra(EXTRA_PARENT, parent);
+        if (parentClass != null) {
+            intent.putExtra(EXTRA_PARENT, parentClass.getName());
+        }
         return intent;
     }
 
@@ -35,7 +37,16 @@ public class SessionDetailActivity extends BaseActivity {
         getComponent().inject(this);
 
         final int sessionId = getIntent().getIntExtra(EXTRA_SESSION_ID, 0);
-        parent = getIntent().getIntExtra(EXTRA_PARENT, PARENT_MAIN);
+        String parentClassName = getIntent().getStringExtra(EXTRA_PARENT);
+        try {
+            if (TextUtils.isEmpty(parentClassName)) {
+                parentClass = MainActivity.class;
+            } else {
+                parentClass = Class.forName(parentClassName);
+            }
+        } catch (ClassNotFoundException e) {
+            Timber.e(e);
+        }
         replaceFragment(SessionDetailFragmentCreator.newBuilder(sessionId).build(), R.id.content_view);
     }
 
@@ -50,18 +61,7 @@ public class SessionDetailActivity extends BaseActivity {
     }
 
     private void upToParentActivity() {
-        Intent upIntent;
-        switch (parent) {
-            case PARENT_MY_SESSIONS:
-                upIntent = new Intent(getApplicationContext(), MySessionsActivity.class);
-                break;
-            case PARENT_SEARCH:
-                upIntent = new Intent(getApplicationContext(), SearchActivity.class);
-                break;
-            default:
-                upIntent = new Intent(getApplicationContext(), MainActivity.class);
-                break;
-        }
+        Intent upIntent = new Intent(getApplicationContext(), parentClass);
         upIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(upIntent);
         finish();

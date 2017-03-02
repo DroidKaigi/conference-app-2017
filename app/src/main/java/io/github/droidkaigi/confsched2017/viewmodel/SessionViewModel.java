@@ -16,6 +16,7 @@ import io.github.droidkaigi.confsched2017.model.Session;
 import io.github.droidkaigi.confsched2017.repository.sessions.MySessionsRepository;
 import io.github.droidkaigi.confsched2017.util.AlarmUtil;
 import io.github.droidkaigi.confsched2017.util.DateUtil;
+import io.github.droidkaigi.confsched2017.view.activity.MainActivity;
 import io.github.droidkaigi.confsched2017.view.activity.SessionDetailActivity;
 import io.github.droidkaigi.confsched2017.view.helper.Navigator;
 import timber.log.Timber;
@@ -150,7 +151,7 @@ public class SessionViewModel extends BaseObservable implements ViewModel {
 
     public void showSessionDetail(@SuppressWarnings("unused") View view) {
         if (navigator != null && session != null) {
-            navigator.navigateToSessionDetail(session, SessionDetailActivity.PARENT_MAIN);
+            navigator.navigateToSessionDetail(session, MainActivity.class);
         }
     }
 
