@@ -11,13 +11,96 @@
         <item>60~</item>
         <item>secret</item>
     </string-array>
-    <string-array name="questionnaire_values_age">
-        <item>10代</item>
-        <item>20代</item>
-        <item>30代</item>
-        <item>40代</item>
-        <item>50代</item>
-        <item>60代</item>
-        <item>答えたくない</item>
+    <string name="questionnaire_android_user">How long have you been using Android?</string>
+    <string-array name="questionnaire_keys_android_user">
+        <item>None</item>
+        <item>less than a half year</item>
+        <item>0.5~1 year</item>
+        <item>1~2 years</item>
+        <item>2~3 years</item>
+        <item>3~4 years</item>
+        <item>4~5 years</item>
+        <item>more than 5 years</item>
     </string-array>
+    <string name="questionnaire_android_developer">How long have you been developing Android app?</string>
+    <string-array name="questionnaire_keys_android_developer">
+        <item>None</item>
+        <item>less than a half year</item>
+        <item>0.5~1 year</item>
+        <item>1~2 years</item>
+        <item>2~3 years</item>
+        <item>3~4 years</item>
+        <item>4~5 years</item>
+        <item>more than 5 years</item>
+    </string-array>
+    <string name="questionnaire_job_category">Please tell me the job category?</string>
+    <string-array name="questionnaire_keys_job_category">
+        <item>Engineer(Android)</item>
+        <item>Engineer(non Android)</item>
+        <item>Director</item>
+        <item>Designer</item>
+        <item>Marketing</item>
+        <item>HR</item>
+        <item>Media</item>
+        <item>Teacher</item>
+        <item>Student</item>
+        <item>Secret</item>
+        <item>Other</item>
+    </string-array>
+    <string name="questionnaire_job_title">Please tell me the job title?</string>
+    <string-array name="questionnaire_keys_job_title">
+        <item>Business owner</item>
+        <item>Manager</item>
+        <item>Lead, Senior, Chief Engineer</item>
+        <item>Engineer</item>
+        <item>Student(with programming experience)</item>
+        <item>Student(without programming experience)</item>
+        <item>Secret</item>
+        <item>Other</item>
+    </string-array>
+    <string name="questionnaire_attendance">Have you attend past DroidKaigi?</string>
+    <string-array name="questionnaire_keys_attendance">
+        <item>2015</item>
+        <item>2016</item>
+        <item>First time</item>
+    </string-array>
+    <string name="questionnaire_found">How do you know DroidKaigi?</string>
+    <string-array name="questionnaire_keys_found">
+        <item>Twitter</item>
+        <item>Facebook</item>
+        <item>Google+</item>
+        <item>Mailing list</item>
+        <item>Podcast</item>
+        <item>News</item>
+        <item>Blog</item>
+        <item>group chat</item>
+        <item>co-worker/friends</item>
+        <item>Internet advertisement</item>
+        <item>Other</item>
+    </string-array>
+    <string name="questionnaire_ticket">Which ticket did you get?</string>
+    <string-array name="questionnaire_keys_ticket">
+        <item>Regular(¥8,000)</item>
+        <item>Early Bird: incl. AfterParty (¥8,000)</item>
+        <item>Students: incl. AfterParty (¥4,000)</item>
+        <item>Regular: incl. AfterParty (¥12,000)</item>
+        <item>From presenter</item>
+        <item>Presenter</item>
+        <item>Guest</item>
+        <item>Other</item>
+    </string-array>
+    <string name="questionnaire_ticket_price">What do you think about the ticket price?</string>
+    <string-array name="questionnaire_keys_ticket_price">
+        <item>Expensive</item>
+        <item>Reasonable</item>
+        <item>Inexpensive</item>
+    </string-array>
+    <string name="questionnaire_ticket_with_after_patry">What do you think about the ticket with after party?</string>
+    <string-array name="questionnaire_keys_ticket_with_after_patry">
+        <item>Good</item>
+        <item>Normal</item>
+        <item>Bad</item>
+    </string-array>
+    <string name="questionnaire_ticket_price_opinion">Do you have any opinion about the ticket price?</string>
+
 </resources>
