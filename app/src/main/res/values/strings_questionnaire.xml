@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="questionnaire_title_age">Age</string>
+    <string name="questionnaire_description_age">How old are you?</string>
+    <string-array name="questionnaire_keys_age">
+        <item>10~19</item>
+        <item>20~29</item>
+        <item>30~39</item>
+        <item>40~49</item>
+        <item>50~59</item>
+        <item>60~</item>
+        <item>secret</item>
+    </string-array>
+    <string-array name="questionnaire_values_age">
+        <item>10代</item>
+        <item>20代</item>
+        <item>30代</item>
+        <item>40代</item>
+        <item>50代</item>
+        <item>60代</item>
+        <item>答えたくない</item>
+    </string-array>
+</resources>

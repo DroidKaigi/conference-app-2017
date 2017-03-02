@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        >
 
     <data>
 
@@ -84,6 +87,23 @@
                 </RelativeLayout>
 
             </android.support.v7.widget.CardView>
+
+            <io.github.droidkaigi.confsched2017.view.customview.QuestionnaireView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:questionnaireTitle="質問事項"
+                    app:questionnaireDescription="ここに質問事項の説明が入る"
+                    tools:layout="@layout/view_questionnaire"
+                    />
+
+            <io.github.droidkaigi.confsched2017.view.customview.QuestionnaireRadioView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:questionnaireTitle="@string/questionnaire_title_age"
+                    app:questionnaireDescription="@string/questionnaire_description_age"
+                    app:radioItemsKey="@array/questionnaire_keys_age"
+                    app:radioItemsValue="@array/questionnaire_values_age"
+                    />
 
             <Button
                     android:id="@+id/submit_questionnaire"
