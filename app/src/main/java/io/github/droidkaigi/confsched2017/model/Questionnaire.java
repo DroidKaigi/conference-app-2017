@@ -3,6 +3,9 @@ package io.github.droidkaigi.confsched2017.model;
 import com.google.gson.annotations.SerializedName;
 
 public class Questionnaire {
+    // https://github.com/DroidKaigi/conference-app-2017/issues/77#issuecomment-282930517
+    // フォーム: https://docs.google.com/forms/d/1SNBvJernnyBwglNentXxpdSUkWI9U6umWdDs4Na8OIU/viewform?edit_requested=true
+    // このEntityはDroidKaigiClientが使う。
     @SerializedName("entry.45076472")
     public String ageRange;
     @SerializedName("entry.1423428529")

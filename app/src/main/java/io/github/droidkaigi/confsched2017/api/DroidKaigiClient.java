@@ -55,8 +55,38 @@ public class DroidKaigiClient {
         return googleFormService.submitSessionFeedback(sessionFeedback.sessionId);
     }
 
-    public Single<Response<Void>> submitQuestionnaire(Questionnaire questionnaire) {
+    public Single<Response<Void>> submitQuestionnaire(Questionnaire q) {
         // TODO: API
-        return googleFormService.submitQuestionnaire(questionnaire);
+        return googleFormService.submitQuestionnaire(
+                q.ageRange,
+                q.androidExperience,
+                q.developmentExperience,
+                q.jobCategory,
+                q.jobCategoryOther,
+                q.jobPosition,
+                q.jobPositionOther,
+                q.foundChannel,
+                q.foundChannelOther,
+                q.howGotTicket,
+                q.howGotTicketOther,
+                q.price,
+                q.afterParty,
+                q.commentForPrice,
+                q.timeTable,
+                q.priority,
+                q.commentForTimeTable,
+                q.sponsorLogo,
+                q.sponsorBooth,
+                q.feelingBooth,
+                q.commentForBooth,
+                q.foodAndDrink,
+                q.commentForFoodAndDrink,
+                q.goods,
+                q.commentForGoods,
+                q.equipment,
+                q.youtube,
+                q.wantSpeak,
+                q.nextTime
+        );
     }
 }

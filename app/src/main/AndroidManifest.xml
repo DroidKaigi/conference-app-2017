@@ -103,7 +103,7 @@
                 android:name=".view.activity.QuestionnaireActivity"
                 android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
                 android:exported="false"
-                android:label="@string/questionnaire"
+                android:label="@string/info_questionnaire_title"
                 android:theme="@style/AppTheme.ColoredStatusBar"
                 />
 
