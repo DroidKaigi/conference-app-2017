@@ -179,7 +179,7 @@ dependencies {
     compile "com.android.support:customtabs:${support_lib_version}"
     compile "com.android.support:support-vector-drawable:${support_lib_version}"
     compile "com.android.support:animated-vector-drawable:${support_lib_version}"
-    compile 'com.android.support.constraint:constraint-layout:1.0.0'
+    compile 'com.android.support.constraint:constraint-layout:1.0.1'
 
     // Firebase(analytics, crash report)
     compile 'com.google.firebase:firebase-core:10.0.1'
