@@ -9,11 +9,11 @@ import retrofit2.http.POST;
 public interface GoogleFormService {
 
     // TODO: change test url and add form item
-    @POST("1SNBvJernnyBwglNentXxpdSUkWI9U6umWdDs4Na8OIU/formResponse")
+    @POST("1FAIpQLSeSr-Tn3TnNum2md8l3jCZa0cnMYMXXaouHomubecdaRlGFCQ/formResponse")
     @FormUrlEncoded
     Single<Response<Void>> submitSessionFeedback(@Field("entry.684428626") int id);
 
-    @POST("1SNBvJernnyBwglNentXxpdSUkWI9U6umWdDs4Na8OIU/formResponse")
+    @POST("e/1FAIpQLSfAD2H_ePyLV3wqCEXwlxS9dGu3OKtr-IrxbGoLo4QYzJh_dw/formResponse")
     @FormUrlEncoded
     Single<Response<Void>> submitQuestionnaire(
             @Field("entry.45076472") String ageRange,
@@ -23,6 +23,7 @@ public interface GoogleFormService {
             @Field("entry.595646748.other_option_response") String jobCategoryOther,
             @Field("entry.2100414566") String jobPosition,
             @Field("entry.2100414566.other_option_response") String jobPositionOther,
+            @Field("entry.779173573") String attendHistory,
             @Field("entry.1035760212") String foundChannel,
             @Field("entry.1035760212.other_option_response") String foundChannelOther,
             @Field("entry.676422586") String howGotTicket,
@@ -31,7 +32,7 @@ public interface GoogleFormService {
             @Field("entry.455416737") String afterParty,
             @Field("entry.1089426034") String commentForPrice,
             @Field("entry.1556681290") String timeTable,
-            @Field("entry.910403137") String priority,
+            @Field("entry.910403137") String[] priority,
             @Field("entry.221077566") String commentForTimeTable,
             @Field("entry.2041100455") String sponsorLogo,
             @Field("entry.1726476155") String sponsorBooth,
@@ -43,6 +44,8 @@ public interface GoogleFormService {
             @Field("entry.1701741632") String commentForGoods,
             @Field("entry.1224977534") String equipment,
             @Field("entry.1429181897") String youtube,
+            @Field("entry.814658876") int satisfaction,
+            @Field("entry.1505426067") String suggestion,
             @Field("entry.1147397694") String wantSpeak,
             @Field("entry.2047139770") String nextTime
     );

@@ -22,6 +22,8 @@ public class Questionnaire {
     public String jobPositionOther;
     @SerializedName("entry.1035760212")
     public String foundChannel;
+    @SerializedName("entry.779173573")
+    public String attendHistory;
     @SerializedName("entry.1035760212.other_option_response")
     public String foundChannelOther;
     @SerializedName("entry.676422586")
@@ -37,7 +39,7 @@ public class Questionnaire {
     @SerializedName("entry.1556681290")
     public String timeTable;
     @SerializedName("entry.910403137")
-    public String priority;
+    public String[] priority;
     @SerializedName("entry.221077566")
     public String commentForTimeTable;
     @SerializedName("entry.2041100455")
@@ -60,6 +62,10 @@ public class Questionnaire {
     public String equipment;
     @SerializedName("entry.1429181897")
     public String youtube;
+    @SerializedName("entry.814658876")
+    public int satisfaction;
+    @SerializedName("entry.1505426067")
+    public String suggestion;
     @SerializedName("entry.1147397694")
     public String wantSpeak;
     @SerializedName("entry.2047139770")
@@ -75,26 +81,26 @@ public class Questionnaire {
     // TODO: delete this (for developing)
     public static Questionnaire createTestData() {
         Questionnaire q = new Questionnaire();
-        q.ageRange = "10代";
-        q.androidExperience = "3年";
-        q.developmentExperience = "3年";
-        q.jobCategory = "その他";
+        q.ageRange = "答えたくない";
+        q.androidExperience = "なし";
+        q.developmentExperience = "なし";
+        q.jobCategory = "__other_option__";
         q.jobCategoryOther = "テストデータです by gen0083";
-        q.jobPosition = "その他";
+        q.jobPosition = "__other_option__";
         q.jobPositionOther = "テストデータです by gen0083";
-        q.foundChannel = "その他";
+        q.foundChannel = "__other_option__";
         q.foundChannelOther = "テストデータです by gen0083";
-        q.howGotTicket = "その他";
+        q.howGotTicket = "__other_option__";
         q.howGotTicketOther = "テストデータです by gen0083";
         q.price = "妥当";
-        q.afterParty = "普通・なにも感じない";
+        q.afterParty = "良い";
         q.commentForPrice = "テストデータです by gen0083";
-        q.timeTable = "普通・何も感じない";
-        q.priority = "セキュリティ, 登壇者 複数項目選択時にはどうなる？";
+        q.timeTable = "満足している";
+        q.priority = new String[]{"最新技術・情報（Nougatで追加された機能のような公式API）", "最新技術・情報（RxJavaのようなサードパーティAPI）"};
         q.commentForTimeTable = "テストデータです by gen0083";
         q.sponsorLogo = "気が付かなかった";
         q.sponsorBooth = "立ち寄らなかった";
-        q.feelingBooth = "普通・何も感じない";
+        q.feelingBooth = "とても良い";
         q.commentForBooth = "テストデータ by gen0083";
         q.foodAndDrink = "良い";
         q.commentForFoodAndDrink = "テストデータです by gen0083";
@@ -102,8 +108,11 @@ public class Questionnaire {
         q.commentForGoods = "テストデータです by gen0083";
         q.equipment = "良い";
         q.youtube = "だいたい見た";
+        q.satisfaction = 5;
+        q.suggestion = "テストデータです by gen0083";
         q.wantSpeak = "わからない";
         q.nextTime = "わからない";
+        q.attendHistory = "初めて参加した";
         return q;
     }
 }

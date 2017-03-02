@@ -65,6 +65,7 @@ public class DroidKaigiClient {
                 q.jobCategoryOther,
                 q.jobPosition,
                 q.jobPositionOther,
+                q.attendHistory,
                 q.foundChannel,
                 q.foundChannelOther,
                 q.howGotTicket,
@@ -85,6 +86,8 @@ public class DroidKaigiClient {
                 q.commentForGoods,
                 q.equipment,
                 q.youtube,
+                q.satisfaction,
+                q.suggestion,
                 q.wantSpeak,
                 q.nextTime
         );
