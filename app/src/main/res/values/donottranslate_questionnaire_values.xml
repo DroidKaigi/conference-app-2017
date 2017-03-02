@@ -80,7 +80,7 @@
         <item>Guest</item>
         <item>Other</item>
     </string-array>
-    <string-array name="questionnaire_keys_ticket_with_after_patry">
+    <string-array name="questionnaire_value_ticket_with_after_patry">
         <item>良い</item>
         <item>普通・何も感じない</item>
         <item>悪い</item>
