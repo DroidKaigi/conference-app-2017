@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string-array name="questionnaire_values_age">
+        <item>10代</item>
+        <item>20代</item>
+        <item>30代</item>
+        <item>40代</item>
+        <item>50代</item>
+        <item>60代</item>
+        <item>答えたくない</item>
+    </string-array>
+    <string-array name="questionnaire_values_android_user">
+        <item>なし</item>
+        <item>〜半年未満</item>
+        <item>半年〜1年未満</item>
+        <item>1年〜2年未満</item>
+        <item>2年〜3年未満</item>
+        <item>3年〜4年未満</item>
+        <item>4年〜5年未満</item>
+        <item>5年以上</item>
+    </string-array>
+    <string-array name="questionnaire_values_android_developer">
+        <item>なし</item>
+        <item>〜半年未満</item>
+        <item>半年〜1年未満</item>
+        <item>1年〜2年未満</item>
+        <item>2年〜3年未満</item>
+        <item>3年〜4年未満</item>
+        <item>4年〜5年未満</item>
+        <item>5年以上</item>
+    </string-array>
+    <string-array name="questionnaire_values_job_category">
+        <item>エンジニア（Android）</item>
+        <item>エンジニア（非Android）</item>
+        <item>企画・マーケティング</item>
+        <item>デザイナー</item>
+        <item>営業</item>
+        <item>人事</item>
+        <item>メディア関係</item>
+        <item>教育関係</item>
+        <item>学生</item>
+        <item>答えたくない</item>
+        <item>__other_option__</item>
+    </string-array>
+    <string-array name="questionnaire_values_job_title">
+        <item>経営者</item>
+        <item>マネージャ</item>
+        <item>リード、シニア、チーフエンジニア</item>
+        <item>エンジニア</item>
+        <item>学生の方：主な作業としてプログラムを書く</item>
+        <item>学生の方：主な作業としてプログラムは書かない</item>
+        <item>答えたくない</item>
+        <item>__other_option__</item>
+    </string-array>
+    <string-array name="questionnaire_values_attendance">
+        <item>2015に参加した</item>
+        <item>2016に参加した</item>
+        <item>初めて参加した</item>
+    </string-array>
+    <string-array name="questionnaire_values_found">
+        <item>Twitter</item>
+        <item>Facebook</item>
+        <item>Google+</item>
+        <item tools:ignore="TypographyEllipsis">チケットサービスのメール（connpass, doorkeeper, etc...）</item>
+        <item tools:ignore="TypographyEllipsis">ポッドキャスト(dex.fm, デブ☆ラジ, etc...)</item>
+        <item>ニュースサイト</item>
+        <item>ブログ・日記</item>
+        <item>社内・グループチャット</item>
+        <item>同僚・知人からの直接紹介</item>
+        <item>インターネット広告・AdWords</item>
+        <item>__other_option__</item>
+    </string-array>
+    <string-array name="questionnaire_values_ticket">
+        <item>Regular(¥8,000)</item>
+        <item>Early Bird: incl. AfterParty (¥8,000)</item>
+        <item>Students: incl. AfterParty (¥4,000)</item>
+        <item>Regular: incl. AfterParty (¥12,000)</item>
+        <item>From presenter</item>
+        <item>Presenter</item>
+        <item>Guest</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="questionnaire_keys_ticket_with_after_patry">
+        <item>良い</item>
+        <item>普通・何も感じない</item>
+        <item>悪い</item>
+    </string-array>
+
+
+</resources>
