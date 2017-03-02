@@ -38,14 +38,14 @@ public class SessionDetailActivity extends BaseActivity {
 
         final int sessionId = getIntent().getIntExtra(EXTRA_SESSION_ID, 0);
         String parentClassName = getIntent().getStringExtra(EXTRA_PARENT);
-        try {
-            if (TextUtils.isEmpty(parentClassName)) {
-                parentClass = MainActivity.class;
-            } else {
+        if (TextUtils.isEmpty(parentClassName)) {
+            parentClass = MainActivity.class;
+        } else {
+            try {
                 parentClass = Class.forName(parentClassName);
+            } catch (ClassNotFoundException e) {
+                Timber.e(e);
             }
-        } catch (ClassNotFoundException e) {
-            Timber.e(e);
         }
         replaceFragment(SessionDetailFragmentCreator.newBuilder(sessionId).build(), R.id.content_view);
     }
