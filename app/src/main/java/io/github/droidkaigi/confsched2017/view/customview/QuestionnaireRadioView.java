@@ -29,6 +29,11 @@ public class QuestionnaireRadioView extends QuestionnaireView {
     public QuestionnaireRadioView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
+        if (isInEditMode()) {
+            inflate(context, R.layout.view_questionnaire, this);
+            return;
+        }
+
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.QuestionnaireRadioView);
         int keyId = a.getResourceId(R.styleable.QuestionnaireRadioView_radioItemsKey, -1);
         int valueId = a.getResourceId(R.styleable.QuestionnaireRadioView_radioItemsValue, -1);
@@ -48,7 +53,7 @@ public class QuestionnaireRadioView extends QuestionnaireView {
             button.setText(keys[i]);
             radioGroup.addView(button);
         }
-
+        radioGroup.setOnCheckedChangeListener((group, checkedId) -> setValue(values[checkedId - 1]));
         binding.questionnaireContainer.addView(radioGroup);
     }
 }
