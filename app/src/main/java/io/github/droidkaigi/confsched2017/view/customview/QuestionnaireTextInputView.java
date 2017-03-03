@@ -36,7 +36,7 @@ public class QuestionnaireTextInputView extends QuestionnaireView {
 
         editText = new EditText(context, attrs);
         editText.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        editText.setInputType(EditorInfo.TYPE_CLASS_TEXT);
+        editText.setInputType(EditorInfo.TYPE_TEXT_FLAG_MULTI_LINE);
         editText.setMaxLines(MAX_LINE);
         editText.addTextChangedListener(new TextWatcher() {
             @Override

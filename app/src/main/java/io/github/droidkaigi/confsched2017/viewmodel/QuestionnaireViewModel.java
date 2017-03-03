@@ -48,7 +48,7 @@ public class QuestionnaireViewModel extends BaseObservable implements ViewModel 
 //                .observeOn(AndroidSchedulers.mainThread())
 //                .subscribe((response) -> Timber.d("submit success\n%s", response), Timber::e);
         // TODO: delete this (only in developing)
-        Timber.d("test questionnaire.value=%s", questionnaire.ageRange);
+        Timber.d("test questionnaire=%s", questionnaire);
     }
 
     public Single<Response<Void>> submitQuestionnaire(Questionnaire questionnaire) {
