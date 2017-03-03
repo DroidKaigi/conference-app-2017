@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.databinding.ViewQuestionnaireBinding;
-import timber.log.Timber;
 
 /**
  * Copyright 2017 G-CREATE
@@ -84,13 +83,11 @@ public class QuestionnaireView extends CardView {
 
     @InverseBindingAdapter(attribute = "questionnaireValue")
     public static String getQuestionnaireValue(QuestionnaireView view) {
-        Timber.d("getQuestionnaireValue view=%s", view);
         return view.getValue();
     }
 
     @BindingAdapter("questionnaireValueAttrChanged")
     public static void setQuestionnaireValueAttrChanged(QuestionnaireView view, InverseBindingListener listener) {
-        Timber.d("setQuestionnaireValueChanged view=%s, listener=%s", view, listener);
         if (listener == null) {
             view.setListener(null);
         } else {
@@ -100,7 +97,6 @@ public class QuestionnaireView extends CardView {
 
     @BindingAdapter("questionnaireValue")
     public static void setQuestionnaireValue(QuestionnaireView view, String currentValue) {
-        Timber.d("setQuestionnaireValue %s on view=%s", currentValue, view);
         if (!(view.getValue().equals(currentValue))) {
             view.setValue(currentValue);
         }
