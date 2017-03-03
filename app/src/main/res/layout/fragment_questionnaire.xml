@@ -35,6 +35,13 @@
                     app:questionnaireValue="@={viewModel.questionnaire.ageRange}"
                     />
 
+            <io.github.droidkaigi.confsched2017.view.customview.QuestionnaireTextInputView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:questionnaireTitle="テキストインプット"
+                    app:questionnaireDescription="テキストインプットのテスト"
+                    />
+
             <Button
                     android:id="@+id/submit_questionnaire"
                     style="@style/Button.Grey"
