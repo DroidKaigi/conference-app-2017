@@ -20,6 +20,7 @@
     <declare-styleable name="QuestionnaireView">
         <attr name="questionnaireTitle" format="string" />
         <attr name="questionnaireDescription" format="string" />
+        <attr name="hasOtherField" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="QuestionnaireRadioView">
