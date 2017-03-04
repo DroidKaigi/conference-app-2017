@@ -17,7 +17,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class QuestionnaireFragment extends BaseFragment implements QuestionnaireViewModel.Callback {
+public class QuestionnaireFragment extends BaseFragment {
 
     public static QuestionnaireFragment newInstance() {
         return new QuestionnaireFragment();
@@ -63,7 +63,6 @@ public class QuestionnaireFragment extends BaseFragment implements Questionnaire
         compositeDisposable.clear();
     }
 
-    @Override
     public void onClickSubmitQuestionnaire() {
         Questionnaire questionnaire = new Questionnaire();
         // TODO: change or create questionnaire from view.
