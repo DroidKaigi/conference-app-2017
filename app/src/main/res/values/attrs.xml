@@ -32,4 +32,8 @@
         <attr name="checkItemsLabel" format="reference" />
         <attr name="checkItemsValue" format="reference" />
     </declare-styleable>
+
+    <declare-styleable name="QuestionnaireRankingView">
+        <attr name="rankingItemsPostValueArray" format="reference" />
+    </declare-styleable>
 </resources>

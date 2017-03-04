@@ -35,6 +35,17 @@
                     app:questionnaireValue="@={viewModel.questionnaire.ageRange}"
                     />
 
+            <io.github.droidkaigi.confsched2017.view.customview.QuestionnaireRankingView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:questionnaireTitle="@string/questionnaire_title_age"
+                    app:questionnaireDescription="@string/questionnaire_description_age"
+                    app:rankingItemsPostValueArray="@array/questionnaire_values_age"
+                    app:rankingLabelStart="start"
+                    app:rankingLabelEnd="end"
+                    app:questionnaireValue="@={viewModel.questionnaire.androidExperience}"
+                    />
+
             <!-- TODO: replace real data -->
             <io.github.droidkaigi.confsched2017.view.customview.QuestionnaireTextInputView
                     android:layout_width="match_parent"

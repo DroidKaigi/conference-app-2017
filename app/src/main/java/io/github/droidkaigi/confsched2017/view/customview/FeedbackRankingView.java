@@ -16,6 +16,9 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.databinding.ViewFeedbackRankingBinding;
 
@@ -38,7 +41,7 @@ public class FeedbackRankingView extends FrameLayout {
 
     private ViewFeedbackRankingBinding binding;
 
-    private OnCurrentRankingChangeListener listener;
+    private List<OnCurrentRankingChangeListener> listeners;
 
     public FeedbackRankingView(Context context) {
         this(context, null);
@@ -91,9 +94,7 @@ public class FeedbackRankingView extends FrameLayout {
                 unselectAll();
                 v.setSelected(true);
                 currentRanking = number;
-                if (listener != null) {
-                    listener.onCurrentRankingChange(this, currentRanking);
-                }
+                fireEvent(this, currentRanking);
             });
 
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, LayoutParams.WRAP_CONTENT, 1f);
@@ -122,8 +123,21 @@ public class FeedbackRankingView extends FrameLayout {
         }
     }
 
-    public void setListener(OnCurrentRankingChangeListener listener) {
-        this.listener = listener;
+    public void addListener(OnCurrentRankingChangeListener listener) {
+        if (listeners == null) listeners = new ArrayList<>();
+        listeners.add(listener);
+    }
+
+    public void removeListener(OnCurrentRankingChangeListener listener) {
+        listeners.remove(listener);
+    }
+
+    private void fireEvent(FeedbackRankingView view, int currentRanking) {
+        if (listeners != null) {
+            for (OnCurrentRankingChangeListener l : listeners) {
+                l.onCurrentRankingChange(view, currentRanking);
+            }
+        }
     }
 
     public interface OnCurrentRankingChangeListener {
@@ -145,10 +159,8 @@ public class FeedbackRankingView extends FrameLayout {
 
     @BindingAdapter("currentRankingAttrChanged")
     public static void setCurrentRankingAttrChanged(FeedbackRankingView view, InverseBindingListener listener) {
-        if (listener == null) {
-            view.setListener(null);
-        } else {
-            view.setListener((v, currentRanking) -> listener.onChange());
+        if (listener != null) {
+            view.addListener((v, currentRanking) -> listener.onChange());
         }
     }
 
