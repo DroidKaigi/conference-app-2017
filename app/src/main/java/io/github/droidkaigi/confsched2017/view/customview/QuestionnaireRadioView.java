@@ -15,7 +15,7 @@ import io.github.droidkaigi.confsched2017.R;
 
 public class QuestionnaireRadioView extends QuestionnaireView {
     private RadioGroup radioGroup;
-    private String[] keys;
+    private String[] labels;
     private String[] values;
 
     public QuestionnaireRadioView(Context context) {
@@ -35,22 +35,22 @@ public class QuestionnaireRadioView extends QuestionnaireView {
         }
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.QuestionnaireRadioView);
-        int keyId = a.getResourceId(R.styleable.QuestionnaireRadioView_radioItemsKey, -1);
+        int labelId = a.getResourceId(R.styleable.QuestionnaireRadioView_radioItemsKey, -1);
         int valueId = a.getResourceId(R.styleable.QuestionnaireRadioView_radioItemsValue, -1);
         a.recycle();
 
-        keys = getResources().getStringArray(keyId);
+        labels = getResources().getStringArray(labelId);
         values = getResources().getStringArray(valueId);
-        if (keys.length != values.length) {
+        if (labels.length != values.length) {
             throw new RuntimeException("Keys size and values size are not equal.");
         }
 
         radioGroup = new RadioGroup(context, attrs);
         radioGroup.setOrientation(RadioGroup.VERTICAL);
-        for (int i = 0; i < keys.length; i++) {
+        for (int i = 0; i < labels.length; i++) {
             RadioButton button = new RadioButton(context, attrs);
             button.setLayoutParams(new RadioGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            button.setText(keys[i]);
+            button.setText(labels[i]);
             radioGroup.addView(button);
         }
         radioGroup.setOnCheckedChangeListener((group, checkedId) -> setValue(values[checkedId - 1]));

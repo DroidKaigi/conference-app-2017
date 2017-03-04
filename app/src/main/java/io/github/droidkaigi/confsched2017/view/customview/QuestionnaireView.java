@@ -32,7 +32,7 @@ public class QuestionnaireView extends CardView {
     protected String description;
     protected String value;
     protected String otherValue;
-    protected boolean hasOtherField;
+    protected boolean hasItemOther;
     protected OnQuestionnaireValueChangeListener listener;
 
     public QuestionnaireView(Context context) {
@@ -55,7 +55,7 @@ public class QuestionnaireView extends CardView {
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.QuestionnaireView);
         title = a.getString(R.styleable.QuestionnaireView_questionnaireTitle);
         description = a.getString(R.styleable.QuestionnaireView_questionnaireDescription);
-        hasOtherField = a.getBoolean(R.styleable.QuestionnaireView_hasOtherField, false);
+        hasItemOther = a.getBoolean(R.styleable.QuestionnaireView_hasItemOther, false);
         a.recycle();
 
         binding.questionnaireTitle.setText(title);
