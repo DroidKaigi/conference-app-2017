@@ -108,8 +108,8 @@ public class QuestionnaireRadioView extends QuestionnaireView {
         RadioButton button = new RadioButton(context);
         button.setLayoutParams(params);
         button.setText(getResources().getString(R.string.questionnaire_other_field_label));
-        otherCheckBoxId = button.getId();
         radioGroup.addView(button);
+        otherCheckBoxId = button.getId();
 
         otherValueEditText = new EditText(context);
         otherValueEditText.setLayoutParams(params);
@@ -130,7 +130,6 @@ public class QuestionnaireRadioView extends QuestionnaireView {
         });
         otherValueEditText.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) {
-                //TODO: crash here when tapping EditText of other field
                 radioGroup.check(otherCheckBoxId);
             }
         });
