@@ -40,7 +40,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:questionnaireTitle="@string/questionnaire_title_android_user"
-                    app:radioItemsLabel="@array/questionnaire_values_android_user"
+                    app:radioItemsLabel="@array/questionnaire_labels_android_user"
                     app:radioItemsPostValueArray="@array/questionnaire_values_android_user"
                     app:questionnaireValue="@={viewModel.questionnaire.androidExperience}"
                     />
