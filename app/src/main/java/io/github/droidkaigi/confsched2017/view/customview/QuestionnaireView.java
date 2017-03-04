@@ -7,6 +7,7 @@ import android.databinding.InverseBindingAdapter;
 import android.databinding.InverseBindingListener;
 import android.databinding.InverseBindingMethod;
 import android.databinding.InverseBindingMethods;
+import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
@@ -36,6 +37,7 @@ public class QuestionnaireView extends CardView {
     protected static final int OTHER_POST_VALUE_RES_ID = R.string.questionnaire_other_field_post_value;
     protected ViewQuestionnaireBinding binding;
     protected String title;
+    @Nullable
     protected String description;
     protected String value;
     protected String otherValue;
@@ -67,7 +69,11 @@ public class QuestionnaireView extends CardView {
         a.recycle();
 
         binding.questionnaireTitle.setText(title);
-        binding.questionnaireDescription.setText(description);
+        if (description == null) {
+            binding.questionnaireDescription.setVisibility(GONE);
+        } else {
+            binding.questionnaireDescription.setText(description);
+        }
     }
 
     public String getValue() {
