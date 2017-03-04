@@ -103,6 +103,9 @@
     <!-- questionnaire -->
     <string name="questionnaire">Questionnaire</string>
     <string name="send_questionnaire">Send Questionnaire</string>
+    <string name="questionnaire_other_field_post_value" translatable="false">__other_option__</string>
+    <string name="questionnaire_other_field_label">[need translate]その他</string>
+    <string name="questionnaire_other_field_hint">[need translate]optional</string>
     <string name="questionnaire_how_old">How old are you?</string>
     <string name="questionnaire_age_range_10">10~19</string>
     <string name="questionnaire_age_range_20">20~29</string>
