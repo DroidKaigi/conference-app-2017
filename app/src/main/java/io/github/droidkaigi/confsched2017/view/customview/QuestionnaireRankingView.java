@@ -32,14 +32,12 @@ public class QuestionnaireRankingView extends QuestionnaireView {
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        Timber.d("attached to window");
         rankingView.addListener(currentRankingChangedListener);
     }
 
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        Timber.d("detached from window");
         rankingView.removeListener(currentRankingChangedListener);
     }
 }

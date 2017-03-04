@@ -42,12 +42,10 @@ public class QuestionnaireViewModel extends BaseObservable implements ViewModel 
 
     public void onClickSubmitQuestionnaireButton(@SuppressWarnings("unused") View view) {
         // TODO: replace real data
-        // TODO: 連続クリック時の制御
 //        droidKaigiClient.submitQuestionnaire(Questionnaire.createTestData())
 //                .subscribeOn(Schedulers.io())
 //                .observeOn(AndroidSchedulers.mainThread())
 //                .subscribe((response) -> Timber.d("submit success\n%s", response), Timber::e);
-        // TODO: delete this (only in developing)
         Timber.d("test questionnaire=%s", questionnaire);
     }
 

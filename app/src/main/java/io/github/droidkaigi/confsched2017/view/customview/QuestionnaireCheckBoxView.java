@@ -16,7 +16,6 @@ import android.widget.LinearLayout;
 import java.util.ArrayList;
 
 import io.github.droidkaigi.confsched2017.R;
-import timber.log.Timber;
 
 /**
  * Copyright 2017 G-CREATE
@@ -88,7 +87,6 @@ public class QuestionnaireCheckBoxView extends QuestionnaireView implements View
         } else {
             checkedList.remove(values[id]);
         }
-        Timber.d("selected:%d", getMultipleValue().length);
         if (itemChangedListener != null) {
             itemChangedListener.onCheckedItemChanged();
         }
