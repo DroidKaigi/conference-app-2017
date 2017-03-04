@@ -2,6 +2,8 @@ package io.github.droidkaigi.confsched2017.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import android.text.TextUtils;
+
 public class Questionnaire {
 
     @SerializedName("entry.45076472")
@@ -103,10 +105,6 @@ public class Questionnaire {
     public Questionnaire() {
     }
 
-    public boolean isValid() {
-        return true;
-    }
-
     @SuppressWarnings("MalformedFormatString")
     @Override
     public String toString() {
@@ -117,7 +115,7 @@ public class Questionnaire {
                         + "commentForGoods=%s,equipment=%s,youtube=%s,satisfaction=%s,suggestion=%s,wantSpeak=%s,nextTime=%s,"
                         + "attendHistory=%s", ageRange, androidExperience, developmentExperience, jobCategory, jobCategoryOther,
                 jobPosition, jobPositionOther, foundChannel, foundChannelOther, howGotTicket, howGotTicketOther, price,
-                afterParty, commentForPrice, timeTable, priority, commentForTimeTable, sponsorLogo, sponsorBooth, feelingBooth,
+                afterParty, commentForPrice, timeTable, TextUtils.concat(priority), commentForTimeTable, sponsorLogo, sponsorBooth, feelingBooth,
                 commentForBooth, foodAndDrink, commentForFoodAndDrink, goods, commentForGoods, equipment, youtube,
                 satisfaction, suggestion, wantSpeak, nextTime, attendHistory);
     }

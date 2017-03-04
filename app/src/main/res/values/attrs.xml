@@ -28,4 +28,8 @@
         <attr name="radioItemsValue" format="reference" />
     </declare-styleable>
 
+    <declare-styleable name="QuestionnaireCheckBoxView">
+        <attr name="checkItemsLabel" format="reference" />
+        <attr name="checkItemsValue" format="reference" />
+    </declare-styleable>
 </resources>

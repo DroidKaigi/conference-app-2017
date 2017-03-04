@@ -44,6 +44,16 @@
                     app:questionnaireValue="@={viewModel.questionnaire.jobCategory}"
                     />
 
+            <io.github.droidkaigi.confsched2017.view.customview.QuestionnaireCheckBoxView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:questionnaireTitle="@string/questionnaire_title_age"
+                    app:questionnaireDescription="@string/questionnaire_description_age"
+                    app:checkItemsLabel="@array/questionnaire_keys_age"
+                    app:checkItemsValue="@array/questionnaire_values_age"
+                    app:questionnaireMultipleValue="@={viewModel.questionnaire.priority}"
+                    />
+
             <Button
                     android:id="@+id/submit_questionnaire"
                     style="@style/Button.Grey"
