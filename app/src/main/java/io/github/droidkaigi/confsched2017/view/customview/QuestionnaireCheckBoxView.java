@@ -46,7 +46,7 @@ public class QuestionnaireCheckBoxView extends QuestionnaireView implements View
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.QuestionnaireCheckBoxView);
         int labelId = a.getResourceId(R.styleable.QuestionnaireCheckBoxView_checkItemsLabel, 0);
-        int valueId = a.getResourceId(R.styleable.QuestionnaireCheckBoxView_checkItemsValue, 0);
+        int valueId = a.getResourceId(R.styleable.QuestionnaireCheckBoxView_checkItemsPostValueArray, 0);
         a.recycle();
 
         labels = getResources().getStringArray(labelId);

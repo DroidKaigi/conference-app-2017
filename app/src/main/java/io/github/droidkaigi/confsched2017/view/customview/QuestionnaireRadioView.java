@@ -11,6 +11,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import io.github.droidkaigi.confsched2017.R;
+import timber.log.Timber;
 
 /**
  * Copyright 2017 G-CREATE
@@ -19,6 +20,10 @@ import io.github.droidkaigi.confsched2017.R;
 public class QuestionnaireRadioView extends QuestionnaireView {
 
     private RadioGroup radioGroup;
+
+    private int firstCheckBoxId;
+
+    private int otherCheckBoxId;
 
     private EditText otherValueEditText;
 
@@ -48,8 +53,8 @@ public class QuestionnaireRadioView extends QuestionnaireView {
 
     private void parseAttributes(Context context, AttributeSet attrs) {
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.QuestionnaireRadioView);
-        int labelId = a.getResourceId(R.styleable.QuestionnaireRadioView_radioItemsKey, -1);
-        int valueId = a.getResourceId(R.styleable.QuestionnaireRadioView_radioItemsValue, -1);
+        int labelId = a.getResourceId(R.styleable.QuestionnaireRadioView_radioItemsLabel, -1);
+        int valueId = a.getResourceId(R.styleable.QuestionnaireRadioView_radioItemsPostValueArray, -1);
         a.recycle();
 
         labels = getResources().getStringArray(labelId);
@@ -70,19 +75,29 @@ public class QuestionnaireRadioView extends QuestionnaireView {
             button.setLayoutParams(params);
             button.setText(labels[i]);
             radioGroup.addView(button);
+            if (i == 0) {
+                firstCheckBoxId = button.getId();
+            }
         }
         if (hasItemOther) {
             addOtherField(context);
         }
         radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
-            if (checkedId > values.length) {
-                // select other field
-                selectOtherField(true);
-                setValue(getResources().getString(QuestionnaireView.OTHER_POST_VALUE_RES_ID));
+            // if there are two more QuestionnaireRadioView on the same layout checkbox's id dose not start with zero.
+            int i = checkedId - firstCheckBoxId;
+            Timber.d("i=%d checkedId=%d length=%d", i, checkedId, values.length);
+            if (hasItemOther) {
+                if (i >= values.length) {
+                    // select other field
+                    selectOtherField(true);
+                    setValue(getResources().getString(QuestionnaireView.OTHER_POST_VALUE_RES_ID));
+                } else {
+                    setValue(values[i]);
+                    setOtherValue("");
+                    selectOtherField(false);
+                }
             } else {
-                setValue(values[checkedId - 1]);
-                setOtherValue("");
-                selectOtherField(false);
+                setValue(values[i]);
             }
         });
         binding.questionnaireContainer.addView(radioGroup);
@@ -93,6 +108,7 @@ public class QuestionnaireRadioView extends QuestionnaireView {
         RadioButton button = new RadioButton(context);
         button.setLayoutParams(params);
         button.setText(getResources().getString(R.string.questionnaire_other_field_label));
+        otherCheckBoxId = button.getId();
         radioGroup.addView(button);
 
         otherValueEditText = new EditText(context);
@@ -114,7 +130,8 @@ public class QuestionnaireRadioView extends QuestionnaireView {
         });
         otherValueEditText.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) {
-                radioGroup.check(labels.length + 1);
+                //TODO: crash here when tapping EditText of other field
+                radioGroup.check(otherCheckBoxId);
             }
         });
         radioGroup.addView(otherValueEditText);

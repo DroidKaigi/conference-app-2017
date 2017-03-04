@@ -1,90 +1,171 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- This strings must be exactly same with Google Form.
+     https://docs.google.com/forms/d/1SNBvJernnyBwglNentXxpdSUkWI9U6umWdDs4Na8OIU/viewform
+
+     TODO:When fixed form then update this!
+
+     -->
+
     <string-array name="questionnaire_values_age">
-        <item>10代</item>
-        <item>20代</item>
-        <item>30代</item>
-        <item>40代</item>
-        <item>50代</item>
-        <item>60代</item>
-        <item>答えたくない</item>
+        <item>@string/questionnaire_values_age_item_1</item>
+        <item>@string/questionnaire_values_age_item_2</item>
+        <item>@string/questionnaire_values_age_item_3</item>
+        <item>@string/questionnaire_values_age_item_4</item>
+        <item>@string/questionnaire_values_age_item_5</item>
+        <item>@string/questionnaire_values_age_item_6</item>
+        <item>@string/questionnaire_values_age_item_7</item>
     </string-array>
+    <string name="questionnaire_values_age_item_1" translatable="false">10代</string>
+    <string name="questionnaire_values_age_item_2" translatable="false">20代</string>
+    <string name="questionnaire_values_age_item_3" translatable="false">30代</string>
+    <string name="questionnaire_values_age_item_4" translatable="false">40代</string>
+    <string name="questionnaire_values_age_item_5" translatable="false">50代</string>
+    <string name="questionnaire_values_age_item_6" translatable="false">60代</string>
+    <string name="questionnaire_values_age_item_7" translatable="false">答えたくない</string>
+
     <string-array name="questionnaire_values_android_user">
-        <item>なし</item>
-        <item>〜半年未満</item>
-        <item>半年〜1年未満</item>
-        <item>1年〜2年未満</item>
-        <item>2年〜3年未満</item>
-        <item>3年〜4年未満</item>
-        <item>4年〜5年未満</item>
-        <item>5年以上</item>
+        <item>@string/questionnaire_values_android_user_item_1</item>
+        <item>@string/questionnaire_values_android_user_item_2</item>
+        <item>@string/questionnaire_values_android_user_item_3</item>
+        <item>@string/questionnaire_values_android_user_item_4</item>
+        <item>@string/questionnaire_values_android_user_item_5</item>
+        <item>@string/questionnaire_values_android_user_item_6</item>
+        <item>@string/questionnaire_values_android_user_item_7</item>
+        <item>@string/questionnaire_values_android_user_item_8</item>
     </string-array>
+    <string name="questionnaire_values_android_user_item_1" translatable="false">なし</string>
+    <string name="questionnaire_values_android_user_item_2" translatable="false">〜半年未満</string>
+    <string name="questionnaire_values_android_user_item_3" translatable="false">半年〜1年未満</string>
+    <string name="questionnaire_values_android_user_item_4" translatable="false">1年〜2年未満</string>
+    <string name="questionnaire_values_android_user_item_5" translatable="false">2年〜3年未満</string>
+    <string name="questionnaire_values_android_user_item_6" translatable="false">3年〜4年未満</string>
+    <string name="questionnaire_values_android_user_item_7" translatable="false">4年〜5年未満</string>
+    <string name="questionnaire_values_android_user_item_8" translatable="false">5年以上</string>
+
     <string-array name="questionnaire_values_android_developer">
-        <item>なし</item>
-        <item>〜半年未満</item>
-        <item>半年〜1年未満</item>
-        <item>1年〜2年未満</item>
-        <item>2年〜3年未満</item>
-        <item>3年〜4年未満</item>
-        <item>4年〜5年未満</item>
-        <item>5年以上</item>
+        <item>@string/questionnaire_values_android_developer_item_1</item>
+        <item>@string/questionnaire_values_android_developer_item_2</item>
+        <item>@string/questionnaire_values_android_developer_item_3</item>
+        <item>@string/questionnaire_values_android_developer_item_4</item>
+        <item>@string/questionnaire_values_android_developer_item_5</item>
+        <item>@string/questionnaire_values_android_developer_item_6</item>
+        <item>@string/questionnaire_values_android_developer_item_7</item>
+        <item>@string/questionnaire_values_android_developer_item_8</item>
     </string-array>
+    <string name="questionnaire_values_android_developer_item_1" translatable="false">なし</string>
+    <string name="questionnaire_values_android_developer_item_2" translatable="false">〜半年未満</string>
+    <string name="questionnaire_values_android_developer_item_3" translatable="false">半年〜1年未満</string>
+    <string name="questionnaire_values_android_developer_item_4" translatable="false">1年〜2年未満</string>
+    <string name="questionnaire_values_android_developer_item_5" translatable="false">2年〜3年未満</string>
+    <string name="questionnaire_values_android_developer_item_6" translatable="false">3年〜4年未満</string>
+    <string name="questionnaire_values_android_developer_item_7" translatable="false">4年〜5年未満</string>
+    <string name="questionnaire_values_android_developer_item_8" translatable="false">5年以上</string>
+
     <string-array name="questionnaire_values_job_category">
-        <item>エンジニア（Android）</item>
-        <item>エンジニア（非Android）</item>
-        <item>企画・マーケティング</item>
-        <item>デザイナー</item>
-        <item>営業</item>
-        <item>人事</item>
-        <item>メディア関係</item>
-        <item>教育関係</item>
-        <item>学生</item>
-        <item>答えたくない</item>
-        <item>__other_option__</item>
+        <item>@string/questionnaire_values_job_category_item_1</item>
+        <item>@string/questionnaire_values_job_category_item_2</item>
+        <item>@string/questionnaire_values_job_category_item_3</item>
+        <item>@string/questionnaire_values_job_category_item_4</item>
+        <item>@string/questionnaire_values_job_category_item_5</item>
+        <item>@string/questionnaire_values_job_category_item_6</item>
+        <item>@string/questionnaire_values_job_category_item_7</item>
+        <item>@string/questionnaire_values_job_category_item_8</item>
+        <item>@string/questionnaire_values_job_category_item_9</item>
+        <item>@string/questionnaire_values_job_category_item_10</item>
     </string-array>
+    <string name="questionnaire_values_job_category_item_1" translatable="false">エンジニア（Android）</string>
+    <string name="questionnaire_values_job_category_item_2" translatable="false">エンジニア（非Android）</string>
+    <string name="questionnaire_values_job_category_item_3" translatable="false">企画・マーケティング</string>
+    <string name="questionnaire_values_job_category_item_4" translatable="false">デザイナー</string>
+    <string name="questionnaire_values_job_category_item_5" translatable="false">営業</string>
+    <string name="questionnaire_values_job_category_item_6" translatable="false">人事</string>
+    <string name="questionnaire_values_job_category_item_7" translatable="false">メディア関係</string>
+    <string name="questionnaire_values_job_category_item_8" translatable="false">教育関係</string>
+    <string name="questionnaire_values_job_category_item_9" translatable="false">学生</string>
+    <string name="questionnaire_values_job_category_item_10" translatable="false">答えたくない</string>
+
     <string-array name="questionnaire_values_job_title">
-        <item>経営者</item>
-        <item>マネージャ</item>
-        <item>リード、シニア、チーフエンジニア</item>
-        <item>エンジニア</item>
-        <item>学生の方：主な作業としてプログラムを書く</item>
-        <item>学生の方：主な作業としてプログラムは書かない</item>
-        <item>答えたくない</item>
-        <item>__other_option__</item>
+        <item>@string/questionnaire_values_job_title_item_1</item>
+        <item>@string/questionnaire_values_job_title_item_2</item>
+        <item>@string/questionnaire_values_job_title_item_3</item>
+        <item>@string/questionnaire_values_job_title_item_4</item>
+        <item>@string/questionnaire_values_job_title_item_5</item>
+        <item>@string/questionnaire_values_job_title_item_6</item>
+        <item>@string/questionnaire_values_job_title_item_7</item>
     </string-array>
+    <string name="questionnaire_values_job_title_item_1" translatable="false">経営者</string>
+    <string name="questionnaire_values_job_title_item_2" translatable="false">マネージャ</string>
+    <string name="questionnaire_values_job_title_item_3" translatable="false">リード、シニア、チーフエンジニア</string>
+    <string name="questionnaire_values_job_title_item_4" translatable="false">エンジニア</string>
+    <string name="questionnaire_values_job_title_item_5" translatable="false">学生の方：主な作業としてプログラムを書く</string>
+    <string name="questionnaire_values_job_title_item_6" translatable="false">学生の方：主な作業としてプログラムは書かない</string>
+    <string name="questionnaire_values_job_title_item_7" translatable="false">答えたくない</string>
+
     <string-array name="questionnaire_values_attendance">
-        <item>2015に参加した</item>
-        <item>2016に参加した</item>
-        <item>初めて参加した</item>
+        <item>@string/questionnaire_values_attendance_item_1</item>
+        <item>@string/questionnaire_values_attendance_item_2</item>
+        <item>@string/questionnaire_values_attendance_item_3</item>
     </string-array>
+    <string name="questionnaire_values_attendance_item_1" translatable="false">2015に参加した</string>
+    <string name="questionnaire_values_attendance_item_2" translatable="false">2016に参加した</string>
+    <string name="questionnaire_values_attendance_item_3" translatable="false">初めて参加した</string>
+
     <string-array name="questionnaire_values_found">
-        <item>Twitter</item>
-        <item>Facebook</item>
-        <item>Google+</item>
-        <item tools:ignore="TypographyEllipsis">チケットサービスのメール（connpass, doorkeeper, etc...）</item>
-        <item tools:ignore="TypographyEllipsis">ポッドキャスト(dex.fm, デブ☆ラジ, etc...)</item>
-        <item>ニュースサイト</item>
-        <item>ブログ・日記</item>
-        <item>社内・グループチャット</item>
-        <item>同僚・知人からの直接紹介</item>
-        <item>インターネット広告・AdWords</item>
-        <item>__other_option__</item>
+        <item>@string/questionnaire_values_found_item_1</item>
+        <item>@string/questionnaire_values_found_item_2</item>
+        <item>@string/questionnaire_values_found_item_3</item>
+        <item>@string/questionnaire_values_found_item_4</item>
+        <item>@string/questionnaire_values_found_item_5</item>
+        <item>@string/questionnaire_values_found_item_6</item>
+        <item>@string/questionnaire_values_found_item_7</item>
+        <item>@string/questionnaire_values_found_item_8</item>
+        <item>@string/questionnaire_values_found_item_9</item>
+        <item>@string/questionnaire_values_found_item_10</item>
     </string-array>
+    <string name="questionnaire_values_found_item_1" translatable="false">Twitter</string>
+    <string name="questionnaire_values_found_item_2" translatable="false">Facebook</string>
+    <string name="questionnaire_values_found_item_3" translatable="false">Google+</string>
+    <string name="questionnaire_values_found_item_4" translatable="false" tools:ignore="TypographyEllipsis">チケットサービスのメール（connpass, doorkeeper, etc...）</string>
+    <string name="questionnaire_values_found_item_5" translatable="false" tools:ignore="TypographyEllipsis">ポッドキャスト(dex.fm, デブ☆ラジ, etc...)</string>
+    <string name="questionnaire_values_found_item_6" translatable="false">ニュースサイト</string>
+    <string name="questionnaire_values_found_item_7" translatable="false">ブログ・日記</string>
+    <string name="questionnaire_values_found_item_8" translatable="false">社内・グループチャット</string>
+    <string name="questionnaire_values_found_item_9" translatable="false">同僚・知人からの直接紹介</string>
+    <string name="questionnaire_values_found_item_10" translatable="false">インターネット広告・AdWords</string>
+
     <string-array name="questionnaire_values_ticket">
-        <item>Regular(¥8,000)</item>
-        <item>Early Bird: incl. AfterParty (¥8,000)</item>
-        <item>Students: incl. AfterParty (¥4,000)</item>
-        <item>Regular: incl. AfterParty (¥12,000)</item>
-        <item>From presenter</item>
-        <item>Presenter</item>
-        <item>Guest</item>
-        <item>Other</item>
+        <item>@string/questionnaire_values_ticket_item_1</item>
+        <item>@string/questionnaire_values_ticket_item_2</item>
+        <item>@string/questionnaire_values_ticket_item_3</item>
+        <item>@string/questionnaire_values_ticket_item_4</item>
+        <item>@string/questionnaire_values_ticket_item_5</item>
+        <item>@string/questionnaire_values_ticket_item_6</item>
+        <item>@string/questionnaire_values_ticket_item_7</item>
     </string-array>
-    <string-array name="questionnaire_value_ticket_with_after_patry">
-        <item>良い</item>
-        <item>普通・何も感じない</item>
-        <item>悪い</item>
+    <string name="questionnaire_values_ticket_item_1" translatable="false">一般 / Regular (¥8,000)</string>
+    <string name="questionnaire_values_ticket_item_2" translatable="false">早期割引（アフターパーティ込）/Early Bird: incl. AfterParty (¥8,000)</string>
+    <string name="questionnaire_values_ticket_item_3" translatable="false">学生割引（アフターパーティ込）/Students: incl. AfterParty (¥4,000)</string>
+    <string name="questionnaire_values_ticket_item_4" translatable="false">一般（アフターパーティ込）/Regular: incl. AfterParty (¥12,000)</string>
+    <string name="questionnaire_values_ticket_item_5" translatable="false">トーク応募者への取り置き (¥8,000)</string>
+    <string name="questionnaire_values_ticket_item_6" translatable="false">トーク採択者（講演者）チケット</string>
+    <string name="questionnaire_values_ticket_item_7" translatable="false">ゲスト（企業ブース担当、スポンサー、etc...）</string>
+
+    <string-array name="questionnaire_values_ticket_price">
+        <item>@string/questionnaire_values_ticket_price_item_1</item>
+        <item>@string/questionnaire_values_ticket_price_item_2</item>
+        <item>@string/questionnaire_values_ticket_price_item_3</item>
     </string-array>
+    <string name="questionnaire_values_ticket_price_item_1" translatable="false">高い</string>
+    <string name="questionnaire_values_ticket_price_item_2" translatable="false">妥当</string>
+    <string name="questionnaire_values_ticket_price_item_3" translatable="false">安い</string>
 
-
+    <string-array name="questionnaire_values_ticket_with_after_party">
+        <item>@string/questionnaire_values_ticket_with_after_party_item_1</item>
+        <item>@string/questionnaire_values_ticket_with_after_party_item_2</item>
+        <item>@string/questionnaire_values_ticket_with_after_party_item_3</item>
+    </string-array>
+    <string name="questionnaire_values_ticket_with_after_party_item_1" translatable="false">良い</string>
+    <string name="questionnaire_values_ticket_with_after_party_item_2" translatable="false">普通・何も感じない</string>
+    <string name="questionnaire_values_ticket_with_after_party_item_3" translatable="false">悪い</string>
 </resources>

@@ -21,20 +21,23 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/questionnaire_title"
-                    tools:text="年齢"
+                    style="@style/TextTitle"
+                    tools:text="@string/questionnaire_title_age"
                     />
 
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/questionnaire_description"
-                    tools:text="あなたの年齢を教えてください"
+                    style="@style/TextCaption"
+                    tools:text="@string/questionnaire_description_age"
                     />
 
             <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/questionnaire_container"
+                    android:layout_marginTop="@dimen/space_8dp"
                     />
 
         </LinearLayout>

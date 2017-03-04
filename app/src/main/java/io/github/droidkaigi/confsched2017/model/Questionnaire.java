@@ -31,16 +31,16 @@ public class Questionnaire {
     public String foundChannel;
 
     @SerializedName("entry.779173573")
-    public String attendHistory;
+    public String[] attendHistory;
 
     @SerializedName("entry.1035760212.other_option_response")
     public String foundChannelOther;
 
     @SerializedName("entry.676422586")
-    public String howGotTicket;
+    public String whichTicket;
 
     @SerializedName("entry.676422586.other_option_response")
-    public String howGotTicketOther;
+    public String whichTicketOther;
 
     @SerializedName("entry.1832736685")
     public String price;
@@ -91,7 +91,7 @@ public class Questionnaire {
     public String youtube;
 
     @SerializedName("entry.814658876")
-    public int satisfaction;
+    public String satisfaction;
 
     @SerializedName("entry.1505426067")
     public String suggestion;
@@ -107,17 +107,20 @@ public class Questionnaire {
 
     @SuppressWarnings("MalformedFormatString")
     @Override
+    //TODO: delete this (for developing)
     public String toString() {
+        String ah = attendHistory != null ? (String) TextUtils.concat(attendHistory) : null;
+        String pri = priority != null ? (String) TextUtils.concat(priority) : null;
         return String.format("ageRange=%s,androidExperience=%s,developmentExperience=%s,jobCategory=%s,jobCategoryOther=%s,"
-                        + "jobPosition=%s,jobPositionOther=%s,foundChannel=%s,foundChannelOther=%s,howGotTicket=%s,howGotTicketOther=%s,"
+                        + "jobPosition=%s,jobPositionOther=%s,attendHistory=%s,foundChannel=%s,foundChannelOther=%s,whichTicket=%s,whichTicketOther=%s,"
                         + "price=%s,afterParty=%s,commentForPrice=%s,timeTable=%s,priority=%s,commentForTimeTable=%s,sponsorLogo=%s,"
                         + "sponsorBooth=%s,feelingBooth=%s,commentForBooth=%s,foodAndDrink=%s,commentForFoodAndDrink=%s,goods=%s,"
                         + "commentForGoods=%s,equipment=%s,youtube=%s,satisfaction=%s,suggestion=%s,wantSpeak=%s,nextTime=%s,"
-                        + "attendHistory=%s", ageRange, androidExperience, developmentExperience, jobCategory, jobCategoryOther,
-                jobPosition, jobPositionOther, foundChannel, foundChannelOther, howGotTicket, howGotTicketOther, price,
-                afterParty, commentForPrice, timeTable, TextUtils.concat(priority), commentForTimeTable, sponsorLogo, sponsorBooth, feelingBooth,
+                        , ageRange, androidExperience, developmentExperience, jobCategory, jobCategoryOther,
+                jobPosition, jobPositionOther, ah, foundChannel, foundChannelOther, whichTicket, whichTicketOther, price,
+                afterParty, commentForPrice, timeTable, pri, commentForTimeTable, sponsorLogo, sponsorBooth, feelingBooth,
                 commentForBooth, foodAndDrink, commentForFoodAndDrink, goods, commentForGoods, equipment, youtube,
-                satisfaction, suggestion, wantSpeak, nextTime, attendHistory);
+                satisfaction, suggestion, wantSpeak, nextTime);
     }
 
     // TODO: delete this (for developing)
@@ -130,10 +133,11 @@ public class Questionnaire {
         q.jobCategoryOther = "テストデータです by gen0083";
         q.jobPosition = "__other_option__";
         q.jobPositionOther = "テストデータです by gen0083";
+        q.attendHistory = new String[]{"初めて参加した"};
         q.foundChannel = "__other_option__";
         q.foundChannelOther = "テストデータです by gen0083";
-        q.howGotTicket = "__other_option__";
-        q.howGotTicketOther = "テストデータです by gen0083";
+        q.whichTicket = "__other_option__";
+        q.whichTicketOther = "テストデータです by gen0083";
         q.price = "妥当";
         q.afterParty = "良い";
         q.commentForPrice = "テストデータです by gen0083";
@@ -150,11 +154,10 @@ public class Questionnaire {
         q.commentForGoods = "テストデータです by gen0083";
         q.equipment = "良い";
         q.youtube = "だいたい見た";
-        q.satisfaction = 5;
+        q.satisfaction = "5";
         q.suggestion = "テストデータです by gen0083";
         q.wantSpeak = "わからない";
         q.nextTime = "わからない";
-        q.attendHistory = "初めて参加した";
         return q;
     }
 }

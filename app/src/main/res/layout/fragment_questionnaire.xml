@@ -31,41 +31,114 @@
                     android:layout_height="wrap_content"
                     app:questionnaireTitle="@string/questionnaire_title_age"
                     app:questionnaireDescription="@string/questionnaire_description_age"
-                    app:radioItemsKey="@array/questionnaire_keys_age"
-                    app:radioItemsValue="@array/questionnaire_values_age"
-                    app:hasItemOther="true"
+                    app:radioItemsLabel="@array/questionnaire_labels_age"
+                    app:radioItemsPostValueArray="@array/questionnaire_values_age"
                     app:questionnaireValue="@={viewModel.questionnaire.ageRange}"
-                    app:questionnaireOtherValue="@={viewModel.questionnaire.developmentExperience}"
                     />
 
-            <io.github.droidkaigi.confsched2017.view.customview.QuestionnaireRankingView
+            <io.github.droidkaigi.confsched2017.view.customview.QuestionnaireRadioView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:questionnaireTitle="@string/questionnaire_title_age"
-                    app:questionnaireDescription="@string/questionnaire_description_age"
-                    app:rankingItemsPostValueArray="@array/questionnaire_values_age"
-                    app:rankingLabelStart="start"
-                    app:rankingLabelEnd="end"
+                    app:questionnaireTitle="@string/questionnaire_title_android_user"
+                    app:radioItemsLabel="@array/questionnaire_values_android_user"
+                    app:radioItemsPostValueArray="@array/questionnaire_values_android_user"
                     app:questionnaireValue="@={viewModel.questionnaire.androidExperience}"
                     />
 
-            <!-- TODO: replace real data -->
-            <io.github.droidkaigi.confsched2017.view.customview.QuestionnaireTextInputView
+            <io.github.droidkaigi.confsched2017.view.customview.QuestionnaireRadioView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:questionnaireTitle="テキストインプット"
-                    app:questionnaireDescription="テキストインプットのテスト"
+                    app:questionnaireTitle="@string/questionnaire_title_android_developer"
+                    app:radioItemsLabel="@array/questionnaire_labels_android_developer"
+                    app:radioItemsPostValueArray="@array/questionnaire_values_android_developer"
+                    app:questionnaireValue="@={viewModel.questionnaire.developmentExperience}"
+                    />
+
+            <io.github.droidkaigi.confsched2017.view.customview.QuestionnaireRadioView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:questionnaireTitle="@string/questionnaire_title_job_category"
+                    app:hasItemOther="true"
+                    app:radioItemsLabel="@array/questionnaire_labels_job_category"
+                    app:radioItemsPostValueArray="@array/questionnaire_values_job_category"
                     app:questionnaireValue="@={viewModel.questionnaire.jobCategory}"
+                    app:questionnaireOtherValue="@={viewModel.questionnaire.jobCategoryOther}"
+                    />
+
+            <io.github.droidkaigi.confsched2017.view.customview.QuestionnaireRadioView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:questionnaireTitle="@string/questionnaire_title_job_title"
+                    app:hasItemOther="true"
+                    app:radioItemsLabel="@array/questionnaire_labels_job_title"
+                    app:radioItemsPostValueArray="@array/questionnaire_values_job_title"
+                    app:questionnaireValue="@={viewModel.questionnaire.jobPosition}"
+                    app:questionnaireOtherValue="@={viewModel.questionnaire.jobPositionOther}"
                     />
 
             <io.github.droidkaigi.confsched2017.view.customview.QuestionnaireCheckBoxView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:questionnaireTitle="@string/questionnaire_title_age"
-                    app:questionnaireDescription="@string/questionnaire_description_age"
-                    app:checkItemsLabel="@array/questionnaire_keys_age"
-                    app:checkItemsValue="@array/questionnaire_values_age"
-                    app:questionnaireMultipleValue="@={viewModel.questionnaire.priority}"
+                    app:questionnaireTitle="@string/questionnaire_title_attendance"
+                    app:checkItemsLabel="@array/questionnaire_labels_attendance"
+                    app:checkItemsPostValueArray="@array/questionnaire_values_attendance"
+                    app:questionnaireMultipleValue="@={viewModel.questionnaire.attendHistory}"
+                    />
+
+            <io.github.droidkaigi.confsched2017.view.customview.QuestionnaireRadioView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:questionnaireTitle="@string/questionnaire_title_found"
+                    app:hasItemOther="true"
+                    app:radioItemsLabel="@array/questionnaire_labels_found"
+                    app:radioItemsPostValueArray="@array/questionnaire_values_found"
+                    app:questionnaireValue="@={viewModel.questionnaire.foundChannel}"
+                    app:questionnaireOtherValue="@={viewModel.questionnaire.foundChannelOther}"
+                    />
+
+            <io.github.droidkaigi.confsched2017.view.customview.QuestionnaireRadioView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:questionnaireTitle="@string/questionnaire_title_ticket"
+                    app:hasItemOther="true"
+                    app:radioItemsLabel="@array/questionnaire_labels_ticket"
+                    app:radioItemsPostValueArray="@array/questionnaire_values_ticket"
+                    app:questionnaireValue="@={viewModel.questionnaire.whichTicket}"
+                    app:questionnaireOtherValue="@={viewModel.questionnaire.whichTicketOther}"
+                    />
+
+            <io.github.droidkaigi.confsched2017.view.customview.QuestionnaireRadioView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:questionnaireTitle="@string/questionnaire_title_ticket_price"
+                    app:radioItemsLabel="@array/questionnaire_labels_ticket_price"
+                    app:radioItemsPostValueArray="@array/questionnaire_values_ticket_price"
+                    app:questionnaireValue="@={viewModel.questionnaire.price}"
+                    />
+
+            <io.github.droidkaigi.confsched2017.view.customview.QuestionnaireRadioView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:questionnaireTitle="@string/questionnaire_title_ticket_with_after_party"
+                    app:radioItemsLabel="@array/questionnaire_labels_ticket_with_after_party"
+                    app:radioItemsPostValueArray="@array/questionnaire_values_ticket_with_after_party"
+                    app:questionnaireValue="@={viewModel.questionnaire.afterParty}"
+                    />
+
+            <io.github.droidkaigi.confsched2017.view.customview.QuestionnaireTextInputView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:questionnaireTitle="@string/questionnaire_title_ticket_price_opinion"
+                    app:questionnaireValue="@={viewModel.questionnaire.commentForPrice}"
+                    />
+
+            <io.github.droidkaigi.confsched2017.view.customview.QuestionnaireRankingView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:questionnaireTitle="@string/questionnaire_title_satisfaction"
+                    app:rankingLabelStart="@string/questionnaire_label_satisfaction_start"
+                    app:rankingLabelEnd="@string/questionnaire_label_satisfaction_end"
+                    app:questionnaireValue="@={viewModel.questionnaire.satisfaction}"
                     />
 
             <Button
