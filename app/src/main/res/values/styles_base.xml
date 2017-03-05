@@ -70,6 +70,11 @@
         <item name="android:background">@color/grey200</item>
     </style>
 
+    <style name="Border.Vertical">
+        <item name="android:layout_width">@dimen/border_1dp</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
 
     <!-- Component -->
     <style name="BaseRecyclerView">
