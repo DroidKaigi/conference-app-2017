@@ -54,7 +54,8 @@ public class MapFragment extends BaseFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.item_nav:
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("google.navigation:q=35.6962371,139.6910577&mode=transit"));
+                Intent intent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("google.navigation:q=35.6962371,139.6910577&mode=transit"));
                 startActivity(intent);
                 return true;
             default:
