@@ -1,8 +1,6 @@
 package io.github.droidkaigi.confsched2017.view.fragment;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -12,14 +10,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import javax.inject.Inject;
+
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.databinding.FragmentMapBinding;
+import io.github.droidkaigi.confsched2017.viewmodel.MapViewModel;
 
 public class MapFragment extends BaseFragment {
 
     public static final String TAG = MapFragment.class.getSimpleName();
 
     private FragmentMapBinding binding;
+
+    @Inject
+    MapViewModel viewModel;
 
     public static MapFragment newInstance() {
         return new MapFragment();
@@ -54,9 +58,7 @@ public class MapFragment extends BaseFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.item_nav:
-                Intent intent = new Intent(Intent.ACTION_VIEW,
-                        Uri.parse("google.navigation:q=35.6962371,139.6910577&mode=transit"));
-                startActivity(intent);
+                viewModel.onClickRouteMenu();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

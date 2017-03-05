@@ -52,13 +52,10 @@
     <string name="map_address_title">Address</string>
     <string name="map_address_value">Bellesalle Shinjuku Grand Conference Center\nSumitomo Fudosan Shinjuku Grand Tower 5F\n8–17–3 Nishi Shinjuku, Shinjuku City, Tokyo 160–0023</string>
     <string name="map_access_title">Access by Train</string>
-    <string name="map_access_value_1">Marunouchi subway line: 3 minutes walk from Nishi Shinjuku Station Gate No.1</string>
-    <string name="map_access_value_2">Toei Oedo subway line: 7 minutes walk from Tochomae Station Gate E4</string>
-    <string name="map_access_value_3">Toei Oedo subway line: 11 minutes walk from Shinjuku-Nishiguchi Station Gate D4</string>
-    <string name="map_access_value_4">JR lines, Marunouchi/Toei Shinjuku/Toei Oedo subway line, Odakyu line, Keio line: 15 minutes walk from Shinjuku Station West Gate</string>
-    <string name="map_route_guide">Route guidance to Bellesalle Shinjuku Grand</string>
+    <string name="map_access_value">- Marunouchi subway line: 3 minutes walk from Nishi Shinjuku Station Gate No.1\n- Toei Oedo subway line: 7 minutes walk from Tochomae Station Gate E4\n- Toei Oedo subway line: 11 minutes walk from Shinjuku-Nishiguchi Station Gate D4\n- JR lines, Marunouchi/Toei Shinjuku/Toei Oedo subway line, Odakyu line, Keio line: 15 minutes walk from Shinjuku Station West Gate</string>
+    <string name="map_route_guide_url">https://droidkaigi.github.io/2017/en/route.html</string>
 
-    
+
     <!-- Settings -->
     <string name="settings_language">Change language</string>
     <string name="settings_language_description">Choose language in this app. After changed, app will restart.</string>

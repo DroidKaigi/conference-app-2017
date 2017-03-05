@@ -26,6 +26,10 @@
         <item name="fontPath">@string/font_noto_cjk_regular</item>
     </style>
 
+    <style name="TextCaption.Purple">
+        <item name="android:textColor">@color/purple</item>
+    </style>
+
 
     <!--==================== Clicker ====================-->
     <style name="ClickCover">
