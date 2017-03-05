@@ -11,6 +11,8 @@ import io.github.droidkaigi.confsched2017.model.MySession;
 import io.github.droidkaigi.confsched2017.model.Session;
 import io.github.droidkaigi.confsched2017.util.DateUtil;
 import io.github.droidkaigi.confsched2017.util.LocaleUtil;
+import io.github.droidkaigi.confsched2017.view.activity.MySessionsActivity;
+import io.github.droidkaigi.confsched2017.view.activity.SessionDetailActivity;
 import io.github.droidkaigi.confsched2017.view.helper.Navigator;
 
 public class MySessionViewModel extends BaseObservable implements ViewModel {
@@ -71,7 +73,7 @@ public class MySessionViewModel extends BaseObservable implements ViewModel {
     }
 
     public void onItemClick(@SuppressWarnings("unused") View view) {
-        navigator.navigateToSessionDetail(mySession.session);
+        navigator.navigateToSessionDetail(mySession.session, MySessionsActivity.class);
     }
 
 }
