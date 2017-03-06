@@ -71,6 +71,7 @@ class ContributorsLocalDataSourceTest {
         }
     }
 
+    @Ignore
     @Test
     fun updateAllAsyncAsUpdate() {
         ormaDatabase.apply {

@@ -26,6 +26,10 @@
         <item name="fontPath">@string/font_noto_cjk_regular</item>
     </style>
 
+    <style name="TextCaption.Purple">
+        <item name="android:textColor">@color/purple</item>
+    </style>
+
 
     <!--==================== Clicker ====================-->
     <style name="ClickCover">
@@ -64,6 +68,11 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/line_1dp</item>
         <item name="android:background">@color/grey200</item>
+    </style>
+
+    <style name="Border.Vertical">
+        <item name="android:layout_width">@dimen/border_1dp</item>
+        <item name="android:layout_height">match_parent</item>
     </style>
 
 

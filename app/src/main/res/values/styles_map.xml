@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="MapCell">
+        <item name="android:padding">@dimen/space_8dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="layout_alignSelf">flex_start</item>
+        <item name="layout_flexBasisPercent">100%</item>
+    </style>
+
+    <style name="MapCell.Title">
+        <item name="layout_flexBasisPercent">20%</item>
+        <item name="android:textAppearance">@style/TextCaption.Purple</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="MapCell.Value">
+        <item name="layout_flexBasisPercent">80%</item>
+        <item name="android:textAppearance">@style/TextCaption</item>
+        <item name="android:textIsSelectable">true</item>
+    </style>
+
+</resources>
