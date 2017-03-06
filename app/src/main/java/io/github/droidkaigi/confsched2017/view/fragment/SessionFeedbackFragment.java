@@ -6,6 +6,7 @@ import com.sys1yagi.fragmentcreator.annotation.FragmentCreator;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 
 import javax.inject.Inject;
 
+import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.databinding.FragmentSessionFeedbackBinding;
 import io.github.droidkaigi.confsched2017.viewmodel.SessionFeedbackViewModel;
 
@@ -62,13 +64,20 @@ public class SessionFeedbackFragment extends BaseFragment implements SessionFeed
 
     @Override
     public void onSuccessSubmit() {
-        // TODO: show success action
-        Toast.makeText(getContext(), "submit success", Toast.LENGTH_SHORT).show();
+        showToast(R.string.session_feedback_submit_success);
     }
 
     @Override
     public void onErrorSubmit() {
-        // TODO: show failure action
-        Toast.makeText(getContext(), "submit failure", Toast.LENGTH_SHORT).show();
+        showToast(R.string.session_feedback_submit_failure);
+    }
+
+    @Override
+    public void onErrorUnFilled() {
+        showToast(R.string.session_feedback_error_not_filled);
+    }
+
+    private void showToast(@StringRes int messageResId) {
+        Toast.makeText(getContext(), messageResId, Toast.LENGTH_SHORT).show();
     }
 }

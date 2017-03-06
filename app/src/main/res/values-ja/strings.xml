@@ -84,6 +84,8 @@
     <string name="session_feedback_submit_failure">送信に失敗しました。</string>
     <string name="session_feedback_submit_success">送信しました。</string>
     <string name="session_feedback_error_not_filled">未入力の項目があります。</string>
+    <string name="session_feedback_confirm_title">送信してよろしいですか？</string>
+    <string name="session_feedback_confirm_message">送信後に編集することはできません。</string>
     <!-- Notification -->
     <string name="notification_title">%1$s がもうすぐ始まります。</string>
     <string name="notification_message">%1$s ~ %2$s @ %3$s</string>

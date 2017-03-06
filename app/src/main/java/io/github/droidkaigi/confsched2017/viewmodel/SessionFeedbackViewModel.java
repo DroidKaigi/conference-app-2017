@@ -11,10 +11,12 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 
+import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.model.Session;
 import io.github.droidkaigi.confsched2017.model.SessionFeedback;
 import io.github.droidkaigi.confsched2017.repository.feedbacks.SessionFeedbackRepository;
 import io.github.droidkaigi.confsched2017.repository.sessions.SessionsRepository;
+import io.github.droidkaigi.confsched2017.view.helper.Navigator;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -29,6 +31,8 @@ public final class SessionFeedbackViewModel extends BaseObservable implements Vi
     private final SessionsRepository sessionsRepository;
 
     private final SessionFeedbackRepository sessionFeedbackRepository;
+
+    private final Navigator navigator;
 
     private final CompositeDisposable compositeDisposable;
 
@@ -51,9 +55,11 @@ public final class SessionFeedbackViewModel extends BaseObservable implements Vi
     @Inject
     SessionFeedbackViewModel(SessionsRepository sessionsRepository,
             SessionFeedbackRepository sessionFeedbackRepository,
+            Navigator navigator,
             CompositeDisposable compositeDisposable) {
         this.sessionsRepository = sessionsRepository;
         this.sessionFeedbackRepository = sessionFeedbackRepository;
+        this.navigator = navigator;
         this.compositeDisposable = compositeDisposable;
     }
 
@@ -93,6 +99,28 @@ public final class SessionFeedbackViewModel extends BaseObservable implements Vi
     public void onClickSubmitFeedbackButton(@SuppressWarnings("unused") View view) {
         SessionFeedback sessionFeedback =
                 new SessionFeedback(session, relevancy, asExpected, difficulty, knowledgeable, comment);
+        if (sessionFeedback.isAllFilled()) {
+            navigator.showConfirmDialog(R.string.session_feedback_confirm_title,
+                    R.string.session_feedback_confirm_message,
+                    new Navigator.ConfirmDialogListener() {
+                        @Override
+                        public void onClickPositiveButton() {
+                            submit(sessionFeedback);
+                        }
+
+                        @Override
+                        public void onClickNegativeButton() {
+                            // Do nothing
+                        }
+                    });
+        } else {
+            if (callback != null) {
+                callback.onErrorUnFilled();
+            }
+        }
+    }
+
+    private void submit(SessionFeedback sessionFeedback) {
         compositeDisposable.add(sessionFeedbackRepository.submit(sessionFeedback)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -166,5 +194,7 @@ public final class SessionFeedbackViewModel extends BaseObservable implements Vi
         void onSuccessSubmit();
 
         void onErrorSubmit();
+
+        void onErrorUnFilled();
     }
 }
