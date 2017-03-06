@@ -38,4 +38,13 @@ public class SessionFeedback {
         this.knowledgeable = knowledgeable;
         this.comment = comment;
     }
+
+    public boolean isAllFilled() {
+        return sessionId > 0
+                && sessionTitle != null
+                && relevancy > 0
+                && asExpected > 0
+                && difficulty > 0
+                && knowledgeable > 0;
+    }
 }

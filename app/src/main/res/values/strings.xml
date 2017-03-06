@@ -122,6 +122,8 @@
     <string name="session_feedback_submit_failure">Submit failed</string>
     <string name="session_feedback_submit_success">Submit succeeded</string>
 
+    <string name="session_feedback_error_not_filled">There are unfilled items.</string>
+
     <!-- Search -->
     <string name="search">Search</string>
     <string name="search_hint">Search by keywords</string>
