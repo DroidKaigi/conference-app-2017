@@ -8,9 +8,15 @@ import retrofit2.http.POST;
 
 public interface GoogleFormService {
 
-    // TODO: change test url and add form item
-    @POST("1FAIpQLSeSr-Tn3TnNum2md8l3jCZa0cnMYMXXaouHomubecdaRlGFCQ/formResponse")
+    @POST("e/1FAIpQLSf5NydpYm48GXqlKqbG3e0dna3bw5HJ4GUg8W1Yfe4znTWH_g/formResponse")
     @FormUrlEncoded
-    Single<Response<Void>> submitSessionFeedback(@Field("entry.684428626") int id);
+    Single<Response<Void>> submitSessionFeedback(
+            @Field("entry.1298546024") int sessionId,
+            @Field("entry.413792998") String sessionTitle,
+            @Field("entry.335146475") int relevancy,
+            @Field("entry.1916895481") int asExpected,
+            @Field("entry.1501292277") int difficulty,
+            @Field("entry.2121897737") int knowledgeable,
+            @Field("entry.645604473") String comment);
 
 }

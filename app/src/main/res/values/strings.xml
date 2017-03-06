@@ -100,7 +100,27 @@
     <string name="licenses">Licenses</string>
 
     <!-- Session feedback -->
+    <string name="session_feedback_relevancy_title">How relevant was this session to your projects?</string>
+    <string name="session_feedback_relevancy_min_text">Not at all</string>
+    <string name="session_feedback_relevancy_max_text">Extremely</string>
+    <string name="session_feedback_asexpected_title">Based on the description, was the content as expected?</string>
+    <string name="session_feedback_asexpected_min_text">Below</string>
+    <string name="session_feedback_asexpected_max_text">Beyond</string>
+    <string name="session_feedback_difficulty_title">Was this session easy to understand?</string>
+    <string name="session_feedback_difficulty_min_text">Easy</string>
+    <string name="session_feedback_difficulty_max_text">Hard</string>
+    <string name="session_feedback_knowledgeable_title">How knowledgeable was the content?</string>
+    <string name="session_feedback_knowledgeable_min_text">Poor</string>
+    <string name="session_feedback_knowledgeable_max_text">Outstanding</string>
+    <string name="session_feedback_comment_title">Anything else we should know? (Please don\'t add any personal information in your comments)</string>
+    <string name="session_feedback_comment_hint">Other session feedback?</string>
+
     <string name="session_feedback">Session feedback</string>
+    <string name="session_feedback_accepted_successfully">Thank you! The feedback was accepted.</string>
+    <string name="session_feedback_not_accepting">Sorry. Currently we are not accepting the feedback. You can submit feedback only during the event dates.</string>
+    <string name="session_feedback_submit_error">An error occurred while submitting. Make sure the network is available.</string>
+    <string name="session_feedback_submit_failure">Submit failed</string>
+    <string name="session_feedback_submit_success">Submit succeeded</string>
 
     <!-- Search -->
     <string name="search">Search</string>
