@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         >
 
     <data>
@@ -15,7 +14,7 @@
     <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/grey50"
+            android:background="@color/grey200"
             >
 
         <LinearLayout
@@ -25,10 +24,10 @@
                 android:padding="@dimen/space_8dp"
                 >
 
-            <!-- TODO This is sample item -->
+            <!-- Relevancy -->
             <android.support.v7.widget.CardView style="@style/BaseCardView">
 
-                <RelativeLayout
+                <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
@@ -36,30 +35,149 @@
                         >
 
                     <TextView
-                            android:id="@+id/txt_feedback_1"
                             style="@style/FeedbackTitle"
-                            android:text="Did you enjoy this session?"
-                            tools:ignore="HardcodedText"
+                            android:text="@string/session_feedback_relevancy_title"
                             />
 
                     <io.github.droidkaigi.confsched2017.view.customview.FeedbackRankingView
-                            android:id="@+id/feedback_ranking_1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/txt_feedback_1"
                             android:layout_marginTop="@dimen/space_16dp"
-                            app:currentRanking="@={viewModel.ranking1}"
-                            app:rankingLabelEnd="Excellent"
-                            app:rankingLabelStart="No"
+                            app:currentRanking="@={viewModel.relevancy}"
+                            app:rankingLabelEnd="@string/session_feedback_relevancy_max_text"
+                            app:rankingLabelStart="@string/session_feedback_relevancy_min_text"
                             />
 
-                </RelativeLayout>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <!-- As expected -->
+            <android.support.v7.widget.CardView
+                    style="@style/BaseCardView"
+                    android:layout_marginTop="@dimen/space_4dp"
+                    >
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="@dimen/space_16dp"
+                        >
+
+                    <TextView
+                            style="@style/FeedbackTitle"
+                            android:text="@string/session_feedback_asexpected_title"
+                            />
+
+                    <io.github.droidkaigi.confsched2017.view.customview.FeedbackRankingView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/space_16dp"
+                            app:currentRanking="@={viewModel.asExpected}"
+                            app:rankingLabelEnd="@string/session_feedback_asexpected_max_text"
+                            app:rankingLabelStart="@string/session_feedback_asexpected_min_text"
+                            />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <!-- Difficulty -->
+            <android.support.v7.widget.CardView
+                    style="@style/BaseCardView"
+                    android:layout_marginTop="@dimen/space_4dp"
+                    >
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="@dimen/space_16dp"
+                        >
+
+                    <TextView
+                            style="@style/FeedbackTitle"
+                            android:text="@string/session_feedback_difficulty_title"
+                            />
+
+                    <io.github.droidkaigi.confsched2017.view.customview.FeedbackRankingView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/space_16dp"
+                            app:currentRanking="@={viewModel.difficulty}"
+                            app:rankingLabelEnd="@string/session_feedback_difficulty_max_text"
+                            app:rankingLabelStart="@string/session_feedback_difficulty_min_text"
+                            />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <!-- Knowledgeable -->
+            <android.support.v7.widget.CardView
+                    style="@style/BaseCardView"
+                    android:layout_marginTop="@dimen/space_4dp"
+                    >
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="@dimen/space_16dp"
+                        >
+
+                    <TextView
+                            style="@style/FeedbackTitle"
+                            android:text="@string/session_feedback_knowledgeable_title"
+                            />
+
+                    <io.github.droidkaigi.confsched2017.view.customview.FeedbackRankingView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/space_16dp"
+                            app:currentRanking="@={viewModel.knowledgeable}"
+                            app:rankingLabelEnd="@string/session_feedback_knowledgeable_max_text"
+                            app:rankingLabelStart="@string/session_feedback_knowledgeable_min_text"
+                            />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+
+            <!-- Comment -->
+            <android.support.v7.widget.CardView
+                    style="@style/BaseCardView"
+                    android:layout_marginTop="@dimen/space_4dp"
+                    >
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="@dimen/space_16dp"
+                        >
+
+                    <TextView
+                            style="@style/FeedbackTitle"
+                            android:text="@string/session_feedback_comment_title"
+                            />
+
+                    <EditText
+                            style="@style/BaseEditText"
+                            android:layout_marginTop="@dimen/space_16dp"
+                            android:hint="@string/session_feedback_comment_hint"
+                            android:text="@={viewModel.comment}"
+                            />
+
+                </LinearLayout>
 
             </android.support.v7.widget.CardView>
 
             <Button
                     android:id="@+id/submit_feedback"
-                    style="@style/Button.Grey"
+                    style="@style/Button.Purple"
                     android:layout_marginTop="@dimen/space_8dp"
                     android:onClick="@{viewModel::onClickSubmitFeedbackButton}"
                     android:text="@string/send_feedback"
