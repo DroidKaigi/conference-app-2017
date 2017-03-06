@@ -9,9 +9,9 @@ import android.databinding.InverseBindingMethod;
 import android.databinding.InverseBindingMethods;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
-import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.widget.FrameLayout;
 
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.databinding.ViewQuestionnaireBinding;
@@ -32,17 +32,26 @@ import io.github.droidkaigi.confsched2017.databinding.ViewQuestionnaireBinding;
                 method = "getQuestionnaireOtherValue"
         )
 })
-public class QuestionnaireView extends CardView {
+public class QuestionnaireView extends FrameLayout {
+
     @StringRes
     protected static final int OTHER_POST_VALUE_RES_ID = R.string.questionnaire_other_field_post_value;
+
     protected ViewQuestionnaireBinding binding;
+
     protected String title;
+
     @Nullable
     protected String description;
+
     protected String value;
+
     protected String otherValue;
+
     protected boolean hasItemOther;
+
     protected OnQuestionnaireValueChangeListener listener;
+
     protected OnQuestionnaireOtherValueChangedListener otherListener;
 
     public QuestionnaireView(Context context) {
@@ -149,10 +158,12 @@ public class QuestionnaireView extends CardView {
     }
 
     public interface OnQuestionnaireValueChangeListener {
+
         void onQuestionnaireValueChange(QuestionnaireView view, String currentValue);
     }
 
     public interface OnQuestionnaireOtherValueChangedListener {
+
         void onQuestionnaireOtherValueChanged();
     }
 }

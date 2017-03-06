@@ -2,28 +2,41 @@
 
     <!--==================== Text ====================-->
     <style name="TextTitle">
+        <item name="android:textColor">@color/black</item>
         <item name="android:textSize">@dimen/text_20sp</item>
         <item name="fontPath">@string/font_noto_cjk_medium</item>
     </style>
 
     <style name="TextSubheading">
+        <item name="android:textColor">@color/black</item>
         <item name="android:textSize">@dimen/text_16sp</item>
         <item name="fontPath">@string/font_noto_cjk_regular</item>
     </style>
 
+    <style name="TextSubheading.Grey600">
+        <item name="android:textColor">@color/grey600</item>
+    </style>
+
     <style name="TextBody2">
+        <item name="android:textColor">@color/black</item>
         <item name="android:textSize">@dimen/text_14sp</item>
         <item name="fontPath">@string/font_noto_cjk_medium</item>
     </style>
 
     <style name="TextBody1">
+        <item name="android:textColor">@color/black</item>
         <item name="android:textSize">@dimen/text_14sp</item>
         <item name="fontPath">@string/font_noto_cjk_regular</item>
     </style>
 
     <style name="TextCaption">
+        <item name="android:textColor">@color/black</item>
         <item name="android:textSize">@dimen/text_12sp</item>
         <item name="fontPath">@string/font_noto_cjk_regular</item>
+    </style>
+
+    <style name="TextCaption.Grey600">
+        <item name="android:textColor">@color/grey600</item>
     </style>
 
     <style name="TextCaption.Purple">
@@ -47,7 +60,13 @@
         <item name="fontPath">@string/font_noto_cjk_medium</item>
         <item name="android:gravity">center</item>
         <item name="android:padding">@dimen/space_16dp</item>
-        <item name="android:textSize">@dimen/text_16sp</item>
+        <item name="android:textAppearance">@style/TextSubheading</item>
+    </style>
+
+    <style name="Button.White">
+        <item name="android:layout_width">match_parent</item>
+        <item name="backgroundTint">@color/white</item>
+        <item name="android:textColor">@color/grey600</item>
     </style>
 
     <style name="Button.Grey">

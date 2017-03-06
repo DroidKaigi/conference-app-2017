@@ -2,9 +2,11 @@ package io.github.droidkaigi.confsched2017.view.customview;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.support.annotation.ArrayRes;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.view.ContextThemeWrapper;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -17,7 +19,7 @@ import timber.log.Timber;
  * Copyright 2017 G-CREATE
  */
 
-public class QuestionnaireRadioView extends QuestionnaireView {
+public final class QuestionnaireRadioView extends QuestionnaireView {
 
     private RadioGroup radioGroup;
 
@@ -53,14 +55,14 @@ public class QuestionnaireRadioView extends QuestionnaireView {
 
     private void parseAttributes(Context context, AttributeSet attrs) {
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.QuestionnaireRadioView);
-        int labelId = a.getResourceId(R.styleable.QuestionnaireRadioView_radioItemsLabel, -1);
-        int valueId = a.getResourceId(R.styleable.QuestionnaireRadioView_radioItemsPostValueArray, -1);
+        @ArrayRes int labelId = a.getResourceId(R.styleable.QuestionnaireRadioView_radioItemsLabel, -1);
+        @ArrayRes int valueId = a.getResourceId(R.styleable.QuestionnaireRadioView_radioItemsPostValueArray, -1);
         a.recycle();
 
         labels = getResources().getStringArray(labelId);
         values = getResources().getStringArray(valueId);
         if (labels.length != values.length) {
-            throw new RuntimeException("Keys size and values size are not equal.");
+            throw new IllegalStateException("Keys size and values size are not equal.");
         }
     }
 
@@ -71,7 +73,7 @@ public class QuestionnaireRadioView extends QuestionnaireView {
         radioGroup.setLayoutParams(params);
 
         for (int i = 0; i < labels.length; i++) {
-            RadioButton button = new RadioButton(context);
+            RadioButton button = new RadioButton(new ContextThemeWrapper(context, R.style.TextBody1));
             button.setLayoutParams(params);
             button.setText(labels[i]);
             radioGroup.addView(button);
@@ -111,7 +113,7 @@ public class QuestionnaireRadioView extends QuestionnaireView {
         radioGroup.addView(button);
         otherCheckBoxId = button.getId();
 
-        otherValueEditText = new EditText(context);
+        otherValueEditText = new EditText(new ContextThemeWrapper(context, R.style.TextBody1));
         otherValueEditText.setLayoutParams(params);
         otherValueEditText.setInputType(EditorInfo.TYPE_CLASS_TEXT);
         otherValueEditText.addTextChangedListener(new TextWatcher() {

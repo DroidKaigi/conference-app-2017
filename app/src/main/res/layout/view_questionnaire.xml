@@ -4,10 +4,10 @@
         >
 
     <android.support.v7.widget.CardView
+            style="@style/BaseCardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusableInTouchMode="true"
-            style="@style/BaseCardView"
             >
 
         <LinearLayout
@@ -18,25 +18,26 @@
                 >
 
             <TextView
+                    android:id="@+id/questionnaire_title"
+                    style="@style/TextSubheading"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/questionnaire_title"
-                    style="@style/TextTitle"
                     tools:text="@string/questionnaire_title_age"
                     />
 
             <TextView
+                    android:id="@+id/questionnaire_description"
+                    style="@style/TextCaption.Grey600"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/questionnaire_description"
-                    style="@style/TextCaption"
+                    android:layout_marginTop="@dimen/space_4dp"
                     tools:text="@string/questionnaire_description_age"
                     />
 
             <FrameLayout
+                    android:id="@+id/questionnaire_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/questionnaire_container"
                     android:layout_marginTop="@dimen/space_8dp"
                     />
 
