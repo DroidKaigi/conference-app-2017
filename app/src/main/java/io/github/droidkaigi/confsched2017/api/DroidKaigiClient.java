@@ -12,6 +12,7 @@ import io.github.droidkaigi.confsched2017.api.service.DroidKaigiService;
 import io.github.droidkaigi.confsched2017.api.service.GithubService;
 import io.github.droidkaigi.confsched2017.api.service.GoogleFormService;
 import io.github.droidkaigi.confsched2017.model.Contributor;
+import io.github.droidkaigi.confsched2017.model.Questionnaire;
 import io.github.droidkaigi.confsched2017.model.Session;
 import io.github.droidkaigi.confsched2017.model.SessionFeedback;
 import io.reactivex.Single;
@@ -31,7 +32,8 @@ public class DroidKaigiClient {
     private static final int MAX_PER_PAGE = 100;
 
     @Inject
-    public DroidKaigiClient(DroidKaigiService droidKaigiService, GithubService githubService, GoogleFormService googleFormService) {
+    public DroidKaigiClient(DroidKaigiService droidKaigiService, GithubService githubService,
+            GoogleFormService googleFormService) {
         this.droidKaigiService = droidKaigiService;
         this.githubService = githubService;
         this.googleFormService = googleFormService;
@@ -49,7 +51,45 @@ public class DroidKaigiClient {
         return githubService.getContributors("DroidKaigi", "conference-app-2017", INCLUDE_ANONYMOUS, MAX_PER_PAGE);
     }
 
-    public Single<Response<Void>>submitSessionFeedback(SessionFeedback sessionFeedback){
+    public Single<Response<Void>> submitSessionFeedback(SessionFeedback sessionFeedback) {
         return googleFormService.submitSessionFeedback(sessionFeedback.sessionId);
+    }
+
+    public Single<Response<Void>> submitQuestionnaire(Questionnaire q) {
+        // TODO: API
+        return googleFormService.submitQuestionnaire(
+                q.ageRange,
+                q.androidExperience,
+                q.developmentExperience,
+                q.jobCategory,
+                q.jobCategoryOther,
+                q.jobPosition,
+                q.jobPositionOther,
+                q.attendHistory,
+                q.foundChannel,
+                q.foundChannelOther,
+                q.whichTicket,
+                q.whichTicketOther,
+                q.price,
+                q.afterParty,
+                q.commentForPrice,
+                q.timeTable,
+                q.priority,
+                q.commentForTimeTable,
+                q.sponsorLogo,
+                q.sponsorBooth,
+                q.feelingBooth,
+                q.commentForBooth,
+                q.foodAndDrink,
+                q.commentForFoodAndDrink,
+                q.goods,
+                q.commentForGoods,
+                q.equipment,
+                q.youtube,
+                q.satisfaction,
+                q.suggestion,
+                q.wantSpeak,
+                q.nextTime
+        );
     }
 }
