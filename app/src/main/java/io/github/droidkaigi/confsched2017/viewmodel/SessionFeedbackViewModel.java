@@ -50,6 +50,10 @@ public final class SessionFeedbackViewModel extends BaseObservable implements Vi
 
     private String comment;
 
+    private int loadingVisibility = View.GONE;
+
+    private boolean submitButtonEnabled = true;
+
     private Callback callback;
 
     @Inject
@@ -121,14 +125,20 @@ public final class SessionFeedbackViewModel extends BaseObservable implements Vi
     }
 
     private void submit(SessionFeedback sessionFeedback) {
+        setLoadingVisibility(View.VISIBLE);
+        setSubmitButtonEnabled(false);
+
         compositeDisposable.add(sessionFeedbackRepository.submit(sessionFeedback)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(success -> {
+                    setLoadingVisibility(View.GONE);
                     if (callback != null) {
                         callback.onSuccessSubmit();
                     }
                 }, failure -> {
+                    setLoadingVisibility(View.GONE);
+                    setSubmitButtonEnabled(true);
                     if (callback != null) {
                         callback.onErrorSubmit();
                     }
@@ -183,6 +193,26 @@ public final class SessionFeedbackViewModel extends BaseObservable implements Vi
     public void setComment(String comment) {
         this.comment = comment;
         notifyPropertyChanged(BR.comment);
+    }
+
+    @Bindable
+    public int getLoadingVisibility() {
+        return loadingVisibility;
+    }
+
+    public void setLoadingVisibility(int loadingVisibility) {
+        this.loadingVisibility = loadingVisibility;
+        notifyPropertyChanged(BR.loadingVisibility);
+    }
+
+    @Bindable
+    public boolean isSubmitButtonEnabled() {
+        return submitButtonEnabled;
+    }
+
+    public void setSubmitButtonEnabled(boolean submitButtonEnabled) {
+        this.submitButtonEnabled = submitButtonEnabled;
+        notifyPropertyChanged(BR.submitButtonEnabled);
     }
 
     public void setCallback(@NonNull Callback callback) {
