@@ -102,13 +102,15 @@ public class SettingsFragment extends BaseFragment implements SettingsViewModel.
 
     @Override
     public void debugOverlayViewEnabled(boolean enabled) {
-        if (isDetached())
+        if (isDetached()) {
             return;
+        }
         if (enabled && !SettingsUtil.canDrawOverlays(getContext())) {
             Timber.tag(TAG).d("not allowed to draw views on overlay");
             binding.debugOverlayViewSwitchRow.setChecked(false);
             Toast.makeText(getContext(), R.string.settings_debug_overlay_view_toast, Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getContext().getPackageName()));
+            Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                    Uri.parse("package:" + getContext().getPackageName()));
             startActivity(intent);
             return;
         }

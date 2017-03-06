@@ -121,6 +121,11 @@
     <string name="session_feedback_submit_error">An error occurred while submitting. Make sure the network is available.</string>
     <string name="session_feedback_submit_failure">Submit failed</string>
     <string name="session_feedback_submit_success">Submit succeeded</string>
+    <string name="session_feedback_confirm_title">Are you sure to send it?</string>
+    <string name="session_feedback_confirm_message">You can\'t edit after sending</string>
+
+    <string name="session_feedback_error_not_filled">There are unfilled items.</string>
+    <string name="session_feedback_submitted_title">[Submitted] %1$s</string>
 
     <!-- Search -->
     <string name="search">Search</string>
