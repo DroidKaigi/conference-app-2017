@@ -3,7 +3,7 @@
 
 [DroidKaigi 2017](https://droidkaigi.github.io/2017/en/) is a conference tailored for developers on 9th and 10th March 2017.
 
-[<img src="https://dply.me/rlr6yr/button/large" alt="Try it on your device via DeployGate">](https://dply.me/564onq#install)
+[<img src="https://dply.me/rlr6yr/button/large" alt="Try it on your device via DeployGate">](https://dply.me/8vo9g8#install)
 
 
 # Features

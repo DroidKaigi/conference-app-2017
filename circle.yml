@@ -24,11 +24,11 @@ dependencies:
 
 test:
   override:
-    - ./gradlew assembleProductionDebug
+    - ./gradlew assembleProductionRelease
     - "./gradlew lint 2>&1 | ./reviewdog -efm='%f:%l: %m' -name='Android Lint' -ci='circle-ci'"
     - ./gradlew checkLicenses
     - ./gradlew jacocoTestReportDevelop
-    - find . -name app*debug.apk -exec cp {} $CIRCLE_ARTIFACTS/ \;
+    - find . -name app*.apk -exec cp {} $CIRCLE_ARTIFACTS/ \;
   post:
     - mkdir -p $CIRCLE_TEST_REPORTS/junit/
     - find . -type f -regex ".*/build/test-results/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;

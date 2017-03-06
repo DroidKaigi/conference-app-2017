@@ -8,8 +8,8 @@ apply plugin: 'com.cookpad.android.licensetools'
 apply plugin: 'com.github.ben-manes.versions'
 
 // Manifest version
-def versionMajor = 0
-def versionMinor = 1
+def versionMajor = 1
+def versionMinor = 0
 def versionPatch = 0
 
 // CI
