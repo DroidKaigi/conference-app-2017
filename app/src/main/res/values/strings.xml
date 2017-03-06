@@ -125,6 +125,7 @@
     <string name="session_feedback_confirm_message">You can\'t edit after sending</string>
 
     <string name="session_feedback_error_not_filled">There are unfilled items.</string>
+    <string name="session_feedback_submitted_title">[Submitted] %1$s</string>
 
     <!-- Search -->
     <string name="search">Search</string>

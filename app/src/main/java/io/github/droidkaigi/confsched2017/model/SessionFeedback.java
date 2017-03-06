@@ -2,31 +2,53 @@ package io.github.droidkaigi.confsched2017.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import com.github.gfx.android.orma.annotation.Column;
+import com.github.gfx.android.orma.annotation.PrimaryKey;
+import com.github.gfx.android.orma.annotation.Table;
+
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+@Table
 public class SessionFeedback {
 
-    @SerializedName("entry.1298546024")
-    public final int sessionId;
+    @PrimaryKey(auto = false)
+    @Column(indexed = true)
+    @SerializedName("session_id")
+    public int sessionId;
 
-    @SerializedName("entry.413792998")
-    public final String sessionTitle;
+    @Column
+    @SerializedName("session_title")
+    public String sessionTitle;
 
-    @SerializedName("entry.335146475")
-    public final int relevancy;
+    @Column
+    @SerializedName("relevancy")
+    public int relevancy;
 
-    @SerializedName("entry.1916895481")
-    public final int asExpected;
+    @Column
+    @SerializedName("as_expected")
+    public int asExpected;
 
-    @SerializedName("entry.1501292277")
-    public final int difficulty;
+    @Column
+    @SerializedName("difficulty")
+    public int difficulty;
 
-    @SerializedName("entry.2121897737")
-    public final int knowledgeable;
+    @Column
+    @SerializedName("knowledgeable")
+    public int knowledgeable;
 
-    @SerializedName("entry.645604473")
-    public final String comment;
+    @Column
+    @Nullable
+    @SerializedName("comment")
+    public String comment;
+
+    @Column
+    @SerializedName("is_submitted")
+    public boolean isSubmitted;
+
+    public SessionFeedback() {
+
+    }
 
     public SessionFeedback(@NonNull Session session, int relevancy, int asExpected,
             int difficulty, int knowledgeable, @Nullable String comment) {

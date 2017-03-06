@@ -56,6 +56,8 @@ public final class SessionFeedbackViewModel extends BaseObservable implements Vi
 
     private Callback callback;
 
+    private SessionFeedback sessionFeedback;
+
     @Inject
     SessionFeedbackViewModel(SessionsRepository sessionsRepository,
             SessionFeedbackRepository sessionFeedbackRepository,
@@ -72,20 +74,38 @@ public final class SessionFeedbackViewModel extends BaseObservable implements Vi
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        this::setSession,
+                        this::initSessionFeedback,
                         throwable -> Timber.tag(TAG).e(throwable, "Failed to find session.")
                 );
         compositeDisposable.add(disposable);
     }
 
-    private void setSession(@NonNull Session session) {
+    private void initSessionFeedback(Session session) {
         this.session = session;
         this.sessionTitle = session.title;
         notifyPropertyChanged(BR.sessionTitle);
+
+        this.sessionFeedback = sessionFeedbackRepository.findFromCache(session.id);
+        if (sessionFeedback == null) {
+            sessionFeedback = new SessionFeedback(session, relevancy, asExpected, difficulty, knowledgeable, comment);
+        }
+
+        setRelevancy(sessionFeedback.relevancy);
+        setAsExpected(sessionFeedback.asExpected);
+        setDifficulty(sessionFeedback.difficulty);
+        setKnowledgeable(sessionFeedback.knowledgeable);
+        setComment(sessionFeedback.comment);
+
+        setSubmitButtonEnabled(!sessionFeedback.isSubmitted);
+
+        if (callback != null) {
+            callback.onSessionFeedbackInitialized(sessionFeedback);
+        }
     }
 
     @Override
     public void destroy() {
+        sessionFeedbackRepository.saveToCache(sessionFeedback);
         compositeDisposable.clear();
         callback = null;
     }
@@ -101,8 +121,6 @@ public final class SessionFeedbackViewModel extends BaseObservable implements Vi
     }
 
     public void onClickSubmitFeedbackButton(@SuppressWarnings("unused") View view) {
-        SessionFeedback sessionFeedback =
-                new SessionFeedback(session, relevancy, asExpected, difficulty, knowledgeable, comment);
         if (sessionFeedback.isAllFilled()) {
             navigator.showConfirmDialog(R.string.session_feedback_confirm_title,
                     R.string.session_feedback_confirm_message,
@@ -133,6 +151,7 @@ public final class SessionFeedbackViewModel extends BaseObservable implements Vi
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(success -> {
                     setLoadingVisibility(View.GONE);
+                    sessionFeedback.isSubmitted = true;
                     if (callback != null) {
                         callback.onSuccessSubmit();
                     }
@@ -152,6 +171,9 @@ public final class SessionFeedbackViewModel extends BaseObservable implements Vi
 
     public void setRelevancy(int relevancy) {
         this.relevancy = relevancy;
+        if (sessionFeedback.relevancy != relevancy) {
+            sessionFeedback.relevancy = relevancy;
+        }
         notifyPropertyChanged(BR.relevancy);
     }
 
@@ -162,6 +184,9 @@ public final class SessionFeedbackViewModel extends BaseObservable implements Vi
 
     public void setAsExpected(int asExpected) {
         this.asExpected = asExpected;
+        if (sessionFeedback.asExpected != asExpected) {
+            sessionFeedback.asExpected = asExpected;
+        }
         notifyPropertyChanged(BR.asExpected);
     }
 
@@ -172,6 +197,9 @@ public final class SessionFeedbackViewModel extends BaseObservable implements Vi
 
     public void setDifficulty(int difficulty) {
         this.difficulty = difficulty;
+        if (sessionFeedback.difficulty != difficulty) {
+            sessionFeedback.difficulty = difficulty;
+        }
         notifyPropertyChanged(BR.difficulty);
     }
 
@@ -182,6 +210,9 @@ public final class SessionFeedbackViewModel extends BaseObservable implements Vi
 
     public void setKnowledgeable(int knowledgeable) {
         this.knowledgeable = knowledgeable;
+        if (sessionFeedback.knowledgeable != knowledgeable) {
+            sessionFeedback.knowledgeable = knowledgeable;
+        }
         notifyPropertyChanged(BR.knowledgeable);
     }
 
@@ -192,6 +223,9 @@ public final class SessionFeedbackViewModel extends BaseObservable implements Vi
 
     public void setComment(String comment) {
         this.comment = comment;
+        if (comment != null && !comment.equals(sessionFeedback.comment)) {
+            sessionFeedback.comment = comment;
+        }
         notifyPropertyChanged(BR.comment);
     }
 
@@ -226,5 +260,7 @@ public final class SessionFeedbackViewModel extends BaseObservable implements Vi
         void onErrorSubmit();
 
         void onErrorUnFilled();
+
+        void onSessionFeedbackInitialized(SessionFeedback sessionFeedback);
     }
 }
