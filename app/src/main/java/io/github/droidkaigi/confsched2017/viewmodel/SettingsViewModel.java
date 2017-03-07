@@ -8,6 +8,7 @@ import android.view.View;
 
 import javax.inject.Inject;
 
+import io.github.droidkaigi.confsched2017.BuildConfig;
 import io.github.droidkaigi.confsched2017.pref.DefaultPrefs;
 import io.github.droidkaigi.confsched2017.util.LocaleUtil;
 
@@ -73,6 +74,10 @@ public final class SettingsViewModel extends BaseObservable implements ViewModel
         if (callback != null) {
             callback.changeHeadsUpEnabled(isChecked);
         }
+    }
+
+    public int getShowDeveloperMenu() {
+        return BuildConfig.FLAVOR.equals("develop") ? View.VISIBLE : View.GONE;
     }
 
     public void onCheckedDebugOverlayView(boolean isChecked) {
