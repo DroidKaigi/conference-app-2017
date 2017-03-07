@@ -15,7 +15,6 @@ import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.model.Session;
 import io.github.droidkaigi.confsched2017.repository.sessions.MySessionsRepository;
 import io.github.droidkaigi.confsched2017.view.activity.SearchActivity;
-import io.github.droidkaigi.confsched2017.view.activity.SessionDetailActivity;
 import io.github.droidkaigi.confsched2017.view.helper.Navigator;
 
 public class SearchResultViewModel extends BaseObservable implements ViewModel {
@@ -66,7 +65,7 @@ public class SearchResultViewModel extends BaseObservable implements ViewModel {
     }
 
     public void onItemClick(@SuppressWarnings("unused") View view) {
-        navigator.navigateToSessionDetail(session, SearchActivity.class);
+        navigator.navigateToSessionDetail(session, view, SearchActivity.class);
     }
 
     public boolean match(String filterPattern) {

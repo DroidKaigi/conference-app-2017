@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<transitionSet xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:interpolator="@android:interpolator/fast_out_slow_in"
+        android:transitionOrdering="together"
+        tools:targetApi="lollipop"
+        >
+    <changeBounds>
+        <pathMotion class="io.github.droidkaigi.confsched2017.view.motion.GravityArcMotion" />
+        <targets>
+            <target android:targetId="@id/content_view" />
+        </targets>
+    </changeBounds>
+    <transition
+            class="io.github.droidkaigi.confsched2017.view.transition.FadeInTransition"
+            android:duration="300"
+            android:interpolator="@android:interpolator/linear_out_slow_in"
+            android:startDelay="75"
+            >
+        <targets>
+            <target android:targetId="@id/over_scroll_layout" />
+        </targets>
+    </transition>
+
+
+    <transition
+            class="io.github.droidkaigi.confsched2017.view.transition.LiftOff"
+            android:duration="375"
+            app:finalElevation="@dimen/elevation_6dp"
+            >
+        <targets>
+            <target android:targetId="@id/content_view" />
+        </targets>
+    </transition>
+
+
+</transitionSet>
