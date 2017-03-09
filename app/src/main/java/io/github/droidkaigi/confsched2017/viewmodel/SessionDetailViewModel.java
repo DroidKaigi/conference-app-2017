@@ -117,7 +117,7 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
 
     @Override
     public void destroy() {
-        // Do nothing
+        this.callback = null;
     }
 
     public boolean shouldShowShareMenuItem() {
@@ -227,7 +227,7 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
         return roomVisibility;
     }
 
-    public void setCallback(Callback callback) {
+    public void setCallback(@NonNull Callback callback) {
         this.callback = callback;
     }
 

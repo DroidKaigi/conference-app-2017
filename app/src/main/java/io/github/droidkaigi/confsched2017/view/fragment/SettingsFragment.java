@@ -62,6 +62,12 @@ public class SettingsFragment extends BaseFragment implements SettingsViewModel.
     }
 
     @Override
+    public void onDetach() {
+        viewModel.destroy();
+        super.onDetach();
+    }
+
+    @Override
     public void changeHeadsUpEnabled(boolean enabled) {
         binding.headsUpSwitchRow.setEnabled(enabled);
     }

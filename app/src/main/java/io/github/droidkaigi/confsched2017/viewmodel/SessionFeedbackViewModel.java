@@ -107,7 +107,7 @@ public final class SessionFeedbackViewModel extends BaseObservable implements Vi
     public void destroy() {
         sessionFeedbackRepository.saveToCache(sessionFeedback);
         compositeDisposable.clear();
-        callback = null;
+        this.callback = null;
     }
 
     @Bindable

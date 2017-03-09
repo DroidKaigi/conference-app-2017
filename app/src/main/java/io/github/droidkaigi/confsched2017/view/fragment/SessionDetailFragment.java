@@ -124,15 +124,15 @@ public class SessionDetailFragment extends BaseFragment implements SessionDetail
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        viewModel.destroy();
-    }
-
-    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         getComponent().inject(this);
+    }
+
+    @Override
+    public void onDetach() {
+        viewModel.destroy();
+        super.onDetach();
     }
 
     private void initToolbar() {

@@ -77,6 +77,7 @@ public final class ContributorsViewModel extends BaseObservable implements ViewM
     @Override
     public void destroy() {
         compositeDisposable.clear();
+        this.callback = null;
     }
 
     @Bindable
