@@ -22,7 +22,7 @@ public final class SettingsViewModel extends BaseObservable implements ViewModel
         this.defaultPrefs = defaultPrefs;
     }
 
-    public void setCallback(Callback callback) {
+    public void setCallback(@NonNull Callback callback) {
         this.callback = callback;
     }
 

@@ -53,7 +53,6 @@ public class ContributorsFragment extends BaseFragment implements ContributorsVi
 
     @Override
     public void onDetach() {
-        viewModel.setCallback(null);
         viewModel.destroy();
         super.onDetach();
     }

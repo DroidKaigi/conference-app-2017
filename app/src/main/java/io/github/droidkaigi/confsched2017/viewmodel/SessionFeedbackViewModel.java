@@ -107,7 +107,7 @@ public final class SessionFeedbackViewModel extends BaseObservable implements Vi
     public void destroy() {
         sessionFeedbackRepository.saveToCache(sessionFeedback);
         compositeDisposable.clear();
-        callback = null;
+        this.callback = null;
     }
 
     @Bindable
@@ -249,7 +249,7 @@ public final class SessionFeedbackViewModel extends BaseObservable implements Vi
         notifyPropertyChanged(BR.submitButtonEnabled);
     }
 
-    public void setCallback(Callback callback) {
+    public void setCallback(@NonNull Callback callback) {
         this.callback = callback;
     }
 

@@ -4,6 +4,7 @@ import com.annimon.stream.Stream;
 
 import android.content.Context;
 import android.databinding.BaseObservable;
+import android.support.annotation.NonNull;
 import android.view.View;
 
 import java.util.List;
@@ -36,7 +37,7 @@ public final class SearchViewModel extends BaseObservable implements ViewModel {
 
     @Override
     public void destroy() {
-        //
+        this.callback = null;
     }
 
     public void onClickCover(@SuppressWarnings("unused") View view) {
@@ -81,7 +82,7 @@ public final class SearchViewModel extends BaseObservable implements ViewModel {
                 });
     }
 
-    public void setCallback(Callback callback) {
+    public void setCallback(@NonNull Callback callback) {
         this.callback = callback;
     }
 

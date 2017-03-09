@@ -131,7 +131,6 @@ public class SessionDetailFragment extends BaseFragment implements SessionDetail
 
     @Override
     public void onDetach() {
-        viewModel.setCallback(null);
         viewModel.destroy();
         super.onDetach();
     }

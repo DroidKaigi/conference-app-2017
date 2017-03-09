@@ -66,7 +66,7 @@ public final class ContributorsViewModel extends BaseObservable implements ViewM
         this.viewModels = new ObservableArrayList<>();
     }
 
-    public void setCallback(Callback callback) {
+    public void setCallback(@NonNull Callback callback) {
         this.callback = callback;
     }
 
@@ -77,6 +77,7 @@ public final class ContributorsViewModel extends BaseObservable implements ViewM
     @Override
     public void destroy() {
         compositeDisposable.clear();
+        this.callback = null;
     }
 
     @Bindable
