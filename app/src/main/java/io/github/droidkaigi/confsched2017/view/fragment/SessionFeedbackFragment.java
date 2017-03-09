@@ -61,9 +61,10 @@ public class SessionFeedbackFragment extends BaseFragment implements SessionFeed
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onDetach() {
+        viewModel.setCallback(null);
         viewModel.destroy();
+        super.onDetach();
     }
 
     @Override

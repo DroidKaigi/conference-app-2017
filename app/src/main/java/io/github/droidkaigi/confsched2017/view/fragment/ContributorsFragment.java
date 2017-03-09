@@ -52,6 +52,13 @@ public class ContributorsFragment extends BaseFragment implements ContributorsVi
     }
 
     @Override
+    public void onDetach() {
+        viewModel.setCallback(null);
+        viewModel.destroy();
+        super.onDetach();
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel.setCallback(this);
@@ -85,11 +92,6 @@ public class ContributorsFragment extends BaseFragment implements ContributorsVi
         }
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        viewModel.destroy();
-    }
 
     private void initView() {
         adapter = new Adapter(getContext(), viewModel.getContributorViewModels());

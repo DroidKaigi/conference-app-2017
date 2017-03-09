@@ -249,7 +249,7 @@ public final class SessionFeedbackViewModel extends BaseObservable implements Vi
         notifyPropertyChanged(BR.submitButtonEnabled);
     }
 
-    public void setCallback(@NonNull Callback callback) {
+    public void setCallback(Callback callback) {
         this.callback = callback;
     }
 

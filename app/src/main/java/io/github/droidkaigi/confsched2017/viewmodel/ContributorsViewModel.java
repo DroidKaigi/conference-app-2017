@@ -66,7 +66,7 @@ public final class ContributorsViewModel extends BaseObservable implements ViewM
         this.viewModels = new ObservableArrayList<>();
     }
 
-    public void setCallback(@NonNull Callback callback) {
+    public void setCallback(Callback callback) {
         this.callback = callback;
     }
 

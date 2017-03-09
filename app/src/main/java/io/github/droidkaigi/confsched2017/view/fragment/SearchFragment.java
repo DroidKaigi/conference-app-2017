@@ -141,15 +141,11 @@ public class SearchFragment extends BaseFragment implements SearchViewModel.Call
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        viewModel.destroy();
-    }
-
-    @Override
     public void onDetach() {
-        super.onDetach();
         compositeDisposable.dispose();
+        viewModel.setCallback(null);
+        viewModel.destroy();
+        super.onDetach();
     }
 
     private void initRecyclerView() {
