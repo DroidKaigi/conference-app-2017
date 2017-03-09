@@ -15,7 +15,6 @@ import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.model.Session;
 import io.github.droidkaigi.confsched2017.repository.sessions.MySessionsRepository;
 import io.github.droidkaigi.confsched2017.view.activity.SearchActivity;
-import io.github.droidkaigi.confsched2017.view.activity.SessionDetailActivity;
 import io.github.droidkaigi.confsched2017.view.helper.Navigator;
 
 public class SearchResultViewModel extends BaseObservable implements ViewModel {
@@ -151,7 +150,7 @@ public class SearchResultViewModel extends BaseObservable implements ViewModel {
 
     public enum Type {
         TITLE(R.drawable.ic_title_12_vector),
-        DESCRIPTION(R.drawable.ic_description12_vector),
+        DESCRIPTION(R.drawable.ic_description_12_vector),
         SPEAKER(R.drawable.ic_speaker_12_vector),;
 
         private final

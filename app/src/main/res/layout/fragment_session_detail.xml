@@ -168,25 +168,19 @@
                 <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/space_16dp"
+                        android:layout_marginLeft="@dimen/space_16dp"
+                        android:layout_marginRight="@dimen/space_16dp"
+                        android:layout_marginStart="@dimen/space_16dp"
                         android:layout_marginTop="@dimen/space_16dp"
                         android:clipChildren="false"
                         android:clipToPadding="false"
-                        android:padding="@dimen/space_16dp"
                         >
-
-                    <TextView
-                            android:id="@+id/txt_speaker_title"
-                            style="@style/SessionDetailTitle"
-                            android:text="@string/speaker"
-                            app:topicVividColor="@{viewModel.sessionVividColorResId}"
-                            />
 
                     <ImageView
                             android:id="@+id/img_speaker"
                             android:layout_width="@dimen/user_image_large"
                             android:layout_height="@dimen/user_image_large"
-                            android:layout_below="@id/txt_speaker_title"
-                            android:layout_marginTop="@dimen/space_16dp"
                             android:contentDescription="@string/speaker"
                             app:speakerImageSize="@{@dimen/user_image_large}"
                             app:speakerImageUrl="@{viewModel.speakerImageUrl}"
@@ -208,19 +202,6 @@
                             />
 
                 </RelativeLayout>
-
-                <TextView
-                        android:id="@+id/txt_slide_title"
-                        style="@style/SessionDetailTitle"
-                        android:layout_marginTop="@dimen/space_16dp"
-                        android:paddingEnd="@dimen/space_16dp"
-                        android:paddingLeft="@dimen/space_16dp"
-                        android:paddingRight="@dimen/space_16dp"
-                        android:paddingStart="@dimen/space_16dp"
-                        android:text="@string/slide_and_video"
-                        android:visibility="@{viewModel.slideIconVisibility}"
-                        app:topicVividColor="@{viewModel.sessionVividColorResId}"
-                        />
 
                 <RelativeLayout
                         android:layout_width="wrap_content"
@@ -254,25 +235,16 @@
                 </RelativeLayout>
 
                 <TextView
-                        android:id="@+id/txt_description_title"
-                        style="@style/SessionDetailTitle"
-                        android:layout_marginTop="@dimen/space_16dp"
-                        android:paddingEnd="@dimen/space_16dp"
-                        android:paddingLeft="@dimen/space_16dp"
-                        android:paddingRight="@dimen/space_16dp"
-                        android:paddingStart="@dimen/space_16dp"
-                        android:text="@string/description"
-                        app:topicVividColor="@{viewModel.sessionVividColorResId}"
-                        />
-
-                <TextView
                         android:id="@+id/txt_description"
+                        style="@style/TextBody1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:lineSpacingExtra="@dimen/line_space_2dp"
-                        android:padding="@dimen/space_16dp"
+                        android:layout_marginEnd="@dimen/space_16dp"
+                        android:layout_marginLeft="@dimen/space_16dp"
+                        android:layout_marginRight="@dimen/space_16dp"
+                        android:layout_marginStart="@dimen/space_16dp"
+                        android:layout_marginTop="@dimen/space_16dp"
                         android:text="@{viewModel.session.desc}"
-                        android:textAppearance="@style/TextBody1"
                         android:textColor="@color/grey600"
                         android:textIsSelectable="true"
                         app:textLinkify="@{true}"
