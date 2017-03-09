@@ -230,7 +230,7 @@ dependencies {
     releaseCompile 'com.tomoima.debot:debot-no-op:2.0.2'
 
     // fps, track the frame rate of animation view.
-    compile 'jp.wasabeef:takt:1.0.3'
+    debugCompile 'jp.wasabeef:takt:1.0.3'
 
     // Test
     testCompile 'junit:junit:4.12'
