@@ -1,4 +1,4 @@
-package io.github.droidkaigi.confsched2017.fps;
+package io.github.droidkaigi.confsched2017.util;
 
 import android.app.Application;
 
@@ -6,9 +6,9 @@ import jp.wasabeef.takt.Seat;
 import jp.wasabeef.takt.Takt;
 import timber.log.Timber;
 
-public class FpsMeasure {
+public class FpsMeasureUtil {
 
-    private FpsMeasure() {
+    private FpsMeasureUtil() {
     }
 
     public static void play(Application application) {
