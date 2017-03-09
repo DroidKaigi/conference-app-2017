@@ -51,7 +51,6 @@
     </style>
 
     <style name="AppTheme.NoActionBar.Splash" parent="AppTheme.NoActionBar">
-        <item name="android:background">@drawable/bg_splash</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
