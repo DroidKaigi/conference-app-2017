@@ -12,7 +12,6 @@ import io.github.droidkaigi.confsched2017.model.Session;
 import io.github.droidkaigi.confsched2017.util.DateUtil;
 import io.github.droidkaigi.confsched2017.util.LocaleUtil;
 import io.github.droidkaigi.confsched2017.view.activity.MySessionsActivity;
-import io.github.droidkaigi.confsched2017.view.activity.SessionDetailActivity;
 import io.github.droidkaigi.confsched2017.view.helper.Navigator;
 
 public class MySessionViewModel extends BaseObservable implements ViewModel {
@@ -33,7 +32,7 @@ public class MySessionViewModel extends BaseObservable implements ViewModel {
         this.navigator = navigator;
         this.sessionTitle = mySession.session.title;
         if (mySession.session.speaker != null) {
-            this.speakerImageUrl = mySession.session.speaker.imageUrl;
+            this.speakerImageUrl = mySession.session.speaker.getAdjustedImageUrl();
         }
         this.mySession = mySession;
         this.roomVisibility = mySession.session.room != null ? View.VISIBLE : View.GONE;
