@@ -59,6 +59,8 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
 
     private boolean isMySession;
 
+    private int speakerVisibility;
+
     private int slideIconVisibility;
 
     private int dashVideoIconVisibility;
@@ -91,6 +93,7 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
         this.sessionThemeResId = topicColor.themeId;
         this.sessionTimeRange = decideSessionTimeRange(context, session);
         this.isMySession = mySessionsRepository.isExist(session.id);
+        this.speakerVisibility = !session.isDinner() ? View.VISIBLE : View.GONE;
         this.slideIconVisibility = session.slideUrl != null ? View.VISIBLE : View.GONE;
         this.dashVideoIconVisibility = session.movieUrl != null && session.movieDashUrl != null ? View.VISIBLE : View.GONE;
         this.roomVisibility = session.room != null ? View.VISIBLE : View.GONE;
@@ -209,6 +212,10 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
 
     public boolean isMySession() {
         return isMySession;
+    }
+
+    public int getSpeakerVisibility() {
+        return speakerVisibility;
     }
 
     public int getSlideIconVisibility() {

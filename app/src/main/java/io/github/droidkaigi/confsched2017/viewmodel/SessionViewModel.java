@@ -17,7 +17,6 @@ import io.github.droidkaigi.confsched2017.repository.sessions.MySessionsReposito
 import io.github.droidkaigi.confsched2017.util.AlarmUtil;
 import io.github.droidkaigi.confsched2017.util.DateUtil;
 import io.github.droidkaigi.confsched2017.view.activity.MainActivity;
-import io.github.droidkaigi.confsched2017.view.activity.SessionDetailActivity;
 import io.github.droidkaigi.confsched2017.view.helper.Navigator;
 import timber.log.Timber;
 
@@ -97,13 +96,13 @@ public class SessionViewModel extends BaseObservable implements ViewModel {
             this.isClickable = false;
             this.backgroundResId = R.drawable.bg_empty_session;
             this.topicColorResId = android.R.color.transparent;
-            this.normalSessionItemVisibility = View.GONE;
         } else {
             this.isClickable = true;
             this.backgroundResId = session.isLiveAt(new Date()) ? R.drawable.clickable_purple : R.drawable.clickable_white;
             this.topicColorResId = TopicColor.from(session.topic).middleColorResId;
-            this.normalSessionItemVisibility = View.VISIBLE;
         }
+
+        this.normalSessionItemVisibility = (!session.isBreak() && !session.isDinner()) ? View.VISIBLE : View.GONE;
 
         this.mySessionsRepository = mySessionsRepository;
     }

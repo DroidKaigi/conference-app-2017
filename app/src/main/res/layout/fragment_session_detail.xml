@@ -175,6 +175,7 @@
                         android:layout_marginTop="@dimen/space_16dp"
                         android:clipChildren="false"
                         android:clipToPadding="false"
+                        android:visibility="@{viewModel.speakerVisibility}"
                         >
 
                     <ImageView
