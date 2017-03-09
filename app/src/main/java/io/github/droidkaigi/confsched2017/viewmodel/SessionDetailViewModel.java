@@ -59,6 +59,10 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
 
     private boolean isMySession;
 
+    private int tagContainerVisibility;
+
+    private int speakerVisibility;
+
     private int slideIconVisibility;
 
     private int dashVideoIconVisibility;
@@ -66,6 +70,8 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
     private int roomVisibility;
 
     private int topicVisibility;
+
+    private int feedbackButtonVisiblity;
 
     private Callback callback;
 
@@ -91,10 +97,13 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
         this.sessionThemeResId = topicColor.themeId;
         this.sessionTimeRange = decideSessionTimeRange(context, session);
         this.isMySession = mySessionsRepository.isExist(session.id);
+        this.tagContainerVisibility = !session.isDinner() ? View.VISIBLE : View.GONE;
+        this.speakerVisibility = !session.isDinner() ? View.VISIBLE : View.GONE;
         this.slideIconVisibility = session.slideUrl != null ? View.VISIBLE : View.GONE;
         this.dashVideoIconVisibility = session.movieUrl != null && session.movieDashUrl != null ? View.VISIBLE : View.GONE;
         this.roomVisibility = session.room != null ? View.VISIBLE : View.GONE;
         this.topicVisibility = session.topic != null ? View.VISIBLE : View.GONE;
+        this.feedbackButtonVisiblity = !session.isDinner() ? View.VISIBLE : View.GONE;
         this.languageResId = session.lang != null ? decideLanguageResId(new Locale(session.lang.toLowerCase()))
                 : R.string.lang_en;
     }
@@ -211,6 +220,14 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
         return isMySession;
     }
 
+    public int getTagContainerVisibility() {
+        return tagContainerVisibility;
+    }
+
+    public int getSpeakerVisibility() {
+        return speakerVisibility;
+    }
+
     public int getSlideIconVisibility() {
         return slideIconVisibility;
     }
@@ -225,6 +242,10 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
 
     public int getRoomVisibility() {
         return roomVisibility;
+    }
+
+    public int getFeedbackButtonVisiblity() {
+        return feedbackButtonVisiblity;
     }
 
     public void setCallback(@NonNull Callback callback) {
