@@ -11,6 +11,7 @@ import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 
 import io.github.droidkaigi.confsched2017.R;
+import io.github.droidkaigi.confsched2017.fps.FpsMeasure;
 import io.github.droidkaigi.confsched2017.repository.sessions.MySessionsRepository;
 import io.github.droidkaigi.confsched2017.repository.sessions.SessionsRepository;
 import io.reactivex.Observable;
@@ -19,8 +20,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import jp.wasabeef.takt.Seat;
-import jp.wasabeef.takt.Takt;
 import timber.log.Timber;
 
 public class SplashActivity extends BaseActivity {
@@ -56,11 +55,7 @@ public class SplashActivity extends BaseActivity {
         loadSessionsForCache();
 
         // Starting new Activity normally will not destroy this Activity, so set this up in start/stop cycle
-        Takt.stock(getApplication())
-                .seat(Seat.BOTTOM_RIGHT)
-                .interval(250)
-                .listener(fps -> Timber.i("heartbeat() called with: fps = [ %1$.3f ms ]", fps))
-                .play();
+        FpsMeasure.play(getApplication());
     }
 
     @Override
@@ -69,7 +64,7 @@ public class SplashActivity extends BaseActivity {
         compositeDisposable.dispose();
 
         // Stop tracking the frame rate.
-        Takt.finish();
+        FpsMeasure.finish();
     }
 
     private void loadSessionsForCache() {
