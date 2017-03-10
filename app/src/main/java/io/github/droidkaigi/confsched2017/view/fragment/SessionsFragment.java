@@ -15,7 +15,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Display;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -38,6 +37,8 @@ import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.databinding.FragmentSessionsBinding;
 import io.github.droidkaigi.confsched2017.databinding.ViewSessionCellBinding;
 import io.github.droidkaigi.confsched2017.model.Room;
+import io.github.droidkaigi.confsched2017.pref.DefaultPrefs;
+import io.github.droidkaigi.confsched2017.pref.DefaultPrefsSchema;
 import io.github.droidkaigi.confsched2017.util.ViewUtil;
 import io.github.droidkaigi.confsched2017.view.activity.MySessionsActivity;
 import io.github.droidkaigi.confsched2017.view.activity.SearchActivity;
@@ -63,7 +64,7 @@ public class SessionsFragment extends BaseFragment {
     CompositeDisposable compositeDisposable;
 
     @Inject
-    SharedPreferences sharedPreferences;
+    DefaultPrefs defaultPrefs;
 
     private SessionsAdapter adapter;
 
@@ -122,7 +123,7 @@ public class SessionsFragment extends BaseFragment {
     public void onStop() {
         super.onStop();
         int position = binding.recyclerView.getFirstVisiblePosition();
-        sharedPreferences.edit().putInt("last_position", position).apply();
+        defaultPrefs.putLastPosition(position);
         compositeDisposable.clear();
     }
 
@@ -229,7 +230,7 @@ public class SessionsFragment extends BaseFragment {
     }
 
     private void resumeLastPosition() {
-        int lastPosition = sharedPreferences.getInt("last_position", 0);
+        int lastPosition = defaultPrefs.getLastPosition();
         binding.recyclerView.post(() -> {
             for (int i = lastPosition; i < adapter.getItems().size(); i++) {
                 if (!TextUtils.isEmpty(adapter.getItem(i).getFormattedDate())) {

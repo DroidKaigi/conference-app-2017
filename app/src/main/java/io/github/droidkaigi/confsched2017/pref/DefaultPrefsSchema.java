@@ -23,4 +23,7 @@ public interface DefaultPrefsSchema {
 
     @Key(name = "show_debug_overlay_view")
     boolean showDebugOverlayView = false;
+
+    @Key(name = "last_position")
+    int lastPosition = 0;
 }
