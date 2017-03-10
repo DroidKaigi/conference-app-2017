@@ -73,4 +73,5 @@ public abstract class ArrayRecyclerAdapter<T, VH extends RecyclerView.ViewHolder
     public Iterator<T> iterator() {
         return list.iterator();
     }
+
 }

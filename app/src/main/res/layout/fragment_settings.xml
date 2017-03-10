@@ -88,6 +88,16 @@
                     app:settingTitle="@string/settings_local_time"
                     />
 
+            <!--<io.github.droidkaigi.confsched2017.view.customview.SettingSwitchRowView
+                    android:id="@+id/open_app_with_date_row"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:settingDefaultValue="@{viewModel.shouldOpenWithCurrentDate}"
+                    app:settingDescription=""
+                    app:settingOnCheckedChanged="@{(v, checked) -> viewModel.onCheckedShowLocalTimeSetting(checked)}"
+                    app:settingTitle="@string/settings_local_time"
+                    />-->
+
             <View style="@style/Border" />
 
             <RelativeLayout

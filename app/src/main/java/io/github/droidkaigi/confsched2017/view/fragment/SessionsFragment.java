@@ -5,6 +5,7 @@ import org.lucasr.twowayview.widget.DividerItemDecoration;
 import org.lucasr.twowayview.widget.SpannableGridLayoutManager;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Display;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -60,6 +62,9 @@ public class SessionsFragment extends BaseFragment implements SessionViewModel.C
 
     @Inject
     CompositeDisposable compositeDisposable;
+
+    @Inject
+    SharedPreferences sharedPreferences;
 
     private SessionsAdapter adapter;
 
@@ -114,6 +119,9 @@ public class SessionsFragment extends BaseFragment implements SessionViewModel.C
     @Override
     public void onStop() {
         super.onStop();
+        int position = binding.recyclerView.getFirstVisiblePosition();
+        Log.d(TAG, "onStop: " + position);
+        sharedPreferences.edit().putInt("last_position", position).apply();
         compositeDisposable.clear();
     }
 
@@ -171,7 +179,8 @@ public class SessionsFragment extends BaseFragment implements SessionViewModel.C
 
         ViewUtil.addOneTimeOnGlobalLayoutListener(binding.headerRow, () -> {
             if (binding.headerRow.getHeight() > 0) {
-                binding.recyclerView.getLayoutParams().height = binding.root.getHeight() - binding.border.getHeight() - binding.headerRow.getHeight();
+                binding.recyclerView.getLayoutParams().height = binding.root.getHeight() - binding.border.getHeight()
+                        - binding.headerRow.getHeight();
                 binding.recyclerView.requestLayout();
                 return true;
             } else {
@@ -214,6 +223,23 @@ public class SessionsFragment extends BaseFragment implements SessionViewModel.C
             binding.txtDate.setText(adjustedSessionViewModels.get(0).getFormattedDate());
             binding.txtDate.setVisibility(View.VISIBLE);
         }
+
+        resumeLastPosition();
+    }
+
+    private void resumeLastPosition() {
+        int lastPosition = sharedPreferences.getInt("last_position", 0);
+        binding.recyclerView.post(() -> {
+            for (int i = lastPosition; i < adapter.getItems().size(); i++) {
+                if (!TextUtils.isEmpty(adapter.getItem(i).getFormattedDate())) {
+                    String date = adapter.getItem(i).getFormattedDate();
+                    binding.txtDate.setText(date);
+                    break;
+                }
+            }
+            binding.recyclerView.getLayoutManager().scrollToPosition(lastPosition);
+            binding.txtDate.setVisibility(View.VISIBLE);
+        });
     }
 
     private void renderHeaderRow(List<Room> rooms) {
@@ -253,10 +279,14 @@ public class SessionsFragment extends BaseFragment implements SessionViewModel.C
             holder.binding.setViewModel(viewModel);
             holder.binding.executePendingBindings();
         }
+
+        public List<SessionViewModel> getItems() {
+            return list;
+        }
     }
 
-    private static class ClickGestureCanceller
-    {
+    private static class ClickGestureCanceller {
+
         private GestureDetector gestureDetector;
 
         ClickGestureCanceller(final Context context, final TouchlessTwoWayView targetView) {
