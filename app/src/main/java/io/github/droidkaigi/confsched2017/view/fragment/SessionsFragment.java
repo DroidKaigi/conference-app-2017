@@ -38,10 +38,9 @@ import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.databinding.FragmentSessionsBinding;
 import io.github.droidkaigi.confsched2017.databinding.ViewSessionCellBinding;
 import io.github.droidkaigi.confsched2017.model.Room;
-import io.github.droidkaigi.confsched2017.model.Session;
 import io.github.droidkaigi.confsched2017.util.ViewUtil;
+import io.github.droidkaigi.confsched2017.view.activity.MySessionsActivity;
 import io.github.droidkaigi.confsched2017.view.activity.SearchActivity;
-import io.github.droidkaigi.confsched2017.view.activity.SessionDetailActivity;
 import io.github.droidkaigi.confsched2017.view.customview.ArrayRecyclerAdapter;
 import io.github.droidkaigi.confsched2017.view.customview.BindingHolder;
 import io.github.droidkaigi.confsched2017.view.customview.TouchlessTwoWayView;
@@ -53,7 +52,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
-public class SessionsFragment extends BaseFragment implements SessionViewModel.Callback {
+public class SessionsFragment extends BaseFragment {
 
     public static final String TAG = SessionsFragment.class.getSimpleName();
 
@@ -105,6 +104,9 @@ public class SessionsFragment extends BaseFragment implements SessionViewModel.C
         switch (item.getItemId()) {
             case R.id.item_search:
                 startActivity(SearchActivity.createIntent(getActivity()));
+                break;
+            case R.id.item_my_sessions:
+                startActivity(MySessionsActivity.createIntent(getActivity()));
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -256,11 +258,6 @@ public class SessionsFragment extends BaseFragment implements SessionViewModel.C
         }
     }
 
-    @Override
-    public void showSessionDetail(@NonNull Session session) {
-        startActivity(SessionDetailActivity.createIntent(getContext(), session.id));
-    }
-
     public class SessionsAdapter extends ArrayRecyclerAdapter<SessionViewModel, BindingHolder<ViewSessionCellBinding>> {
 
         SessionsAdapter(@NonNull Context context) {
@@ -275,7 +272,6 @@ public class SessionsFragment extends BaseFragment implements SessionViewModel.C
         @Override
         public void onBindViewHolder(BindingHolder<ViewSessionCellBinding> holder, int position) {
             SessionViewModel viewModel = getItem(position);
-            viewModel.setCallback(SessionsFragment.this);
             holder.binding.setViewModel(viewModel);
             holder.binding.executePendingBindings();
         }

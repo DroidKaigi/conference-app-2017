@@ -8,8 +8,13 @@ import com.github.gfx.android.orma.annotation.Table;
 
 import android.support.annotation.Nullable;
 
+import io.github.droidkaigi.confsched2017.BuildConfig;
+import timber.log.Timber;
+
 @Table
 public class Speaker {
+
+    private static final String TAG = Speaker.class.getSimpleName();
 
     @PrimaryKey(auto = false)
     @Column(indexed = true)
@@ -34,4 +39,20 @@ public class Speaker {
     @Nullable
     @SerializedName("github_name")
     public String githubName;
+
+    @Nullable
+    public String getAdjustedImageUrl() {
+        if (imageUrl == null) {
+            return null;
+        }
+
+        if (imageUrl.startsWith("http://") || imageUrl.startsWith("https://")) {
+            return imageUrl;
+        } else if (imageUrl.startsWith("/")) {
+            return BuildConfig.STATIC_ROOT + imageUrl;
+        } else {
+            Timber.tag(TAG).e("Invalid image url: %s", imageUrl);
+            return null;
+        }
+    }
 }

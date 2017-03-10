@@ -31,7 +31,8 @@ public class DroidKaigiClient {
     private static final int MAX_PER_PAGE = 100;
 
     @Inject
-    public DroidKaigiClient(DroidKaigiService droidKaigiService, GithubService githubService, GoogleFormService googleFormService) {
+    public DroidKaigiClient(DroidKaigiService droidKaigiService, GithubService githubService,
+            GoogleFormService googleFormService) {
         this.droidKaigiService = droidKaigiService;
         this.githubService = githubService;
         this.googleFormService = googleFormService;
@@ -49,7 +50,13 @@ public class DroidKaigiClient {
         return githubService.getContributors("DroidKaigi", "conference-app-2017", INCLUDE_ANONYMOUS, MAX_PER_PAGE);
     }
 
-    public Single<Response<Void>>submitSessionFeedback(SessionFeedback sessionFeedback){
-        return googleFormService.submitSessionFeedback(sessionFeedback.sessionId);
+    public Single<Response<Void>> submitSessionFeedback(@NonNull SessionFeedback sessionFeedback) {
+        return googleFormService.submitSessionFeedback(sessionFeedback.sessionId,
+                sessionFeedback.sessionTitle,
+                sessionFeedback.relevancy,
+                sessionFeedback.asExpected,
+                sessionFeedback.difficulty,
+                sessionFeedback.knowledgeable,
+                sessionFeedback.comment);
     }
 }

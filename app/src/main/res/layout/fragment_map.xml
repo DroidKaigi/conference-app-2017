@@ -1,19 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        >
 
-    <RelativeLayout
+    <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:orientation="vertical"
             >
 
-        <TextView
-                style="@style/TextTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="@string/map"
+        <uk.co.senab.photoview.PhotoView
+                android:id="@+id/img_map"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:src="@drawable/img_floormap"
                 />
 
-    </RelativeLayout>
+        <View style="@style/Border" />
+
+        <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@color/grey50"
+                android:clipToPadding="false"
+                android:overScrollMode="never"
+                android:padding="@dimen/space_8dp"
+                android:scrollbarStyle="outsideOverlay"
+                >
+
+            <com.google.android.flexbox.FlexboxLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:flexDirection="row"
+                    app:flexWrap="wrap"
+                    app:justifyContent="flex_start"
+                    >
+
+                <TextView
+                        style="@style/MapCell.Title"
+                        android:text="@string/map_venue_title"
+                        />
+
+                <TextView
+                        style="@style/MapCell.Value"
+                        android:text="@string/map_venue_value"
+                        />
+
+                <TextView
+                        style="@style/MapCell.Title"
+                        android:text="@string/map_address_title"
+                        />
+
+                <TextView
+                        style="@style/MapCell.Value"
+                        android:text="@string/map_address_value"
+                        />
+
+                <TextView
+                        style="@style/MapCell.Title"
+                        android:text="@string/map_access_title"
+                        />
+
+                <TextView
+                        style="@style/MapCell.Value"
+                        android:text="@string/map_access_value"
+                        />
+
+            </com.google.android.flexbox.FlexboxLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
 
 </layout>

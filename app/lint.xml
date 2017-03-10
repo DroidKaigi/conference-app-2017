@@ -2,4 +2,7 @@
 <lint>
     <issue id="LogNotTimber"
             severity="error" />
+    <issue id="RestrictedApi">
+        <ignore path="build/generated"/>
+    </issue>
 </lint>

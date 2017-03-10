@@ -21,6 +21,7 @@ import io.github.droidkaigi.confsched2017.repository.sessions.SessionsRepository
 import io.github.droidkaigi.confsched2017.util.AlarmUtil;
 import io.github.droidkaigi.confsched2017.util.DateUtil;
 import io.github.droidkaigi.confsched2017.util.LocaleUtil;
+import io.github.droidkaigi.confsched2017.view.helper.Navigator;
 import io.reactivex.Completable;
 import timber.log.Timber;
 
@@ -30,11 +31,15 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
 
     private final Context context;
 
+    private final Navigator navigator;
+
     private final SessionsRepository sessionsRepository;
 
     private final MySessionsRepository mySessionsRepository;
 
     private String sessionTitle;
+
+    private String speakerImageUrl;
 
     @ColorRes
     private int sessionVividColorResId = R.color.white;
@@ -54,6 +59,10 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
 
     private boolean isMySession;
 
+    private int tagContainerVisibility;
+
+    private int speakerVisibility;
+
     private int slideIconVisibility;
 
     private int dashVideoIconVisibility;
@@ -62,12 +71,15 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
 
     private int topicVisibility;
 
+    private int feedbackButtonVisiblity;
+
     private Callback callback;
 
     @Inject
-    public SessionDetailViewModel(Context context, SessionsRepository sessionsRepository,
+    public SessionDetailViewModel(Context context, Navigator navigator, SessionsRepository sessionsRepository,
             MySessionsRepository mySessionsRepository) {
         this.context = context;
+        this.navigator = navigator;
         this.sessionsRepository = sessionsRepository;
         this.mySessionsRepository = mySessionsRepository;
     }
@@ -75,21 +87,29 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
     private void setSession(@NonNull Session session) {
         this.session = session;
         this.sessionTitle = session.title;
+
+        if (session.speaker != null) {
+            this.speakerImageUrl = session.speaker.getAdjustedImageUrl();
+        }
         TopicColor topicColor = TopicColor.from(session.topic);
         this.sessionVividColorResId = topicColor.vividColorResId;
         this.sessionPaleColorResId = topicColor.paleColorResId;
         this.sessionThemeResId = topicColor.themeId;
         this.sessionTimeRange = decideSessionTimeRange(context, session);
         this.isMySession = mySessionsRepository.isExist(session.id);
+        this.tagContainerVisibility = !session.isDinner() ? View.VISIBLE : View.GONE;
+        this.speakerVisibility = !session.isDinner() ? View.VISIBLE : View.GONE;
         this.slideIconVisibility = session.slideUrl != null ? View.VISIBLE : View.GONE;
         this.dashVideoIconVisibility = session.movieUrl != null && session.movieDashUrl != null ? View.VISIBLE : View.GONE;
         this.roomVisibility = session.room != null ? View.VISIBLE : View.GONE;
         this.topicVisibility = session.topic != null ? View.VISIBLE : View.GONE;
-        this.languageResId = session.lang != null ? decideLanguageResId(new Locale(session.lang.toLowerCase())) : R.string.lang_en;
+        this.feedbackButtonVisiblity = !session.isDinner() ? View.VISIBLE : View.GONE;
+        this.languageResId = session.lang != null ? decideLanguageResId(new Locale(session.lang.toLowerCase()))
+                : R.string.lang_en;
     }
 
     public Completable loadSession(int sessionId) {
-        return  sessionsRepository.find(sessionId, Locale.getDefault())
+        return sessionsRepository.find(sessionId, Locale.getDefault())
                 .flatMapCompletable(session -> {
                     setSession(session);
                     return Completable.complete();
@@ -106,7 +126,7 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
 
     @Override
     public void destroy() {
-        // Do nothing
+        this.callback = null;
     }
 
     public boolean shouldShowShareMenuItem() {
@@ -118,9 +138,7 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
     }
 
     public void onClickFeedbackButton(@SuppressWarnings("unused") View view) {
-        if (callback != null) {
-            callback.onClickFeedback();
-        }
+        navigator.navigateToFeedbackPage(session);
     }
 
     public void onClickSlideIcon(@SuppressWarnings("unused") View view) {
@@ -154,6 +172,12 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
         }
     }
 
+    public void onOverScroll() {
+        if (callback != null) {
+            callback.onOverScroll();
+        }
+    }
+
     private String decideSessionTimeRange(Context context, Session session) {
         Date displaySTime = LocaleUtil.getDisplayDate(session.stime, context);
         Date displayETime = LocaleUtil.getDisplayDate(session.etime, context);
@@ -166,6 +190,10 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
 
     public String getSessionTitle() {
         return sessionTitle;
+    }
+
+    public String getSpeakerImageUrl() {
+        return speakerImageUrl;
     }
 
     public int getSessionVividColorResId() {
@@ -192,6 +220,14 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
         return isMySession;
     }
 
+    public int getTagContainerVisibility() {
+        return tagContainerVisibility;
+    }
+
+    public int getSpeakerVisibility() {
+        return speakerVisibility;
+    }
+
     public int getSlideIconVisibility() {
         return slideIconVisibility;
     }
@@ -208,7 +244,11 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
         return roomVisibility;
     }
 
-    public void setCallback(Callback callback) {
+    public int getFeedbackButtonVisiblity() {
+        return feedbackButtonVisiblity;
+    }
+
+    public void setCallback(@NonNull Callback callback) {
         this.callback = callback;
     }
 
@@ -216,6 +256,6 @@ public class SessionDetailViewModel extends BaseObservable implements ViewModel 
 
         void onClickFab(boolean selected);
 
-        void onClickFeedback();
+        void onOverScroll();
     }
 }

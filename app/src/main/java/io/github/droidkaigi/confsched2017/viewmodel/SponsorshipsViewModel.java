@@ -1,15 +1,13 @@
 package io.github.droidkaigi.confsched2017.viewmodel;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import com.annimon.stream.Collectors;
-import com.annimon.stream.Stream;
-
 import android.databinding.BaseObservable;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
 import android.support.annotation.Nullable;
+
+import com.annimon.stream.Stream;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -19,6 +17,7 @@ import javax.inject.Inject;
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.model.Sponsorship;
 import io.github.droidkaigi.confsched2017.view.helper.ResourceResolver;
+import io.github.droidkaigi.confsched2017.view.helper.Navigator;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -29,15 +28,19 @@ public final class SponsorshipsViewModel extends BaseObservable implements ViewM
 
     private static final String TAG = SponsorshipsViewModel.class.getSimpleName();
 
-    private ResourceResolver resourceResolver;
+    private final ResourceResolver resourceResolver;
+
+    private final Navigator navigator;
 
     private final ObservableList<SponsorshipViewModel> sponsorshipViewModels;
 
     private final CompositeDisposable compositeDisposable;
 
     @Inject
-    SponsorshipsViewModel(ResourceResolver resourceResolver, CompositeDisposable compositeDisposable) {
+    SponsorshipsViewModel(ResourceResolver resourceResolver, Navigator navigator,
+                          CompositeDisposable compositeDisposable) {
         this.resourceResolver = resourceResolver;
+        this.navigator = navigator;
         this.compositeDisposable = compositeDisposable;
         this.sponsorshipViewModels = new ObservableArrayList<>();
     }
@@ -84,7 +87,9 @@ public final class SponsorshipsViewModel extends BaseObservable implements ViewM
     }
 
     private List<SponsorshipViewModel> convertToViewModel(List<Sponsorship> sponsorships) {
-        return Stream.of(sponsorships).map(SponsorshipViewModel::new).collect(Collectors.toList());
+        return Stream.of(sponsorships)
+                .map(sponsorship -> new SponsorshipViewModel(navigator, sponsorship))
+                .toList();
     }
 
     private void renderSponsorships(List<SponsorshipViewModel> sponsorships) {

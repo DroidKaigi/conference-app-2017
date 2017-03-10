@@ -5,7 +5,11 @@ import com.sys1yagi.fragmentcreator.annotation.FragmentCreator;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,14 +17,10 @@ import android.widget.Toast;
 
 import javax.inject.Inject;
 
+import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.databinding.FragmentSessionFeedbackBinding;
 import io.github.droidkaigi.confsched2017.model.SessionFeedback;
 import io.github.droidkaigi.confsched2017.viewmodel.SessionFeedbackViewModel;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
-import timber.log.Timber;
 
 @FragmentCreator
 public class SessionFeedbackFragment extends BaseFragment implements SessionFeedbackViewModel.Callback {
@@ -29,9 +29,6 @@ public class SessionFeedbackFragment extends BaseFragment implements SessionFeed
 
     @Inject
     SessionFeedbackViewModel viewModel;
-
-    @Inject
-    CompositeDisposable compositeDisposable;
 
     @Args
     int sessionId;
@@ -46,6 +43,7 @@ public class SessionFeedbackFragment extends BaseFragment implements SessionFeed
         super.onCreate(savedInstanceState);
         SessionFeedbackFragmentCreator.read(this);
         viewModel.setCallback(this);
+        viewModel.findSession(sessionId);
     }
 
     @Override
@@ -59,58 +57,48 @@ public class SessionFeedbackFragment extends BaseFragment implements SessionFeed
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentSessionFeedbackBinding.inflate(inflater, container, false);
         binding.setViewModel(viewModel);
-
-        initView();
         return binding.getRoot();
-    }
-
-    private void initView() {
-        Disposable disposable = viewModel.findSession(sessionId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        session -> {
-                            // TODO
-                        },
-                        throwable -> Timber.tag(TAG).e(throwable, "Failed to find session.")
-                );
-        compositeDisposable.add(disposable);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        compositeDisposable.dispose();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        viewModel.destroy();
     }
 
     @Override
     public void onDetach() {
+        viewModel.destroy();
         super.onDetach();
-        compositeDisposable.clear();
     }
 
     @Override
-    public void onClickSubmitFeedback() {
-        SessionFeedback sessionFeedback = new SessionFeedback(sessionId);
-        compositeDisposable.add(viewModel.submitSessionFeedback(sessionFeedback)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(success -> onSubmitSuccess(), failure -> onSubmitFailure()));
+    public void onSuccessSubmit() {
+        showToast(R.string.session_feedback_submit_success);
     }
 
-    public void onSubmitSuccess() {
-        // TODO: show success action
-        Toast.makeText(getContext(), "submit success", Toast.LENGTH_SHORT).show();
+    @Override
+    public void onErrorSubmit() {
+        showToast(R.string.session_feedback_submit_failure);
     }
 
-    public void onSubmitFailure() {
-        // TODO: show failure action
-        Toast.makeText(getContext(), "submit failure", Toast.LENGTH_SHORT).show();
+    @Override
+    public void onErrorUnFilled() {
+        showToast(R.string.session_feedback_error_not_filled);
+    }
+
+    @Override
+    public void onSessionFeedbackInitialized(@NonNull SessionFeedback sessionFeedback) {
+        String title = sessionFeedback.isSubmitted
+                ? getString(R.string.session_feedback_submitted_title, sessionFeedback.sessionTitle)
+                : sessionFeedback.sessionTitle;
+        setActionBarTitle(title);
+    }
+
+    private void setActionBarTitle(String title) {
+        if (getActivity() instanceof AppCompatActivity) {
+            ActionBar bar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+            if (bar != null) {
+                bar.setTitle(title);
+            }
+        }
+    }
+
+    private void showToast(@StringRes int messageResId) {
+        Toast.makeText(getContext(), messageResId, Toast.LENGTH_SHORT).show();
     }
 }

@@ -7,6 +7,7 @@
     <string name="map">地図</string>
     <string name="information">情報</string>
     <string name="settings">設定</string>
+    <string name="retry">再読み込み</string>
     <!-- Sessions -->
     <string name="session_minutes">(%1$d分)</string>
     <string name="session_detail">セッション詳細</string>
@@ -15,6 +16,21 @@
     <string name="description">内容</string>
     <string name="slide_and_video">資料＆動画</string>
     <string name="send_feedback">フィードバックを送る</string>
+    <string name="session_checked">このセッションをチェックしました。</string>
+    <string name="session_unchecked">このセッションのチェックを外しました。</string>
+    <string name="session_check">チェックする</string>
+    <string name="session_uncheck">チェックを外す</string>
+    <!-- My Sessions -->
+    <string name="my_session_empty">まだセッションが登録されていません。セッションリストを確認し、気になるセッションをチェックアウトしましょう！</string>
+    <!-- Map -->
+    <string name="map_start_navigation">ナビゲーション</string>
+    <string name="map_venue_title">会場</string>
+    <string name="map_venue_value">ベルサール新宿グランド コンファレンスセンター</string>
+    <string name="map_address_title">住所</string>
+    <string name="map_address_value">〒160–0023 東京都新宿区西新宿8–17–1 住友不動産新宿グランドタワー 5F ベルサール新宿グランドコンファレンスセンター</string>
+    <string name="map_access_title">最寄り駅</string>
+    <string name="map_access_value">- 丸ノ内線「西新宿駅」 (1番出口徒歩3分)\n- 大江戸線「都庁前駅」 (E4出口徒歩7分)\n- 大江戸線「新宿西口駅」(D4出口徒歩11分)\n- JR線・丸ノ内線･小田急線･京王線・新宿線・大江戸線「新宿駅」 (西口徒歩15分)</string>
+    <string name="map_route_guide_url">https://droidkaigi.github.io/2017/route.html</string>
     <!-- Settings -->
     <string name="settings_language">言語を設定</string>
     <string name="settings_language_description">表示言語を変更できます。変更後はアプリが再起動されます。</string>
@@ -41,12 +57,36 @@
     <!-- Contributors -->
     <string name="contributors">コントリビュータ</string>
     <string name="contributors_people">(%1$d人)</string>
+    <string name="contributors_load_failed">コントリビュータを表示できませんでした。</string>
     <!-- Help Translate -->
     <string name="help_translate">翻訳のお手伝い</string>
     <!-- Licenses -->
     <string name="licenses">オープンソースライセンス</string>
     <!-- Session feedback -->
+    <string name="session_feedback_relevancy_title">このセッションはあなたの仕事やプロジェクトに関連がありましたか？</string>
+    <string name="session_feedback_relevancy_min_text">ほとんど関連がない</string>
+    <string name="session_feedback_relevancy_max_text">非常に関連がある</string>
+    <string name="session_feedback_asexpected_title">セッションの説明を読んで期待した通りの内容でしたか？</string>
+    <string name="session_feedback_asexpected_min_text">期待外れ</string>
+    <string name="session_feedback_asexpected_max_text">期待以上</string>
+    <string name="session_feedback_difficulty_title">セッションの難易度はいかがでしたか？</string>
+    <string name="session_feedback_difficulty_min_text">基本的すぎた</string>
+    <string name="session_feedback_difficulty_max_text">高度すぎた</string>
+    <string name="session_feedback_knowledgeable_title">技術的な知見は得られたでしょうか？</string>
+    <string name="session_feedback_knowledgeable_min_text">あまり知見はなかった</string>
+    <string name="session_feedback_knowledgeable_max_text">知見に溢れていた</string>
+    <string name="session_feedback_comment_title">他にコメントがあればぜひ教えてください（個人が特定できるような内容は書かないでください）</string>
+    <string name="session_feedback_comment_hint">回答を入力</string>
     <string name="session_feedback">セッションフィードバック</string>
+    <string name="session_feedback_accepted_successfully">ありがとうございます！フィードバックは送信されました。</string>
+    <string name="session_feedback_not_accepting">申し訳ありません。DroidKaigi終了から日にちが経っているため現在はフィードバックを送信できません。</string>
+    <string name="session_feedback_submit_error">送信中にエラーが発生しました。ネットワーク状態を確認してもう一度お試しください。</string>
+    <string name="session_feedback_submit_failure">送信に失敗しました。</string>
+    <string name="session_feedback_submit_success">送信しました。</string>
+    <string name="session_feedback_error_not_filled">未入力の項目があります。</string>
+    <string name="session_feedback_confirm_title">送信してよろしいですか？</string>
+    <string name="session_feedback_confirm_message">送信後に編集することはできません。</string>
+    <string name="session_feedback_submitted_title">[送信済み] %1$s</string>
     <!-- Notification -->
     <string name="notification_title">%1$s がもうすぐ始まります。</string>
     <string name="notification_message">%1$s ~ %2$s @ %3$s</string>

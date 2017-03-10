@@ -156,6 +156,7 @@
                     >
 
                 <TextView
+                        android:id="@+id/developer_menu_title"
                         style="@style/TextSubheading"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -163,6 +164,15 @@
                         android:textColor="?attr/colorPrimary"
                         />
 
+                <TextView
+                        android:id="@+id/developer_menu_tips"
+                        style="@style/SettingDescriptionText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/developer_menu_title"
+                        android:layout_marginTop="@dimen/space_8dp"
+                        android:text="@string/settings_developer_tips"
+                        />
             </RelativeLayout>
 
             <io.github.droidkaigi.confsched2017.view.customview.SettingSwitchRowView

@@ -14,12 +14,16 @@ import android.view.View;
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.model.Session;
 import io.github.droidkaigi.confsched2017.repository.sessions.MySessionsRepository;
+import io.github.droidkaigi.confsched2017.view.activity.SearchActivity;
+import io.github.droidkaigi.confsched2017.view.helper.Navigator;
 
 public class SearchResultViewModel extends BaseObservable implements ViewModel {
 
     private static final String ELLIPSIZE_TEXT = "...";
 
     private static final int ELLIPSIZE_LIMIT_COUNT = 30;
+
+    private final Navigator navigator;
 
     private String sessionTitle;
 
@@ -37,12 +41,11 @@ public class SearchResultViewModel extends BaseObservable implements ViewModel {
 
     private Session session;
 
-    private Callback callback;
-
     private boolean shouldEllipsis;
 
-    private SearchResultViewModel(String text, Type type, Session session, Context context,
+    private SearchResultViewModel(String text, Type type, Session session, Context context, Navigator navigator,
             MySessionsRepository mySessionsRepository) {
+        this.navigator = navigator;
         this.text = text;
         this.sessionTitle = session.title;
         if (session.speaker != null) {
@@ -58,26 +61,15 @@ public class SearchResultViewModel extends BaseObservable implements ViewModel {
 
     @Override
     public void destroy() {
-        callback = null;
-    }
-
-    public void setCallback(Callback callback) {
-        this.callback = callback;
+        // Nothing to do
     }
 
     public void onItemClick(@SuppressWarnings("unused") View view) {
-        if (callback != null) {
-            callback.showSessionDetail(session);
-        }
+        navigator.navigateToSessionDetail(session, SearchActivity.class);
     }
 
     public boolean match(String filterPattern) {
         return text.toLowerCase().contains(filterPattern);
-    }
-
-    public interface Callback {
-
-        void showSessionDetail(@NonNull Session session);
     }
 
     public String getSessionTitle() {
@@ -140,28 +132,30 @@ public class SearchResultViewModel extends BaseObservable implements ViewModel {
     }
 
 
-    static SearchResultViewModel createTitleType(@NonNull Session session, Context context,
+    static SearchResultViewModel createTitleType(@NonNull Session session, Context context, Navigator navigator,
             MySessionsRepository mySessionsRepository) {
-        return new SearchResultViewModel(session.title, Type.TITLE, session, context, mySessionsRepository);
+        return new SearchResultViewModel(session.title, Type.TITLE, session, context, navigator, mySessionsRepository);
     }
 
-    static SearchResultViewModel createDescriptionType(@NonNull Session session, Context context,
+    static SearchResultViewModel createDescriptionType(@NonNull Session session, Context context, Navigator navigator,
             MySessionsRepository mySessionsRepository) {
-        return new SearchResultViewModel(session.desc, Type.DESCRIPTION, session, context, mySessionsRepository);
+        return new SearchResultViewModel(session.desc, Type.DESCRIPTION, session, context, navigator, mySessionsRepository);
     }
 
-    static SearchResultViewModel createSpeakerType(@NonNull Session session, Context context,
+    static SearchResultViewModel createSpeakerType(@NonNull Session session, Context context, Navigator navigator,
             MySessionsRepository mySessionsRepository) {
-        return new SearchResultViewModel(session.speaker.name, Type.SPEAKER, session, context, mySessionsRepository);
+        return new SearchResultViewModel(
+                session.speaker.name, Type.SPEAKER, session, context, navigator, mySessionsRepository);
     }
 
     public enum Type {
         TITLE(R.drawable.ic_title_12_vector),
-        DESCRIPTION(R.drawable.ic_description12_vector),
-        SPEAKER(R.drawable.ic_speaker_12_vector),
-        ;
+        DESCRIPTION(R.drawable.ic_description_12_vector),
+        SPEAKER(R.drawable.ic_speaker_12_vector),;
 
-        private final @DrawableRes int iconResId;
+        private final
+        @DrawableRes
+        int iconResId;
 
         Type(@DrawableRes int iconResId) {
             this.iconResId = iconResId;

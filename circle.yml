@@ -6,26 +6,32 @@ machine:
     JAVA_OPTS: "-Xms512m -Xmx1024m"
     GRADLE_OPTS: '-Dorg.gradle.parallel=false -Dorg.gradle.daemon=false -Dorg.gradle.jvmargs="-Xmx1560m -XX:+HeapDumpOnOutOfMemoryError"'
     TERM: dumb
+    REVIEWDOG_VERSION: 0.9.3
 
 dependencies:
   pre:
+    - git fetch origin # sometimes circleci fail to fetch branches correctly, so fetch them expressly
     - echo y | android -s update sdk -u -a -t "tools" # update Android SDK that includes sdkmanager(1)
     - mkdir -p $ANDROID_HOME/licenses
     - echo -e "8933bad161af4178b1185d1a37fbf41ea5269c55" > $ANDROID_HOME/licenses/android-sdk-license
     - echo -e "84831b9409646a918e30573bab4c9c91346d8abd" > $ANDROID_HOME/licenses/android-sdk-preview-license
     - $ANDROID_HOME/tools/bin/sdkmanager "platform-tools" "extras;android;m2repository" "extras;google;m2repository"
-    - $ANDROID_HOME/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.0-beta5"
-    - $ANDROID_HOME/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.0-beta5"
+    - $ANDROID_HOME/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.1"
+    - $ANDROID_HOME/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.1"
+    - curl -fSL https://github.com/haya14busa/reviewdog/releases/download/$REVIEWDOG_VERSION/reviewdog_linux_amd64 -o reviewdog && chmod +x ./reviewdog
   override:
     - ./gradlew app:dependencies
 
 test:
   override:
-    - ./gradlew assembleProductionDebug
-    - ./gradlew lint
+    - ./gradlew assembleProductionRelease
+    - "./gradlew lint 2>&1 | ./reviewdog -efm='%f:%l: %m' -name='Android Lint' -ci='circle-ci'"
     - ./gradlew checkLicenses
     - ./gradlew jacocoTestReportDevelop
-    - find . -name app*debug.apk -exec cp {} $CIRCLE_ARTIFACTS/ \;
+    - find . -name app*.apk -exec cp {} $CIRCLE_ARTIFACTS/ \;
+  post:
+    - mkdir -p $CIRCLE_TEST_REPORTS/junit/
+    - find . -type f -regex ".*/build/test-results/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
 
 deployment:
   production:

@@ -1,25 +1,22 @@
 package io.github.droidkaigi.confsched2017.viewmodel;
 
-import android.support.annotation.NonNull;
 import android.view.View;
 
 import javax.inject.Inject;
 
 import io.github.droidkaigi.confsched2017.BuildConfig;
+import io.github.droidkaigi.confsched2017.view.helper.Navigator;
 
 public final class InformationViewModel implements ViewModel {
 
-    private Callback callback;
+    private final Navigator navigator;
 
     private String versionName;
 
     @Inject
-    public InformationViewModel() {
+    public InformationViewModel(Navigator navigator) {
+        this.navigator = navigator;
         this.versionName = "V" + BuildConfig.VERSION_NAME;
-    }
-
-    public void setCallback(@NonNull Callback callback) {
-        this.callback = callback;
     }
 
     public String getVersionName() {
@@ -27,98 +24,51 @@ public final class InformationViewModel implements ViewModel {
     }
 
     public void onClickSponsors(@SuppressWarnings("unused") View view) {
-        if (callback != null) {
-            callback.showSponsorsPage();
-        }
+        navigator.navigateToSponsorsPage();
     }
 
     public void onClickQuestionnaire(@SuppressWarnings("unused") View view) {
-        if (callback != null) {
-            callback.showQuestionnairePage();
-        }
+        navigator.navigateToWebPage("https://docs.google.com/forms/d/1SNBvJernnyBwglNentXxpdSUkWI9U6umWdDs4Na8OIU/viewform?edit_requested=true");
     }
 
     public void onClickContributors(@SuppressWarnings("unused") View view) {
-        if (callback != null) {
-            callback.showContributorsPage();
-        }
+        navigator.navigateToContributorsPage();
     }
 
     public void onClickHelpTranslate(@SuppressWarnings("unused") View view) {
-        if (callback != null) {
-            callback.showTranslationsPage();
-        }
+        navigator.navigateToWebPage("https://droidkaigi2017.oneskyapp.com/collaboration");
     }
 
     public void onClickLicense(@SuppressWarnings("unused") View view) {
-        if (callback != null) {
-            callback.showLicensePage();
-        }
+        navigator.navigateToLicensePage();
     }
 
     public void onClickDevInfo(@SuppressWarnings("unused") View view) {
-        if (callback != null) {
-            callback.showDevInfoPage();
-        }
+        // TODO
     }
 
     public void onClickTwitter(@SuppressWarnings("unused") View view) {
-        if (callback != null) {
-            callback.showTwitter();
-        }
+        navigator.navigateToWebPage("https://twitter.com/DroidKaigi");
     }
 
     public void onClickFacebook(@SuppressWarnings("unused") View view) {
-        if (callback != null) {
-            callback.showFacebook();
-        }
+        navigator.navigateToWebPage("https://www.facebook.com/DroidKaigi/");
     }
 
     public void onClickGitHub(@SuppressWarnings("unused") View view) {
-        if (callback != null) {
-            callback.showGitHubRepository();
-        }
+        navigator.navigateToWebPage("https://github.com/DroidKaigi/conference-app-2017/");
     }
 
     public void onClickDroidKaigiWeb(@SuppressWarnings("unused") View view) {
-        if (callback != null) {
-            callback.showDroidKaigiWeb();
-        }
+        navigator.navigateToWebPage("https://droidkaigi.github.io/2017/");
     }
 
     public void onClickYouTube(@SuppressWarnings("unused") View view) {
-        if (callback != null) {
-            callback.showYouTube();
-        }
+        navigator.navigateToWebPage("https://www.youtube.com/droidkaigi");
     }
 
     @Override
     public void destroy() {
-        this.callback = null;
-    }
-
-    public interface Callback {
-
-        void showSponsorsPage();
-
-        void showQuestionnairePage();
-
-        void showContributorsPage();
-
-        void showTranslationsPage();
-
-        void showLicensePage();
-
-        void showDevInfoPage();
-
-        void showTwitter();
-
-        void showFacebook();
-
-        void showGitHubRepository();
-
-        void showDroidKaigiWeb();
-
-        void showYouTube();
+        // Nothing to do
     }
 }
