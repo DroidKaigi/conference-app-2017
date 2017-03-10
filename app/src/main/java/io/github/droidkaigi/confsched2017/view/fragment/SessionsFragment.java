@@ -122,7 +122,6 @@ public class SessionsFragment extends BaseFragment {
     public void onStop() {
         super.onStop();
         int position = binding.recyclerView.getFirstVisiblePosition();
-        Log.d(TAG, "onStop: " + position);
         sharedPreferences.edit().putInt("last_position", position).apply();
         compositeDisposable.clear();
     }
