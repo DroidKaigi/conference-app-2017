@@ -6,10 +6,10 @@
     <solid android:color="@color/grey200" />
 
     <padding
-            android:bottom="@dimen/user_image_border"
-            android:left="@dimen/user_image_border"
-            android:right="@dimen/user_image_border"
-            android:top="@dimen/user_image_border"
+            android:bottom="@dimen/border_1dp"
+            android:left="@dimen/border_1dp"
+            android:right="@dimen/border_1dp"
+            android:top="@dimen/border_1dp"
             />
 
 </shape>

@@ -61,7 +61,6 @@
     <dimen name="session_table_border_width">1dp</dimen>
     <dimen name="session_table_cell_title_text_size">10sp</dimen>
     <dimen name="session_table_min_width">670dp</dimen>
-    <dimen name="user_image_border">1dp</dimen>
 
     <dimen name="detail_header_height">200dp</dimen>
 
