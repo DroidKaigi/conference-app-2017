@@ -1,7 +1,6 @@
 package io.github.droidkaigi.confsched2017.service.helper;
 
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.graphics.PixelFormat;
 import android.support.v4.view.GravityCompat;
 import android.view.ContextThemeWrapper;
@@ -39,7 +38,7 @@ public class OverlayViewManager {
 
     public void create() {
         themedContext = new OverlayViewContext(context);
-        LayoutInflater inflater = (LayoutInflater) themedContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = LayoutInflater.from(themedContext);
         root = inflater.inflate(R.layout.view_root_overlay, null, false);
         windowManager.addView(root, params);
     }
@@ -57,11 +56,11 @@ public class OverlayViewManager {
         themedContext = null;
     }
 
-    /* package */ static class OverlayViewContext extends ContextWrapper {
+    /* package */ static class OverlayViewContext extends ContextThemeWrapper {
         private LayoutInflater inflater;
 
         public OverlayViewContext(Context base) {
-            super(base);
+            super(base, R.style.AppTheme);
         }
 
         @Override
@@ -73,8 +72,7 @@ public class OverlayViewManager {
         public Object getSystemService(String name) {
             if (LAYOUT_INFLATER_SERVICE.equals(name)) {
                 if (inflater == null) {
-                    inflater = LayoutInflater.from(getBaseContext())
-                            .cloneInContext(new ContextThemeWrapper(this, R.style.AppTheme));
+                    inflater = LayoutInflater.from(getBaseContext()).cloneInContext(this);
                 }
                 return inflater;
             }

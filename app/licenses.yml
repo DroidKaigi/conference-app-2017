@@ -48,11 +48,6 @@
   license: Apache 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: http://github.com/JakeWharton/flip-tables/
-- artifact: com.jakewharton.retrofit:retrofit2-rxjava2-adapter:+
-  name: Retrofit 2 OkHttp 2 Adapter
-  copyrightHolder: Jake Wharton
-  license: Apache License Version 2.0
-  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
 - artifact: com.jakewharton.timber:timber:+
   name: Timber
   copyrightHolder: Jake Wharton
@@ -106,6 +101,12 @@
 - artifact: net.opacapp:multiline-collapsingtoolbar:+
   name: Multiline Collapsing Toolbar
   copyrightHolder: Web Opac App
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://github.com/opacapp/multiline-collapsingtoolbar
+- artifact: com.github.chrisbanes:PhotoView:+
+  name: PhotoView
+  copyrightHolder: Chris Banes
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: https://github.com/opacapp/multiline-collapsingtoolbar

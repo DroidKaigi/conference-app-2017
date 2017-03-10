@@ -1,15 +1,15 @@
 package io.github.droidkaigi.confsched2017.viewmodel;
 
-import com.annimon.stream.Collectors;
-import com.annimon.stream.Stream;
-
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.view.View;
+
+import com.annimon.stream.Stream;
 
 import java.util.List;
 
@@ -20,6 +20,7 @@ import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.di.scope.FragmentScope;
 import io.github.droidkaigi.confsched2017.repository.contributors.ContributorsRepository;
 import io.github.droidkaigi.confsched2017.view.helper.ResourceResolver;
+import io.github.droidkaigi.confsched2017.view.helper.Navigator;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -27,11 +28,13 @@ import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 @FragmentScope
-public final class ContributorsViewModel extends BaseObservable implements ViewModel, ContributorViewModel.Callback {
+public final class ContributorsViewModel extends BaseObservable implements ViewModel {
 
     public static final String TAG = ContributorsViewModel.class.getSimpleName();
 
     private final ResourceResolver resourceResolver;
+
+    private final Navigator navigator;
 
     private final ToolbarViewModel toolbarViewModel;
 
@@ -49,9 +52,14 @@ public final class ContributorsViewModel extends BaseObservable implements ViewM
     private Callback callback;
 
     @Inject
-    ContributorsViewModel(ResourceResolver resourceResolver, ToolbarViewModel toolbarViewModel,
-            ContributorsRepository contributorsRepository, CompositeDisposable compositeDisposable) {
+    ContributorsViewModel(
+            ResourceResolver resourceResolver,
+            Navigator navigator,
+            ToolbarViewModel toolbarViewModel,
+            ContributorsRepository contributorsRepository,
+            CompositeDisposable compositeDisposable) {
         this.resourceResolver = resourceResolver;
+        this.navigator = navigator;
         this.toolbarViewModel = toolbarViewModel;
         this.contributorsRepository = contributorsRepository;
         this.compositeDisposable = compositeDisposable;
@@ -69,13 +77,7 @@ public final class ContributorsViewModel extends BaseObservable implements ViewM
     @Override
     public void destroy() {
         compositeDisposable.clear();
-    }
-
-    @Override
-    public void onClickContributor(String htmlUrl) {
-        if (callback != null) {
-            callback.onClickContributor(htmlUrl);
-        }
+        this.callback = null;
     }
 
     @Bindable
@@ -102,27 +104,40 @@ public final class ContributorsViewModel extends BaseObservable implements ViewM
         loadContributors(true);
     }
 
+    public void retry() {
+        loadContributors(false);
+    }
+
     public ObservableList<ContributorViewModel> getContributorViewModels() {
         return this.viewModels;
+    }
+
+    public void onClickRepositoryMenu(){
+        navigator.navigateToWebPage("https://github.com/DroidKaigi/conference-app-2017");
     }
 
     private void loadContributors(boolean refresh) {
         if (refresh) {
             contributorsRepository.setDirty(true);
+        } else {
+            setLoadingVisibility(View.VISIBLE);
         }
 
         Disposable disposable = contributorsRepository.findAll()
-                .map(contributors -> Stream.of(contributors).map(contributor -> {
-                    ContributorViewModel viewModel = new ContributorViewModel(contributor);
-                    viewModel.setCallback(this);
-                    return viewModel;
-                }).collect(Collectors.toList()))
+                .map(contributors -> Stream.of(contributors)
+                        .map(contributor -> new ContributorViewModel(navigator, contributor))
+                        .toList())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         this::renderContributors,
-                        throwable -> Timber.tag(TAG).e(throwable, "Failed to show contributors.")
-                );
+                        throwable -> {
+                            setLoadingVisibility(View.GONE);
+                            if (callback != null) {
+                                callback.showError(R.string.contributors_load_failed);
+                            }
+                            Timber.tag(TAG).e(throwable, "Failed to show contributors.");
+                        });
         compositeDisposable.add(disposable);
     }
 
@@ -140,6 +155,6 @@ public final class ContributorsViewModel extends BaseObservable implements ViewM
 
     public interface Callback {
 
-        void onClickContributor(String htmlUrl);
+        void showError(@StringRes int textRes);
     }
 }

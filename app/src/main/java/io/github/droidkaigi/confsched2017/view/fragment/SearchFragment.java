@@ -28,8 +28,6 @@ import javax.inject.Inject;
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.databinding.FragmentSearchBinding;
 import io.github.droidkaigi.confsched2017.databinding.ViewSearchResultBinding;
-import io.github.droidkaigi.confsched2017.model.Session;
-import io.github.droidkaigi.confsched2017.view.activity.SessionDetailActivity;
 import io.github.droidkaigi.confsched2017.view.customview.ArrayRecyclerAdapter;
 import io.github.droidkaigi.confsched2017.view.customview.BindingHolder;
 import io.github.droidkaigi.confsched2017.view.customview.itemdecoration.DividerItemDecoration;
@@ -42,7 +40,7 @@ import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 
-public class SearchFragment extends BaseFragment implements SearchViewModel.Callback, SearchResultViewModel.Callback {
+public class SearchFragment extends BaseFragment implements SearchViewModel.Callback {
 
     public static final String TAG = SearchFragment.class.getSimpleName();
 
@@ -143,15 +141,10 @@ public class SearchFragment extends BaseFragment implements SearchViewModel.Call
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        viewModel.destroy();
-    }
-
-    @Override
     public void onDetach() {
-        super.onDetach();
         compositeDisposable.dispose();
+        viewModel.destroy();
+        super.onDetach();
     }
 
     private void initRecyclerView() {
@@ -163,7 +156,7 @@ public class SearchFragment extends BaseFragment implements SearchViewModel.Call
     }
 
     private void loadData() {
-        Disposable disposable = viewModel.getSearchResultViewModels(getContext(), this)
+        Disposable disposable = viewModel.getSearchResultViewModels(getContext())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -176,11 +169,6 @@ public class SearchFragment extends BaseFragment implements SearchViewModel.Call
     @Override
     public void closeSearchResultList() {
         adapter.clearAllResults();
-    }
-
-    @Override
-    public void showSessionDetail(@NonNull Session session) {
-        startActivity(SessionDetailActivity.createIntent(getContext(), session.id));
     }
 
     private void renderSearchResults(List<SearchResultViewModel> searchResultViewModels) {

@@ -17,6 +17,6 @@ public class SessionFeedbackRemoteDataSource {
     }
 
     public Single<Response<Void>> submit(SessionFeedback sessionFeedback) {
-       return client.submitSessionFeedback(sessionFeedback);
+        return client.submitSessionFeedback(sessionFeedback);
     }
 }

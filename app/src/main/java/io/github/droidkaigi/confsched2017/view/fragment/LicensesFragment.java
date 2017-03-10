@@ -1,9 +1,6 @@
 package io.github.droidkaigi.confsched2017.view.fragment;
 
-import com.annimon.stream.Optional;
-
 import android.content.Context;
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,10 +12,9 @@ import javax.inject.Inject;
 
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.databinding.FragmentLicensesBinding;
-import io.github.droidkaigi.confsched2017.view.helper.IntentHelper;
 import io.github.droidkaigi.confsched2017.viewmodel.LicensesViewModel;
 
-public class LicensesFragment extends BaseFragment implements LicensesViewModel.Callback {
+public class LicensesFragment extends BaseFragment {
 
     public static final String TAG = LicensesFragment.class.getSimpleName();
 
@@ -45,17 +41,9 @@ public class LicensesFragment extends BaseFragment implements LicensesViewModel.
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_licenses, container, false);
         binding = DataBindingUtil.bind(view);
-
-        viewModel.setCallback(this);
         binding.setViewModel(viewModel);
 
         return binding.getRoot();
-    }
-
-    @Override
-    public void showExternalLink(String url) {
-        Optional<Intent> intentOptional = IntentHelper.buildActionViewIntent(getContext(), url);
-        intentOptional.ifPresent(this::startActivity);
     }
 
     @Override

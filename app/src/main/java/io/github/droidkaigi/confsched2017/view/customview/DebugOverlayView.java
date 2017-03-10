@@ -59,6 +59,6 @@ public class DebugOverlayView extends RelativeLayout {
     // Context in the ctor is ContextThemeWrapper and it wraps OverlayViewContext, which wraps DebugOverlayService
     private DebugOverlayService unwrapContext(Context context) {
         ContextWrapper wrapper = (ContextWrapper) context;
-        return (DebugOverlayService) ((ContextWrapper) wrapper.getBaseContext()).getBaseContext();
+        return (DebugOverlayService) wrapper.getBaseContext();
     }
 }

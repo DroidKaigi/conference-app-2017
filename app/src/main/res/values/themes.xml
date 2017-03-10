@@ -35,6 +35,11 @@
         <item name="windowActionBar">false</item>
     </style>
 
+    <style name="AppTheme.Translucent.Half">
+        <item name="android:windowBackground">@color/black_alpha_54</item>
+    </style>
+
+
     <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
         <item name="colorAccent">@color/theme</item>
     </style>

@@ -3,8 +3,6 @@ package io.github.droidkaigi.confsched2017.di;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -13,6 +11,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import io.github.droidkaigi.confsched2017.BuildConfig;
 import io.github.droidkaigi.confsched2017.api.RequestInterceptor;
 import io.github.droidkaigi.confsched2017.api.service.DroidKaigiService;
 import io.github.droidkaigi.confsched2017.api.service.GithubService;
@@ -23,6 +22,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -75,7 +75,7 @@ public class AppModule {
     public DroidKaigiService provideDroidKaigiService(OkHttpClient client) {
         return new Retrofit.Builder()
                 .client(client)
-                .baseUrl("https://droidkaigi.github.io")
+                .baseUrl(BuildConfig.API_ROOT)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(createGson()))
                 .build()

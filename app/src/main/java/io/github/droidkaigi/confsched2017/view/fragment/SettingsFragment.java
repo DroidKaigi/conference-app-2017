@@ -1,6 +1,5 @@
 package io.github.droidkaigi.confsched2017.view.fragment;
 
-import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 
 import android.content.Context;
@@ -63,6 +62,12 @@ public class SettingsFragment extends BaseFragment implements SettingsViewModel.
     }
 
     @Override
+    public void onDetach() {
+        viewModel.destroy();
+        super.onDetach();
+    }
+
+    @Override
     public void changeHeadsUpEnabled(boolean enabled) {
         binding.headsUpSwitchRow.setEnabled(enabled);
     }
@@ -72,11 +77,11 @@ public class SettingsFragment extends BaseFragment implements SettingsViewModel.
         List<Locale> locales = LocaleUtil.SUPPORT_LANG;
         List<String> languages = Stream.of(locales)
                 .map(locale -> LocaleUtil.getDisplayLanguage(getContext(), locale))
-                .collect(Collectors.toList());
+                .toList();
 
         List<String> languageIds = Stream.of(locales)
                 .map(LocaleUtil::getLocaleLanguageId)
-                .collect(Collectors.toList());
+                .toList();
 
         String currentLanguageId = LocaleUtil.getCurrentLanguageId(getActivity());
         Timber.tag(TAG).d("current language_id: %s", currentLanguageId);
@@ -103,13 +108,15 @@ public class SettingsFragment extends BaseFragment implements SettingsViewModel.
 
     @Override
     public void debugOverlayViewEnabled(boolean enabled) {
-        if (isDetached())
+        if (isDetached()) {
             return;
+        }
         if (enabled && !SettingsUtil.canDrawOverlays(getContext())) {
             Timber.tag(TAG).d("not allowed to draw views on overlay");
             binding.debugOverlayViewSwitchRow.setChecked(false);
             Toast.makeText(getContext(), R.string.settings_debug_overlay_view_toast, Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getContext().getPackageName()));
+            Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                    Uri.parse("package:" + getContext().getPackageName()));
             startActivity(intent);
             return;
         }

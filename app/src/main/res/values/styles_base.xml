@@ -26,6 +26,10 @@
         <item name="fontPath">@string/font_noto_cjk_regular</item>
     </style>
 
+    <style name="TextCaption.Purple">
+        <item name="android:textColor">@color/purple</item>
+    </style>
+
 
     <!--==================== Clicker ====================-->
     <style name="ClickCover">
@@ -46,6 +50,12 @@
         <item name="android:textSize">@dimen/text_16sp</item>
     </style>
 
+    <style name="Button.Purple">
+        <item name="android:layout_width">match_parent</item>
+        <item name="backgroundTint">@color/purple</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
     <style name="Button.Grey">
         <item name="android:layout_width">match_parent</item>
         <item name="backgroundTint">@color/grey200</item>
@@ -59,11 +69,26 @@
     </style>
 
 
+    <!--==================== EditText ====================-->
+    <style name="BaseEditText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAppearance">@style/TextSubheading</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textColorHint">@color/grey600</item>
+    </style>
+
+
     <!--==================== Border ====================-->
     <style name="Border">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/line_1dp</item>
         <item name="android:background">@color/grey200</item>
+    </style>
+
+    <style name="Border.Vertical">
+        <item name="android:layout_width">@dimen/border_1dp</item>
+        <item name="android:layout_height">match_parent</item>
     </style>
 
 

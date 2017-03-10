@@ -23,7 +23,6 @@ import javax.inject.Inject;
 
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.databinding.FragmentSessionDetailBinding;
-import io.github.droidkaigi.confsched2017.view.activity.SessionFeedbackActivity;
 import io.github.droidkaigi.confsched2017.view.helper.AnimationHelper;
 import io.github.droidkaigi.confsched2017.viewmodel.SessionDetailViewModel;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -125,15 +124,15 @@ public class SessionDetailFragment extends BaseFragment implements SessionDetail
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        viewModel.destroy();
-    }
-
-    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         getComponent().inject(this);
+    }
+
+    @Override
+    public void onDetach() {
+        viewModel.destroy();
+        super.onDetach();
     }
 
     private void initToolbar() {
@@ -172,7 +171,8 @@ public class SessionDetailFragment extends BaseFragment implements SessionDetail
     }
 
     @Override
-    public void onClickFeedback() {
-        startActivity(SessionFeedbackActivity.createIntent(getContext(), sessionId));
+    public void onOverScroll() {
+        getActivity().finish();
+        getActivity().overridePendingTransition(0, 0);
     }
 }

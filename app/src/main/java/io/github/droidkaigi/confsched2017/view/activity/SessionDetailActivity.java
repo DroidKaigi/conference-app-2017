@@ -1,22 +1,32 @@
 package io.github.droidkaigi.confsched2017.view.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.MenuItem;
 
 import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.view.fragment.SessionDetailFragmentCreator;
+import timber.log.Timber;
 
 public class SessionDetailActivity extends BaseActivity {
 
     private static final String EXTRA_SESSION_ID = "session_id";
+    private static final String EXTRA_PARENT = "parent";
 
-    public static Intent createIntent(@NonNull Context context, int sessionId) {
+    private Class parentClass;
+
+    public static Intent createIntent(@NonNull Context context, int sessionId, @Nullable Class<? extends Activity> parentClass) {
         Intent intent = new Intent(context, SessionDetailActivity.class);
         intent.putExtra(EXTRA_SESSION_ID, sessionId);
+        if (parentClass != null) {
+            intent.putExtra(EXTRA_PARENT, parentClass.getName());
+        }
         return intent;
     }
 
@@ -27,6 +37,16 @@ public class SessionDetailActivity extends BaseActivity {
         getComponent().inject(this);
 
         final int sessionId = getIntent().getIntExtra(EXTRA_SESSION_ID, 0);
+        String parentClassName = getIntent().getStringExtra(EXTRA_PARENT);
+        if (TextUtils.isEmpty(parentClassName)) {
+            parentClass = MainActivity.class;
+        } else {
+            try {
+                parentClass = Class.forName(parentClassName);
+            } catch (ClassNotFoundException e) {
+                Timber.e(e);
+            }
+        }
         replaceFragment(SessionDetailFragmentCreator.newBuilder(sessionId).build(), R.id.content_view);
     }
 
@@ -34,14 +54,14 @@ public class SessionDetailActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                upToMainActivity();
+                upToParentActivity();
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void upToMainActivity() {
-        Intent upIntent = new Intent(getApplicationContext(), MainActivity.class);
+    private void upToParentActivity() {
+        Intent upIntent = new Intent(getApplicationContext(), parentClass);
         upIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(upIntent);
         finish();
