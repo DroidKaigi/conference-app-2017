@@ -43,10 +43,11 @@
     <!-- Radius -->
     <dimen name="radius_4dp">4dp</dimen>
 
+    <!-- icon -->
+    <dimen name="icon_36dp">36dp</dimen>
+    <dimen name="icon_48dp">48dp</dimen>
 
     <!-- Component -->
-    <dimen name="user_image">36dp</dimen>
-    <dimen name="user_image_large">48dp</dimen>
     <dimen name="bottom_nav_height">56dp</dimen>
 
     <dimen name="tag_radius">4dp</dimen>
