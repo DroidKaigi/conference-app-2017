@@ -68,8 +68,4 @@ public abstract class ArrayRecyclerAdapter<T, VH extends RecyclerView.ViewHolder
         return context;
     }
 
-    @Override
-    public Iterator<T> iterator() {
-        return list.iterator();
-    }
 }
