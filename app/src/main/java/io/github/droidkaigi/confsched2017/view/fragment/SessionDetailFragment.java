@@ -64,8 +64,8 @@ public class SessionDetailFragment extends BaseFragment implements SessionDetail
         compositeDisposable.dispose();
     }
 
-    private void initTheme() {
-        Activity activity = getActivity();
+    private void initTheme(Activity activity) {
+        if (activity == null) { return; }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             // Change theme by topic
@@ -89,6 +89,7 @@ public class SessionDetailFragment extends BaseFragment implements SessionDetail
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Activity activity = getActivity();
         binding = FragmentSessionDetailBinding.inflate(inflater, container, false);
         viewModel.setCallback(this);
         binding.setViewModel(viewModel);
@@ -98,7 +99,7 @@ public class SessionDetailFragment extends BaseFragment implements SessionDetail
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         () -> {
-                            initTheme();
+                            initTheme(activity);
                             binding.setViewModel(viewModel);
                         },
                         throwable -> Timber.tag(TAG).e(throwable, "Failed to find session.")
