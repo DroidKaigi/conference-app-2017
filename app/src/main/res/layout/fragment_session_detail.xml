@@ -181,10 +181,10 @@
 
                     <ImageView
                             android:id="@+id/img_speaker"
-                            android:layout_width="@dimen/user_image_large"
-                            android:layout_height="@dimen/user_image_large"
+                            android:layout_width="@dimen/icon_48dp"
+                            android:layout_height="@dimen/icon_48dp"
                             android:contentDescription="@string/speaker"
-                            app:speakerImageSize="@{@dimen/user_image_large}"
+                            app:speakerImageSize="@{@dimen/icon_48dp}"
                             app:speakerImageUrl="@{viewModel.speakerImageUrl}"
                             />
 

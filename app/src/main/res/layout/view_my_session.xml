@@ -75,13 +75,13 @@
 
         <ImageView
                 android:id="@+id/img_speaker"
-                android:layout_width="@dimen/user_image"
-                android:layout_height="@dimen/user_image"
+                android:layout_width="@dimen/icon_36dp"
+                android:layout_height="@dimen/icon_36dp"
                 android:contentDescription="@string/speaker"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:speakerImageSize="@{@dimen/user_image}"
+                app:speakerImageSize="@{@dimen/icon_36dp}"
                 app:speakerImageUrl="@{viewModel.speakerImageUrl}"
                 tools:src="@drawable/ic_speaker_placeholder"
                 />
