@@ -143,6 +143,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/space_16dp"
+                    android:visibility="@{viewModel.showDeveloperMenu}"
                     >
 
                 <TextView
@@ -169,13 +170,14 @@
                     android:id="@+id/debug_overlay_view_switch_row"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="@{viewModel.showDeveloperMenu}"
                     app:settingDefaultValue="@{viewModel.useDebugOverlayView}"
                     app:settingDescription="@string/settings_debug_overlay_view_description"
                     app:settingOnCheckedChanged="@{(v, checked) -> viewModel.onCheckedDebugOverlayView(checked)}"
                     app:settingTitle="@string/settings_debug_overlay_view"
                     />
 
-            <View style="@style/Border"/>
+            <View style="@style/Border" />
 
         </LinearLayout>
 
