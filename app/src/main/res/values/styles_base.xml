@@ -39,6 +39,11 @@
         <item name="android:clickable">true</item>
     </style>
 
+    <!--==================== Edit Text ====================-->
+    <style name="WhiteSelector">
+        <item name="colorControlActivated">@color/white</item>
+        <item name="android:textCursorDrawable">@color/white</item>
+    </style>
 
     <!--==================== Button ====================-->
     <style name="Button" parent="Widget.AppCompat.Button">
