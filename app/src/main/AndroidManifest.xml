@@ -8,6 +8,10 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
+    <meta-data
+        android:name="google_analytics_adid_collection_enabled"
+        android:value="false" />
+
     <application
             android:name=".MainApplication"
             android:allowBackup="true"
