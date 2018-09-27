@@ -36,8 +36,12 @@ captures/
 *.iml
 .idea/*
 !.idea/codeStyleSettings.xml
+.idea/
 
 # Keystore files
 *.jks
 
 .DS_Store
+/key.json
+/deploy2store.sh
+/serviceaccount.json

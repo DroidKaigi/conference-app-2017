@@ -1,0 +1,30 @@
+/**
+ * Copy template shell
+ * */
+task setUpRelease(type: Exec) {
+    workingDir '../'
+    commandLine "./gradlew", "clean"
+    commandLine "./script/bootstrap.sh"
+}
+
+/**
+ *
+ * Init this project with supply
+ * */
+task downloadMetaData(type: Exec) {
+    workingDir '../'
+    commandLine "./gradlew", "clean"
+    commandLine "./script/initsupply.sh"
+}
+
+/**
+ *
+ * Release your AWESOME app to GooglePlay(alpha channel)
+ * */
+ // TODO: Build apk with FirebaseCrash plugin
+task releaseApp(type: Exec) {
+    workingDir '../'
+    commandLine "./gradlew", "clean"
+    commandLine "./gradlew", "app:firebaseUploadProductionReleaseProguardMapping"
+    commandLine "./script/deploy2store.sh"
+}
