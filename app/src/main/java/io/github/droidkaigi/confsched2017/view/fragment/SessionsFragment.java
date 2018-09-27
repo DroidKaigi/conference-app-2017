@@ -5,6 +5,7 @@ import org.lucasr.twowayview.widget.DividerItemDecoration;
 import org.lucasr.twowayview.widget.SpannableGridLayoutManager;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -36,6 +37,8 @@ import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.databinding.FragmentSessionsBinding;
 import io.github.droidkaigi.confsched2017.databinding.ViewSessionCellBinding;
 import io.github.droidkaigi.confsched2017.model.Room;
+import io.github.droidkaigi.confsched2017.pref.DefaultPrefs;
+import io.github.droidkaigi.confsched2017.pref.DefaultPrefsSchema;
 import io.github.droidkaigi.confsched2017.util.ViewUtil;
 import io.github.droidkaigi.confsched2017.view.activity.MySessionsActivity;
 import io.github.droidkaigi.confsched2017.view.activity.SearchActivity;
@@ -59,6 +62,9 @@ public class SessionsFragment extends BaseFragment {
 
     @Inject
     CompositeDisposable compositeDisposable;
+
+    @Inject
+    DefaultPrefs defaultPrefs;
 
     private SessionsAdapter adapter;
 
@@ -116,6 +122,8 @@ public class SessionsFragment extends BaseFragment {
     @Override
     public void onStop() {
         super.onStop();
+        int position = binding.recyclerView.getFirstVisiblePosition();
+        defaultPrefs.putLastPosition(position);
         compositeDisposable.clear();
     }
 
@@ -217,6 +225,23 @@ public class SessionsFragment extends BaseFragment {
             binding.txtDate.setText(adjustedSessionViewModels.get(0).getFormattedDate());
             binding.txtDate.setVisibility(View.VISIBLE);
         }
+
+        resumeLastPosition();
+    }
+
+    private void resumeLastPosition() {
+        int lastPosition = defaultPrefs.getLastPosition();
+        binding.recyclerView.post(() -> {
+            for (int i = lastPosition; i < adapter.getItems().size(); i++) {
+                if (!TextUtils.isEmpty(adapter.getItem(i).getFormattedDate())) {
+                    String date = adapter.getItem(i).getFormattedDate();
+                    binding.txtDate.setText(date);
+                    break;
+                }
+            }
+            binding.recyclerView.getLayoutManager().scrollToPosition(lastPosition);
+            binding.txtDate.setVisibility(View.VISIBLE);
+        });
     }
 
     private void renderHeaderRow(List<Room> rooms) {
@@ -249,6 +274,10 @@ public class SessionsFragment extends BaseFragment {
             SessionViewModel viewModel = getItem(position);
             holder.binding.setViewModel(viewModel);
             holder.binding.executePendingBindings();
+        }
+
+        public List<SessionViewModel> getItems() {
+            return list;
         }
     }
 
