@@ -1,5 +1,8 @@
 package io.github.droidkaigi.confsched2017.view.fragment;
 
+import com.annimon.stream.IntPair;
+import com.annimon.stream.Stream;
+
 import org.lucasr.twowayview.TwoWayLayoutManager;
 import org.lucasr.twowayview.widget.DividerItemDecoration;
 import org.lucasr.twowayview.widget.SpannableGridLayoutManager;
@@ -23,6 +26,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -36,6 +40,7 @@ import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.databinding.FragmentSessionsBinding;
 import io.github.droidkaigi.confsched2017.databinding.ViewSessionCellBinding;
 import io.github.droidkaigi.confsched2017.model.Room;
+import io.github.droidkaigi.confsched2017.util.DateUtil;
 import io.github.droidkaigi.confsched2017.util.ViewUtil;
 import io.github.droidkaigi.confsched2017.view.activity.MySessionsActivity;
 import io.github.droidkaigi.confsched2017.view.activity.SearchActivity;
@@ -217,6 +222,28 @@ public class SessionsFragment extends BaseFragment {
             binding.txtDate.setText(adjustedSessionViewModels.get(0).getFormattedDate());
             binding.txtDate.setVisibility(View.VISIBLE);
         }
+        scrollTo(extractTodayPos(getContext(), new Date(), adjustedSessionViewModels));
+    }
+
+    private int extractTodayPos(Context context, Date today, List<SessionViewModel> adjustedSessionViewModels) {
+        String todayString = DateUtil.getMonthDate(today, context);
+        return Stream.of(adjustedSessionViewModels)
+                .map(SessionViewModel::getFormattedDate)
+                .indexed()
+                .filter(pair -> todayString.equals(pair.getSecond()))
+                .findFirst()
+                .orElse(new IntPair<>(0, ""))
+                .getFirst();
+    }
+
+    private void scrollTo(int position) {
+        binding.recyclerView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                binding.recyclerView.getLayoutManager().scrollToPosition(position);
+                binding.recyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+            }
+        });
     }
 
     private void renderHeaderRow(List<Room> rooms) {
