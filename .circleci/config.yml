@@ -24,7 +24,7 @@ jobs:
       - run:
           name: Test
           command: |
-              "./gradlew lint 2>&1 | ./reviewdog -efm='%f:%l: %m' -name='Android Lint' -ci='circle-ci'"
+#              "./gradlew lint 2>&1 | ./reviewdog -efm='%f:%l: %m' -name='Android Lint' -ci='circle-ci'"
               ./gradlew checkLicenses
               ./gradlew jacocoTestReportDevelop
       - run:
