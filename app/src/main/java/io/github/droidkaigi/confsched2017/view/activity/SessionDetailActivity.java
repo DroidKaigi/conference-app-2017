@@ -4,10 +4,16 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
+import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
+import android.transition.Transition;
 import android.view.MenuItem;
 
 import io.github.droidkaigi.confsched2017.R;
@@ -48,6 +54,37 @@ public class SessionDetailActivity extends BaseActivity {
             }
         }
         replaceFragment(SessionDetailFragmentCreator.newBuilder(sessionId).build(), R.id.content_view);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().getSharedElementEnterTransition().addListener(new Transition.TransitionListener() {
+                @Override
+                public void onTransitionStart(Transition transition) {
+
+                }
+
+                @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+                @Override
+                public void onTransitionEnd(Transition transition) {
+                    getWindow().getSharedElementEnterTransition().removeListener(this);
+                    findViewById(R.id.content_view).setBackground(new ColorDrawable(Color.TRANSPARENT));
+                }
+
+                @Override
+                public void onTransitionCancel(Transition transition) {
+
+                }
+
+                @Override
+                public void onTransitionPause(Transition transition) {
+
+                }
+
+                @Override
+                public void onTransitionResume(Transition transition) {
+
+                }
+            });
+        }
     }
 
     @Override
@@ -67,4 +104,9 @@ public class SessionDetailActivity extends BaseActivity {
         finish();
     }
 
+    @Override
+    public void onBackPressed() {
+        findViewById(R.id.content_view).setBackground(new ColorDrawable(Color.WHITE));
+        ActivityCompat.finishAfterTransition(this);
+    }
 }

@@ -72,7 +72,7 @@ public class MySessionViewModel extends BaseObservable implements ViewModel {
     }
 
     public void onItemClick(@SuppressWarnings("unused") View view) {
-        navigator.navigateToSessionDetail(mySession.session, MySessionsActivity.class);
+        navigator.navigateToSessionDetail(mySession.session, view, MySessionsActivity.class);
     }
 
 }

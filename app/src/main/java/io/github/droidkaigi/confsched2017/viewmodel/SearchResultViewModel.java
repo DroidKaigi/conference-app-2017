@@ -65,7 +65,7 @@ public class SearchResultViewModel extends BaseObservable implements ViewModel {
     }
 
     public void onItemClick(@SuppressWarnings("unused") View view) {
-        navigator.navigateToSessionDetail(session, SearchActivity.class);
+        navigator.navigateToSessionDetail(session, view, SearchActivity.class);
     }
 
     public boolean match(String filterPattern) {

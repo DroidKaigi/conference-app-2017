@@ -23,6 +23,8 @@
     <style name="AppTheme.Translucent.Half">
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowBackground">@color/black_alpha_54</item>
+        <item name="android:windowSharedElementEnterTransition">@transition/session_detail_share_enter</item>
+        <item name="android:windowSharedElementReturnTransition">@transition/session_detail_share_return</item>
     </style>
 
 </resources>

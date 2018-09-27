@@ -150,7 +150,7 @@ public class SessionViewModel extends BaseObservable implements ViewModel {
 
     public void showSessionDetail(@SuppressWarnings("unused") View view) {
         if (navigator != null && session != null) {
-            navigator.navigateToSessionDetail(session, MainActivity.class);
+            navigator.navigateToSessionDetail(session, view, MainActivity.class);
         }
     }
 
