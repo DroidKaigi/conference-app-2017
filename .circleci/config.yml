@@ -1,0 +1,37 @@
+version: 2
+
+jobs:
+  build:
+    docker:
+      - image: circleci/android:api-25-alpha
+        environment:
+          JAVA_OPTS: -Xmx1536m
+          GRADLE_OPTS: '-Dorg.gradle.daemon=false -Dorg.gradle.jvmargs="-Xmx1536m -XX:+HeapDumpOnOutOfMemoryError"'
+    steps:
+      - checkout
+      - restore_cache:
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}
+      - run:
+          name: Download Dependencies
+          command: ./gradlew androidDependencies
+      - save_cache:
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}
+          paths:
+            - ~/.gradle
+      - run:
+          name: Build
+          command: ./gradlew assembleProductionRelease
+      - run:
+          name: Test
+          command: |
+              ./gradlew checkLicenses
+              ./gradlew jacocoTestReportDevelop
+      - run:
+          name: Deploy
+          command: |
+              if [[ "${CIRCLE_BRANCH:-undefined}" =~ ^(master|release)$ ]]; then
+                ./deploy.sh
+              fi
+      - store_artifacts:
+          path: app/build/outputs/apk
+          destination: apk
